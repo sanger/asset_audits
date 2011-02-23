@@ -1,0 +1,89 @@
+{
+    "library_tubes": {
+        "actions": { "read": "http://localhost:3000/api/1/library_tubes"
+        }
+    },
+    "request_types": {
+        "actions": { "read": "http://localhost:3000/api/1/request_types"
+        }
+    },
+    "submissions": {
+        "actions": { "read": "http://localhost:3000/api/1/submissions"
+        }
+    },
+    "library_creation_requests": {
+        "actions": { "read": "http://localhost:3000/api/1/library_creation_requests"
+        }
+    },
+    "assets": {
+        "actions": { "read": "http://localhost:3000/api/1/assets"
+        }
+    },
+    "projects": {
+        "actions": { "read": "http://localhost:3000/api/1/projects"
+        }
+    },
+    "lanes": {
+        "actions": { "read": "http://localhost:3000/api/1/lanes"
+        }
+    },
+    "requests": {
+        "actions": { "read": "http://localhost:3000/api/1/requests"
+        }
+    },
+    "sample_tubes": {
+        "actions": { "read": "http://localhost:3000/api/1/sample_tubes"
+        }
+    },
+    "asset_audits": {
+        "actions": { "create": "http://localhost:3000/api/1/asset_audits",
+            "read": "http://localhost:3000/api/1/asset_audits"
+        }
+    },
+    "asset_groups": {
+        "actions": { "read": "http://localhost:3000/api/1/asset_groups"
+        }
+    },
+    "dilution_plate_purposes": {
+        "actions": { "read": "http://localhost:3000/api/1/dilution_plate_purposes"
+        }
+    },
+    "plates": {
+        "actions": { "read": "http://localhost:3000/api/1/plates"
+        }
+    },
+    "sequencing_requests": {
+        "actions": { "read": "http://localhost:3000/api/1/sequencing_requests"
+        }
+    },
+    "multiplexed_library_tubes": {
+        "actions": { "read": "http://localhost:3000/api/1/multiplexed_library_tubes"
+        }
+    },
+    "submission_templates": {
+        "actions": { "read": "http://localhost:3000/api/1/submission_templates"
+        }
+    },
+    "uuids": {
+        "actions": { "lookup": "http://localhost:3000/api/1/uuids/lookup",
+            "bulk": "http://localhost:3000/api/1/uuids/bulk"
+        }
+    },
+    "samples": {
+        "actions": { "create": "http://localhost:3000/api/1/samples",
+            "read": "http://localhost:3000/api/1/samples"
+        }
+    },
+    "studies": {
+        "actions": { "read": "http://localhost:3000/api/1/studies"
+        }
+    },
+    "multiplexed_library_creation_requests": {
+        "actions": { "read": "http://localhost:3000/api/1/multiplexed_library_creation_requests"
+        }
+    },
+    "plate_purposes": {
+        "actions": { "read": "http://localhost:3000/api/1/plate_purposes"
+        }
+    }
+}

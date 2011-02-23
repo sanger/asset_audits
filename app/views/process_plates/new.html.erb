@@ -1,0 +1,11 @@
+<%= semantic_form_for(@process_plate) do |form| %>
+  <%= form.inputs "Add Process", :id => "add_process" do %>
+    <%= form.input :user_barcode, :required => true, :input_html => {  :cols => 15 } %>
+    <%= form.input :instrument_barcode, :required => true, :input_html => {  :cols => 15 } %>
+    <%= form.input :source_plates,  :as => :text, :required => true, :input_html => {  :rows => 5,:cols => 15 } %>
+    <%= form.input :instrument_process, :collection => InstrumentProcess.all, :required => true %>
+  <% end %>
+  <%= form.buttons do %>
+        <%= form.commit_button %>
+  <% end %>
+<% end %>

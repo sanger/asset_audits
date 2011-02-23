@@ -1,0 +1,15 @@
+#message_error {
+background: red;
+border-color: 1px solid #76b900;
+color: white;
+}
+#message_notice {
+background: green;
+border-color: 1px solid ##d81f2a;
+color: white;
+}
+#message_warning {
+background: yellow;
+border-color: 1px solid #fadf00;
+color: black;
+}

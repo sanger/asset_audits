@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 source 'http://gems.github.com'
 
 gem 'rails', '3.0.3'
-gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'nokogiri'
 gem "formtastic"
@@ -15,6 +14,7 @@ gem 'sequencescape-client-api', :git => 'https://github.com/sanger/sequencescape
 group :development do
    gem "sinatra"
    gem 'ruby-debug19'
+   gem 'sqlite3-ruby', :require => 'sqlite3'
 end
 
 group :test do
@@ -25,4 +25,9 @@ group :test do
   gem "launchy"
   gem "mocha"
   gem "shoulda"
+  gem 'sqlite3-ruby', :require => 'sqlite3'
+end
+
+group :deployment do
+  gem 'thin'
 end

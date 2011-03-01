@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/sanger/sequencescape-client-api.git
+  remote: http://github.com/sanger/sequencescape-client-api.git
   revision: c92f4a9e9ce3fb1d4cdd226a65e3176edb13a2f9
   ref: c92f4a9
   specs:

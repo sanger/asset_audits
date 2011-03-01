@@ -10,7 +10,7 @@ gem "mysql"
 gem "uuidtools"
 gem "compass"
 gem 'curb'
-gem 'sequencescape-client-api', :git => 'https://andrewjpage@github.com/andrewjpage/sequencescape-client-api.git', :require => 'sequencescape', :ref => '972a469'
+gem 'sequencescape-client-api', :git => 'https://github.com/sanger/sequencescape-client-api.git', :require => 'sequencescape', :ref => 'c92f4a9'
 
 group :development do
    gem "sinatra"

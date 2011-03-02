@@ -1,5 +1,5 @@
 <h2>Add Process</h2>
-<%= form_for :process_plate, :url => new_process_plate_path do %>
+<%= form_for :process_plate, :url => process_plates_path do %>
   
   <table>
     <tr>
@@ -18,8 +18,8 @@
       <td><div id="source_plates_results"></td>
     </tr>
     <tr>
-      <td><label for="instrument_barcode">Instrument process</label></td>
-      <td><%= select_tag :instrument_barcode, options_for_select(InstrumentProcess.sorted_by_name.map { |x| [x.name, x.id]}) %></td>
+      <td><label for="instrument_process">Instrument process</label></td>
+      <td><%= select_tag :instrument_process, options_for_select(InstrumentProcess.sorted_by_name.map { |x| [x.name, x.id]}) %></td>
       <td></td>
     </tr>
     <tr>

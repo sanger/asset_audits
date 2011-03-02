@@ -8,7 +8,13 @@ class ProcessPlatesController < ApplicationController
   end
 
   def create
-    process_plate = ProcessPlate.new(params[:process_plate])
+    
+    process_plate = ProcessPlate.new({
+      :user_barcode => params[:user_barcode], 
+      :instrument_barcode => params[:instrument_barcode], 
+      :source_plates => params[:source_plates],
+      :instrument_process_id => params[:instrument_process]
+      })
     respond_to do |format|
        if process_plate.save
          process_plate.create_audits(api)

@@ -1,11 +1,57 @@
-<%= semantic_form_for(@process_plate) do |form| %>
-  <%= form.inputs "Add Process", :id => "add_process" do %>
-    <%= form.input :user_barcode, :required => true, :input_html => {  :cols => 15 } %>
-    <%= form.input :instrument_barcode, :required => true, :input_html => {  :cols => 15 } %>
-    <%= form.input :source_plates,  :as => :text, :required => true, :input_html => {  :rows => 5,:cols => 15 } %>
-    <%= form.input :instrument_process, :collection => InstrumentProcess.all, :required => true %>
-  <% end %>
-  <%= form.buttons do %>
-        <%= form.commit_button %>
+<h2>Add Process</h2>
+<%= form_for :process_plate, :url => new_process_plate_path do %>
+  
+  <table>
+    <tr>
+      <td><label for="user_barcode">User barcode</label></td>
+      <td><%= text_field_tag "user_barcode" %></td>
+      <td><div id="user_barcode_results"></td>
+    </tr>
+    <tr>
+      <td><label for="instrument_barcode">Instrument barcode</label></td>
+      <td><%= text_field_tag "instrument_barcode" %></td>
+      <td><div id="instrument_barcode_results"></td>
+    </tr>
+    <tr>
+      <td><label for="source_plates">Source plates</label></td>
+      <td><%= text_area_tag "source_plates", '', :rows => 5,:cols => 17 %></td>
+      <td><div id="source_plates_results"></td>
+    </tr>
+    <tr>
+      <td><label for="instrument_barcode">Instrument process</label></td>
+      <td><%= select_tag :instrument_barcode, options_for_select(InstrumentProcess.sorted_by_name.map { |x| [x.name, x.id]}) %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= submit_tag "Submit" %></td>
+      <td></td>
+    </tr>
+  </table>
+
+<% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do -%>
+
+      $("#user_barcode").change(function() {
+        $.post('<%= search_users_path %>',{ user_barcode: $('#user_barcode')[0].value}, function(data) {
+          $("#user_barcode_results").html(data);
+        });
+      });
+
+      $("#instrument_barcode").change(function() {
+        $.post('<%= search_instruments_path %>',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
+          $("#instrument_barcode_results").html(data);
+        });
+      });
+
+      $("#source_plates").change(function() {
+        $.post('<%= search_plates_path %>',{ source_plates: $('#source_plates')[0].value}, function(data) {
+          $("#source_plates_results").html(data);
+        });
+      });
+    
   <% end %>
 <% end %>
+

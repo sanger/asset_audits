@@ -25,10 +25,12 @@ test: &test
   timeout: 5000
   
 test_warehouse_two:
-  adapter: sqlite3
-  database: db/warehouse_two_test.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  username: root
+  password:
+  host: localhost
+  port: 3306
+  database: warehouse_two_test
 
 production:
   adapter: sqlite3

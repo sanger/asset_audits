@@ -13,7 +13,8 @@ Feature: Add an audit to an asset
       | Instrument barcode | abc123456     |
       | Source plates      | 1220094216791 |
     When I select "Cherrypick" from "Instrument process"
-      And I press "Create Process plate"
+      And I press "Submit"
+      Then show me the page
     Then I should see "Added process"
       And I should be on the new audit page
   
@@ -28,7 +29,7 @@ Feature: Add an audit to an asset
       | Instrument barcode | abc123        |
       | Source plates      | 1220094216791 |
     When I select "Cherrypick" from "Instrument process"
-      And I press "Create Process plate"
+      And I press "Submit"
     Then I should see "Invalid user"
       And I should be on the new audit page
   
@@ -44,7 +45,7 @@ Feature: Add an audit to an asset
       | Instrument barcode | abc123        |
       | Source plates      | 1220094216791 |
     When I select "Cherrypick" from "Instrument process"
-      And I press "Create Process plate"
+      And I press "Submit"
     Then I should see "Invalid instrument barcode"
       And I should be on the new audit page
   
@@ -59,7 +60,7 @@ Feature: Add an audit to an asset
       | Instrument barcode | abc123        |
       | Source plates      | 9999999999999 |
     When I select "Cherrypick" from "Instrument process"
-      And I press "Create Process plate"
+      And I press "Submit"
     Then I should see "Invalid plate barcodes"
       And I should be on the new audit page
   
@@ -77,7 +78,7 @@ Feature: Add an audit to an asset
       | Instrument barcode | abc123        |
       | Source plates      | 1220094216791 |
     When I select "Stamp for Sequenom" from "Instrument process"
-      And I press "Create Process plate"
+      And I press "Submit"
     Then I should see "Invalid process for instrument"
       And I should be on the new audit page
   

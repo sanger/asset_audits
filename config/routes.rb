@@ -14,6 +14,24 @@ ProcessTracking::Application.routes.draw do
   #   resources :products
   
   resources :process_plates
+  resources :users do
+    collection do
+      post 'search'
+    end
+  end
+
+  resources :instruments do
+    collection do
+      post 'search'
+    end
+  end
+  
+  resources :plates do
+    collection do
+      post 'search'
+    end
+  end
+  
 
   # Sample resource route with options:
   #   resources :products do

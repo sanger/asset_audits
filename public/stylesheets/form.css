@@ -1,0 +1,23 @@
+fieldset {  
+margin: 1.5em 0 0 0;  
+padding: 0;  
+}  
+
+fieldset li {  
+padding-bottom: 1em;  
+list-style-type: none;
+}
+
+label {    
+float: left;    
+width: 10em;    
+margin-right: 1em;    
+text-align: right;  
+}
+
+.live_results {
+	float: right;    
+	width: 8em;    
+	margin-right: 1em;    
+	text-align: left;
+}

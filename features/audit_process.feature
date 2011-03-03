@@ -14,7 +14,6 @@ Feature: Add an audit to an asset
       | Source plates      | 1220094216791 |
     When I select "Cherrypick" from "Instrument process"
       And I press "Submit"
-      Then show me the page
     Then I should see "Added process"
       And I should be on the new audit page
   

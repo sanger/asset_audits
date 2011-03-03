@@ -9,6 +9,7 @@ gem "mysql"
 gem "uuidtools"
 gem "compass"
 gem 'curb'
+gem 'haml'
 gem 'sequencescape-client-api', :git => 'http://github.com/sanger/sequencescape-client-api.git', :require => 'sequencescape', :ref => 'c92f4a9'
 
 group :development do

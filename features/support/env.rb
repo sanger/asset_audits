@@ -20,7 +20,12 @@ require 'cucumber/rails/capybara_javascript_emulation' # Lets you click links wi
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
+
+require 'ruby-debug'
+
 Capybara.default_selector = :css
+
+Debugger.start
 
 # If you set this to false, any error raised from within your app will bubble 
 # up to your step definition and out to cucumber unless you catch it somewhere
@@ -55,3 +60,4 @@ if defined?(ActiveRecord::Base)
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
 end
+

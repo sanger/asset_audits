@@ -23,6 +23,7 @@ ProcessTracking::Application.routes.draw do
   resources :instruments do
     collection do
       post 'search'
+      post 'processes'
     end
   end
   

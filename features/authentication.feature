@@ -3,5 +3,5 @@ Feature: Authenticate the application via sequencescape
  
   Scenario: The application is autheticated.
     Given I am on the new audit page
-    Then I should see "Add Process"
+    Then I should see "Activity Logging"
 

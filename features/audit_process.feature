@@ -1,4 +1,4 @@
-@sequencescape_service @user_barcode_service
+@sequencescape_service @user_barcode_service @audit_process
 Feature: Add an audit to an asset
 
   Scenario: All required information is scanned

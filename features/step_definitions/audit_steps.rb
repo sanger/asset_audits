@@ -17,3 +17,17 @@ Given /^I have a plate with UUID "([^"]*)" and barcode "([^"]*)"$/ do |uuid_valu
   barcode_number = Barcode.split_barcode(raw_barcode)[1]
   Warehouse::Plate.create!(:barcode => barcode_number, :barcode_prefix => barcode_prefix , :uuid => uuid_value)
 end
+
+
+Then /^I wait (\d+) seconds?$/ do |seconds|
+  sleep(seconds.to_i)
+end
+
+
+When /^(?:|I )fill in AJAX field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
+  with_scope(selector) do
+    fill_in(field, :with => value)
+    id = "#" + find_field(field)[:id]
+    page.execute_script("$('#{id}').trigger('change');")
+  end
+end

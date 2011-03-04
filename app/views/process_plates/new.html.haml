@@ -33,11 +33,17 @@
         $("#user_barcode_results").html(data);
       });
     });
+    
 
     $("#instrument_barcode").change(function() {
       $.post('#{search_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
         $("#instrument_barcode_results").html(data);
       });
+      
+      $.post('#{processes_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
+        $("#instrument_process").html(data);
+      });
+      
     });
 
     $('#user_barcode').keydown(function (e) {

@@ -27,7 +27,7 @@ class ProcessPlate < ActiveRecord::Base
     asset_uuids_from_plate_barcodes.each do |asset_uuid|
       api.asset_audit.create!(
         :key => instrument_process.key,
-        :message => "Plate #{asset_uuid} on instrument #{instrument.name} had process #{instrument_process.name} performed",
+        :message => "Process '#{instrument_process.name}' performed on instrument #{instrument.name}",
         :created_by => user_login, 
         :asset => asset_uuid
       )

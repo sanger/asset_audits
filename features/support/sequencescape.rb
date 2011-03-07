@@ -28,6 +28,7 @@ class FakeSequencescapeService < FakeSinatraService
   
 
   class Service < FakeSinatraService::Base
+     
     get('/api/1/') do
       FakeSequencescapeService.instance
       json = FakeSequencescapeService.instance.load_file('index')
@@ -38,8 +39,10 @@ class FakeSequencescapeService < FakeSinatraService
     post '/api/1/asset_audits' do
       status(201)
       json = FakeSequencescapeService.instance.load_file('create_asset_audit')
+      headers('Content-Type' => 'application/json')
       body(json)
     end
+    
   end
 end
 

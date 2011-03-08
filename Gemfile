@@ -11,6 +11,8 @@ gem "compass"
 gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', :git => 'http://github.com/sanger/sequencescape-client-api.git', :require => 'sequencescape', :ref => '8c30df3'
+gem 'delayed_job'
+
 
 group :development do
    gem "sinatra"

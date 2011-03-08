@@ -71,6 +71,9 @@ GEM
     curb (0.7.12)
     daemons (1.1.0)
     database_cleaner (0.6.4)
+    delayed_job (2.1.4)
+      activesupport (~> 3.0)
+      daemons
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -169,6 +172,7 @@ DEPENDENCIES
   cucumber-rails
   curb
   database_cleaner
+  delayed_job
   factory_girl
   formtastic
   haml

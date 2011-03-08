@@ -15,6 +15,8 @@ Feature: Add an audit to an asset
       And I press "Submit"
     Then I should see "Added process"
       And I should be on the new audit page
+    Given all pending delayed jobs are processed
+    # The delayed job will raise an exception if it fails
   
   Scenario: Cant find user barcode
     Given I have a "Tecan robot" instrument with barcode "abc123"
@@ -43,21 +45,6 @@ Feature: Add an audit to an asset
     When I select "Cherrypick" from "Instrument process"
       And I press "Submit"
     Then I should see "Invalid instrument barcode"
-      And I should be on the new audit page
-  
-  Scenario: Cant find plate barcodes
-    Given user "john" with barcode '2470000100730' exists
-      And I have a "Tecan robot" instrument with barcode "abc123"
-      And I have a process "Cherrypick" as part of the "Tecan robot" instrument
-  
-    Given I am on the new audit page
-    When I fill in the following:
-      | User barcode       | 2470000100730 |
-      | Instrument barcode | abc123        |
-      | Source plates      | 9999999999999 |
-    When I select "Cherrypick" from "Instrument process"
-      And I press "Submit"
-    Then I should see "Invalid plate barcodes"
       And I should be on the new audit page
   
   Scenario: Invalid process selected for an instrument

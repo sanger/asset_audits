@@ -17,6 +17,10 @@ module  ProcessPlateValidation
   end
   
   def plates_exists
+    found_barcodes = asset_search_results_from_plate_barcodes.flatten.map(&:barcode)
+    barcodes.each do |barcode|
+     errors.add(:source_plates, "Invalid plate barcodes")  unless found_barcodes.include?(Barcode.split_barcode(barcode)[1].to_s)
+    end
     errors.add(:source_plates, "Invalid plate barcodes") if asset_uuids_from_plate_barcodes.include?(nil)
   end
   

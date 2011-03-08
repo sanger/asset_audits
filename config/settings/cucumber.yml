@@ -1,3 +1,4 @@
 user_barcode_url: http://localhost:3012
 sequencescape_url: http://localhost:3000/api/1/
 sequencescape_key: insert_key_here
+search_find_assets_by_barcode: 00000000-0000-0000-0000-000000000001

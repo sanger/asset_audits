@@ -1,0 +1,19 @@
+{
+    "searches": [{
+        "name": "Plate 94216",
+        "size": 96,
+        "plate_purpose": {
+            "name": "Stock Plate"
+        },
+        "created_at": "2010-09-15T16:12:14+01:00",
+        "barcode_prefix": "DN",
+        "uuid": "00000000-1111-2222-3333-444444444444",
+        "updated_at": "2010-09-15T16:12:26+01:00",
+        "barcode": "94216",
+        "qc_state": null,
+        "two_dimensional_barcode": null
+    }],
+    "uuids_to_ids": {
+        "00000000-1111-2222-3333-444444444444": 194216
+    }
+}

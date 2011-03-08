@@ -43,6 +43,24 @@ class FakeSequencescapeService < FakeSinatraService
       body(json)
     end
     
+    get("/api/1/#{Settings.search_find_assets_by_barcode}") do
+      json = FakeSequencescapeService.instance.load_file('search_find_asset_by_barcode')
+      headers('Content-Type' => 'application/json')
+      body(json)
+    end
+    
+    post("/api/1/#{Settings.search_find_assets_by_barcode}/all") do
+      status(300)
+      json = FakeSequencescapeService.instance.load_file('search_results_for_find_asset_by_barcode')
+      headers('Content-Type' => 'application/json')
+      body(json)
+    end
+    
+    get("/api/1/*") do
+      debugger
+      true
+    end
+    
   end
 end
 

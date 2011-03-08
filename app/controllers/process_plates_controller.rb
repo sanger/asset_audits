@@ -10,6 +10,7 @@ class ProcessPlatesController < ApplicationController
   def create
     
     process_plate = ProcessPlate.new({
+      :api => api,
       :user_barcode => params[:user_barcode], 
       :instrument_barcode => params[:instrument_barcode], 
       :source_plates => params[:source_plates],
@@ -17,7 +18,7 @@ class ProcessPlatesController < ApplicationController
       })
     respond_to do |format|
        if process_plate.save
-         process_plate.create_audits(api)
+         process_plate.create_audits
          flash[:notice] = 'Added process'
          format.html { redirect_to(new_process_plate_path) }
        else 

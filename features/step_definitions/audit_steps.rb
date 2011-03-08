@@ -12,13 +12,6 @@ Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument$/ do |pro
   instrument.instrument_processes << instrument_process
 end
 
-Given /^I have a plate with UUID "([^"]*)" and barcode "([^"]*)"$/ do |uuid_value, raw_barcode|
-  barcode_prefix = Barcode.prefix_to_human(Barcode.split_barcode(raw_barcode)[0])
-  barcode_number = Barcode.split_barcode(raw_barcode)[1]
-  Warehouse::Plate.create!(:barcode => barcode_number, :barcode_prefix => barcode_prefix , :uuid => uuid_value)
-end
-
-
 Then /^I wait (\d+) seconds?$/ do |seconds|
   sleep(seconds.to_i)
 end

@@ -1,6 +1,6 @@
 class ProcessPlate < ActiveRecord::Base
   include ProcessPlateValidation
-
+  attr_accessor :api
   # remove active record
   
   belongs_to :instrument_process
@@ -19,11 +19,21 @@ class ProcessPlate < ActiveRecord::Base
     Instrument.find_by_barcode(instrument_barcode)
   end
   
-  def asset_uuids_from_plate_barcodes
-    barcodes.map{ |barcode| Warehouse::Plate.uuid_from_barcode(barcode) }
+  def search_resource
+    api.search.find(Settings.search_find_assets_by_barcode)
   end
   
-  def create_audits(api)
+  def asset_uuids_from_plate_barcodes
+    asset_search_results_from_plate_barcodes.flatten.map(&:uuid)
+  end
+  
+  def asset_search_results_from_plate_barcodes
+    barcodes.map do |barcode| 
+      search_resource.all(api.plate, :barcode => barcode)
+    end
+  end
+  
+  def create_audits
     asset_uuids_from_plate_barcodes.each do |asset_uuid|
       api.asset_audit.create!(
         :key => instrument_process.key,

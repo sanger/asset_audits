@@ -14,6 +14,12 @@ module NavigationHelpers
     when /the new audit page/
       new_process_plate_path
 
+    when /the instrument management page/
+      admin_instruments_path
+      
+    when /the process management page/
+      admin_processes_path
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

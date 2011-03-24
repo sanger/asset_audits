@@ -1,0 +1,12 @@
+%h1 Edit Process
+
+= semantic_form_for(@process, :url => admin_process_path(@process), :html => { :method => :put } ) do |f|
+ = f.inputs :name => 'Process details' do
+  = f.input :name, :label => "Name"
+  = f.input :key, :label => 'Key'
+ = f.buttons do
+  %input{:type => :submit, :value => "Update process"}
+  
+  
+  
+

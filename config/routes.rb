@@ -33,6 +33,11 @@ ProcessTracking::Application.routes.draw do
     end
   end
   
+  namespace :admin do
+     resources :instruments
+     resources :processes
+     resources :instrument_processes_instruments
+  end
 
   # Sample resource route with options:
   #   resources :products do

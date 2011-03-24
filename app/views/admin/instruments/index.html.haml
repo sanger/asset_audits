@@ -1,0 +1,34 @@
+%h1 "Manage Instruments"
+
+%table#instruments
+ %thead
+  %tr
+   %th Instrument
+   %th Number of Processes
+   %th Barcode
+   %th Edit
+   %th Manage Processes
+   %th Delete
+ %tbody
+  - @instruments.each  do |instrument|
+   %tr
+    %td
+     = instrument.name
+    %td
+     = instrument.instrument_processes.count
+    %td 
+     = instrument.barcode
+    %td 
+     = link_to "Edit #{instrument.name}", edit_admin_instrument_path(instrument)
+    %td 
+     = link_to "Manage processes for #{instrument.name}", admin_instrument_path(instrument)
+    %td 
+     = link_to "Delete #{instrument.name}",  admin_instrument_path(instrument), :method => :delete
+    
+%ul
+ %li 
+  = link_to 'New instrument', new_admin_instrument_path
+ %li 
+  = link_to 'Process index', admin_processes_path
+      
+      

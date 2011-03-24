@@ -1,0 +1,12 @@
+%h1 New Process
+
+= semantic_form_for(@process, :url => admin_processes_path ) do |f|
+ = f.inputs :name => 'Process details' do
+  = f.input :name, :label => "Name"
+  = f.input :key, :label => 'Key'
+ = f.buttons do
+  %input{:type => :submit, :value => "Create process"}
+  
+  
+  
+

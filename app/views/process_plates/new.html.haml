@@ -22,7 +22,11 @@
     %select#instrument_process{ :name => "instrument_process"}
      - for process_name, process_id in InstrumentProcess.sorted_by_name.map { |x| [x.name, x.id]}
       %option{ :value => process_id } #{process_name}
- 
+      
+   %li.hidden#witness_barcode_input
+    %label{ :for => "witness_barcode"} Witness barcode
+    = text_field_tag "witness_barcode"
+     
    %li
     %input{ :type => "submit", :value => 'Submit' }
  
@@ -44,7 +48,29 @@
         $("#instrument_process").html(data);
       });
       
+      $.post('#{witness_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
+        if (data.match(/witness_required/)) { 
+          $("#witness_barcode_input").removeClass('hidden'); 
+        }
+        
+      });
+      
     });
+    
+    $("#instrument_process").change(function() {
+      $.post('#{witness_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
+        if (data.match(/witness_required/)) { 
+          $("#witness_barcode_input").removeClass('hidden'); 
+        }
+        else
+        {
+          $("#witness_barcode_input").removeClass('hidden').addClass('hidden'); 
+        }
+        
+      });
+      
+    });
+    
 
     $('#user_barcode').keydown(function (e) {
       var keyCode = e.keyCode || e.which;

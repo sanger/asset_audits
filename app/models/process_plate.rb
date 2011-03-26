@@ -2,6 +2,7 @@ class ProcessPlate < ActiveRecord::Base
   include ProcessPlateValidation
   attr_accessor :api
   attr_accessor :user_name
+  attr_accessor :witness_name
   attr_accessor :instrument_used
   attr_accessor :asset_search_results
   # remove active record
@@ -13,6 +14,11 @@ class ProcessPlate < ActiveRecord::Base
   def user_login
     return self.user_name unless self.user_name.blank?
     self.user_name = UserBarcode::UserBarcode.find_username_from_barcode(self.user_barcode)
+  end
+  
+  def witness_login
+    return self.witness_name unless self.witness_name.blank?
+    self.witness_name = UserBarcode::UserBarcode.find_username_from_barcode(self.witness_barcode)
   end
   
   def barcodes

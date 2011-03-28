@@ -163,3 +163,33 @@ Feature: Manage instruments
       | Instrument  | Number of Processes | Barcode |
       | Big robot   | 1                   | 1234    |
     
+    
+  @witness @process
+  Scenario: Add a process which needs to be witnessed
+    Given I have a process "Cherrypick" with key "cherrypicking"
+      And I have a process "Move plate" with key "move_plate"
+    Given I have an instrument "Big robot" with barcode "1234"
+      And I am on the instrument management page
+    When I follow "Manage processes for Big robot"
+    Then I should see "Add process"
+    Then the instrument process table should be:
+      | Process| Key | Witness? |
+    When I select "Cherrypick" from "Process"
+      And I check "Witness"
+      And I press "Add process"
+    Then I should see "Process added to instrument"
+    Then the instrument process table should be:
+      | Process    | Key           | Witness? |
+      | Cherrypick | cherrypicking | Yes      |
+    When I select "Move plate" from "Process"
+      And I press "Add process"
+    Then I should see "Process added to instrument"
+    Then the instrument process table should be:
+      | Process    | Key           | Witness? |
+      | Cherrypick | cherrypicking | Yes      |
+      | Move plate | move_plate    |          |
+    When I follow "Instrument index"
+    Then the list of instruments should look like:
+      | Instrument  | Number of Processes | Barcode |
+      | Big robot   | 2                   | 1234    |
+      

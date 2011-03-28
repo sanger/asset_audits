@@ -15,6 +15,7 @@
     %td
      = instrument_processes_instrument.instrument_process.key
     %td
+     = instrument_processes_instrument.witness ? 'Yes' : ''
     %td 
      = link_to "Unlink #{instrument_processes_instrument.instrument_process.name}",  admin_instrument_processes_instrument_path(instrument_processes_instrument), :method => :delete
 
@@ -24,6 +25,7 @@
  = f.inputs :name => 'Instrument details' do
   = f.input :instrument_process, :label => "Process"
   = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
+  = f.input :witness, :label => "Witness"
  = f.buttons do
   = f.commit_button 'Add process'
 

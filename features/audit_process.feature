@@ -31,7 +31,7 @@ Feature: Add an audit to an asset
       And I press "Submit"
     Then I should see "Invalid user"
       And I should be on the new audit page
-  
+
   Scenario: Cant find instrument barcode
     Given user "john" with barcode '2470000100730' exists
       And I have a "Tecan robot" instrument with barcode "9876"

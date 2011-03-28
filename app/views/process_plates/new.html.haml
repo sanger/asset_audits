@@ -50,6 +50,7 @@
       var keyCode = e.keyCode || e.which;
       if (keyCode == 13) {
         $('#instrument_barcode').focus();
+        $('#user_barcode').trigger('change');
         return false;
       }
     });
@@ -58,6 +59,7 @@
       var keyCode = e.keyCode || e.which;
       if (keyCode == 13) {
         $('#source_plates').focus();
+        $('#instrument_barcode').trigger('change');
         return false;
       }
     });

@@ -60,7 +60,7 @@ class ProcessPlate < ActiveRecord::Base
       :message => "Process '#{instrument_process.name}' performed on instrument #{instrument.name}",
       :created_by => user_login, 
       :asset => asset_uuid,
-      :witnessed_by => witness_name
+      :witnessed_by => witness_login
     )
   end
      

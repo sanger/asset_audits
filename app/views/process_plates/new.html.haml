@@ -46,14 +46,17 @@
       
       $.post('#{processes_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
         $("#instrument_process").html(data);
-      });
-      
-      $.post('#{witness_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
-        if (data.match(/witness_required/)) { 
-          $("#witness_barcode_input").removeClass('hidden'); 
-        }
+        
+        $.post('#{witness_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
+          if (data.match(/witness_required/)) { 
+            $("#witness_barcode_input").removeClass('hidden'); 
+          }
+
+        });
         
       });
+      
+
       
     });
     

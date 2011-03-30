@@ -24,6 +24,7 @@ ProcessTracking::Application.routes.draw do
     collection do
       post 'search'
       post 'processes'
+      post 'witness'
     end
   end
   

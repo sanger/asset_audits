@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110325090648) do
+ActiveRecord::Schema.define(:version => 20110325115815) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20110325090648) do
     t.integer  "instrument_process_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "witness"
   end
 
   add_index "instrument_processes_instruments", ["instrument_id"], :name => "ipi_i"
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20110325090648) do
     t.integer  "instrument_process_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "witness_barcode"
   end
 
 end

@@ -10,7 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110325115815) do
+ActiveRecord::Schema.define(:version => 20110401145944) do
+
+  create_table "beds", :force => true do |t|
+    t.string   "name"
+    t.string   "barcode"
+    t.integer  "bed_number"
+    t.integer  "instrument_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "beds", ["barcode"], :name => "index_beds_on_barcode"
+  add_index "beds", ["bed_number"], :name => "index_beds_on_bed_number"
+  add_index "beds", ["instrument_id"], :name => "index_beds_on_instrument_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

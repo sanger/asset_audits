@@ -28,6 +28,37 @@
   = f.input :witness, :label => "Witness"
  = f.buttons do
   = f.commit_button 'Add process'
+  
+  
+%table#beds
+ %thead
+  %tr
+   %th Name
+   %th Barcode
+   %th Number
+   %th Remove
+ %tbody
+  - @instrument.beds.each  do |bed|
+   %tr
+    %td
+     = bed.name
+    %td
+     = bed.barcode
+    %td
+     = bed.bed_number
+    %td 
+     = link_to "Delete bed #{bed.barcode}",  admin_bed_path(bed), :method => :delete
+  
+  
+%h2 Add bed to instrument
+= semantic_form_for(Bed.new, :url => admin_beds_path, :method => :post ) do |f|
+ = f.inputs :name => 'Bed details' do
+  = f.input :name, :label => "Bed name"
+  = f.input :barcode
+  = f.input :bed_number
+  = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
+ = f.buttons do
+  = f.commit_button 'Add bed'
 
 
 

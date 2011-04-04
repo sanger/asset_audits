@@ -38,6 +38,7 @@ ProcessTracking::Application.routes.draw do
      resources :instruments
      resources :processes
      resources :instrument_processes_instruments
+     resources :beds
   end
 
   # Sample resource route with options:

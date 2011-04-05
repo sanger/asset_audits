@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110401145944) do
+ActiveRecord::Schema.define(:version => 20110404102937) do
 
   create_table "beds", :force => true do |t|
     t.string   "name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20110401145944) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "witness"
+    t.string   "bed_verification_type"
   end
 
   add_index "instrument_processes_instruments", ["instrument_id"], :name => "ipi_i"

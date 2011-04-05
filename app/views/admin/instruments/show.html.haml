@@ -6,6 +6,7 @@
    %th Process
    %th Key
    %th Witness?
+   %th Bed verification type
    %th Remove
  %tbody
   - @instrument.instrument_processes_instruments.each  do |instrument_processes_instrument|
@@ -16,6 +17,8 @@
      = instrument_processes_instrument.instrument_process.key
     %td
      = instrument_processes_instrument.witness ? 'Yes' : ''
+    %td
+     = instrument_processes_instrument.bed_verification_type
     %td 
      = link_to "Unlink #{instrument_processes_instrument.instrument_process.name}",  admin_instrument_processes_instrument_path(instrument_processes_instrument), :method => :delete
 
@@ -26,6 +29,7 @@
   = f.input :instrument_process, :label => "Process"
   = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
   = f.input :witness, :label => "Witness"
+  = f.input :bed_verification_type, :as => :select, :collection => Verification::Base.all_types_for_select
  = f.buttons do
   = f.commit_button 'Add process'
   

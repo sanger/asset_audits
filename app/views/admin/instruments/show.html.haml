@@ -1,0 +1,40 @@
+%h1 Instrument #{@instrument.name}
+
+%table#instrument_processes
+ %thead
+  %tr
+   %th Process
+   %th Key
+   %th Witness?
+   %th Remove
+ %tbody
+  - @instrument.instrument_processes_instruments.each  do |instrument_processes_instrument|
+   %tr
+    %td
+     = link_to instrument_processes_instrument.instrument_process.name, admin_process_path(instrument_processes_instrument.instrument_process)
+    %td
+     = instrument_processes_instrument.instrument_process.key
+    %td
+     = instrument_processes_instrument.witness ? 'Yes' : ''
+    %td 
+     = link_to "Unlink #{instrument_processes_instrument.instrument_process.name}",  admin_instrument_processes_instrument_path(instrument_processes_instrument), :method => :delete
+
+%h2 Add process to instrument
+
+= semantic_form_for(InstrumentProcessesInstrument.new, :url => admin_instrument_processes_instruments_path, :method => :post ) do |f|
+ = f.inputs :name => 'Instrument details' do
+  = f.input :instrument_process, :label => "Process"
+  = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
+  = f.input :witness, :label => "Witness"
+ = f.buttons do
+  = f.commit_button 'Add process'
+
+
+
+
+
+
+
+%ul
+ %li 
+  = link_to 'Instrument index', admin_instruments_path

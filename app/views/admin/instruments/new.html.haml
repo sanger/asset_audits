@@ -1,0 +1,12 @@
+%h1 New Instrument
+
+= semantic_form_for(@instrument, :url => admin_instruments_path ) do |f|
+ = f.inputs :name => 'Instrument details' do
+  = f.input :name, :label => "Name"
+  = f.input :barcode, :label => 'Barcode'
+ = f.buttons do
+  %input{:type => :submit, :value => "Create instrument"}
+  
+  
+  
+

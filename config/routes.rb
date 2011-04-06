@@ -24,6 +24,7 @@ ProcessTracking::Application.routes.draw do
     collection do
       post 'search'
       post 'processes'
+      post 'witness'
     end
   end
   
@@ -33,6 +34,11 @@ ProcessTracking::Application.routes.draw do
     end
   end
   
+  namespace :admin do
+     resources :instruments
+     resources :processes
+     resources :instrument_processes_instruments
+  end
 
   # Sample resource route with options:
   #   resources :products do

@@ -1,0 +1,22 @@
+.bed_layout
+ %table
+  %tbody
+   - [['Beds','bed'],['Source','plate']].each do |row_name, row_id|
+    %tr
+     %td #{row_name}
+     = render :partial => "barcode_inputs_row", :locals => { :bed_names => Verification::DilutionPlateVerification.source_beds, :row_id => row_id }
+   - [['Beds','bed'],['Destination','plate']].each do |row_name, row_id|
+    %tr
+     %td #{row_name}
+     = render :partial => "barcode_inputs_row", :locals => { :bed_names => Verification::DilutionPlateVerification.destination_beds, :row_id => row_id }
+     
+
+%h3 Checklist
+.checklist
+ %ol
+  %li Buffer full
+  %li Tips added
+  %li Covers removed
+  %li Correct program selected
+  %li Program editted for the correct number of plates
+  

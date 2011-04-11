@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails', '3.0.5'
+gem 'rails', '3.0.6'
 
 gem 'nokogiri'
 gem "formtastic"
@@ -21,6 +21,7 @@ group :development do
 end
 
 group :test do
+  gem "spork"
   gem "capybara"
   gem "cucumber-rails"
   gem "database_cleaner"

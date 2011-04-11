@@ -1,0 +1,7 @@
+- bed_names.each_with_index do |bed_name, index|
+ - bed_id = bed_name.downcase
+ %td
+  %label{ :for => "#{bed_id}_#{row_id}" } #{row_id.titlecase} #{bed_name}
+   
+ %td{ :class => "barcode_column_#{index}"}
+  = text_field_tag "#{bed_id}_#{row_id}", nil, :name => "robot[#{bed_id}][#{row_id}]"

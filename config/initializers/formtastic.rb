@@ -24,7 +24,7 @@
 
 # Should select fields have a blank option/prompt by default?
 # Defaults to true.
-# Formtastic::SemanticFormBuilder.include_blank_for_select_by_default = true
+Formtastic::SemanticFormBuilder.include_blank_for_select_by_default = false
 
 # Set the string that will be appended to the labels/fieldsets which are required
 # It accepts string or procs and the default is a localized version of

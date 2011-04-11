@@ -1,4 +1,4 @@
-@sequencescape_service @user_barcode_service @audit_process
+@sequencescape_service @user_barcode_service @audit_process @javascript
 Feature: Add an audit to an asset
 
   Scenario: All required information is scanned
@@ -6,14 +6,13 @@ Feature: Add an audit to an asset
       And I have a "Tecan robot" instrument with barcode "abc123456"
       And I have a process "Cherrypick" as part of the "Tecan robot" instrument
     Given I am on the new audit page
-      
-    When I fill in the following:
-      | User barcode       | 2470000100730 |
-      | Instrument barcode | abc123456     |
-      | Source plates      | 1220094216791 |
-    When I select "Cherrypick" from "Instrument process"
+    
+    When I fill in "User barcode" with "2470000100730"
+      And I fill in AJAX field "Instrument barcode" with "abc123456"
+      And I fill in "Source plates" with "1220094216791"
+      And I select "Cherrypick" from "Instrument process"
       And I press "Submit"
-    Then I should see "Added process"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails
@@ -21,13 +20,11 @@ Feature: Add an audit to an asset
   Scenario: Cant find user barcode
     Given I have a "Tecan robot" instrument with barcode "abc123"
       And I have a process "Cherrypick" as part of the "Tecan robot" instrument
-      
     Given I am on the new audit page
-    When I fill in the following:
-      | User barcode       | 2470000100730 |
-      | Instrument barcode | abc123        |
-      | Source plates      | 1220094216791 |
-    When I select "Cherrypick" from "Instrument process"
+    When I fill in "User barcode" with "2470000100730"
+      And I fill in AJAX field "Instrument barcode" with "abc123"
+      And I fill in "Source plates" with "1220094216791"
+      And I select "Cherrypick" from "Instrument process"
       And I press "Submit"
     Then I should see "Invalid user"
       And I should be on the new audit page
@@ -38,13 +35,12 @@ Feature: Add an audit to an asset
       And I have a process "Cherrypick" as part of the "Tecan robot" instrument
     
     Given I am on the new audit page
-    When I fill in the following:
-      | User barcode       | 2470000100730 |
-      | Instrument barcode | abc123        |
-      | Source plates      | 1220094216791 |
-    When I select "Cherrypick" from "Instrument process"
+    When I fill in "User barcode" with "2470000100730"
+      And I fill in AJAX field "Instrument barcode" with "abc123"
+      And I fill in "Source plates" with "1220094216791"
+      And I select "Cherrypick" from "Instrument process"
       And I press "Submit"
-    Then I should see "Invalid instrument barcode"
+    Then I should see "Invalid instrument or process"
       And I should be on the new audit page
   
   Scenario: Invalid process selected for an instrument
@@ -55,13 +51,12 @@ Feature: Add an audit to an asset
       And I have a process "Stamp for Sequenom" as part of the "Beckman" instrument
     
     Given I am on the new audit page
-    When I fill in the following:
-      | User barcode       | 2470000100730 |
-      | Instrument barcode | abc123        |
-      | Source plates      | 1220094216791 |
-    When I select "Stamp for Sequenom" from "Instrument process"
+    When I fill in "User barcode" with "2470000100730"
+      And I fill in "Instrument barcode" with "abc123"
+      And I select "Stamp for Sequenom" from "Instrument process"
+      And I fill in "Source plates" with "1220094216791"
       And I press "Submit"
-    Then I should see "Invalid process for instrument"
+    Then I should see "Invalid instrument or process"
       And I should be on the new audit page
   
   

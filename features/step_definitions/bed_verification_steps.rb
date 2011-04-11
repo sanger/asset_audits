@@ -4,6 +4,7 @@ Given /^instrument "([^"]*)" has a bed with name "([^"]*)" barcode "([^"]*)" and
   instrument.beds << bed
 end
 
-Then /^the submit button should be disabled$/ do
-  pending # express the regexp above with the code you wish you had
+
+Given /^search with UUID "([^"]*)" returns the following JSON:$/ do |search_uuid, returned_json|
+  FakeSequencescapeService.instance.search_result(search_uuid, returned_json)
 end

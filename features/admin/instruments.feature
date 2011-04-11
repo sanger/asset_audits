@@ -180,7 +180,7 @@ Feature: Manage instruments
     Then I should see "Process added to instrument"
     Then the instrument process table should be:
       | Process    | Key           | Witness? | Bed verification type  |
-      | Cherrypick | cherrypicking | Yes      |                        |
+      | Cherrypick | cherrypicking | Yes      | Verification::Base     |
     When I select "Move plate" from "Process"
       And I press "Add process"
     Then I should see "Process added to instrument"
@@ -202,12 +202,12 @@ Feature: Manage instruments
     Then the instrument process table should be:
       | Process| Key | Bed verification type |
     When I select "Create Assay Plates" from "Process"
-      And I select "AssayPlateVerification" from "Bed verification type" 
+      And I select "Verification::AssayPlateVerification" from "Bed verification type" 
       And I press "Add process"
     Then I should see "Process added to instrument"
     Then the instrument process table should be:
       | Process             | Key          | Bed verification type  |
-      | Create Assay Plates | assay_plates | AssayPlateVerification |
+      | Create Assay Plates | assay_plates | Verification::AssayPlateVerification |
       
   @verification 
   Scenario: Add a verification type should default to blank
@@ -222,4 +222,4 @@ Feature: Manage instruments
     Then I should see "Process added to instrument"
     Then the instrument process table should be:
       | Process             | Key          | Bed verification type |
-      | Create Assay Plates | assay_plates |                       |
+      | Create Assay Plates | assay_plates | Verification::Base    |

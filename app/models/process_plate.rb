@@ -17,6 +17,7 @@ class ProcessPlate < ActiveRecord::Base
   end
   
   def witness_login
+    return nil if self.witness_barcode.nil?
     return self.witness_name unless self.witness_name.blank?
     self.witness_name = UserBarcode::UserBarcode.find_username_from_barcode(self.witness_barcode)
   end

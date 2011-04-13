@@ -4,7 +4,6 @@ Feature: Verify location of plates
   Background:
     Given user "john" with barcode '2470000100730' exists
 
-  @ap13
   Scenario: Valid plates and bed positions
     Given I have a "Liquid handling" instrument with barcode "abc123456"
       And the "Liquid handling" instrument has beds setup
@@ -88,7 +87,7 @@ Feature: Verify location of plates
       |            |              |                 | 456               | Invalid layout                   |
       | 2          |              | 3               |                   | No plates scanned                |
       |            | 123          |                 | 456               | Invalid layout                   |
-      | 2          | 999          | 3               | 888               | Invalid source plate layout      |
+      | 2          | 999          | 3               | 888               | Invalid source plate layout       |
 
 
   

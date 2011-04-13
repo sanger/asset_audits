@@ -44,8 +44,7 @@ class Verification::DilutionPlateVerification < Verification::Base
     parse_source_and_destination_barcodes(scanned_values).each do |source_barcode, destination_barcode|
       return false unless valid_destination_barcode?(destination_barcode)
       search_resource = api.search.find(Settings.search_find_source_assets_by_destination_barcode)
-      debugger
-      search_results = search_resource.first(api.plate, :barcode => destination_barcode)
+      search_results = search_resource.all(api.plate, :barcode => destination_barcode)
       return false unless valid_source_barcode?(source_barcode, search_results)
     end
 

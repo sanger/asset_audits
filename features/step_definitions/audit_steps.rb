@@ -28,10 +28,7 @@ end
 
 Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument which requires a witness$/ do |process_name, instrument_name|
   Given %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument}
-  instrument = Instrument.find_by_name(instrument_name)
-  process = InstrumentProcess.find_by_name(process_name)
-  process_link = instrument.instrument_processes_instruments.select{ |process|  process.instrument_process_id == process.id }.first
-  process_link.update_attributes!( :witness => true )
+  Given %Q{a process "#{process_name}" as part of the "#{instrument_name}" instrument requires a witness}
 end
 
 When /^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
@@ -60,6 +57,9 @@ Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with dilu
 end
 
 
-Given /^I have a plate "([^"]*)" with a child plate of "([^"]*)"$/ do |parent_barcode, child_barcode|
-  pending # express the regexp above with the code you wish you had
+Given /^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/ do |process_name, instrument_name|
+  instrument = Instrument.find_by_name(instrument_name)
+  process = InstrumentProcess.find_by_name(process_name)
+  process_link = instrument.instrument_processes_instruments.select{ |process|  process.instrument_process_id == process.id }.first
+  process_link.update_attributes!( :witness => true )
 end

@@ -4,7 +4,7 @@ Given /^instrument "([^"]*)" has a bed with name "([^"]*)" barcode "([^"]*)" and
   instrument.beds << bed
 end
 
-
 Given /^search with UUID "([^"]*)" returns the following JSON:$/ do |search_uuid, returned_json|
   FakeSequencescapeService.instance.search_result(search_uuid, returned_json)
 end
+

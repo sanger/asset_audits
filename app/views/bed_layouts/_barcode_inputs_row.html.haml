@@ -4,7 +4,7 @@
   %legend #{bed_id_upcase}
   - ['bed','plate'].each do |row_id|
    %li
-    %label.hidden{ :for => "#{bed_id}_#{row_id}" } #{row_id} #{bed_id_upcase}
+    %label.hidden{ :for => "#{bed_id}_#{row_id}" } #{row_id.titlecase} #{bed_id_upcase}
     %label.layout_input_text #{row_id.titlecase}
     = text_field_tag "#{bed_id}_#{row_id}", nil, :name => "robot[#{bed_id}][#{row_id}]", :size => 13
  

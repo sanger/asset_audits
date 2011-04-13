@@ -1,15 +1,12 @@
 .bed_layout
- %table
-  %tbody
-   - [['Beds','bed'],['Source','plate']].each do |row_name, row_id|
-    %tr
-     %td #{row_name}
-     = render :partial => "barcode_inputs_row", :locals => { :bed_names => Verification::DilutionPlateVerification.source_beds, :row_id => row_id }
-   - [['Beds','bed'],['Destination','plate']].each do |row_name, row_id|
-    %tr
-     %td #{row_name}
-     = render :partial => "barcode_inputs_row", :locals => { :bed_names => Verification::DilutionPlateVerification.destination_beds, :row_id => row_id }
-     
+
+ %ul
+  %li#beds_and_plates
+   %ul#source
+    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => Verification::DilutionPlateVerification.source_beds }
+  %li#beds_and_plates
+   %ul#destination
+    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => Verification::DilutionPlateVerification.destination_beds }
 
 %h3 Checklist
 .checklist
@@ -18,5 +15,6 @@
   %li Tips added
   %li Covers removed
   %li Correct program selected
-  %li Program editted for the correct number of plates
-  
+  %li Program edited for the correct number of plates
+
+= render :partial => "dilution_plate_javascript"

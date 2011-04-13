@@ -29,7 +29,7 @@
    %li
     %input{ :type => "submit", :value => 'Submit' }
  
-- content_for :javascript do
+- content_for :page_javascript do
  :javascript
     $("#user_barcode").change(function() {
       $.post('#{search_users_path}',{ user_barcode: $('#user_barcode')[0].value}, function(data) {

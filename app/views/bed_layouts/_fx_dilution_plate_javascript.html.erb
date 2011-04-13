@@ -1,0 +1,55 @@
+<script type="text/javascript">
+<% [
+   ['p3_bed','p3_plate'],
+    ['p3_plate','p4_bed'],
+   ['p4_bed','p4_plate'],
+    ['p4_plate','p7_bed'],
+   ['p7_bed','p7_plate'],
+    ['p7_plate','p8_bed'],
+   ['p8_bed','p8_plate'],
+    ['p8_plate','p10_bed'],
+   ['p10_bed','p10_plate'],
+    ['p10_plate','p11_bed'],
+   ['p11_bed','p11_plate'],
+    ['p11_plate','p14_bed'],
+   ['p14_bed','p14_plate'],
+    ['p14_plate','p12_bed'],
+   ['p12_bed','p12_plate'],
+    ['p12_plate','witness_barcode']
+   ].each do |current_id, next_id| %>
+     
+    $('#<%= current_id %>').keydown(function (e) {
+       var keyCode = e.keyCode || e.which;
+       if (keyCode == 13) {
+         $('#<%= next_id %>').focus();
+         $('#<%= current_id %>').trigger('change');
+         return false;
+       }
+    });
+<% end %>
+
+<% [
+    [3, 0],
+    [4,0],
+    [7,1],
+    [8,1],
+    [10,2],
+    [11,2],
+    [14,3],
+    [12,3]
+   ].each do |bed_position, column_number| 
+     ['bed','plate'].each do |input_barcode_type|
+     %>
+     
+    $('#p<%= bed_position %>_<%= input_barcode_type %>').focus(function() {
+      $('.barcode_column_0').removeClass("highlight");
+      $('.barcode_column_1').removeClass("highlight");
+      $('.barcode_column_2').removeClass("highlight");
+      $('.barcode_column_3').removeClass("highlight");
+  
+      $('.barcode_column_<%= column_number %>').addClass("highlight"); 
+    });
+  <% end %>
+<% end %>
+
+</script>

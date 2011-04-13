@@ -3,10 +3,10 @@
  %ul
   %li#beds_and_plates
    %ul#source
-    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => Verification::DilutionPlateVerification.source_beds }
+    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => @bed_verification_model.source_beds }
   %li#beds_and_plates
    %ul#destination
-    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => Verification::DilutionPlateVerification.destination_beds }
+    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => @bed_verification_model.destination_beds }
 
 %h3 Checklist
 .checklist
@@ -17,4 +17,4 @@
   %li Correct program selected
   %li Program edited for the correct number of plates
 
-= render :partial => "dilution_plate_javascript"
+= render :partial => @bed_verification_model.javascript_partial_name

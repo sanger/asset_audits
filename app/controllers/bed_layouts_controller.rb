@@ -3,6 +3,7 @@ class BedLayoutsController < ApplicationController
 
   def bed_layout_partial
     bed_layout_partial_name = InstrumentProcessesInstrument.find_partial_name!(params[:instrument_barcode],params[:instrument_process_id])
+    @bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode],params[:instrument_process_id])
 
     if bed_layout_partial_name.blank?
       bed_layout_partial_name = Verification::Base.partial_name

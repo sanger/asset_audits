@@ -5,6 +5,10 @@ class Verification::DilutionPlateVerification < Verification::Base
   def self.partial_name
     "dilution_plate"
   end
+  
+  def self.javascript_partial_name
+    "dilution_plate_javascript"
+  end
 
   def validate_and_create_audits?(api, params)
     return false unless plates_scanned?(params[:robot])

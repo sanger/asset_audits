@@ -12,7 +12,7 @@ Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument$/ do |pro
   instrument.instrument_processes << instrument_process
 end
 
-Then /^I wait (\d+) seconds?$/ do |seconds|
+Then /^(?:|I )wait (\d+) seconds?$/ do |seconds|
   sleep(seconds.to_i)
 end
 
@@ -23,18 +23,12 @@ When /^(?:|I )fill in AJAX field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$
     id = "#" + find_field(field)[:id]
     page.execute_script("$('#{id}').trigger('change');")
   end
+  Then %Q{wait 1 second}
 end
 
 Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument which requires a witness$/ do |process_name, instrument_name|
   Given %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument}
-  instrument = Instrument.find_by_name(instrument_name)
-  process = InstrumentProcess.find_by_name(process_name)
-  process_link = instrument.instrument_processes_instruments.select{ |process|  process.instrument_process_id == process.id }.first
-  process_link.update_attributes!( :witness => true )
-end
-
-Then /^wait (\d+) seconds$/ do |time_seconds|
-  sleep(time_seconds.to_i)
+  Given %Q{a process "#{process_name}" as part of the "#{instrument_name}" instrument requires a witness}
 end
 
 When /^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
@@ -43,4 +37,29 @@ When /^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")
     id = "#" + find_field(field)[:id]
     page.execute_script("$('#{id}').trigger('change');")
   end
+  Then %Q{wait 1 second}
+end
+
+
+Given /^the "([^"]*)" instrument has beds setup$/ do |instrument_name|
+  instrument = Instrument.find_by_name(instrument_name)  
+  (1..12).each do |bed_number|
+    instrument.beds.create!(:bed_number => bed_number, :name => "P#{bed_number}", :barcode => bed_number)
+  end
+end
+
+Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with dilution plate verification$/ do |process_name, instrument_name|
+  Given %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument}
+  instrument = Instrument.find_by_name(instrument_name)  
+  process = InstrumentProcess.find_by_name(process_name)
+  process_link = instrument.instrument_processes_instruments.select{ |process|  process.instrument_process_id == process.id }.first
+  process_link.update_attributes!( :bed_verification_type => 'Verification::DilutionPlateVerification' )
+end
+
+
+Given /^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/ do |process_name, instrument_name|
+  instrument = Instrument.find_by_name(instrument_name)
+  process = InstrumentProcess.find_by_name(process_name)
+  process_link = instrument.instrument_processes_instruments.select{ |process|  process.instrument_process_id == process.id }.first
+  process_link.update_attributes!( :witness => true )
 end

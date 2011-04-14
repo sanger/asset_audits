@@ -98,7 +98,7 @@ Feature: Manage instruments
       And I have a process "Move plate" with key "move_plate"
     Given I have an instrument "Big robot" with barcode "1234"
       And I am on the instrument management page
-    When I follow "Manage processes for Big robot"
+    When I follow "Manage Big robot"
     Then I should see "Add process"
     Then the instrument process table should be:
       | Process| Key | Witness? |
@@ -129,7 +129,7 @@ Feature: Manage instruments
     Then the list of instruments should look like:
       | Instrument  | Number of Processes | Barcode |
       | Big robot   | 1                   | 1234    |
-    When I follow "Manage processes for Big robot"
+    When I follow "Manage Big robot"
     Then the instrument process table should be:
       | Process    | Key           |
       | Cherrypick | cherrypicking |
@@ -148,7 +148,7 @@ Feature: Manage instruments
       And I have an instrument "Big robot" with barcode "1234"
       And instrument "Big robot" has process "Cherrypick"
       And I am on the instrument management page
-    When I follow "Manage processes for Big robot"
+    When I follow "Manage Big robot"
     Then the instrument process table should be:
       | Process    | Key           |
       | Cherrypick | cherrypicking |
@@ -170,7 +170,7 @@ Feature: Manage instruments
       And I have a process "Move plate" with key "move_plate"
     Given I have an instrument "Big robot" with barcode "1234"
       And I am on the instrument management page
-    When I follow "Manage processes for Big robot"
+    When I follow "Manage Big robot"
     Then I should see "Add process"
     Then the instrument process table should be:
       | Process| Key | Witness? |
@@ -179,8 +179,8 @@ Feature: Manage instruments
       And I press "Add process"
     Then I should see "Process added to instrument"
     Then the instrument process table should be:
-      | Process    | Key           | Witness? |
-      | Cherrypick | cherrypicking | Yes      |
+      | Process    | Key           | Witness? | Bed verification type  |
+      | Cherrypick | cherrypicking | Yes      | Verification::Base     |
     When I select "Move plate" from "Process"
       And I press "Add process"
     Then I should see "Process added to instrument"
@@ -192,4 +192,34 @@ Feature: Manage instruments
     Then the list of instruments should look like:
       | Instrument  | Number of Processes | Barcode |
       | Big robot   | 2                   | 1234    |
+  
+  @verification 
+  Scenario: Add a verification type for assay plate creation to the process
+    Given I have a process "Create Assay Plates" with key "assay_plates"
+    Given I have an instrument "Big robot" with barcode "1234"
+      And I am on the instrument management page
+    When I follow "Manage Big robot"
+    Then the instrument process table should be:
+      | Process| Key | Bed verification type |
+    When I select "Create Assay Plates" from "Process"
+      And I select "Verification::AssayPlateVerification" from "Bed verification type" 
+      And I press "Add process"
+    Then I should see "Process added to instrument"
+    Then the instrument process table should be:
+      | Process             | Key          | Bed verification type  |
+      | Create Assay Plates | assay_plates | Verification::AssayPlateVerification |
       
+  @verification 
+  Scenario: Add a verification type should default to blank
+    Given I have a process "Create Assay Plates" with key "assay_plates"
+    Given I have an instrument "Big robot" with barcode "1234"
+      And I am on the instrument management page
+    When I follow "Manage Big robot"
+    Then the instrument process table should be:
+      | Process| Key | Bed verification type |
+    When I select "Create Assay Plates" from "Process"
+      And I press "Add process"
+    Then I should see "Process added to instrument"
+    Then the instrument process table should be:
+      | Process             | Key          | Bed verification type |
+      | Create Assay Plates | assay_plates | Verification::Base    |

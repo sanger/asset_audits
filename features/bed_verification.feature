@@ -74,7 +74,6 @@ Feature: Verify location of plates
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails
     
-  @ap13
   Scenario Outline: Barcodes scanned incorrectly
     Given search with UUID "00000000-0000-0000-0000-000000000002" returns the following JSON:
       """

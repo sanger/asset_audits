@@ -196,7 +196,7 @@ Feature: Verify assay plate positions on the robot
       | 4          | xxx          | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout |
       | 4          | source1      | 5                 | xxx                 | 6                 | dest2               | Invalid source plate layout |
       | 4          | source1      | 5                 | dest1               | 6                 | xxx                 | Invalid source plate layout |
-      | 4          | source1      | 5                 | dest1               | xxx               | dest2               | Invalid layout              |g
+      | 4          | source1      | 5                 | dest1               | xxx               | dest2               | Invalid layout              |
       # single assay plate from pico dilution
       #| 4          | source1      |                   |                     | 6                 | dest2               | Invalid layout |
       #| 4          | source1      | 5                 | dest1               |                   |                     | Invalid layout |

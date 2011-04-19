@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails', '3.0.6'
+gem 'rails', '3.0.7'
 
 gem 'nokogiri'
 gem "formtastic"
@@ -12,6 +12,7 @@ gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', :git => 'http://github.com/sanger/sequencescape-client-api.git', :require => 'sequencescape', :ref => '8c30df3'
 gem 'delayed_job'
+gem "jquery-rails"
 
 gem 'sqlite3-ruby', '~> 1.2.0', :require => 'sqlite3', :groups => [:development, :test, :cucumber]
 

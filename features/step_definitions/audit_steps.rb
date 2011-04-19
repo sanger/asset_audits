@@ -48,13 +48,6 @@ Given /^the "([^"]*)" instrument has beds setup$/ do |instrument_name|
   end
 end
 
-Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with dilution plate verification$/ do |process_name, instrument_name|
-  Given %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument}
-  instrument = Instrument.find_by_name(instrument_name)  
-  process = InstrumentProcess.find_by_name(process_name)
-  process_link = instrument.instrument_processes_instruments.select{ |process|  process.instrument_process_id == process.id }.first
-  process_link.update_attributes!( :bed_verification_type => 'Verification::DilutionPlateVerification' )
-end
 
 
 Given /^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/ do |process_name, instrument_name|

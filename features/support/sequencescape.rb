@@ -19,12 +19,13 @@ class FakeSequencescapeService < FakeSinatraService
      @search_results ||= {}
   end
   
-  def search_result(search_uuid, result_json)
-    self.search_results[search_uuid] = result_json
+  def search_result(search_uuid, barcode, result_json)
+    self.search_results[search_uuid] = {} if self.search_results[search_uuid].nil?
+    self.search_results[search_uuid][barcode] = result_json
   end
   
-  def find_result_json_by_search_uuid(search_uuid)
-    self.search_results[search_uuid]
+  def find_result_json_by_search_uuid(search_uuid, barcode)
+    self.search_results[search_uuid][barcode]
   end
   
   
@@ -78,7 +79,7 @@ class FakeSequencescapeService < FakeSinatraService
     
     post("/api/1/#{Settings.search_find_source_assets_by_destination_barcode}/all") do
       status(300)
-      json = FakeSequencescapeService.instance.find_result_json_by_search_uuid(Settings.search_find_source_assets_by_destination_barcode)
+      json = FakeSequencescapeService.instance.find_result_json_by_search_uuid(Settings.search_find_source_assets_by_destination_barcode, ActiveSupport::JSON.decode(request.body.read)['search']['barcode'])
       headers('Content-Type' => 'application/json')
       body(json)
     end

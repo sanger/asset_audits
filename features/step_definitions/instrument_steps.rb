@@ -2,7 +2,7 @@ Given /^I have an instrument "([^"]*)" with barcode "([^"]*)"$/ do |name, barcod
   Instrument.create!(:name => name, :barcode => barcode)
 end
 
-Then /^the list of (instruments|processes) should look like:$/ do |name, expected_table|
+Then /^the list of (instruments|processes|beds) should look like:$/ do |name, expected_table|
   expected_table.diff!(table(tableish("##{name} tr", 'td,th')))
 end
 

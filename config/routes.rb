@@ -34,10 +34,17 @@ ProcessTracking::Application.routes.draw do
     end
   end
   
+  resources :bed_layouts do
+    collection do
+      post 'bed_layout_partial'
+    end
+  end
+  
   namespace :admin do
      resources :instruments
      resources :processes
      resources :instrument_processes_instruments
+     resources :beds
   end
 
   # Sample resource route with options:

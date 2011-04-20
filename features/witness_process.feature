@@ -12,37 +12,34 @@ Feature: Require a witness for a process
     Given I have a "Big robot" instrument with barcode "9999"
     And I have a process "Volume check" as part of the "Big robot" instrument
     Given I am on the new audit page
-    When I fill in the following:
-      | User barcode       | 2470000100730 |
-      | Instrument barcode | 9999          |
-      | Source plates      | 1220094216791 |
-    When I select "Volume check" from "Instrument process"
-    When I press "Submit"
-    Then I should see "Added process"
-      And I should be on the new audit page
-    Given all pending delayed jobs are processed
-    
-    
-  Scenario: A process requires a witness
-    When I fill in the following:
-      | User barcode       | 2470000100730 |
-      | Instrument barcode | abc123456     |
-      | Source plates      | 1220094216791 |
-    When I select "Cherrypick" from AJAX dropdown "Instrument process"    
-    When I fill in "Witness barcode" with "2470041440697"
+    When I fill in "User barcode" with "2470000100730"
+      And I fill in AJAX field "Instrument barcode" with "9999"
+      And I fill in "Source plates" with "1220094216791"
+      And I select "Volume check" from "Instrument process"
       And I press "Submit"
-    Then I should see "Added process"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
-  
-  
+
+
+  Scenario: A process requires a witness
+    When I fill in "User barcode" with "2470000100730"
+      And I fill in AJAX field "Instrument barcode" with "abc123456"
+      And I fill in "Source plates" with "1220094216791"
+      And I select "Cherrypick" from AJAX dropdown "Instrument process"
+      And I fill in "Witness barcode" with "2470041440697"
+      And I press "Submit"
+    Then I should see "Success"
+      And I should be on the new audit page
+    Given all pending delayed jobs are processed
+
+
   Scenario Outline: Invalid user is scanned as the witness
-    When I fill in the following:
-      | User barcode       | 2470000100730 |
-      | Instrument barcode | abc123456     |
-      | Source plates      | 1220094216791 |
-    When I select "Cherrypick" from AJAX dropdown "Instrument process"    
-    When I fill in "Witness barcode" with "<witness>"
+    When I fill in "User barcode" with "2470000100730"
+      And I fill in AJAX field "Instrument barcode" with "abc123456"
+      And I fill in "Source plates" with "1220094216791"
+      And I select "Cherrypick" from AJAX dropdown "Instrument process"
+      And I fill in "Witness barcode" with "<witness>"
       And I press "Submit"
     Then I should see "Invalid witness barcode"
       And I should be on the new audit page
@@ -52,4 +49,3 @@ Feature: Require a witness for a process
       |               |
       | abc           |
       | 123456789     |
-      

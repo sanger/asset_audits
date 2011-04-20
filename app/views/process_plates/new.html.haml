@@ -12,16 +12,15 @@
     = text_field_tag "instrument_barcode"
     .live_results#instrument_barcode_results
     
-   %li
-    %label{ :for => "source_plates" } Source plates
-    = text_area_tag "source_plates", '', :rows => 5,:cols => 17
-    #source_plates_results
-    
+
    %li
     %label{ :for => "instrument_process" } Instrument process
     %select#instrument_process{ :name => "instrument_process"}
      - for process_name, process_id in InstrumentProcess.sorted_by_name.map { |x| [x.name, x.id]}
       %option{ :value => process_id } #{process_name}
+      
+   %li
+    #source_plates_results
       
    %li.hidden#witness_barcode_input
     %label{ :for => "witness_barcode"} Witness barcode
@@ -30,14 +29,13 @@
    %li
     %input{ :type => "submit", :value => 'Submit' }
  
-- content_for :javascript do
+- content_for :page_javascript do
  :javascript
     $("#user_barcode").change(function() {
       $.post('#{search_users_path}',{ user_barcode: $('#user_barcode')[0].value}, function(data) {
         $("#user_barcode_results").html(data);
       });
     });
-    
 
     $("#instrument_barcode").change(function() {
       $.post('#{search_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
@@ -54,8 +52,11 @@
 
         });
         
+        $.post('#{bed_layout_partial_bed_layouts_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
+          $("#source_plates_results").html(data);
+        });
+        
       });
-      
 
       
     });
@@ -72,6 +73,10 @@
         
       });
       
+      $.post('#{bed_layout_partial_bed_layouts_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
+        $("#source_plates_results").html(data);
+      });
+     
     });
     
 

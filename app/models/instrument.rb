@@ -1,6 +1,7 @@
 class Instrument < ActiveRecord::Base
   has_many :instrument_processes_instruments
   has_many :instrument_processes, :through => :instrument_processes_instruments
+  has_many :beds
   
   validates_uniqueness_of :name, :message => "must be unique"
   validates_uniqueness_of :barcode, :message => "must be unique"

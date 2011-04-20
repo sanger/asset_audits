@@ -8,7 +8,7 @@ Feature: Verify location of plates
       And I have a process "Working dilution" as part of the "Liquid handling" instrument with dilution plate verification
       
   Scenario: Valid plates and bed positions
-    Given search with UUID "00000000-0000-0000-0000-000000000002" returns the following JSON:
+    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "456" returns the following JSON:
       """
       {
           "searches": [{
@@ -29,10 +29,10 @@ Feature: Verify location of plates
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Working dilution" from AJAX dropdown "Instrument process"
-      And I fill in AJAX field "Bed P2" with "2"
-      And I fill in AJAX field "Plate P2" with "123"
-      And I fill in AJAX field "Bed P3" with "3"
-      And I fill in AJAX field "Plate P3" with "456"
+      And I fill in "Bed P2" with "2"
+      And I fill in "Plate P2" with "123"
+      And I fill in "Bed P3" with "3"
+      And I fill in "Plate P3" with "456"
       And I press "Submit"
     Then I should see "Success"
       And I should be on the new audit page
@@ -42,7 +42,7 @@ Feature: Verify location of plates
   Scenario: Valid plates and bed positions where a witness is required
     Given user "jane" with barcode '2470041440697' exists
       And a process "Working dilution" as part of the "Liquid handling" instrument requires a witness
-    Given search with UUID "00000000-0000-0000-0000-000000000002" returns the following JSON:
+    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "456" returns the following JSON:
       """
       {
           "searches": [{
@@ -63,10 +63,10 @@ Feature: Verify location of plates
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Working dilution" from AJAX dropdown "Instrument process"
-      And I fill in AJAX field "Bed P2" with "2"
-      And I fill in AJAX field "Plate P2" with "123"
-      And I fill in AJAX field "Bed P3" with "3"
-      And I fill in AJAX field "Plate P3" with "456"
+      And I fill in "Bed P2" with "2"
+      And I fill in "Plate P2" with "123"
+      And I fill in "Bed P3" with "3"
+      And I fill in "Plate P3" with "456"
       And I fill in "Witness barcode" with "2470041440697"
       And I press "Submit"
     Then I should see "Success"
@@ -75,7 +75,7 @@ Feature: Verify location of plates
     # The delayed job will raise an exception if it fails
     
   Scenario Outline: Barcodes scanned incorrectly
-    Given search with UUID "00000000-0000-0000-0000-000000000002" returns the following JSON:
+    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "456" returns the following JSON:
       """
       {
           "searches": [{
@@ -96,10 +96,10 @@ Feature: Verify location of plates
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Working dilution" from AJAX dropdown "Instrument process"
-      And I fill in AJAX field "Bed P2" with "<source_bed> "
-      And I fill in AJAX field "Plate P2" with "<source_plate>"
-      And I fill in AJAX field "Bed P3" with "<destination_bed>"
-      And I fill in AJAX field "Plate P3" with "<destination_plate>"
+      And I fill in "Bed P2" with "<source_bed> "
+      And I fill in "Plate P2" with "<source_plate>"
+      And I fill in "Bed P3" with "<destination_bed>"
+      And I fill in "Plate P3" with "<destination_plate>"
       And I press "Submit"
     Then I should see "<error_message>"
     Examples:
@@ -118,5 +118,4 @@ Feature: Verify location of plates
       | 2          |              | 3               |                   | No plates scanned           |
       |            | 123          |                 | 456               | Invalid layout              |
       | 2          | 999          | 3               | 888               | Invalid layout              |
-
 

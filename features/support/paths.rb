@@ -16,7 +16,7 @@ module NavigationHelpers
 
     when /the instrument management page/
       admin_instruments_path
-      
+
     when /the process management page/
       admin_processes_path
 

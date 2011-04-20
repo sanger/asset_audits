@@ -31,6 +31,9 @@
  
 - content_for :page_javascript do
  :javascript
+    $('#user_barcode').focus();
+    $('#user_barcode').trigger('change');
+    
     $("#user_barcode").change(function() {
       $.post('#{search_users_path}',{ user_barcode: $('#user_barcode')[0].value}, function(data) {
         $("#user_barcode_results").html(data);

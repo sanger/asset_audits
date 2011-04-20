@@ -202,12 +202,12 @@ Feature: Manage instruments
     Then the instrument process table should be:
       | Process| Key | Bed verification type |
     When I select "Create Assay Plates" from "Process"
-      And I select "Verification::AssayPlateVerification" from "Bed verification type" 
+      And I select "Verification::AssayPlate::Nx" from "Bed verification type" 
       And I press "Add process"
     Then I should see "Process added to instrument"
     Then the instrument process table should be:
-      | Process             | Key          | Bed verification type  |
-      | Create Assay Plates | assay_plates | Verification::AssayPlateVerification |
+      | Process             | Key          | Bed verification type        |
+      | Create Assay Plates | assay_plates | Verification::AssayPlate::Nx |
       
   @verification 
   Scenario: Add a verification type should default to blank

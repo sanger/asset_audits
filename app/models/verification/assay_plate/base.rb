@@ -1,4 +1,7 @@
-class Verification::AssayPlateVerification < Verification::Base
+class Verification::AssayPlate::Base < Verification::Base
+  include Verification::BedVerification
+  validates_with Verification::Validator::AllDestinationPlatesScanned
+  
   def self.partial_name
     "assay_plate"
   end

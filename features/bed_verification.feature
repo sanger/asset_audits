@@ -91,6 +91,14 @@ Feature: Verify location of plates
           }
       }
       """
+    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "123" returns the following JSON:
+      """
+      {
+          "searches": [],
+          "uuids_to_ids": {
+          }
+      }
+      """
   
     Given I am on the new audit page  
     When I fill in "User barcode" with "2470000100730"
@@ -117,5 +125,4 @@ Feature: Verify location of plates
       |            |              |                 | 456               | Invalid layout              |
       | 2          |              | 3               |                   | No plates scanned           |
       |            | 123          |                 | 456               | Invalid layout              |
-      | 2          | 999          | 3               | 888               | Invalid layout              |
 

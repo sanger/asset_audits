@@ -19,7 +19,7 @@ class ProcessPlatesController < ApplicationController
         if bed_layout_verification.validate_and_create_audits?(params)
           flash[:notice] = 'Success'
           format.html { redirect_to(new_process_plate_path) }
-        else 
+        else
           flash[:error] = bed_layout_verification.errors.values.flatten.first
           format.html { redirect_to(new_process_plate_path) }
         end

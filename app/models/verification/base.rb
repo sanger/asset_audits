@@ -3,7 +3,6 @@ class Verification::Base
 
   validates_with Verification::Validator::PlatesScanned
   validates_with Verification::Validator::BedsAndPlatesScanned
-  validates_with Verification::Validator::SourceAndDestinationPlatesScanned
   validates_with Verification::Validator::SourceAndDestinationPlatesLinked
 
   attr_accessor :instrument_barcode

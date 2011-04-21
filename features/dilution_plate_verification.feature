@@ -1,4 +1,4 @@
-@sequencescape_service @user_barcode_service @audit_process @javascript @verification
+@sequencescape_service @user_barcode_service @audit_process @javascript @verification @dilution_plate
 Feature: Verify location of plates
 
   Background:

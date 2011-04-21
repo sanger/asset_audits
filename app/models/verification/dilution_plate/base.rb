@@ -1,5 +1,6 @@
 class Verification::DilutionPlate::Base < Verification::Base
   include Verification::BedVerification
+  validates_with Verification::Validator::SourceAndDestinationPlatesScanned
   
   def self.partial_name
     "dilution_plate"

@@ -318,7 +318,6 @@ Feature: Verify assay plate positions on the robot
       | 6250000001741 | 6250000002755 | 6250000003769 | 6250000004773 | dest1         | dest2         | dest1         | dest4         | QC1_2_3_4_20101110     | Destination plate scanned more than once | 2      | 5      | 8      | 11      | 3      | 6      | 9      | 12      | 384        |
       | 6250000001741 | 6250000002755 | 6250000003769 | 6250000004773 | dest1         | dest2         | dest3         | dest4         | QC1_2_3_4_20101110     | Invalid plate size, it must be 384       | 2      | 5      | 8      | 11      | 3      | 6      | 9      | 12      | 96         |
 
-  @ap13
   Scenario Outline: Beds scanned in wrong order or invalid
     Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest1" returns the following JSON:
       """

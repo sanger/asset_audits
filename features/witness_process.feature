@@ -14,19 +14,18 @@ Feature: Require a witness for a process
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "9999"
+      And I select "Volume check" from AJAX dropdown "Instrument process"
       And I fill in "Source plates" with "1220094216791"
-      And I select "Volume check" from "Instrument process"
       And I press "Submit"
     Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
 
-
   Scenario: A process requires a witness
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
-      And I fill in "Source plates" with "1220094216791"
       And I select "Cherrypick" from AJAX dropdown "Instrument process"
+      And I fill in "Source plates" with "1220094216791"
       And I fill in "Witness barcode" with "2470041440697"
       And I press "Submit"
     Then I should see "Success"
@@ -34,18 +33,13 @@ Feature: Require a witness for a process
     Given all pending delayed jobs are processed
 
 
-  Scenario Outline: Invalid user is scanned as the witness
+  Scenario: Invalid user is scanned as the witness
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
-      And I fill in "Source plates" with "1220094216791"
       And I select "Cherrypick" from AJAX dropdown "Instrument process"
-      And I fill in "Witness barcode" with "<witness>"
+      And I fill in "Source plates" with "1220094216791"
+      And I fill in "Witness barcode" with "123456789"
       And I press "Submit"
     Then I should see "Invalid witness barcode"
       And I should be on the new audit page
-    Examples:
-      | witness       |
-      | 2470000100730 |
-      |               |
-      | abc           |
-      | 123456789     |
+

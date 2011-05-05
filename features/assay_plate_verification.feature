@@ -175,29 +175,28 @@ Feature: Verify assay plate positions on the robot
       And I press "Submit"
     Then I should see "<error_message>"
     Examples:
-      | source_bed | source_plate | destination_1_bed | destination_1_plate | destination_2_bed | destination_2_plate | error_message               |
-      |            | source1      | 5                 | dest1               | 6                 | dest2               | Invalid layout              |
-      | 4          |              | 5                 | dest1               | 6                 | dest2               | No plates scanned           |
-      | 4          | source1      |                   | dest1               | 6                 | dest2               | Invalid layout              |
-      | 4          | source1      | 5                 |                     | 6                 | dest2               | Invalid layout              |
-      | 4          | source1      | 5                 | dest1               |                   | dest2               | Invalid layout              |
-      | 4          | source1      | 5                 | dest1               | 6                 |                     | Invalid layout              |
-      |            |              | 5                 | dest1               | 6                 | dest2               | No plates scanned           |
-      | source1    | 4            | 5                 | dest1               | 6                 | dest2               | Invalid layout              |
-      | 4          | source1      | dest1             | dest1               | 6                 | dest2               | Invalid layout              |
-      | 4          | source1      | 5                 | dest1               | dest2             | 6                   | Invalid layout              |
-      | 5          | source1      | 5                 | dest1               | 6                 | dest2               | Invalid layout              |
-      | 4          | source1      | 4                 | dest1               | 6                 | dest2               | Invalid layout              |
-      | 4          | source1      | 5                 | dest1               | 4                 | dest2               | Invalid layout              |
-      | 4          | dest1        | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout |
-      | 4          | dest2        | 5                 | dest1               | 6                 | source1             | Invalid source plate layout |
-      | xx         | source1      | 5                 | dest1               | 6                 | dest2               | Invalid layout              |
-      | 4          | source1      | xx                | dest1               | 6                 | dest2               | Invalid layout              |
-      | 4          | xxx          | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout |
-      | 4          | source1      | 5                 | xxx                 | 6                 | dest2               | Invalid source plate layout |
-      | 4          | source1      | 5                 | dest1               | 6                 | xxx                 | Invalid source plate layout |
-      | 4          | source1      | 5                 | dest1               | xxx               | dest2               | Invalid layout              |
-      # single assay plate from pico dilution
-      #| 4          | source1      |                   |                     | 6                 | dest2               | Invalid layout |
-      #| 4          | source1      | 5                 | dest1               |                   |                     | Invalid layout |
+      | source_bed | source_plate | destination_1_bed | destination_1_plate | destination_2_bed | destination_2_plate | error_message                          |
+      |            | source1      | 5                 | dest1               | 6                 | dest2               | Invalid layout                         |
+      | 4          |              | 5                 | dest1               | 6                 | dest2               | No plates scanned                      |
+      | 4          | source1      |                   | dest1               | 6                 | dest2               | Invalid layout                         |
+      | 4          | source1      | 5                 |                     | 6                 | dest2               | Invalid layout                         |
+      | 4          | source1      | 5                 | dest1               |                   | dest2               | Invalid layout                         |
+      | 4          | source1      | 5                 | dest1               | 6                 |                     | Invalid layout                         |
+      |            |              | 5                 | dest1               | 6                 | dest2               | No plates scanned                      |
+      | source1    | 4            | 5                 | dest1               | 6                 | dest2               | Invalid layout                         |
+      | 4          | source1      | dest1             | dest1               | 6                 | dest2               | Invalid layout                         |
+      | 5          | source1      | 5                 | dest1               | 6                 | dest2               | Invalid layout                         |
+      | 4          | source1      | 4                 | dest1               | 6                 | dest2               | Invalid layout                         |
+      | 4          | source1      | 5                 | dest1               | 4                 | dest2               | Invalid layout                         |
+      | 4          | dest1        | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout            |
+      | 4          | dest2        | 5                 | dest1               | 6                 | source1             | Invalid source plate layout            |
+      | xx         | source1      | 5                 | dest1               | 6                 | dest2               | Invalid layout                         |
+      | 4          | source1      | xx                | dest1               | 6                 | dest2               | Invalid layout                         |
+      | 4          | xxx          | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout            |
+      | 4          | source1      | 5                 | xxx                 | 6                 | dest2               | Invalid source plate layout            |
+      | 4          | source1      | 5                 | dest1               | 6                 | xxx                 | Invalid source plate layout            |
+      | 4          | source1      | 5                 | dest1               | xxx               | dest2               | Invalid layout                         |
+      | 4          | source1      |                   |                     | 6                 | dest2               | All destination plates must be scanned |
+      | 4          | source1      | 5                 | dest1               |                   |                     | All destination plates must be scanned |
+
 

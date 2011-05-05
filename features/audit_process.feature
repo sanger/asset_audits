@@ -16,18 +16,6 @@ Feature: Add an audit to an asset
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails
-  
-  Scenario: Cant find user barcode
-    Given I have a "Tecan robot" instrument with barcode "abc123"
-      And I have a process "Cherrypick" as part of the "Tecan robot" instrument
-    Given I am on the new audit page
-    When I fill in "User barcode" with "2470000100730"
-      And I fill in AJAX field "Instrument barcode" with "abc123"
-      And I fill in "Source plates" with "1220094216791"
-      And I select "Cherrypick" from "Instrument process"
-      And I press "Submit"
-    Then I should see "Invalid user"
-      And I should be on the new audit page
 
   Scenario: Cant find instrument barcode
     Given user "john" with barcode '2470000100730' exists

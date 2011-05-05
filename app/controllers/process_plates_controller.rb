@@ -15,11 +15,11 @@ class ProcessPlatesController < ApplicationController
         flash[:error] = "Invalid instrument or process"
         format.html { redirect_to(new_process_plate_path) }
       else
-        bed_layout_verification = bed_verification_model.new(:instrument_barcode => params[:instrument_barcode])
-        if bed_layout_verification.validate_and_create_audits?(api, params)
+        bed_layout_verification = bed_verification_model.new(:instrument_barcode => params[:instrument_barcode], :scanned_values => params[:robot], :api => api)
+        if bed_layout_verification.validate_and_create_audits?(params)
           flash[:notice] = 'Success'
           format.html { redirect_to(new_process_plate_path) }
-        else 
+        else
           flash[:error] = bed_layout_verification.errors.values.flatten.first
           format.html { redirect_to(new_process_plate_path) }
         end

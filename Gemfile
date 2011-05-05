@@ -15,10 +15,10 @@ gem 'delayed_job'
 gem "jquery-rails"
 
 gem 'sqlite3-ruby', '~> 1.2.0', :require => 'sqlite3', :groups => [:development, :test, :cucumber]
+gem 'ruby-debug19', :require => 'ruby-debug', :groups => [:development, :test, :cucumber]
 
 group :development do
    gem "sinatra"
-   gem 'ruby-debug19'
 end
 
 group :test do
@@ -26,7 +26,7 @@ group :test do
   gem "capybara"
   gem "cucumber-rails"
   gem "database_cleaner"
-  gem "factory_girl"
+  gem "factory_girl_rails"
   gem "launchy"
   gem "mocha"
   gem "shoulda"

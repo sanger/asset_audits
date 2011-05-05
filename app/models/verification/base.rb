@@ -1,42 +1,54 @@
 class Verification::Base
   include ActiveModel::Validations
-  
+
+  validates_with Verification::Validator::PlatesScanned
+  validates_with Verification::Validator::BedsAndPlatesScanned
+  validates_with Verification::Validator::SourceAndDestinationPlatesLinked
+
   attr_accessor :instrument_barcode
+  attr_accessor :scanned_values
+  attr_accessor :api
+
   class_inheritable_accessor :source_beds
   class_inheritable_accessor :destination_beds
-  
-  def instrument
 
+  def scanned_values
+    @attributes[:scanned_values]
+  end
+
+  def api
+    @attributes[:api]
+  end
+
+  def instrument
     Instrument.find_by_barcode(@attributes[:instrument_barcode])
   end
-  
+
   def initialize(attributes = {})
     @attributes = attributes
   end
- 
+
   def read_attribute_for_validation(key)
     @attributes[key]
   end
-  
+
   def validate(record)
     record.errors.add_on_blank(attributes, options[:message])
   end
-  
-  
-  
+
   def self.all_types_for_select
-    ["Verification::Base","Verification::DilutionPlateVerification","Verification::AssayPlateVerification"]
+    ["Verification::Base", "Verification::DilutionPlate::Nx", "Verification::DilutionPlate::Fx", "Verification::AssayPlate::Nx", "Verification::AssayPlate::Fx"]
   end
-  
+
   def self.partial_name
     "default"
   end
-  
-  def validate_and_create_audits?(api, params)
+
+  def validate_and_create_audits?(params)
     process_plate = ProcessPlate.new({
       :api => api,
-      :user_barcode => params[:user_barcode], 
-      :instrument_barcode => params[:instrument_barcode], 
+      :user_barcode => params[:user_barcode],
+      :instrument_barcode => params[:instrument_barcode],
       :source_plates => params[:source_plates],
       :instrument_process_id => params[:instrument_process],
       :witness_barcode => params[:witness_barcode]
@@ -49,15 +61,15 @@ class Verification::Base
       save_errors_to_base(process_plate.errors)
       return false
     end
-    
+
     true
   end
-  
+
   def save_errors_to_base(object_errors)
     object_errors.each do |key, message|
       self.errors.add(key, message)
     end
   end
 
-
 end
+

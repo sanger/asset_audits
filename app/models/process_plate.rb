@@ -47,7 +47,7 @@ class ProcessPlate < ActiveRecord::Base
   end
   
   def create_audits
-    self.api = Sequencescape::Api.new({ :cookie => Settings.sequencescape_key, :url => Settings.sequencescape_url }) if self.api.nil?
+    self.api ||= Sequencescape::Api.new(:url => Settings.sequencescape_url, :authorisation => Settings.sequencescape_authorisation)
       
     asset_uuids_from_plate_barcodes.each do |asset_uuid|
       create_remote_audit(asset_uuid)

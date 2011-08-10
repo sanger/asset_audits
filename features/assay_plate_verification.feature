@@ -13,11 +13,15 @@ Feature: Verify assay plate positions on the robot
       {
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
-              "ean13_barcode": "source1"
+              "barcode": {
+                "ean13": "source1"
+              }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
-              "ean13_barcode": "another_source"
+              "barcode": {
+                "ean13": "another_source"
+              }
           }],
           "uuids_to_ids": {
               "00000000-1111-2222-3333-444444444444": 1
@@ -29,11 +33,15 @@ Feature: Verify assay plate positions on the robot
       {
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
-              "ean13_barcode": "source1"
+              "barcode": {
+                "ean13": "source1"
+              }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444446",
-              "ean13_barcode": "another_source2"
+              "barcode": {
+                "ean13": "another_source2"
+              }
           }],
           "uuids_to_ids": {
               "00000000-1111-2222-3333-444444444444": 1
@@ -70,11 +78,15 @@ Feature: Verify assay plate positions on the robot
       {
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
-              "ean13_barcode": "source1"
+              "barcode": {
+                "ean13": "source1"
+              }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
-              "ean13_barcode": "another_source"
+              "barcode": {
+                "ean13": "another_source"
+              }
           }],
           "uuids_to_ids": {
               "00000000-1111-2222-3333-444444444444": 1
@@ -86,11 +98,15 @@ Feature: Verify assay plate positions on the robot
       {
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
-              "ean13_barcode": "source1"
+              "barcode": {
+                "ean13": "source1"
+              }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444446",
-              "ean13_barcode": "another_source2"
+              "barcode": {
+                "ean13": "another_source2"
+              }
           }],
           "uuids_to_ids": {
               "00000000-1111-2222-3333-444444444444": 1
@@ -126,11 +142,15 @@ Feature: Verify assay plate positions on the robot
       {
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
-              "ean13_barcode": "source1"
+              "barcode": {
+                "ean13": "source1"
+              }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
-              "ean13_barcode": "another_source"
+              "barcode": {
+                "ean13": "another_source"
+              }
           }],
           "uuids_to_ids": {
               "00000000-1111-2222-3333-444444444444": 1
@@ -142,11 +162,15 @@ Feature: Verify assay plate positions on the robot
       {
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
-              "ean13_barcode": "source1"
+              "barcode": {
+                "ean13": "source1"
+              }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444446",
-              "ean13_barcode": "another_source2"
+              "barcode": {
+                "ean13": "another_source2"
+              }
           }],
           "uuids_to_ids": {
               "00000000-1111-2222-3333-444444444444": 1

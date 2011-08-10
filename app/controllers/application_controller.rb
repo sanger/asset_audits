@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   ::Sequencescape::Api::ConnectionFactory.default_url = Settings.sequencescape_url
   
   def api_connection_options
-    { :cookie => Settings.sequencescape_key, :url => Settings.sequencescape_url }
+    { :url => Settings.sequencescape_url, :authorisation => Settings.sequencescape_authorisation }
   end
   
   def sequencescape_api_error_handler(exception)

@@ -19,6 +19,6 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
   end
 
   def source_barcodes_from_search_results(search_results)
-    search_results.flatten.map(&:ean13_barcode)
+    search_results.flatten.map(&:barcode).map(&:ean13)
   end
 end

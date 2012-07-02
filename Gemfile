@@ -15,10 +15,10 @@ gem 'delayed_job'
 gem "jquery-rails"
 
 gem 'sqlite3-ruby', '~> 1.2.0', :require => 'sqlite3', :groups => [:development, :test, :cucumber]
-gem 'ruby-debug19', :require => 'ruby-debug', :groups => [:development, :test, :cucumber]
 
 group :development do
-   gem "sinatra"
+  gem "sinatra"
+  gem 'ruby-debug19', :require => 'ruby-debug', :groups => [:development, :test, :cucumber]
 end
 
 group :test do
@@ -34,4 +34,5 @@ end
 
 group :deployment do
   gem 'thin'
+  gem "psd_logger", :git => "git+ssh://git@github.com/sanger/psd_logger.git"
 end

@@ -1,4 +1,10 @@
 GIT
+  remote: git+ssh://git@github.com/sanger/psd_logger.git
+  revision: e16d106be39ea096f95787a927b8ce24ec522bde
+  specs:
+    psd_logger (0.1.5)
+
+GIT
   remote: git+ssh://git@github.com/sanger/sequencescape-client-api.git
   revision: 1102684e7bc08a42034c8f3427940192b2cf66a2
   specs:
@@ -187,6 +193,7 @@ DEPENDENCIES
   mocha
   mysql
   nokogiri
+  psd_logger!
   rails (= 3.0.7)
   ruby-debug19
   sequencescape-client-api!

@@ -16,10 +16,10 @@ gem "jquery-rails"
 gem 'exception_notification'
 
 gem 'sqlite3-ruby', '~> 1.2.0', :require => 'sqlite3', :groups => [:development, :test, :cucumber]
+gem "debugger", :require => "debugger", :groups => [:development, :test, :cucumber]
 
 group :development do
   gem "sinatra"
-  gem 'ruby-debug19', :require => 'ruby-debug', :groups => [:development, :test, :cucumber]
 end
 
 group :test do

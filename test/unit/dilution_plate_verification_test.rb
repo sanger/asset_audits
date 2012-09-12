@@ -23,9 +23,9 @@ class TestSequencescapeApi
 end
 
 class TestSearchResult
-  attr_accessor :ean13_barcode
+  attr_accessor :barcode
   def initialize(ean13_barcode)
-    @ean13_barcode = ean13_barcode
+    @barcode = OpenStruct.new(:ean13 => ean13_barcode)
   end
 end
 

@@ -8,6 +8,10 @@ Given /^the search with UUID "([^"]*)" for barcode "([^"]*)" returns the followi
   FakeSequencescapeService.instance.search_result(search_uuid, barcode, returned_json)
 end
 
+Given /^the search with UUID "([^"]*)" for barcodes "([^"]*)" returns the following JSON:$/ do |search_uuid, barcode, returned_json|
+  FakeSequencescapeService.instance.search_result(search_uuid, barcode.split(',').map(&:strip).reject(&:blank?), returned_json)
+end
+
 Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with dilution plate verification$/ do |process_name, instrument_name|
   Given %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::DilutionPlate::Nx"}
 end

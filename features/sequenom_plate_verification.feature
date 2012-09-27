@@ -133,34 +133,7 @@ Feature: Verify assay plate positions on the robot
       """
 
   Scenario Outline: Valid setup for creating a sequenom plate with varying numbers of plates
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest1" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "name": "<destination_plate_name>",
-              "size": 384
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest2" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "name": "<destination_plate_name>",
-              "size": 384
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest3" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "name": "<destination_plate_name>",
-              "size": 384
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest4" returns the following JSON:
+    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcodes "<destination_1>, <destination_2>, <destination_3>, <destination_4>" returns the following JSON:
       """
       {
           "searches": [{
@@ -212,37 +185,19 @@ Feature: Verify assay plate positions on the robot
 
 
   Scenario: Requires a witness
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest1" returns the following JSON:
+    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcodes "dest1, dest2, dest3, dest4" returns the following JSON:
       """
       {
           "searches": [{
               "name": "QC1_2_3_4_20101110",
               "size": 384
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest2" returns the following JSON:
-      """
-      {
-          "searches": [{
+          }, {
               "name": "QC1_2_3_4_20101110",
               "size": 384
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest3" returns the following JSON:
-      """
-      {
-          "searches": [{
+          }, {
               "name": "QC1_2_3_4_20101110",
               "size": 384
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest4" returns the following JSON:
-      """
-      {
-          "searches": [{
+          }, {
               "name": "QC1_2_3_4_20101110",
               "size": 384
           }]
@@ -278,34 +233,7 @@ Feature: Verify assay plate positions on the robot
     # The delayed job will raise an exception if it fails
 
   Scenario Outline: Plates scanned in wrong order
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest1" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "name": "<destination_plate_name>",
-              "size": <plate_size>
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest2" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "name": "<destination_plate_name>",
-              "size": <plate_size>
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest3" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "name": "<destination_plate_name>",
-              "size": <plate_size>
-          }]
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest4" returns the following JSON:
+    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcodes "<destination_1>, <destination_2>, <destination_3>, <destination_4>" returns the following JSON:
       """
       {
           "searches": [{
@@ -336,6 +264,7 @@ Feature: Verify assay plate positions on the robot
       And I fill in "Plate P12" with "<destination_4>"
       And I press "Submit"
     Then I should see "<error_message>"
+
     Examples:
       | source_1      | source_2      | source_3      | source_4      | destination_1 | destination_2 | destination_3 | destination_4 | destination_plate_name | error_message                            | bed_p2 | bed_p5 | bed_p8 | bed_p11 | bed_p3 | bed_p6 | bed_p9 | bed_p12 | plate_size |
       | 6250000004773 |               |               |               | dest1         |               |               |               | QC1____20101110        | Invalid source plate order               | 2      |        |        |         | 3      |        |        |         | 384        |
@@ -348,7 +277,7 @@ Feature: Verify assay plate positions on the robot
       |               | 6250000002755 | 6250000003769 | 6250000004773 | dest1         |               |               |               | QC1_2_3_4_20101110     | Invalid source plate order               |        | 5      | 8      | 11      | 3      |        |        |         | 384        |
       | 6250000001741 | 6250000002755 | 6250000003769 |               | dest1         | dest2         | dest3         | dest4         | QC1_2_3_4_20101110     | Invalid source plate order               | 2      | 5      | 8      |         | 3      | 6      | 9      | 12      | 384        |
       | 6250000001741 | 6250000002755 | 6250000003769 | 6250000004773 | dest1         | dest2         | dest1         | dest4         | QC1_2_3_4_20101110     | Destination plate scanned more than once | 2      | 5      | 8      | 11      | 3      | 6      | 9      | 12      | 384        |
-      | 6250000001741 | 6250000002755 | 6250000003769 | 6250000004773 | dest1         | dest2         | dest3         | dest4         | QC1_2_3_4_20101110     | Invalid plate size, it must be 384       | 2      | 5      | 8      | 11      | 3      | 6      | 9      | 12      | 96         |
+      | 6250000001741 | 6250000002755 | 6250000003769 | 6250000004773 | dest1         | dest2         | dest3         | dest4         | QC1_2_3_4_20101110     | Invalid plate size (96), it must be 384  | 2      | 5      | 8      | 11      | 3      | 6      | 9      | 12      | 96         |
 
   Scenario Outline: Beds scanned in wrong order or invalid
     Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcode "dest1" returns the following JSON:

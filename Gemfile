@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.19'
 gem 'rake', '0.8.7'
 
 gem 'nokogiri'

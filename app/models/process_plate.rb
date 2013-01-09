@@ -41,9 +41,7 @@ class ProcessPlate < ActiveRecord::Base
   
   def asset_search_results_from_plate_barcodes
     return self.asset_search_results unless self.asset_search_results.blank?
-    self.asset_search_results = barcodes.map do |barcode| 
-      search_resource.all(api.plate, :barcode => barcode)
-    end
+    self.asset_search_results = search_resource.all(api.plate, :barcode => barcodes)
   end
   
   def create_audits

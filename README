@@ -2,6 +2,6 @@
 
 This is a prototype application which allows you to add audits to assets. 
 Its intended to be used in the Lab to track who did what, when they did it, what they did it to and what lab instrument they used.
-It requires Sequencescape, the user barcode application and warehouse two (dependancy will be removed later).
+It requires Sequencescape, and the user barcode application.
 
 

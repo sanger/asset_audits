@@ -6,7 +6,16 @@ class ProcessPlatesController < ApplicationController
   def index
   end
 
+  def get_predefined_instrument_barcodes
+    Settings.instrument_processes_without_barcode.reduce({}) do |memo, key_instrument_process|
+      instrument_process = InstrumentProcess.find_by_key(key_instrument_process)
+      memo[instrument_process.id] = instrument_process.instruments.first.barcode
+      memo
+    end
+  end
+
   def new
+    @predefined_instrument_barcodes = get_predefined_instrument_barcodes
     @process_plate = ProcessPlate.new
   end
 
@@ -24,7 +33,6 @@ class ProcessPlatesController < ApplicationController
       bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode],params[:instrument_process])
       if bed_verification_model.nil?
         flash[:error] = "Invalid instrument or process"
-        format.html { redirect_to(new_process_plate_path) }
       else
         bed_layout_verification = bed_verification_model.new(
           :instrument_barcode => params[:instrument_barcode],
@@ -39,8 +47,8 @@ class ProcessPlatesController < ApplicationController
           bed_layout_verification.add_message(:error, bed_layout_verification.errors.values.flatten.first)
         end
         show_messages(@messages)
-        format.html { redirect_to(new_process_plate_path) }
       end
+      format.html { redirect_to(new_process_plate_path) }
     end
   end
 

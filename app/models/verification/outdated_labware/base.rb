@@ -25,8 +25,19 @@ class Verification::OutdatedLabware::Base < Verification::WithoutBedValidations
     end.flatten
   end
 
+  def get_search_instance
+    if @all_searches.nil?
+      @all_searches = api.search.all
+      @search_instance = @all_searches.detect {|search| search.name.match(/Find assets by barcode/)}
+    else
+      # We create a new search instance of our searching facet in every request
+      @search_instance = api.search.find(@search_instance.uuid)
+    end
+    @search_instance
+  end
+
   def plates_from_barcodes(barcodes)
-    api.search.find("cf6d9e00-9a7b-11e4-b163-44fb42fffe72").all(api.plate,
+    get_search_instance.all(api.plate,
       :barcode => barcodes).reduce({}) do |memo, plate|
       memo[plate.barcode.ean13] = plate
       memo

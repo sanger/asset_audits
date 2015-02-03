@@ -3,3 +3,5 @@ sequencescape_url: http://localhost:3000/api/1/
 sequencescape_authorisation: development
 search_find_assets_by_barcode: 00000000-0000-0000-0000-000000000001
 search_find_source_assets_by_destination_barcode: 00000000-0000-0000-0000-000000000002
+
+instrument_processes_without_barcode: ['destroy_labware']

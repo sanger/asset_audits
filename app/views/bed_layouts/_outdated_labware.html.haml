@@ -1,11 +1,6 @@
 %label{ :for => "robot" } Source plates
 = text_area_tag "robot", '', :rows => 5,:cols => 17
 
-- unless @messages.nil?
- - @messages.keys.each do |facility|
-  - @messages[facility].each do |msg|
-   ="#{msg}"
-
 :javascript
  $('#source_plates').focus();
  $('#source_plates').trigger('change');

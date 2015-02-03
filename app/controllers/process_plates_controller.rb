@@ -7,7 +7,7 @@ class ProcessPlatesController < ApplicationController
   end
 
   def get_predefined_instrument_barcodes
-    Settings.instrument_processes_without_barcode.reduce({}) do |memo, key_instrument_process|
+    Settings.instrument_processes_keys_without_barcode.reduce({}) do |memo, key_instrument_process|
       instrument_process = InstrumentProcess.find_by_key(key_instrument_process)
       memo[instrument_process.id] = instrument_process.instruments.first.barcode
       memo

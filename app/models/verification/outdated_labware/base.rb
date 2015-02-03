@@ -26,14 +26,7 @@ class Verification::OutdatedLabware::Base < Verification::WithoutBedValidations
   end
 
   def get_search_instance
-    if @all_searches.nil?
-      @all_searches = api.search.all
-      @search_instance = @all_searches.detect {|search| search.name.match(/Find assets by barcode/)}
-    else
-      # We create a new search instance of our searching facet in every request
-      @search_instance = api.search.find(@search_instance.uuid)
-    end
-    @search_instance
+    api.search.find(Settings.search_find_assets_by_barcode)
   end
 
   def plates_from_barcodes(barcodes)

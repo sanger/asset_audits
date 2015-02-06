@@ -31,7 +31,7 @@
 
 - content_for :page_javascript do
  :javascript
-    var PREDEFINED_INSTRUMENT_BARCODES = #{@predefined_instrument_barcodes.to_json}
+    var PREDEFINED_INSTRUMENT_BARCODES = #{get_predefined_instrument_barcodes.to_json}
 
 
     $('#user_barcode').focus();
@@ -43,7 +43,17 @@
       });
     });
 
+    function getPredefinedInstrumentBarcodeFromInput() {
+      return PREDEFINED_INSTRUMENT_BARCODES[$('#instrument_process')[0].value];
+    }
+
+    function checkDisplayInstrumentBarcode() {
+      var nodeToDisplay = $("#instrument_barcode").parent();
+      nodeToDisplay[(typeof getPredefinedInstrumentBarcodeFromInput() === 'undefined') ? 'show' : 'hide']();
+    }
+
     $("#instrument_barcode").change(function() {
+
       $.post('#{search_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
         $("#instrument_barcode_results").html(data);
       });
@@ -61,7 +71,6 @@
         $.post('#{bed_layout_partial_bed_layouts_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
           $("#source_plates_results").html(data);
         });
-
       });
 
 
@@ -72,15 +81,21 @@
     * user to supply an instrument barcode
     **/
     function getInstrumentBarcode() {
-      var predefInstrumentBarcode = PREDEFINED_INSTRUMENT_BARCODES[$('#instrument_process')[0].value];
+      var predefInstrumentBarcode = getPredefinedInstrumentBarcodeFromInput();
       return (typeof predefInstrumentBarcode !== "undefined") ? predefInstrumentBarcode : $('#instrument_barcode')[0].value;
     }
 
     $("form").bind("submit", function(e) {
+      var instrumentBarcodeInputJQ = $("#instrument_barcode");
+      instrumentBarcodeInputJQ.attr("id", "instrument_barcode-visible");
+      instrumentBarcodeInputJQ.attr("name", "instrument_barcode-visible");
+      var hiddenInput = "<input type='hidden' name='instrument_barcode' id='instrument_barcode' value='"+getInstrumentBarcode()+"'></input>";
+      $("form").append(hiddenInput);
       $("#instrument_barcode")[0].value=getInstrumentBarcode();
     });
 
     function predefinedInstrumentsHandler() {
+      checkDisplayInstrumentBarcode();
       $.post('#{bed_layout_partial_bed_layouts_path}',{
       instrument_barcode: getInstrumentBarcode(),
       instrument_process_id: $('#instrument_process')[0].value
@@ -95,7 +110,12 @@
       return predefinedInstrumentsHandler.apply(this, arguments);
     }
 
-    $("#instrument_process").click(onFirstClickPredefinedInstrumentsHandler);
+    if ($("#instrument_process option").length===1) {
+      $("#instrument_process").click(onFirstClickPredefinedInstrumentsHandler);
+    } else {
+      $("#instrument_process").change(predefinedInstrumentsHandler);
+    }
+
 
     $("#instrument_process").change(function() {
       $.post('#{witness_instruments_path}',{

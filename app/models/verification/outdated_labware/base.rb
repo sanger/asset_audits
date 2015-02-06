@@ -1,19 +1,9 @@
-class Verification::OutdatedLabware::Base < Verification::WithoutBedValidations
-  include Verification::BedVerification
+class Verification::OutdatedLabware::Base < Verification::Base
   validates_with Verification::Validator::OutdatedPlatesScanned
 
   attr_accessor :plate_barcodes_to_destroy
 
   attr_accessor :messages
-
-  def add_message(facility, message)
-    @messages = {} if @messages.nil?
-    if @messages[facility].nil?
-      @messages[facility]=[message]
-    else
-      @messages[facility].push(message)
-    end
-  end
 
   def self.partial_name
     "outdated_labware"
@@ -30,14 +20,20 @@ class Verification::OutdatedLabware::Base < Verification::WithoutBedValidations
   end
 
   def plates_from_barcodes(barcodes)
-    get_search_instance.all(api.plate,
+    obj = get_search_instance.all(api.plate,
       :barcode => barcodes).reduce({}) do |memo, plate|
       memo[plate.barcode.ean13] = plate
       memo
     end
+    barcodes.each do |barcode|
+      obj[barcode] = nil if obj[barcode].nil?
+    end
+    obj
   end
 
-  def parse_source_and_destination_barcodes(barcodes)
-    plate_barcodes_to_destroy
+  def validate_and_create_audits?(params)
+    return false unless valid?
+    params[:source_plates] = scanned_values.flatten.join(" ")
+    return super(params)
   end
 end

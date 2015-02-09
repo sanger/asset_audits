@@ -1,6 +1,6 @@
 module Verification::BedVerification
 
-  def included(base)
+  def self.included(base)
     base.class_eval do
       validates_with Verification::Validator::PlatesScanned
       validates_with Verification::Validator::BedsAndPlatesScanned

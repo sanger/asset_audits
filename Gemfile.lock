@@ -1,11 +1,5 @@
 GIT
-  remote: git+ssh://git@github.com/sanger/psd_logger.git
-  revision: dd2d634114df75b1d8535715c169a7fc99521389
-  specs:
-    psd_logger (0.1.6)
-
-GIT
-  remote: git://github.com/emrojo/sequencescape-client-api.git
+  remote: git+ssh://git@github.com/emrojo/sequencescape-client-api.git
   revision: d3afc651a584b9f718e75ebcdc28769895458cbf
   branch: add-lifespan-to-plate-purpose
   specs:
@@ -14,6 +8,12 @@ GIT
       activesupport (~> 3.0.0)
       i18n
       yajl-ruby (~> 1.1.0)
+
+GIT
+  remote: git+ssh://git@github.com/sanger/psd_logger.git
+  revision: dd2d634114df75b1d8535715c169a7fc99521389
+  specs:
+    psd_logger (0.1.6)
 
 GEM
   remote: http://rubygems.org/

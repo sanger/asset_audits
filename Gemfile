@@ -12,7 +12,7 @@ gem "compass"
 gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api',
-  :github => 'emrojo/sequencescape-client-api',
+  :git => 'git+ssh://git@github.com/emrojo/sequencescape-client-api.git',
   :branch => 'add-lifespan-to-plate-purpose',
   :require => 'sequencescape'
 gem 'delayed_job'

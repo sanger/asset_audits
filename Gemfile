@@ -11,7 +11,10 @@ gem "uuidtools"
 gem "compass"
 gem 'curb'
 gem 'haml'
-gem 'sequencescape-client-api', :git => 'git+ssh://git@github.com/sanger/sequencescape-client-api.git', :branch => 'master', :require => 'sequencescape'
+gem 'sequencescape-client-api',
+  :github => 'emrojo/sequencescape-client-api',
+  :branch => 'add-lifespan-to-plate-purpose',
+  :require => 'sequencescape'
 gem 'delayed_job'
 gem "jquery-rails"
 

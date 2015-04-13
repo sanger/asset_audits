@@ -5,11 +5,11 @@ GIT
     psd_logger (0.1.6)
 
 GIT
-  remote: git+ssh://git@github.com/sanger/sequencescape-client-api.git
-  revision: 751a068e777b1ffddae870ad837a4b192565939b
-  branch: master
+  remote: git://github.com/emrojo/sequencescape-client-api.git
+  revision: d3afc651a584b9f718e75ebcdc28769895458cbf
+  branch: add-lifespan-to-plate-purpose
   specs:
-    sequencescape-client-api (0.0.1)
+    sequencescape-client-api (0.2.3)
       activemodel (~> 3.0.0)
       activesupport (~> 3.0.0)
       i18n

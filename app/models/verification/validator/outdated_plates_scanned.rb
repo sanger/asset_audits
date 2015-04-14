@@ -11,7 +11,7 @@ class Verification::Validator::OutdatedPlatesScanned < ActiveModel::Validator
         record.errors.add(:error, "The plate #{barcode} can't be destroyed because its a #{plate.plate_purpose.name}")
         next
       end
-      if (plate.created_at < plate.plate_purpose.lifespan.days.ago )
+      if (plate.created_at > plate.plate_purpose.lifespan.days.ago )
         record.errors.add(:error, "The plate #{barcode} is less than #{plate.plate_purpose.lifespan} days old")
         next
       end

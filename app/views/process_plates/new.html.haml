@@ -6,82 +6,131 @@
     %label{ :for => "user_barcode" } User barcode
     = text_field_tag "user_barcode"
     .live_results#user_barcode_results
-    
+
    %li
     %label{ :for => "instrument_barcode" } Instrument barcode
     = text_field_tag "instrument_barcode"
     .live_results#instrument_barcode_results
-    
+
 
    %li
     %label{ :for => "instrument_process" } Instrument process
     %select#instrument_process{ :name => "instrument_process"}
      - for process_name, process_id in InstrumentProcess.sorted_by_name.map { |x| [x.name, x.id]}
       %option{ :value => process_id } #{process_name}
-      
+
    %li
     #source_plates_results
-      
+
    %li.hidden#witness_barcode_input
     %label{ :for => "witness_barcode"} Witness barcode
     = text_field_tag "witness_barcode"
-     
+
    %li
     %input{ :type => "submit", :value => 'Submit' }
- 
+
 - content_for :page_javascript do
  :javascript
+    var PREDEFINED_INSTRUMENT_BARCODES = #{get_predefined_instrument_barcodes.to_json}
+
+
     $('#user_barcode').focus();
     $('#user_barcode').trigger('change');
-    
+
     $("#user_barcode").change(function() {
       $.post('#{search_users_path}',{ user_barcode: $('#user_barcode')[0].value}, function(data) {
         $("#user_barcode_results").html(data);
       });
     });
 
+    function getPredefinedInstrumentBarcodeFromInput() {
+      return PREDEFINED_INSTRUMENT_BARCODES[$('#instrument_process')[0].value];
+    }
+
+    function checkDisplayInstrumentBarcode() {
+      var nodeToDisplay = $("#instrument_barcode").parent();
+      nodeToDisplay[(typeof getPredefinedInstrumentBarcodeFromInput() === 'undefined') ? 'show' : 'hide']();
+    }
+
     $("#instrument_barcode").change(function() {
+
       $.post('#{search_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
         $("#instrument_barcode_results").html(data);
       });
-      
+
       $.post('#{processes_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
         $("#instrument_process").html(data);
-        
+
         $.post('#{witness_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
-          if (data.match(/witness_required/)) { 
-            $("#witness_barcode_input").removeClass('hidden'); 
+          if (data.match(/witness_required/)) {
+            $("#witness_barcode_input").removeClass('hidden');
           }
 
         });
-        
+
         $.post('#{bed_layout_partial_bed_layouts_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
           $("#source_plates_results").html(data);
         });
-        
       });
 
-      
+
     });
-    
+
+    /**
+    * Handle changes on behaviour while changing the instrument process (e.g. Destroy labware doesn't require the
+    * user to supply an instrument barcode
+    **/
+    function getInstrumentBarcode() {
+      var predefInstrumentBarcode = getPredefinedInstrumentBarcodeFromInput();
+      return (typeof predefInstrumentBarcode !== "undefined") ? predefInstrumentBarcode : $('#instrument_barcode')[0].value;
+    }
+
+    $("form").bind("submit", function(e) {
+      var instrumentBarcodeInputJQ = $("#instrument_barcode");
+      instrumentBarcodeInputJQ.attr("id", "instrument_barcode-visible");
+      instrumentBarcodeInputJQ.attr("name", "instrument_barcode-visible");
+      var hiddenInput = "<input type='hidden' name='instrument_barcode' id='instrument_barcode' value='"+getInstrumentBarcode()+"'></input>";
+      $("form").append(hiddenInput);
+      $("#instrument_barcode")[0].value=getInstrumentBarcode();
+    });
+
+    function predefinedInstrumentsHandler() {
+      checkDisplayInstrumentBarcode();
+      $.post('#{bed_layout_partial_bed_layouts_path}',{
+      instrument_barcode: getInstrumentBarcode(),
+      instrument_process_id: $('#instrument_process')[0].value
+      }, function(data) {
+        $("#source_plates_results").html(data);
+      });
+    }
+
+    function onFirstClickPredefinedInstrumentsHandler() {
+      $("#instrument_process").unbind("click", onFirstClickPredefinedInstrumentsHandler);
+      $("#instrument_process").change(predefinedInstrumentsHandler);
+      return predefinedInstrumentsHandler.apply(this, arguments);
+    }
+
+    if ($("#instrument_process option").length===1) {
+      $("#instrument_process").click(onFirstClickPredefinedInstrumentsHandler);
+    } else {
+      $("#instrument_process").change(predefinedInstrumentsHandler);
+    }
+
+
     $("#instrument_process").change(function() {
-      $.post('#{witness_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
-        if (data.match(/witness_required/)) { 
-          $("#witness_barcode_input").removeClass('hidden'); 
+      $.post('#{witness_instruments_path}',{
+      instrument_barcode: getInstrumentBarcode(),
+      instrument_process_id: $('#instrument_process')[0].value }, function(data) {
+        if (data.match(/witness_required/)) {
+          $("#witness_barcode_input").removeClass('hidden');
         }
         else
         {
-          $("#witness_barcode_input").removeClass('hidden').addClass('hidden'); 
+          $("#witness_barcode_input").removeClass('hidden').addClass('hidden');
         }
-        
       });
-      
-      $.post('#{bed_layout_partial_bed_layouts_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
-        $("#source_plates_results").html(data);
-      });
-     
     });
-    
+
 
     $('#user_barcode').keydown(function (e) {
       var keyCode = e.keyCode || e.which;

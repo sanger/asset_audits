@@ -1,16 +1,13 @@
 class Verification::Base
   include ActiveModel::Validations
 
-  validates_with Verification::Validator::PlatesScanned
-  validates_with Verification::Validator::BedsAndPlatesScanned
-  validates_with Verification::Validator::SourceAndDestinationPlatesLinked
-
   attr_accessor :instrument_barcode
   attr_accessor :scanned_values
   attr_accessor :api
 
   class_inheritable_accessor :source_beds
   class_inheritable_accessor :destination_beds
+
 
   def scanned_values
     @attributes[:scanned_values]
@@ -53,7 +50,6 @@ class Verification::Base
       :instrument_process_id => params[:instrument_process],
       :witness_barcode => params[:witness_barcode]
       })
-
     if process_plate.save
       process_plate.create_audits
     else

@@ -24,6 +24,10 @@ Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with sequ
   step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::SequenomPlate::Nx"}
 end
 
+Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with destroy plates verification$/ do |process_name, instrument_name|
+  step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::OutdatedLabware::Base"}
+end
+
 Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with bed verification type "([^"]*)"$/ do |process_name, instrument_name, bed_verification_type|
   step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument}
   instrument = Instrument.find_by_name(instrument_name)

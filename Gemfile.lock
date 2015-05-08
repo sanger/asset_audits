@@ -165,6 +165,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.14.6)
     tilt (1.2.2)
+    timecop (0.7.3)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -201,4 +202,5 @@ DEPENDENCIES
   shoulda
   sinatra
   thin
+  timecop
   uuidtools

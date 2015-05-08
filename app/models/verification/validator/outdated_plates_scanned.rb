@@ -1,8 +1,7 @@
 class Verification::Validator::OutdatedPlatesScanned < ActiveModel::Validator
   def validate(record)
     plates = record.plates_from_barcodes(record.scanned_values)
-    plates.keys.each do |barcode|
-      plate = plates[barcode]
+    plates.each do |barcode,plate|
       if (plate.nil?)
         record.errors.add(:error, "The plate #{barcode} hasn't been found")
         next

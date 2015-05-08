@@ -86,12 +86,7 @@
     }
 
     $("form").bind("submit", function(e) {
-      var instrumentBarcodeInputJQ = $("#instrument_barcode");
-      instrumentBarcodeInputJQ.attr("id", "instrument_barcode-visible");
-      instrumentBarcodeInputJQ.attr("name", "instrument_barcode-visible");
-      var hiddenInput = "<input type='hidden' name='instrument_barcode' id='instrument_barcode' value='"+getInstrumentBarcode()+"'></input>";
-      $("form").append(hiddenInput);
-      $("#instrument_barcode")[0].value=getInstrumentBarcode();
+
     });
 
     function predefinedInstrumentsHandler() {

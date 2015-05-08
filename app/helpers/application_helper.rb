@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def get_predefined_instrument_barcodes
-    [InstrumentProcess.find_by_request_instrument(false)].flatten.reduce({}) do |memo, instrument_process|
+    InstrumentProcess.find_all_by_request_instrument(false).flatten.reduce({}) do |memo, instrument_process|
       memo[instrument_process.id] = instrument_process.instruments.first.barcode
       memo
     end

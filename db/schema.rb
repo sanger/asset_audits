@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420093611) do
+ActiveRecord::Schema.define(:version => 20150202171723) do
 
   create_table "beds", :force => true do |t|
     t.string   "name"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20110420093611) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "key"
+    t.boolean  "request_instrument", :default => true
   end
 
   add_index "instrument_processes", ["key"], :name => "index_instrument_processes_on_key"

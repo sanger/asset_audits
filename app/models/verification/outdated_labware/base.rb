@@ -15,20 +15,17 @@ class Verification::OutdatedLabware::Base < Verification::Base
     end.flatten
   end
 
-  def get_search_instance
+  def search_resource
     api.search.find(Settings.search_find_assets_by_barcode)
   end
 
   def plates_from_barcodes(barcodes)
-    obj = get_search_instance.all(api.plate,
-      :barcode => barcodes).reduce({}) do |memo, plate|
-      memo[plate.barcode.ean13] = plate
-      memo
-    end
-    barcodes.each do |barcode|
-      obj[barcode] = nil if obj[barcode].nil?
-    end
-    obj
+    plates = search_resource.all(api.plate,
+      :barcode => barcodes)
+    plate_hash = Hash[plates.map {|plate| [plate.barcode.ean13, plate]} ]
+    Hash[barcodes.map do |barcode|
+      [barcode,plate_hash[barcode]]
+    end]
   end
 
   def validate_and_create_audits?(params)

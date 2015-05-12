@@ -7,5 +7,5 @@ end
 Given /^all pending delayed jobs are processed$/ do
   count = Delayed::Job.count
   raise StandardError, "There are no delayed jobs to process!" if count.zero?
-  Given %Q{#{count} pending delayed jobs are processed}
+  step %Q{#{count} pending delayed jobs are processed}
 end

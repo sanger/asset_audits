@@ -23,12 +23,12 @@ When /^(?:|I )fill in AJAX field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$
     id = "#" + find_field(field)[:id]
     page.execute_script("$('#{id}').trigger('change');")
   end
-  Then %Q{wait 1 second}
+  step %Q{wait 1 second}
 end
 
 Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument which requires a witness$/ do |process_name, instrument_name|
-  Given %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument}
-  Given %Q{a process "#{process_name}" as part of the "#{instrument_name}" instrument requires a witness}
+  step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument}
+  step %Q{a process "#{process_name}" as part of the "#{instrument_name}" instrument requires a witness}
 end
 
 When /^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
@@ -37,12 +37,12 @@ When /^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")
     id = "#" + find_field(field)[:id]
     page.execute_script("$('#{id}').trigger('change');")
   end
-  Then %Q{wait 1 second}
+  step %Q{wait 1 second}
 end
 
 
 Given /^the "([^"]*)" instrument has beds setup$/ do |instrument_name|
-  instrument = Instrument.find_by_name(instrument_name)  
+  instrument = Instrument.find_by_name(instrument_name)
   (1..12).each do |bed_number|
     instrument.beds.create!(:bed_number => bed_number, :name => "P#{bed_number}", :barcode => bed_number)
   end

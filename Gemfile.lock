@@ -6,10 +6,10 @@ GIT
 
 GIT
   remote: git+ssh://git@github.com/sanger/sequencescape-client-api.git
-  revision: 751a068e777b1ffddae870ad837a4b192565939b
-  branch: master
+  revision: 51558759f19aa4235a32b6870b6e39ef619a7c55
+  branch: production
   specs:
-    sequencescape-client-api (0.0.1)
+    sequencescape-client-api (0.2.6)
       activemodel (~> 3.0.0)
       activesupport (~> 3.0.0)
       i18n
@@ -165,6 +165,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.14.6)
     tilt (1.2.2)
+    timecop (0.7.3)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -197,8 +198,9 @@ DEPENDENCIES
   psd_logger!
   rails (= 3.0.19)
   rake (= 0.8.7)
-  sequencescape-client-api!
+  sequencescape-client-api (= 0.2.6)!
   shoulda
   sinatra
   thin
+  timecop
   uuidtools

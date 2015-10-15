@@ -29,10 +29,11 @@ group :test do
 end
 
 group :cucumber do
-  gem "capybara"
-  gem "cucumber-rails", :require => false
+  gem "capybara", "1.1.0"
+  gem "cucumber-rails", ">=0.5.1", :require => false
   gem "database_cleaner"
-  gem "launchy"
+  #gem "launchy"
+  gem "poltergeist"
 end
 
 group :deployment do

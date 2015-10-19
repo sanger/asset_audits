@@ -65,9 +65,9 @@
       }
       User.prototype = $.extend({
         findUsers: function() {
-          $.post('#{search_users_path}',{ user_barcode: this._dom.val()}, function(data) {
+          $.post('#{search_users_path}',{ user_barcode: this._dom.val()}, $.proxy(function(data) {
             this._barcodeResults.html(data);
-          });
+          }, this));
         },
         attachEvents: function() {
           this._dom.change($.proxy(this.findUsers, this));

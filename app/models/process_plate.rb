@@ -5,7 +5,6 @@ class ProcessPlate < ActiveRecord::Base
   attr_accessor :witness_name
   attr_accessor :instrument_used
   attr_accessor :asset_search_results
-  attr_accessor :visual_check
   # remove active record
 
   belongs_to :instrument_process

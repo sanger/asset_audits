@@ -31,6 +31,7 @@ Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument which req
   Given %Q{a process "#{process_name}" as part of the "#{instrument_name}" instrument requires a witness}
 end
 
+
 When /^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
   with_scope(selector) do
     select(value, :from => field)
@@ -49,10 +50,27 @@ Given /^the "([^"]*)" instrument has beds setup$/ do |instrument_name|
 end
 
 
-
 Given /^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/ do |process_name, instrument_name|
   instrument = Instrument.find_by_name(instrument_name)
   instrument_process = InstrumentProcess.find_by_name(process_name)
   process_link = instrument.instrument_processes_instruments.select{ |process|  process.instrument_process_id == instrument_process.id }.first
   process_link.update_attributes!( :witness => true ) unless process_link.nil?
+end
+
+
+Given /^a process "([^"]*)" (requires|does not require) visual check$/ do |process_name, optional|
+  instrument_process = InstrumentProcess.find_by_name(process_name)
+  instrument_process.update_attributes!(:visual_check_required => (optional == 'requires'))
+end
+
+Then /^I (should|should not) be prompted for visual check$/ do |optional|
+  step (%Q{I #{optional} see 'checked visually the contents'})
+end
+
+Then /^I should have (\d+) plates$/ do |num|
+  assert ProcessPlate.count == num.to_i
+end
+
+Then /^I (should|should not) have performed visual check on the last plate$/ do |opt|
+  assert ProcessPlate.last.visual_check? == (opt=='should')
 end

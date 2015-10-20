@@ -24,8 +24,8 @@
     #source_plates_results
 
    %li.hidden#visual_check_input
-    %label{ :for => "visual_check"} I have checked visually the contents of this plate and all wells are as expected
-    = text_field_tag "visual_check"
+    %label{ :for => "visual_check"} Visual check performed
+    = check_box_tag "visual_check"
 
    %li.hidden#witness_barcode_input
     %label{ :for => "witness_barcode"} Witness barcode
@@ -89,6 +89,10 @@
           this._validationInput.attr("checked", false);
         },
 
+        requiresVisualCheck: function() {
+          return (#{@processes_requiring_visual_check.to_json}.indexOf(parseInt(this.getValue(),10))>=0)
+        },
+
         setInstrumentBarcode: function(instrumentBarcode) {
           this._instrumentBarcode = instrumentBarcode;
         },
@@ -97,7 +101,16 @@
           return this._sourcePlatesResults;
         },
 
+        updateVisualCheckVisibility: function() {
+          if (this.requiresVisualCheck()) {
+            $("#visual_check_input").removeClass("hidden");
+          } else {
+            $("#visual_check_input").addClass("hidden");
+          }
+        },
+
         predefinedInstrumentsHandler: function() {
+          this.updateVisualCheckVisibility();
           this._instrumentBarcode.checkDisplayInstrumentBarcode();
           $.post('#{bed_layout_partial_bed_layouts_path}',{
           instrument_barcode: this._instrumentBarcode.getValue(),
@@ -127,6 +140,7 @@
           });
         },
         attachEvents: function() {
+          this.updateVisualCheckVisibility();
           this._dom.change($.proxy(this.checkIfShouldBeWitnessed, this));
 
           if ($("option", this._dom).length===1) {
@@ -176,6 +190,9 @@
         * user to supply an instrument barcode
         **/
         getValue: function() {
+          if (this._dom.val().length > 0) {
+            return this._dom.val();
+          }
           var predefInstrumentBarcode = this.getPredefinedInstrumentBarcodeFromInput();
           return (typeof predefInstrumentBarcode !== "undefined") ? predefInstrumentBarcode : this._dom.val();
         },
@@ -186,6 +203,7 @@
           }, this));
 
           $.post('#{processes_instruments_path}',{ instrument_barcode: this.getValue()}, $.proxy(function(data) {
+
             this._instrumentProcess._dom.html(data);
 
             $.post('#{witness_instruments_path}',{ instrument_barcode: this.getValue(), instrument_process_id: this._instrumentProcess.getValue() }, $.proxy(function(data) {
@@ -197,6 +215,7 @@
             $.post('#{bed_layout_partial_bed_layouts_path}',{ instrument_barcode: this.getValue(), instrument_process_id: this._instrumentProcess.getValue() }, $.proxy(function(data) {
               this._instrumentProcess.getSourcePlatesResults().html(data);
             }, this));
+            this._instrumentProcess.updateVisualCheckVisibility();
           }, this));
         },
         attachEvents: function() {
@@ -229,26 +248,6 @@
 
       new AuditEvent();
     })(jQuery);
-
-
-    (function($) {
-      var validationInput = $("#visual_validation_input");
-
-      validationInput.attr("checked", false);
-
-      /*$("#instrument_barcode").bind("change", function() {
-        if validationInput.attr("checked") {
-          $()
-        }
-      });*/
-      /*$("form").bind("submit", function() {
-        return validationInput.attr("checked");
-      });*/
-
-    }(jQuery));
-
-
-
 
 
 

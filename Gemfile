@@ -17,7 +17,7 @@ gem "jquery-rails"
 
 group :development do
   gem "sinatra"
-  gem "debugger", :require => "debugger"
+  #gem "debugger", :require => "debugger"
 end
 
 gem "factory_girl_rails", :groups => [:test,:cucumber]

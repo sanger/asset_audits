@@ -1,5 +1,5 @@
-source 'http://rubygems.org'
-source 'http://gems.github.com'
+source 'https://rubygems.org'
+#source 'http://gems.github.com'
 
 gem 'rails', '3.0.19'
 gem 'rake', '0.8.7'
@@ -11,10 +11,7 @@ gem "uuidtools"
 gem "compass"
 gem 'curb'
 gem 'haml'
-gem 'sequencescape-client-api', '0.2.6',
-  :git => 'git+ssh://git@github.com/sanger/sequencescape-client-api.git',
-  :branch => 'production',
-  :require => 'sequencescape'
+gem 'sequencescape-client-api', :github => 'sanger/sequencescape-client-api', :tag => 'release-0.2.6', :require => 'sequencescape'
 gem 'delayed_job'
 gem "jquery-rails"
 
@@ -37,10 +34,11 @@ group :cucumber do
   gem "database_cleaner"
   gem "launchy"
   gem "timecop"
+  gem "poltergeist"
 end
 
 group :deployment do
   gem 'thin'
-  gem "psd_logger", :git => "git+ssh://git@github.com/sanger/psd_logger.git"
+  gem "psd_logger", :github => "sanger/psd_logger"
   gem 'exception_notification'
 end

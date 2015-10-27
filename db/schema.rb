@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150202171723) do
+ActiveRecord::Schema.define(:version => 20151014161021) do
 
   create_table "beds", :force => true do |t|
     t.string   "name"
@@ -46,7 +46,8 @@ ActiveRecord::Schema.define(:version => 20150202171723) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "key"
-    t.boolean  "request_instrument", :default => true
+    t.boolean  "request_instrument",    :default => true
+    t.boolean  "visual_check_required", :default => false
   end
 
   add_index "instrument_processes", ["key"], :name => "index_instrument_processes_on_key"
@@ -75,11 +76,12 @@ ActiveRecord::Schema.define(:version => 20150202171723) do
   create_table "process_plates", :force => true do |t|
     t.string   "user_barcode"
     t.string   "instrument_barcode"
-    t.text     "source_plates",         :limit => 255
+    t.text     "source_plates"
     t.integer  "instrument_process_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "witness_barcode"
+    t.boolean  "visual_check",          :default => false
   end
 
 end

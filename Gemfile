@@ -15,10 +15,9 @@ gem 'sequencescape-client-api', :github => 'sanger/sequencescape-client-api', :b
 gem 'delayed_job'
 gem "jquery-rails"
 
-gem "debugger", :require => "debugger", :groups => [:development, :test, :cucumber]
-
 group :development do
   gem "sinatra"
+  gem "debugger", :require => "debugger"
 end
 
 gem "factory_girl_rails", :groups => [:test,:cucumber]

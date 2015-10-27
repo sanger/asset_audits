@@ -1,4 +1,6 @@
 language: ruby
+rvm:
+  - ruby-1.9.2-p320
 before_install:
   - export TZ=Europe/London
 before_script:

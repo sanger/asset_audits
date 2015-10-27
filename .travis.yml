@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - ruby-1.9.2-p320
+  - ruby-1.9.2-p320@process_tracking
 before_install:
   - export TZ=Europe/London
 before_script:

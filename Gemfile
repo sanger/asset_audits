@@ -11,7 +11,7 @@ gem "uuidtools"
 gem "compass"
 gem 'curb'
 gem 'haml'
-gem 'sequencescape-client-api', :github => 'sanger/sequencescape-client-api', :branch => 'production', :require => 'sequencescape'
+gem 'sequencescape-client-api', :github => 'sanger/sequencescape-client-api', :tag => 'release-0.0.1', :require => 'sequencescape'
 gem 'delayed_job'
 gem "jquery-rails"
 

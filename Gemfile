@@ -1,5 +1,5 @@
-source 'http://rubygems.org'
-source 'http://gems.github.com'
+source 'https://rubygems.org'
+#source 'http://gems.github.com'
 
 gem 'rails', '3.0.19'
 gem 'rake', '0.8.7'
@@ -11,14 +11,13 @@ gem "uuidtools"
 gem "compass"
 gem 'curb'
 gem 'haml'
-gem 'sequencescape-client-api', :git => 'git+ssh://git@github.com/sanger/sequencescape-client-api.git', :branch => 'master', :require => 'sequencescape'
+gem 'sequencescape-client-api', :github => 'sanger/sequencescape-client-api', :branch => 'production', :require => 'sequencescape'
 gem 'delayed_job'
 gem "jquery-rails"
 
-gem "debugger", :require => "debugger", :groups => [:development, :test, :cucumber]
-
 group :development do
   gem "sinatra"
+  #gem "debugger", :require => "debugger"
 end
 
 gem "factory_girl_rails", :groups => [:test,:cucumber]
@@ -29,14 +28,14 @@ group :test do
 end
 
 group :cucumber do
-  gem "capybara"
-  gem "cucumber-rails", :require => false
+  gem "cucumber-rails", ">=0.5.1", :require => false
   gem "database_cleaner"
   gem "launchy"
+  gem "poltergeist"
 end
 
 group :deployment do
   gem 'thin'
-  gem "psd_logger", :git => "git+ssh://git@github.com/sanger/psd_logger.git"
+  gem "psd_logger", :github => "sanger/psd_logger"
   gem 'exception_notification'
 end

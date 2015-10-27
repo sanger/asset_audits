@@ -4,8 +4,6 @@ class InstrumentProcess < ActiveRecord::Base
 
   scope :sorted_by_name , :order => "name ASC"
 
-  attr_reader :visual_check_required
-
   validates_format_of :key, :with => /^[\w_]+$/i
 
   validates_uniqueness_of :name, :message => "must be unique"

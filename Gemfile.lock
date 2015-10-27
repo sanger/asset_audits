@@ -60,6 +60,7 @@ GEM
     columnize (0.3.6)
     compass (0.10.6)
       haml (>= 3.0.4)
+    configuration (1.2.0)
     cucumber (1.0.6)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
@@ -110,6 +111,9 @@ GEM
       rails (~> 3.0)
       thor (~> 0.14.4)
     json (1.8.2)
+    launchy (0.4.0)
+      configuration (>= 0.0.5)
+      rake (>= 0.8.1)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -193,6 +197,7 @@ DEPENDENCIES
   formtastic
   haml
   jquery-rails
+  launchy
   mocha
   mysql
   nokogiri

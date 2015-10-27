@@ -31,7 +31,7 @@ end
 group :cucumber do
   gem "cucumber-rails", ">=0.5.1", :require => false
   gem "database_cleaner"
-  #gem "launchy"
+  gem "launchy"
   gem "poltergeist"
 end
 

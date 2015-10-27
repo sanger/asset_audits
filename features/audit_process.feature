@@ -1,6 +1,6 @@
-@sequencescape_service @user_barcode_service @audit_process @javascript
+@sequencescape_service @user_barcode_service @audit_process
 Feature: Add an audit to an asset
-
+  @javascript
   Scenario: All required information is scanned
     Given user "john" with barcode '2470000100730' exists
       And I have a "Tecan robot" instrument with barcode "abc123456"
@@ -17,6 +17,7 @@ Feature: Add an audit to an asset
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails
 
+@javascript
   Scenario: Cant find instrument barcode
     Given user "john" with barcode '2470000100730' exists
       And I have a "Tecan robot" instrument with barcode "9876"
@@ -31,28 +32,21 @@ Feature: Add an audit to an asset
     Then I should see "Invalid instrument or process"
       And I should be on the new audit page
 
-# I can't test the following feature from the UI. The select doesn't contain a 'Stamp for
-# Sequenom'
-# process, so when I try to select it, the js driver selects the first option of the
-# select, and the result is Operation successful. To test this feature I would need
-# to modify the form, which can't be performed just by interacting with the web by the
-# user
-#
-#  Scenario: Invalid process selected for an instrument
-#    Given user "john" with barcode '2470000100730' exists
-#      And I have a "Tecan robot" instrument with barcode "abc123"
-#      And I have a process "Cherrypick" as part of the "Tecan robot" instrument
-#      And I have a "Beckman" instrument with barcode "99999"
-#      And I have a process "Stamp for Sequenom" as part of the "Beckman" instrument
+  Scenario: Invalid process selected for an instrument
+    Given user "john" with barcode '2470000100730' exists
+      And I have a "Tecan robot" instrument with barcode "abc123"
+      And I have a process "Cherrypick" as part of the "Tecan robot" instrument
+      And I have a "Beckman" instrument with barcode "99999"
+      And I have a process "Stamp for Sequenom" as part of the "Beckman" instrument
 
-#    Given I am on the new audit page
-#    When I fill in "User barcode" with "2470000100730"
-#      And I fill in "Instrument barcode" with "abc123"
-#      And I select "Stamp for Sequenom" from "Instrument process"
-#      And I fill in "Source plates" with "1220094216791"
-#      And I press "Submit"
-#    Then I should see "Invalid instrument or process"
-#      And I should be on the new audit page
+    Given I am on the new audit page
+    When I fill in "User barcode" with "2470000100730"
+      And I fill in "Instrument barcode" with "abc123"
+      And I select "Stamp for Sequenom" from "Instrument process"
+      #And I fill in "Source plates" with "1220094216791"
+      And I press "Submit"
+    Then I should see "Invalid instrument or process"
+      And I should be on the new audit page
 
 
 

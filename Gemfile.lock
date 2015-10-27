@@ -1,23 +1,22 @@
 GIT
-  remote: git+ssh://git@github.com/sanger/psd_logger.git
+  remote: git://github.com/sanger/psd_logger.git
   revision: dd2d634114df75b1d8535715c169a7fc99521389
   specs:
     psd_logger (0.1.6)
 
 GIT
-  remote: git+ssh://git@github.com/sanger/sequencescape-client-api.git
-  revision: 751a068e777b1ffddae870ad837a4b192565939b
-  branch: master
+  remote: git://github.com/sanger/sequencescape-client-api.git
+  revision: e39210258080d2011b2391d44055a849494097c6
+  branch: production
   specs:
-    sequencescape-client-api (0.0.1)
+    sequencescape-client-api (0.2.6)
       activemodel (~> 3.0.0)
       activesupport (~> 3.0.0)
       i18n
       yajl-ruby (~> 1.1.0)
 
 GEM
-  remote: http://rubygems.org/
-  remote: http://gems.github.com/
+  remote: https://rubygems.org/
   specs:
     abstract (1.0.0)
     actionmailer (3.0.19)

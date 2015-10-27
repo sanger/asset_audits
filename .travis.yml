@@ -1,6 +1,7 @@
 language: ruby
 rvm:
-  - ruby-1.9.2-p320@process_tracking
+  - ruby-1.9.2
+bundler_args: --without deployment
 before_install:
   - export TZ=Europe/London
 before_script:

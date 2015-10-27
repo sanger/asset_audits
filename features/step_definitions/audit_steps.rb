@@ -63,10 +63,6 @@ Given /^a process "([^"]*)" (requires|does not require) visual check$/ do |proce
   instrument_process.update_attributes!(:visual_check_required => (optional == 'requires'))
 end
 
-Then /^I (should|should not) be prompted for visual check$/ do |optional|
-  step (%Q{I #{optional} see 'checked visually the contents'})
-end
-
 Then /^I should have (\d+) plates$/ do |num|
   assert ProcessPlate.count == num.to_i
 end

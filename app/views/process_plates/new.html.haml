@@ -112,11 +112,11 @@
           this.updateVisualCheckVisibility();
 
           $.post('#{bed_layout_partial_bed_layouts_path}',{
-          instrument_barcode: this._instrumentBarcode.getValue(),
-          instrument_process_id: this._dom.val()
-          }, $.proxy(function(data) {
-            this.getSourcePlatesResults().html(data);
-          }, this));
+              instrument_barcode: this._instrumentBarcode.getValue(),
+              instrument_process_id: this._dom.val()
+            }, $.proxy(function(data) {
+              this.getSourcePlatesResults().html(data);
+            }, this));
         },
 
         checkIfShouldBeWitnessed: function() {
@@ -135,6 +135,7 @@
         attachEvents: function() {
           this.updateVisualCheckVisibility();
           this._dom.change($.proxy(this.checkIfShouldBeWitnessed, this));
+          this._dom.change($.proxy(this.updateVisualCheckVisibility, this));
         },
         getValue: function() {
           return this._dom.val();
@@ -173,6 +174,9 @@
             }, this));
             this._instrumentProcess.updateVisualCheckVisibility();
           }, this));
+        },
+        getValue: function() {
+          return this._dom.val();
         },
         attachEvents: function() {
           this._dom.keydown($.proxy(this.nextInput, this));

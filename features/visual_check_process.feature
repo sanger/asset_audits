@@ -22,13 +22,13 @@ Feature: Require a visual check for a process
     Given I am on the new audit page
     Given I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"
-    Then I wait 2 seconds
+    Then I wait 1 second
     And I select "Pico dilution" from "Instrument process"
     And I check "visual_check"
     And I should have 0 plates
     When I press "Submit"
 
-    Then I should see "Operation successful"
+    Then I should see "Success"
     And I should be on the new audit page
     And I should have 1 plates
     And I should have performed visual check on the last plate
@@ -36,13 +36,13 @@ Feature: Require a visual check for a process
     Given I am on the new audit page
     Given I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"
-    Then I wait 2 seconds
+    Then I wait 1 second
     And I select "Pico dilution" from "Instrument process"
     And I check "visual_check"
     And I should have 1 plates
     When I press "Submit"
 
-    Then I should see "Operation successful"
+    Then I should see "Success"
     And I should be on the new audit page
     And I should have 2 plates
     And I should have performed visual check on the last plate
@@ -51,7 +51,7 @@ Feature: Require a visual check for a process
     Given I am on the new audit page
     Given I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"
-    Then I wait 2 seconds
+    Then I wait 1 second
     Given I select "Pico dilution" from "Instrument process"
     And I uncheck "Visual check performed"
     And I should have 0 plates

@@ -6,10 +6,10 @@ GIT
 
 GIT
   remote: git://github.com/sanger/sequencescape-client-api.git
-  revision: 751a068e777b1ffddae870ad837a4b192565939b
+  revision: e39210258080d2011b2391d44055a849494097c6
   tag: release-0.2.6
   specs:
-    sequencescape-client-api (0.0.1)
+    sequencescape-client-api (0.2.6)
       activemodel (~> 3.0.0)
       activesupport (~> 3.0.0)
       i18n

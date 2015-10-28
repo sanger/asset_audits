@@ -12,7 +12,7 @@ Feature: Add an audit to an asset
       And I fill in "Source plates" with "1220094216791"
       And I select "Cherrypick" from "Instrument process"
       And I press "Submit"
-    Then I should see "Operation successful"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails

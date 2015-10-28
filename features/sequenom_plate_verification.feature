@@ -164,7 +164,7 @@ Feature: Verify assay plate positions on the robot
       And I fill in "Bed P12" with "<bed_p12>"
       And I fill in "Plate P12" with "<destination_4>"
       And I press "Submit"
-    Then I should see "Operation successful"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails
@@ -227,7 +227,7 @@ Feature: Verify assay plate positions on the robot
       And I fill in "Plate P12" with "dest4"
       And I fill in "Witness barcode" with "2470041440697"
       And I press "Submit"
-    Then I should see "Operation successful"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails

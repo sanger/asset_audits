@@ -38,7 +38,7 @@ Feature: Verify location of plates
       And I fill in "Bed P3" with "3"
       And I fill in "Plate P3" with "456"
       And I press "Submit"
-    Then I should see "Operation successful"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails
@@ -77,7 +77,7 @@ Feature: Verify location of plates
       And I fill in "Plate P3" with "456"
       And I fill in "Witness barcode" with "2470041440697"
       And I press "Submit"
-    Then I should see "Operation successful"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails

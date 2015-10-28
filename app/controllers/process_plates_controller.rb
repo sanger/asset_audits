@@ -23,7 +23,7 @@ class ProcessPlatesController < ApplicationController
           :api => api
         )
         if bed_layout_verification.validate_and_create_audits?(params)
-          flash[:notice] = 'Operation successful'
+          flash[:notice] = 'Success'
         else
           flash[:error] = bed_layout_verification.errors.values.flatten.join("\n")
         end

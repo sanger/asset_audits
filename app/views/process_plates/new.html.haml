@@ -60,7 +60,6 @@
         this._dom.focus();
         this._dom.trigger('change');
         this._barcodeResults = $("#user_barcode_results");
-
         this.attachEvents();
       }
       User.prototype = $.extend({
@@ -111,19 +110,13 @@
 
         predefinedInstrumentsHandler: function() {
           this.updateVisualCheckVisibility();
-          this._instrumentBarcode.checkDisplayInstrumentBarcode();
-          $.post('#{bed_layout_partial_bed_layouts_path}',{
-          instrument_barcode: this._instrumentBarcode.getValue(),
-          instrument_process_id: this._dom.val()
-          }, $.proxy(function(data) {
-            this.getSourcePlatesResults().html(data);
-          }, this));
-        },
 
-        onFirstClickPredefinedInstrumentsHandler: function() {
-          $("#instrument_process").unbind("click", this.onFirstClickPredefinedInstrumentsHandler);
-          $("#instrument_process").change($.proxy(this.predefinedInstrumentsHandler, this));
-          return this.predefinedInstrumentsHandler.apply(this, arguments);
+          $.post('#{bed_layout_partial_bed_layouts_path}',{
+              instrument_barcode: this._instrumentBarcode.getValue(),
+              instrument_process_id: this._dom.val()
+            }, $.proxy(function(data) {
+              this.getSourcePlatesResults().html(data);
+            }, this));
         },
 
         checkIfShouldBeWitnessed: function() {
@@ -142,24 +135,16 @@
         attachEvents: function() {
           this.updateVisualCheckVisibility();
           this._dom.change($.proxy(this.checkIfShouldBeWitnessed, this));
-
-          if ($("option", this._dom).length===1) {
-            this._dom.click($.proxy(this.onFirstClickPredefinedInstrumentsHandler, this));
-          } else {
-            this._dom.change($.proxy(this.predefinedInstrumentsHandler, this));
-          }
+          this._dom.change($.proxy(this.updateVisualCheckVisibility, this));
         },
         getValue: function() {
           return this._dom.val();
         }
       };
 
-      var PREDEFINED_INSTRUMENT_BARCODES = #{get_predefined_instrument_barcodes.to_json}
-
       function InstrumentBarcode(instrumentProcess) {
         this._instrumentProcess = instrumentProcess;
         this._instrumentProcess.setInstrumentBarcode(this);
-
         this._dom = $("#instrument_barcode");
         this._witnessBarcodeInput = $("#witness_barcode_input");
         this._instrumentBarcodeResults = $("#instrument_barcode_results");
@@ -168,34 +153,6 @@
       }
 
       InstrumentBarcode.prototype = $.extend({
-
-        prepareForSubmission: function() {
-          var instrumentBarcodeInputJQ = $("#instrument_barcode");
-          instrumentBarcodeInputJQ.attr("id", "instrument_barcode-visible");
-          instrumentBarcodeInputJQ.attr("name", "instrument_barcode-visible");
-          var hiddenInput = "<input type='hidden' name='instrument_barcode' id='instrument_barcode' value='"+this.getValue()+"'></input>";
-          $("form").append(hiddenInput);
-          this._dom.val(this.getValue());
-          //$("#instrument_barcode")[0].value=this.getValue();
-        },
-        getPredefinedInstrumentBarcodeFromInput: function () {
-          return PREDEFINED_INSTRUMENT_BARCODES[this._instrumentProcess.getValue()];
-        },
-        checkDisplayInstrumentBarcode: function () {
-          var nodeToDisplay = this._dom.parent();
-          nodeToDisplay[(typeof this.getPredefinedInstrumentBarcodeFromInput() === 'undefined') ? 'show' : 'hide']();
-        },
-        /**
-        * Handle changes on behaviour while changing the instrument process (e.g. Destroy labware doesn't require the
-        * user to supply an instrument barcode
-        **/
-        getValue: function() {
-          if (this._dom.val().length > 0) {
-            return this._dom.val();
-          }
-          var predefInstrumentBarcode = this.getPredefinedInstrumentBarcodeFromInput();
-          return (typeof predefInstrumentBarcode !== "undefined") ? predefInstrumentBarcode : this._dom.val();
-        },
 
         loadInstrumentProcess: function() {
           $.post('#{search_instruments_path}',{ instrument_barcode: this.getValue()}, $.proxy(function(data) {
@@ -218,11 +175,15 @@
             this._instrumentProcess.updateVisualCheckVisibility();
           }, this));
         },
+        getValue: function() {
+          return this._dom.val();
+        },
         attachEvents: function() {
           this._dom.keydown($.proxy(this.nextInput, this));
           this._dom.change($.proxy(this.loadInstrumentProcess, this));
         }
       }, ModuleNextInputBehaviour);
+
 
       function AuditEvent() {
         this._form = $("form");
@@ -233,18 +194,7 @@
         this._user.setNextInput(this._instrumentBarcode._dom);
         this._instrumentBarcode.setNextInput(this._instrumentProcess.getSourcePlatesResults());
 
-        this.attachEvents();
       }
-
-      AuditEvent.prototype = {
-        attachEvents: function() {
-          $("form").bind("submit", $.proxy(function(e) {
-            this._instrumentBarcode.prepareForSubmission();
-          }, this));
-
-        }
-      }
-
 
       new AuditEvent();
     })(jQuery);

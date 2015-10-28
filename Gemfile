@@ -11,7 +11,7 @@ gem "uuidtools"
 gem "compass"
 gem 'curb'
 gem 'haml'
-gem 'sequencescape-client-api', :github => 'sanger/sequencescape-client-api', :tag => 'release-0.0.1', :require => 'sequencescape'
+gem 'sequencescape-client-api', :github => 'sanger/sequencescape-client-api', :tag => 'release-0.2.6', :require => 'sequencescape'
 gem 'delayed_job'
 gem "jquery-rails"
 
@@ -29,9 +29,11 @@ group :test do
 end
 
 group :cucumber do
-  gem "cucumber-rails", ">=0.5.1", :require => false
+  gem "capybara"
+  gem "cucumber-rails", :require => false
   gem "database_cleaner"
   gem "launchy"
+  gem "timecop"
   gem "poltergeist"
 end
 

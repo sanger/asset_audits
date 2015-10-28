@@ -33,12 +33,12 @@ World(WithinHelpers)
 
 # Single-line step scoper
 When /^(.*) within ([^:]+)$/ do |step, parent|
-  with_scope(parent) { When step }
+  with_scope(parent) { step(step) }
 end
 
 # Multi-line step scoper
 When /^(.*) within ([^:]+):$/ do |step, parent, table_or_string|
-  with_scope(parent) { When "#{step}:", table_or_string }
+  with_scope(parent) { step("#{step}:", table_or_string) }
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
@@ -132,7 +132,7 @@ Then /^(?:|I )should display "([^"]*)"$/ do |identif|
   if page.respond_to? :should
     page.should have_no_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
   else
-    assert page.has_no_xpath?("//*[@id='#{identif}'][contains(@class, 'hidden')]"), "#{identif} displayed"
+    assert page.has_no_xpath?("//*[@id='#{identif}'][contains(@class, 'hidden')]"), "#{identif} not displayed"
   end
 end
 
@@ -140,7 +140,7 @@ Then /^(?:|I )should not display "([^"]*)"$/ do |identif|
   if page.respond_to? :should
     page.should have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
   else
-    assert page.has_xpath?("//*[@id='#{identif}'][contains(@class, 'hidden')]"), "#{identif} not displayed"
+    assert page.has_xpath?("//*[@id='#{identif}'][contains(@class, 'hidden')]"), "#{identif} displayed"
   end
 end
 

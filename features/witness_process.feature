@@ -17,7 +17,7 @@ Feature: Require a witness for a process
       And I select "Volume check" from "Instrument process"
       And I fill in "Source plates" with "1220094216791"
       And I press "Submit"
-    Then I should see "Operation successful"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
 
@@ -28,7 +28,7 @@ Feature: Require a witness for a process
       And I fill in "Source plates" with "1220094216791"
       And I fill in "Witness barcode" with "2470041440697"
       And I press "Submit"
-    Then I should see "Operation successful"
+    Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
 

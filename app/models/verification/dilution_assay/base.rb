@@ -9,15 +9,13 @@ class Verification::DilutionAssay::Base < Verification::Base
 
   def parse_source_and_destination_barcodes(scanned_values)
     source_and_destination_barcodes = []
-    self.transfers.each do |group|
-      group.sort{|v| v.priority }.each do |transfer|
-        transfer[:source_beds].each do |source_bed|
-          source_barcode = scanned_values[source_bed.downcase.to_sym][:plate]
-          unless source_barcode.nil?
-            transfer[:destination_beds].each do |destination_bed|
-              destination_barcode = scanned_values[destination_bed.downcase.to_sym][:plate]
-              source_and_destination_barcodes << [ source_barcode, destination_barcode]
-            end
+    self.transfers.sort{|v| v[:priority] }.each do |transfer|
+      transfer[:source_beds].each do |source_bed|
+        source_barcode = scanned_values[source_bed.downcase.to_sym][:plate]
+        unless source_barcode.nil?
+          transfer[:destination_beds].each do |destination_bed|
+            destination_barcode = scanned_values[destination_bed.downcase.to_sym][:plate]
+            source_and_destination_barcodes << [ source_barcode, destination_barcode]
           end
         end
       end

@@ -24,6 +24,15 @@ Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with sequ
   step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::SequenomPlate::Nx"}
 end
 
+Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with dilution assay nx bed verification$/ do |process_name, instrument_name|
+  step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::DilutionAssay::Nx"}
+end
+
+Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with x2 dilution assay nx bed verification$/ do |process_name, instrument_name|
+  step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::DilutionAssay::NxGroup"}
+end
+
+
 Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with destroy plates verification$/ do |process_name, instrument_name|
   step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::OutdatedLabware::Base"}
 end

@@ -199,7 +199,7 @@ Feature: Verify group assay plates positions on the robot
       And I fill in "Bed P6" with "<dest_3_bed>"
       And I fill in "Plate P6" with "<plate_4>"
       And I press "Submit"
-      And I wait 5 second
+      And I wait 1 second
     Then I should see "<result>"
       And I should be on the new audit page
     # The delayed job will raise an exception if it fails
@@ -247,7 +247,7 @@ Feature: Verify group assay plates positions on the robot
       And I fill in "Plate P12" with "<plate_8>"
 
       And I press "Submit"
-      And I wait 5 second
+      And I wait 1 second
     Then I should see "<result>"
       And I should be on the new audit page
     # The delayed job will raise an exception if it fails

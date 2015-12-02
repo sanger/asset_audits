@@ -1,4 +1,5 @@
 %h2 Activity Logging
+%div{:id => "info_box"}
 = form_for :process_plate, :url => process_plates_path do |form|
  %fieldset
   %ul
@@ -22,6 +23,10 @@
    %li
     #source_plates_results
 
+   %li.hidden#visual_check_input
+    %label{ :for => "visual_check"} Visual check performed
+    = check_box_tag "visual_check"
+
    %li.hidden#witness_barcode_input
     %label{ :for => "witness_barcode"} Witness barcode
     = text_field_tag "witness_barcode"
@@ -32,79 +37,168 @@
 - content_for :page_javascript do
  :javascript
 
-    $('#user_barcode').focus();
-    $('#user_barcode').trigger('change');
+    (function($) {
 
-    $("#user_barcode").change(function() {
-      $.post('#{search_users_path}',{ user_barcode: $('#user_barcode')[0].value}, function(data) {
-        $("#user_barcode_results").html(data);
-      });
-    });
-
-    $("#instrument_barcode").change(function() {
-
-      $.post('#{search_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
-        $("#instrument_barcode_results").html(data);
-      });
-
-      $.post('#{processes_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value}, function(data) {
-        $("#instrument_process").html(data);
-
-        $.post('#{witness_instruments_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
-          if (data.match(/witness_required/)) {
-            $("#witness_barcode_input").removeClass('hidden');
+      var ModuleNextInputBehaviour = {
+        setNextInput: function(next) {
+          this._next = next;
+        },
+        nextInput: function(e) {
+          var keyCode = e.keyCode || e.which;
+          if (keyCode == 13) {
+            if (typeof this._next !== "undefined") {
+              this._next.focus();
+            }
+            this._dom.trigger('change');
+            return false;
           }
-
-        });
-
-        $.post('#{bed_layout_partial_bed_layouts_path}',{ instrument_barcode: $('#instrument_barcode')[0].value, instrument_process_id: $('#instrument_process')[0].value }, function(data) {
-          $("#source_plates_results").html(data);
-        });
-      });
-
-
-    });
-
-    $("#instrument_process").change(function() {
-
-      $.post('#{witness_instruments_path}',{
-        instrument_barcode: $('#instrument_barcode')[0].value,
-        instrument_process_id: $('#instrument_process')[0].value }, function(data) {
-          if (data.match(/witness_required/)) {
-            $("#witness_barcode_input").removeClass('hidden');
-          }
-          else
-          {
-            $("#witness_barcode_input").removeClass('hidden').addClass('hidden');
-          }
-        });
-
-      $.post('#{bed_layout_partial_bed_layouts_path}', {
-        instrument_barcode: $('#instrument_barcode')[0].value,
-        instrument_process_id: $('#instrument_process')[0].value
-      }, function(data) {
-        $("#source_plates_results").html(data);
-      });
-    });
-
-
-    $('#user_barcode').keydown(function (e) {
-      var keyCode = e.keyCode || e.which;
-      if (keyCode == 13) {
-        $('#instrument_barcode').focus();
-        $('#user_barcode').trigger('change');
-        return false;
+        }
       }
-    });
 
-    $('#instrument_barcode').keydown(function (e) {
-      var keyCode = e.keyCode || e.which;
-      if (keyCode == 13) {
-        $('#source_plates').focus();
-        $('#instrument_barcode').trigger('change');
-        return false;
+      function User() {
+        this._dom = $("#user_barcode");
+        this._dom.focus();
+        this._dom.trigger('change');
+        this._barcodeResults = $("#user_barcode_results");
+        this.attachEvents();
       }
-    });
+      User.prototype = $.extend({
+        findUsers: function() {
+          $.post('#{search_users_path}',{ user_barcode: this._dom.val()}, $.proxy(function(data) {
+            this._barcodeResults.html(data);
+          }, this));
+        },
+        attachEvents: function() {
+          this._dom.change($.proxy(this.findUsers, this));
+          this._dom.keydown($.proxy(this.nextInput, this));
+        }
+      }, ModuleNextInputBehaviour);
+
+      function InstrumentProcess() {
+        this._validationInput = $("#visual_validation_input");
+        this._dom = $("#instrument_process")
+        this._sourcePlatesResults = $("#source_plates_results");
+
+        this.reset();
+        this.attachEvents();
+      };
+
+      InstrumentProcess.prototype = {
+        reset: function() {
+          this._validationInput.attr("checked", false);
+        },
+
+        requiresVisualCheck: function() {
+          return (#{@processes_requiring_visual_check.to_json}.indexOf(parseInt(this.getValue(),10))>=0)
+        },
+
+        setInstrumentBarcode: function(instrumentBarcode) {
+          this._instrumentBarcode = instrumentBarcode;
+        },
+
+        getSourcePlatesResults: function() {
+          return this._sourcePlatesResults;
+        },
+
+        updateVisualCheckVisibility: function() {
+          if (this.requiresVisualCheck()) {
+            $("#visual_check_input").removeClass("hidden");
+          } else {
+            $("#visual_check_input").addClass("hidden");
+          }
+        },
+
+        predefinedInstrumentsHandler: function() {
+          this.updateVisualCheckVisibility();
+
+          $.post('#{bed_layout_partial_bed_layouts_path}',{
+              instrument_barcode: this._instrumentBarcode.getValue(),
+              instrument_process_id: this._dom.val()
+            }, $.proxy(function(data) {
+              this.getSourcePlatesResults().html(data);
+            }, this));
+        },
+
+        checkIfShouldBeWitnessed: function() {
+          $.post('#{witness_instruments_path}',{
+          instrument_barcode: this._instrumentBarcode.getValue(),
+          instrument_process_id: $('#instrument_process')[0].value }, function(data) {
+            if (data.match(/witness_required/)) {
+              $("#witness_barcode_input").removeClass('hidden');
+            }
+            else
+            {
+              $("#witness_barcode_input").removeClass('hidden').addClass('hidden');
+            }
+          });
+        },
+        attachEvents: function() {
+          this.updateVisualCheckVisibility();
+          this._dom.change($.proxy(this.checkIfShouldBeWitnessed, this));
+          this._dom.change($.proxy(this.updateVisualCheckVisibility, this));
+        },
+        getValue: function() {
+          return this._dom.val();
+        }
+      };
+
+      function InstrumentBarcode(instrumentProcess) {
+        this._instrumentProcess = instrumentProcess;
+        this._instrumentProcess.setInstrumentBarcode(this);
+        this._dom = $("#instrument_barcode");
+        this._witnessBarcodeInput = $("#witness_barcode_input");
+        this._instrumentBarcodeResults = $("#instrument_barcode_results");
+
+        this.attachEvents();
+      }
+
+      InstrumentBarcode.prototype = $.extend({
+
+        loadInstrumentProcess: function() {
+          $.post('#{search_instruments_path}',{ instrument_barcode: this.getValue()}, $.proxy(function(data) {
+            this._instrumentBarcodeResults.html(data);
+          }, this));
+
+          $.post('#{processes_instruments_path}',{ instrument_barcode: this.getValue()}, $.proxy(function(data) {
+
+            this._instrumentProcess._dom.html(data);
+
+            $.post('#{witness_instruments_path}',{ instrument_barcode: this.getValue(), instrument_process_id: this._instrumentProcess.getValue() }, $.proxy(function(data) {
+              if (data.match(/witness_required/)) {
+                this._witnessBarcodeInput.removeClass('hidden');
+              }
+            }, this));
+
+            $.post('#{bed_layout_partial_bed_layouts_path}',{ instrument_barcode: this.getValue(), instrument_process_id: this._instrumentProcess.getValue() }, $.proxy(function(data) {
+              this._instrumentProcess.getSourcePlatesResults().html(data);
+            }, this));
+            this._instrumentProcess.updateVisualCheckVisibility();
+          }, this));
+        },
+        getValue: function() {
+          return this._dom.val();
+        },
+        attachEvents: function() {
+          this._dom.keydown($.proxy(this.nextInput, this));
+          this._dom.change($.proxy(this.loadInstrumentProcess, this));
+        }
+      }, ModuleNextInputBehaviour);
+
+
+      function AuditEvent() {
+        this._form = $("form");
+        this._user = new User();
+        this._instrumentProcess = new InstrumentProcess();
+        this._instrumentBarcode = new InstrumentBarcode(this._instrumentProcess);
+
+        this._user.setNextInput(this._instrumentBarcode._dom);
+        this._instrumentBarcode.setNextInput(this._instrumentProcess.getSourcePlatesResults());
+
+      }
+
+      new AuditEvent();
+    })(jQuery);
+
 
 
 

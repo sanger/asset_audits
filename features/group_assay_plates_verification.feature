@@ -229,22 +229,22 @@ Feature: Verify group assay plates positions on the robot
       And I select "Some process" from AJAX dropdown "Instrument process"
       And I wait 1 second
 
-      And I fill in "Bed P2" with "2"
-      And I fill in "Plate P2" with "<plate_1>"
-      And I fill in "Bed P3" with "3"
-      And I fill in "Plate P3" with "<plate_2>"
-      And I fill in "Bed P5" with "5"
-      And I fill in "Plate P5" with "<plate_3>"
-      And I fill in "Bed P6" with "6"
-      And I fill in "Plate P6" with "<plate_4>"
-      And I fill in "Bed P8" with "8"
-      And I fill in "Plate P8" with "<plate_5>"
-      And I fill in "Bed P9" with "9"
-      And I fill in "Plate P9" with "<plate_6>"
-      And I fill in "Bed P11" with "11"
-      And I fill in "Plate P11" with "<plate_7>"
-      And I fill in "Bed P12" with "12"
-      And I fill in "Plate P12" with "<plate_8>"
+      And I fill in "Bed P2" with "2" if "<plate_1>" not empty
+      And I fill in "Plate P2" with "<plate_1>" if not empty
+      And I fill in "Bed P3" with "3" if "<plate_2>" not empty
+      And I fill in "Plate P3" with "<plate_2>" if not empty
+      And I fill in "Bed P5" with "5" if "<plate_3>" not empty
+      And I fill in "Plate P5" with "<plate_3>" if not empty
+      And I fill in "Bed P6" with "6" if "<plate_4>" not empty
+      And I fill in "Plate P6" with "<plate_4>" if not empty
+      And I fill in "Bed P8" with "8" if "<plate_5>" not empty
+      And I fill in "Plate P8" with "<plate_5>" if not empty
+      And I fill in "Bed P9" with "9" if "<plate_6>" not empty
+      And I fill in "Plate P9" with "<plate_6>" if not empty
+      And I fill in "Bed P11" with "11" if "<plate_7>" not empty
+      And I fill in "Plate P11" with "<plate_7>" if not empty
+      And I fill in "Bed P12" with "12" if "<plate_8>" not empty
+      And I fill in "Plate P12" with "<plate_8>" if not empty
 
       And I press "Submit"
       And I wait 1 second
@@ -252,8 +252,18 @@ Feature: Verify group assay plates positions on the robot
       And I should be on the new audit page
     # The delayed job will raise an exception if it fails
     Examples:
-      | plate_1 | plate_2 | plate_3 | plate_4 | plate_5 | plate_6 | plate_7    | plate_8  | result                      | comment            |
-      | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico4      | pico5    | Success                     |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock4  | wd1     | pico1      | pico2    | Invalid source plate layout |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico1      | pico5    | Invalid source plate layout |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Success                     | This is impossible |
+      | plate_1 | plate_2 | plate_3 | plate_4 | plate_5 | plate_6 | plate_7    | plate_8  | result                           | comment            |
+      | stock1  | wd1     | pico1   | pico2   |         |         |            |          | Success                          |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  |         |            |          | Invalid destination plate layout |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     |            |          | Invalid destination plate layout |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      |          | Invalid destination plate layout |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  |         | pico1      | pico2    | Invalid destination plate layout |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     |            | pico2    | Invalid destination plate layout |                    |
+      | stock1  |         | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
+      | stock1  | wd1     |         | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
+      | stock1  | wd1     | pico1   |         | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
+      | stock1  | wd1     |         |         | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico4      | pico5    | Success                          |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock4  | wd1     | pico1      | pico2    | Invalid source plate layout      |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico1      | pico5    | Invalid source plate layout      |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Success                          | This is impossible |

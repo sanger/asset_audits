@@ -183,7 +183,7 @@ Feature: Verify group assay plates positions on the robot
       """
 
   Scenario Outline: Valid plates and bed positions
-    Given I have a process "Some process" as part of the "Some stuff" instrument with dilution assay nx bed verification
+    Given I have a process "Some process" as part of the "Some stuff" instrument with x2 dilution assay nx bed verification
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"

@@ -267,3 +267,6 @@ Feature: Verify group assay plates positions on the robot
       | stock1  | wd1     | pico1   | pico2   | stock4  | wd1     | pico1      | pico2    | Invalid source plate layout      |                    |
       | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico1      | pico5    | Invalid source plate layout      |                    |
       | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Success                          | This is impossible |
+      | stock1  | wd1     | pico1   | pico2   |         | wd1     | pico1      | pico2    | Invalid                          |                    |
+      |         | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
+      |         | wd1     | pico1   | pico2   |         | wd1     | pico1      | pico2    | Invalid                          |                    |

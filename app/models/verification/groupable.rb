@@ -6,7 +6,7 @@ module Verification::Groupable
       transfer[:source_beds].each do |source_bed|
         source_barcode = scanned_values[source_bed.downcase.to_sym][:plate]
         bed_barcode = scanned_values[source_bed.downcase.to_sym][:bed]
-        if self.class.is_a_mandatory_bed_source?(bed_barcode) || !source_barcode.blank?
+        unless source_barcode.blank?
           transfer[:destination_beds].each do |destination_bed|
             destination_barcode = scanned_values[destination_bed.downcase.to_sym][:plate]
             source_and_destination_barcodes << [ source_barcode, destination_barcode]
@@ -18,14 +18,13 @@ module Verification::Groupable
   end
 
   def self.included(base)
-    base.extend(ClassMethods)
+    base.class_eval do
+      extend ClassMethods
+      validates_with Verification::Validator::GroupableComplete
+    end
   end
 
   module ClassMethods
-    def is_a_mandatory_bed_source?(bed_barcode)
-      !(self.source_beds - self.destination_beds).include?(bed_barcode)
-    end
-
     def destination_beds
       transfer_groups.map{|g| g[:destination_beds]}.flatten.uniq
     end

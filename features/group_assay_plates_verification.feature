@@ -252,21 +252,35 @@ Feature: Verify group assay plates positions on the robot
       And I should be on the new audit page
     # The delayed job will raise an exception if it fails
     Examples:
-      | plate_1 | plate_2 | plate_3 | plate_4 | plate_5 | plate_6 | plate_7    | plate_8  | result                           | comment            |
-      | stock1  | wd1     | pico1   | pico2   |         |         |            |          | Success                          |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock2  |         |            |          | Invalid destination plate layout |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     |            |          | Invalid destination plate layout |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      |          | Invalid destination plate layout |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock2  |         | pico1      | pico2    | Invalid destination plate layout |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     |            | pico2    | Invalid destination plate layout |                    |
-      | stock1  |         | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
-      | stock1  | wd1     |         | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
-      | stock1  | wd1     | pico1   |         | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
-      | stock1  | wd1     |         |         | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico4      | pico5    | Success                          |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock4  | wd1     | pico1      | pico2    | Invalid source plate layout      |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico1      | pico5    | Invalid source plate layout      |                    |
-      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Success                          | This is impossible |
-      | stock1  | wd1     | pico1   | pico2   |         | wd1     | pico1      | pico2    | Invalid                          |                    |
-      |         | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid                          |                    |
-      |         | wd1     | pico1   | pico2   |         | wd1     | pico1      | pico2    | Invalid                          |                    |
+      | plate_1 | plate_2 | plate_3 | plate_4 | plate_5 | plate_6 | plate_7    | plate_8  | result  | comment            |
+      | stock1  | wd1     | pico1   | pico2   |         |         |            |          | Success | First group        |
+      | stock1  | wd1     | pico1   | pico2   | stock1  | wd1     | pico1      | pico2    | Success |                    |
+      |         | wd1     | pico1   | pico2   |         | wd1     | pico1      | pico2    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock1  | pico1   | pico2      | pico1    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock1  | wd1     | stock2     | pico2    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | wd1     | pico1   | pico2      | stock1   | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico2      | pico1    | Success |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock3  | wd1     | pico2      | pico1    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock1  | wd1     | pico2      | pico1    | Success |                    |
+      | stock1  | wd1     | pico1   | pico2   | plate1  | stock2  | wd1        | wd2      | Success |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | wd2        | wd3      | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   |         | wd1     | pico2      | pico1    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock1  |         | pico2      | pico1    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   |         |         | pico1      | pico2    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock1  |         | pico2      | pico1    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  |         |            |          | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     |            |          | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      |          | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  |         | pico1      | pico2    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     |            | pico2    | Invalid |                    |
+      | stock1  |         | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid |                    |
+      | stock1  | wd1     |         | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid |                    |
+      | stock1  | wd1     | pico1   |         | stock2  | wd1     | pico1      | pico2    | Invalid |                    |
+      | stock1  | wd1     |         |         | stock2  | wd1     | pico1      | pico2    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico4      | pico5    | Success |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock4  | wd1     | pico1      | pico2    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock4  | wd4     | pico1      | pico5    | Invalid |                    |
+      | stock1  | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Success | This is impossible |
+      | stock1  | wd1     | pico1   | pico2   |         | wd1     | pico1      | pico2    | Invalid |                    |
+      |         | wd1     | pico1   | pico2   | stock2  | wd1     | pico1      | pico2    | Invalid |                    |
+      |         | wd1     | pico1   | pico2   |         | wd1     | pico1      | pico2    | Invalid |                    |

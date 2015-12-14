@@ -10,7 +10,7 @@ Feature: Add an audit to an asset
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123456"
       And I fill in "Source plates" with "1220094216791"
-      And I select "Cherrypick" from "Instrument process"
+      And I select "Cherrypick" from AJAX dropdown "Instrument process"
       And I press "Submit"
     Then I should see "Success"
       And I should be on the new audit page
@@ -27,7 +27,7 @@ Feature: Add an audit to an asset
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123"
       And I fill in "Source plates" with "1220094216791"
-      And I select "Cherrypick" from "Instrument process"
+      And I select "Cherrypick" from AJAX dropdown "Instrument process"
       And I press "Submit"
     Then I should see "Invalid instrument or process"
       And I should be on the new audit page
@@ -42,7 +42,7 @@ Feature: Add an audit to an asset
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123"
-      And I select "Stamp for Sequenom" from "Instrument process"
+      And I select "Stamp for Sequenom" from AJAX dropdown "Instrument process"
       #And I fill in "Source plates" with "1220094216791"
       And I press "Submit"
     Then I should see "Invalid instrument or process"

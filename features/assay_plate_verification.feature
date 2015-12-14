@@ -118,7 +118,7 @@ Feature: Verify assay plate positions on the robot
     When I fill in "User barcode" with "2470000100730"
       #And I fill in "Instrument barcode" with "abc123456"
       And I fill in "Instrument barcode" with "abc123456"
-      And I select "Assay Plate creation" from "Instrument process"
+      And I select "Assay Plate creation" from AJAX dropdown "Instrument process"
       And I fill in "Bed P<source_1_bed>" with "<source_1_bed>"
       And I fill in "Plate P<source_1_bed>" with "source1"
       And I fill in "Bed P<dest_1_bed>" with "<dest_1_bed>"
@@ -190,7 +190,7 @@ Feature: Verify assay plate positions on the robot
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123456"
-      And I select "Assay Plate creation" from "Instrument process"
+      And I select "Assay Plate creation" from AJAX dropdown "Instrument process"
       And I fill in "Bed P4" with "<source_bed>"
       And I fill in "Plate P4" with "<source_plate>"
       And I fill in "Bed P5" with "<destination_1_bed>"

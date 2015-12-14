@@ -12,18 +12,18 @@ Feature: Require a visual check for a process
     Given I am on the new audit page
 
   Scenario: Only show the visual check box if its required
-    Given I select "Cherrypick" from "Instrument process"
+    Given I select "Cherrypick" from AJAX dropdown "Instrument process"
     Then I should not display "visual_check_input"
 
-    Given I select "Pico dilution" from "Instrument process"
+    Given I select "Pico dilution" from AJAX dropdown "Instrument process"
     Then I should display "visual_check_input"
 
   Scenario: Create plates with a visual check required attribute depending on input
     Given I am on the new audit page
     Given I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"
-    Then I wait 1 second
-    And I select "Pico dilution" from "Instrument process"
+
+    And I select "Pico dilution" from AJAX dropdown "Instrument process"
     And I check "visual_check"
     And I should have 0 plates
     When I press "Submit"
@@ -36,8 +36,8 @@ Feature: Require a visual check for a process
     Given I am on the new audit page
     Given I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"
-    Then I wait 1 second
-    And I select "Pico dilution" from "Instrument process"
+
+    And I select "Pico dilution" from AJAX dropdown "Instrument process"
     And I check "visual_check"
     And I should have 1 plates
     When I press "Submit"
@@ -51,8 +51,8 @@ Feature: Require a visual check for a process
     Given I am on the new audit page
     Given I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"
-    Then I wait 1 second
-    Given I select "Pico dilution" from "Instrument process"
+
+    Given I select "Pico dilution" from AJAX dropdown "Instrument process"
     And I uncheck "Visual check performed"
     And I should have 0 plates
     When I press "Submit"

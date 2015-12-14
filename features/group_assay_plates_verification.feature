@@ -1,4 +1,4 @@
-@sequencescape_service @user_barcode_service @javascript @verification @assay_plate
+@sequencescape_service @user_barcode_service @javascript @verification @assay_plate @audit_process
 Feature: Verify group assay plates positions on the robot
 
   Background:
@@ -188,7 +188,7 @@ Feature: Verify group assay plates positions on the robot
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Some process" from AJAX dropdown "Instrument process"
-      And I wait 1 second
+
 
       And I fill in "Bed P2" with "<source_1_bed>"
       And I fill in "Plate P2" with "<plate_1>"
@@ -199,7 +199,7 @@ Feature: Verify group assay plates positions on the robot
       And I fill in "Bed P6" with "<dest_3_bed>"
       And I fill in "Plate P6" with "<plate_4>"
       And I press "Submit"
-      And I wait 1 second
+
     Then I should see "<result>"
       And I should be on the new audit page
     # The delayed job will raise an exception if it fails
@@ -227,7 +227,7 @@ Feature: Verify group assay plates positions on the robot
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Some process" from AJAX dropdown "Instrument process"
-      And I wait 1 second
+
 
       And I fill in "Bed P2" with "2" if "<plate_1>" not empty
       And I fill in "Plate P2" with "<plate_1>" if not empty
@@ -247,7 +247,7 @@ Feature: Verify group assay plates positions on the robot
       And I fill in "Plate P12" with "<plate_8>" if not empty
 
       And I press "Submit"
-      And I wait 1 second
+
     Then I should see "<result>"
       And I should be on the new audit page
     # The delayed job will raise an exception if it fails

@@ -108,7 +108,7 @@
           }
         },
 
-        predefinedInstrumentsHandler: function() {
+        updateBedsLayoutHandler: function() {
           this.updateVisualCheckVisibility();
 
           $.post('#{bed_layout_partial_bed_layouts_path}',{
@@ -136,6 +136,7 @@
           this.updateVisualCheckVisibility();
           this._dom.change($.proxy(this.checkIfShouldBeWitnessed, this));
           this._dom.change($.proxy(this.updateVisualCheckVisibility, this));
+          this._dom.change($.proxy(this.updateBedsLayoutHandler, this));
         },
         getValue: function() {
           return this._dom.val();

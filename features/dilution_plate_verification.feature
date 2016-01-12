@@ -33,11 +33,13 @@ Feature: Verify location of plates
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123456"
       And I select "Working dilution" from "Instrument process"
+      And I wait 1 second
       And I fill in "Bed P2" with "2"
       And I fill in "Plate P2" with "123"
       And I fill in "Bed P3" with "3"
       And I fill in "Plate P3" with "456"
       And I press "Submit"
+      And I wait 1 second
     Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed

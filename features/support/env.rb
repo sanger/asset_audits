@@ -9,11 +9,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 require 'capybara'
 require 'cucumber/rails'
 
-# If the environment establishes which firefox to run, use that.
-unless ENV['CAPYBARA_FIREFOX'].blank?
-  Capybara::Driver::Selenium # Appears to be required to initialize Selenium
-  Selenium::WebDriver::Firefox::Binary.path = File.join(File.expand_path(ENV['CAPYBARA_FIREFOX']), %w{Contents MacOS firefox-bin})
-end
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd

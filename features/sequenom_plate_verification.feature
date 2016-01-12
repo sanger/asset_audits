@@ -1,4 +1,4 @@
-@sequencescape_service @user_barcode_service @javascript @verification @sequenom_plate
+@sequencescape_service @user_barcode_service @javascript @verification @sequenom_plate @audit_process
 Feature: Verify assay plate positions on the robot
 
   Background:
@@ -145,7 +145,7 @@ Feature: Verify assay plate positions on the robot
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
-      And I fill in AJAX field "Instrument barcode" with "abc123456"
+      And I fill in "Instrument barcode" with "abc123456"
       And I select "Sequenom" from AJAX dropdown "Instrument process"
       And I fill in "Bed P2" with "<bed_p2>"
       And I fill in "Plate P2" with "<source_1>"
@@ -207,7 +207,7 @@ Feature: Verify assay plate positions on the robot
       And a process "Sequenom" as part of the "Liquid handling" instrument requires a witness
       And I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
-      And I fill in AJAX field "Instrument barcode" with "abc123456"
+      And I fill in "Instrument barcode" with "abc123456"
       And I select "Sequenom" from AJAX dropdown "Instrument process"
       And I fill in "Bed P2" with "2"
       And I fill in "Plate P2" with "6250000001741"
@@ -244,7 +244,7 @@ Feature: Verify assay plate positions on the robot
       """
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
-      And I fill in AJAX field "Instrument barcode" with "abc123456"
+      And I fill in "Instrument barcode" with "abc123456"
       And I select "Sequenom" from AJAX dropdown "Instrument process"
       And I fill in "Bed P2" with "<bed_p2>"
       And I fill in "Plate P2" with "<source_1>"
@@ -291,7 +291,7 @@ Feature: Verify assay plate positions on the robot
       """
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
-      And I fill in AJAX field "Instrument barcode" with "abc123456"
+      And I fill in "Instrument barcode" with "abc123456"
       And I select "Sequenom" from AJAX dropdown "Instrument process"
       And I fill in "Bed P2" with "<p2_barcode>"
       And I fill in "Plate P2" with "6250000001741"

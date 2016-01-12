@@ -61,6 +61,14 @@ When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end
 
+When /^(?:|I )fill in "([^"]*)" with "([^"]*)" if not empty$/ do |field, value|
+  fill_in(field, :with => value) unless value.squish.empty?
+end
+
+When /^(?:|I )fill in "([^"]*)" with "([^"]*)" if "([^"]*)" not empty$/ do |field, value, entry|
+  fill_in(field, :with => value) unless entry.squish.empty?
+end
+
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, :with => value)
 end
@@ -127,6 +135,23 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
     assert page.has_no_content?(text)
   end
 end
+
+Then /^(?:|I )should display "([^"]*)"$/ do |identif|
+  if page.respond_to? :should
+    page.should have_no_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
+  else
+    assert page.has_no_xpath?("//*[@id='#{identif}'][contains(@class, 'hidden')]"), "#{identif} not displayed"
+  end
+end
+
+Then /^(?:|I )should not display "([^"]*)"$/ do |identif|
+  if page.respond_to? :should
+    page.should have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
+  else
+    assert page.has_xpath?("//*[@id='#{identif}'][contains(@class, 'hidden')]"), "#{identif} displayed"
+  end
+end
+
 
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)

@@ -1,0 +1,57 @@
+<script type="text/javascript">
+<% @bed_verification_model.transfer_groups.each do |transfer_group| %>
+  (function(bedsList) {
+    /* Advance to next group when this is complete */
+    var groupNumber =  <%= transfer_group[:group] %>;
+    var groupClass = 'transfer_group_'+groupNumber;
+    var firstBed =  $(('#'+bedsList[0]+'_bed').toLowerCase());
+    firstBed.addClass(groupClass);
+    firstBed.bind('groupComplete', function(e) {
+      /* When a group has been completed, we move the focus to the next available group */
+      $(".verification-group-"+groupNumber).addClass("group-read-complete");
+      var nextGroup = $('.transfer_group_'+(groupNumber+1));
+      if (nextGroup.length!=0) {
+        nextGroup.focus();
+      }
+    });
+
+    $(bedsList).each(function(posBed, bed) {
+      $(('#'+bed+'_bed,#'+bed+'_plate').toLowerCase()).each(function(posId, input) {
+        /* Go to next input for this group after a carriage return */
+        $(input).keydown(function (e) {
+           var keyCode = e.keyCode || e.which;
+           if (keyCode == 13) {
+             var currentId = $(e.target).attr("id");
+             if (currentId.match(/bed/)) {
+              nextId=currentId.replace(/bed/, "plate")
+             } else {
+              if (posBed >= bedsList.length-1) {
+                /* Signal that all the group has been completed */
+                e.target.blur();
+                $('.'+groupClass).trigger('groupComplete');
+                return false;
+              } else {
+                nextId = bedsList[posBed+1].toLowerCase() + "_bed";
+              }
+             }
+             /* Move the focus to the next input */
+             $('#'+nextId).focus();
+             $('#'+currentId).trigger('change');
+             return false;
+           }
+        });
+
+        /* Highlight all the column of the group */
+        $(input).focus(function(e) {
+          $('.barcode_column').removeClass("highlight");
+          var classes = $(e.target).closest('.barcode_column').attr('class').split(/\s+/).filter(function(str) {
+            return str.match(/barcode_column_/);
+          }).forEach(function(className, posBed) {
+            $(".verification-group-"+groupNumber+" ."+className).addClass("highlight");
+          });
+        });
+      });
+    });
+  }(<%= [transfer_group[:source_beds], transfer_group[:destination_beds]].flatten.to_json.html_safe %>));
+<% end %>
+</script>

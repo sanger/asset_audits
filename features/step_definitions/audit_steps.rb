@@ -13,8 +13,7 @@ Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument$/ do |pro
 end
 
 Then /^(?:|I )wait (\d+) seconds?$/ do |seconds|
-  #sleep(seconds.to_i)
-  wait_for_ajax
+  sleep(seconds.to_i)
 end
 
 

@@ -80,8 +80,7 @@ Feature: Verify location of plates
       And I fill in "Witness barcode" with "2470041440697"
       And I press "Submit"
       And I wait for all AJAX calls
-      And I wait 3 seconds
-    Then I should see "Success"
+      Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails

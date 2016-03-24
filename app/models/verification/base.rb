@@ -53,6 +53,7 @@ class Verification::Base
       })
     if process_plate.save
       process_plate.create_audits
+      process_plate.substract_volume_because_of_working_dilution!
     else
       # add errors to the base of this object
       save_errors_to_base(process_plate.errors)

@@ -65,20 +65,9 @@ class ProcessPlate < ActiveRecord::Base
     )
   end
 
-  # This update is not really in the right application
-  module SubstractionVolumeForWorkingDilution
-    def substract_volume_because_of_working_dilution!
-      ActiveRecord::Base.transaction do
-        asset_uuid = asset_uuids_from_plate_barcodes.first
-        api.plate.find(asset_uuid).substract_volume!(20)
-      end
-    end
+  def post_audit_actions! ; end
 
-    def needs_substract_in_volume?
-      instrument_process.name.downcase.include?("working dilution")
-    end
-    handle_asynchronously :substract_volume_because_of_working_dilution!
-  end
-  include SubstractionVolumeForWorkingDilution
+  # This update is not really in the right application
+  include PostAuditActions::SubstractionVolumeForWorkingDilution
 
 end

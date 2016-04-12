@@ -65,7 +65,9 @@ class ProcessPlate < ActiveRecord::Base
     )
   end
 
-  def post_audit_actions! ; end
+  def post_audit_actions!
+    substract_volumes if defined?(:substract_volumes)
+  end
 
   # This update is not really in the right application
   include PostAuditActions::SubstractionVolumeForWorkingDilution

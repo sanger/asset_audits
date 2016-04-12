@@ -8,8 +8,8 @@ module PostAuditActions::SubstractionVolumeForWorkingDilution
   end
 
   def needs_to_substract_volume?
-    hash = Settings.decrease_volume_for_instrument_process_name
-    !hash.nil? && ! hash[instrument_process.key.downcase].nil?
+    !Settings.nil? && !Settings.update_volume_for_instrument_process_key.nil? &&
+    !Settings.update_volume_for_instrument_process_key[instrument_process.key.downcase].nil?
   end
 
   def destination_plates_uuids_to_substract
@@ -20,7 +20,7 @@ module PostAuditActions::SubstractionVolumeForWorkingDilution
     ActiveRecord::Base.transaction do
       if needs_to_substract_volume?
         destination_plates_uuids_to_substract.each do |asset_uuid|
-          decrease_volume = Settings.decrease_volume_for_instrument_process_name[instrument_process.key.downcase]
+          decrease_volume = Settings.update_volume_for_instrument_process_key[instrument_process.key.downcase]
           api.plate.find(asset_uuid).volume_updates.create!(:volume_change => decrease_volume, :created_by => user_login)
         end
       end

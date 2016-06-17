@@ -3,4 +3,3 @@ sequencescape_url: http://localhost:3000/api/1/
 sequencescape_authorisation: cucumber
 search_find_assets_by_barcode: 00000000-0000-0000-0000-000000000001
 search_find_source_assets_by_destination_barcode: 00000000-0000-0000-0000-000000000002
-update_volume_for_instrument_process_key:

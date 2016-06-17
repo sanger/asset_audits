@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20160617123733) do
     t.string   "key"
     t.boolean  "request_instrument",            :default => true
     t.boolean  "visual_check_required",         :default => false
-    t.float    "substracted_volume_on_process"
+    t.float    "volume_to_pick"
   end
 
   add_index "instrument_processes", ["key"], :name => "index_instrument_processes_on_key"

@@ -19,7 +19,7 @@ module PostAuditActions::SubstractionVolumeForWorkingDilution
     ActiveRecord::Base.transaction do
       if needs_to_substract_volume?
         source_plates_uuids_to_substract.each do |asset_uuid|
-          decrease_volume = instrument_process.substracted_volume_on_process
+          decrease_volume = (-1) * instrument_process.volume_to_pick
           api.plate.find(asset_uuid).volume_updates.create!(:volume_change => decrease_volume, :created_by => user_login)
         end
       end

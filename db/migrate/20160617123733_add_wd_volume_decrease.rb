@@ -5,7 +5,7 @@ class AddWdVolumeDecrease < ActiveRecord::Migration
   def self.up
     self.wd_keys.each do |key|
       InstrumentProcess.find_by_key!(key).update_attributes!({
-        :substracted_volume_on_process => 20
+        :volume_to_pick => 2
       })
     end
   end
@@ -13,7 +13,7 @@ class AddWdVolumeDecrease < ActiveRecord::Migration
   def self.down
     self.wd_keys.each do |key|
       InstrumentProcess.find_by_key!(key).update_attributes!({
-        :substracted_volume_on_process => nil
+        :volume_to_pick => nil
       })
     end
   end

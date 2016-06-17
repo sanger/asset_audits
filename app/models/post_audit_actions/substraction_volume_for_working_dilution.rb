@@ -11,14 +11,14 @@ module PostAuditActions::SubstractionVolumeForWorkingDilution
     !instrument_process.substracted_volume_on_process.nil?
   end
 
-  def destination_plates_uuids_to_substract
-    asset_uuids_from_plate_barcodes.each_with_index.map{|uuid, pos| uuid if pos.odd? }.compact
+  def source_plates_uuids_to_substract
+    asset_uuids_from_plate_barcodes.each_with_index.map{|uuid, pos| uuid if pos.even? }.compact
   end
 
   def substract_volume_because_of_working_dilution!
     ActiveRecord::Base.transaction do
       if needs_to_substract_volume?
-        destination_plates_uuids_to_substract.each do |asset_uuid|
+        source_plates_uuids_to_substract.each do |asset_uuid|
           decrease_volume = instrument_process.substracted_volume_on_process
           api.plate.find(asset_uuid).volume_updates.create!(:volume_change => decrease_volume, :created_by => user_login)
         end

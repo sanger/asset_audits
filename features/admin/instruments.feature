@@ -24,7 +24,7 @@ Feature: Manage instruments
     Then the list of instruments should look like:
       | Instrument  | Number of Processes | Barcode |
       | Big robot   | 0                   | 1234    |
-  
+
   @error @create
   Scenario Outline: Shouldnt be able to create an invalid instrument
     Given I am on the instrument management page
@@ -38,8 +38,8 @@ Feature: Manage instruments
       |      |         |
       | abc  |         |
       |      | 123     |
-      
-      
+
+
   @error @create
   Scenario Outline: Shouldnt be able to create a duplicate instrument
     Given I have an instrument "Big robot" with barcode "1234"
@@ -162,8 +162,8 @@ Feature: Manage instruments
     Then the list of instruments should look like:
       | Instrument  | Number of Processes | Barcode |
       | Big robot   | 1                   | 1234    |
-    
-    
+
+
   @witness @process
   Scenario: Add a process which needs to be witnessed
     Given I have a process "Cherrypick" with key "cherrypicking"
@@ -192,8 +192,8 @@ Feature: Manage instruments
     Then the list of instruments should look like:
       | Instrument  | Number of Processes | Barcode |
       | Big robot   | 2                   | 1234    |
-  
-  @verification 
+
+  @verification
   Scenario: Add a verification type for assay plate creation to the process
     Given I have a process "Create Assay Plates" with key "assay_plates"
     Given I have an instrument "Big robot" with barcode "1234"
@@ -202,14 +202,14 @@ Feature: Manage instruments
     Then the instrument process table should be:
       | Process| Key | Bed verification type |
     When I select "Create Assay Plates" from "Process"
-      And I select "Verification::AssayPlate::Nx" from "Bed verification type" 
+      And I select "Verification::AssayPlate::Nx" from "Bed verification type"
       And I press "Add process"
     Then I should see "Process added to instrument"
     Then the instrument process table should be:
       | Process             | Key          | Bed verification type        |
       | Create Assay Plates | assay_plates | Verification::AssayPlate::Nx |
-      
-  @verification 
+
+  @verification
   Scenario: Add a verification type should default to blank
     Given I have a process "Create Assay Plates" with key "assay_plates"
     Given I have an instrument "Big robot" with barcode "1234"

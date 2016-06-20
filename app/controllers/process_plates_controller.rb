@@ -7,7 +7,7 @@ class ProcessPlatesController < ApplicationController
   end
 
   def new
-    @processes_requiring_visual_check = InstrumentProcess.where(:visual_check_required => true).map(&:id)
+    @processes_requiring_visual_check = InstrumentProcess.where(:visual_check_required => true).pluck(:id)
     @process_plate = ProcessPlate.new
   end
 

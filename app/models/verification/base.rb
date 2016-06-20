@@ -5,8 +5,8 @@ class Verification::Base
   attr_accessor :scanned_values
   attr_accessor :api
 
-  class_inheritable_accessor :source_beds
-  class_inheritable_accessor :destination_beds
+  class_attribute :source_beds
+  class_attribute :destination_beds
 
 
   def scanned_values

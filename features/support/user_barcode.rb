@@ -20,7 +20,7 @@ class FakeUserBarcodeService < FakeSinatraService
     self.user_barcodes[barcode] = user
   end
 
-  def find_user_by_barcode(barcode)
+  def find_username_from_barcode(barcode)
     self.user_barcodes[barcode]
   end
 
@@ -30,7 +30,7 @@ class FakeUserBarcodeService < FakeSinatraService
 
   class Service < FakeSinatraService::Base
     get('/user_barcodes/lookup_scanned_barcode.xml') do
-      user = FakeUserBarcodeService.instance.find_user_by_barcode(params[:barcode])
+      user = FakeUserBarcodeService.instance.find_username_from_barcode(params[:barcode])
       xml  = {'login' =>  user, 'barcode'=>params[:barcode] }
       headers('Content-Type' => 'application/xml')
       body(xml.to_xml(root:'user_barcodes'))

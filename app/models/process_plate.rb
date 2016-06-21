@@ -44,9 +44,11 @@ class ProcessPlate < ActiveRecord::Base
     self.asset_search_results = search_resource.all(api.plate, :barcode => barcodes)
   end
 
-  def create_audits
-    self.api ||= Sequencescape::Api.new(:url => Settings.sequencescape_url, :authorisation => Settings.sequencescape_authorisation)
+  def api
+    @api ||= Sequencescape::Api.new(:url => Settings.sequencescape_url, :authorisation => Settings.sequencescape_authorisation)
+  end
 
+  def create_audits
     asset_uuids_from_plate_barcodes.each do |asset_uuid|
       create_remote_audit(asset_uuid)
     end
@@ -62,5 +64,12 @@ class ProcessPlate < ActiveRecord::Base
       :witnessed_by => witness_login
     )
   end
+
+  def post_audit_actions!
+    subtract_volumes if defined?(:subtract_volumes)
+  end
+
+  # This update is not really in the right application
+  include PostAuditActions::SubtractionVolumeForWorkingDilution
 
 end

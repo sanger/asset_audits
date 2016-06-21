@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160617123733) do
+ActiveRecord::Schema.define(version: 20160617123733) do
 
   create_table "beds", force: :cascade do |t|
     t.string   "name",          limit: 255
@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(:version => 20160617123733) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "key",                   limit: 255
-    t.boolean  "request_instrument",            :default => true
-    t.boolean  "visual_check_required",         :default => false
-    t.float    "volume_to_pick"
+    t.boolean  "request_instrument",                default: true
+    t.boolean  "visual_check_required",             default: false
+    t.float    "volume_to_pick",        limit: 24
   end
 
   add_index "instrument_processes", ["key"], name: "index_instrument_processes_on_key", using: :btree

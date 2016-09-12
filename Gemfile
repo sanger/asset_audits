@@ -48,3 +48,4 @@ end
 
   gem 'sass-rails'
   gem 'uglifier'
+  gem 'therubyracer'

@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/jamesglover/sequencescape-client-api.git
-  revision: 80bde3b88440c632f97628ff175afe9ec8e92d9e
-  tag: import_rails_3_changes
+  revision: 4b21d48a5645a91cbf0f103a58322acd8c07e879
+  tag:  rc1.3.0
   specs:
-    sequencescape-client-api (0.2.2)
+    sequencescape-client-api (0.2.6)
       activemodel (~> 4)
       activesupport (~> 4)
       i18n

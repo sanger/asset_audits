@@ -4,8 +4,7 @@ class FakeUserBarcodeService < FakeSinatraService
   def initialize(*args, &block)
     super
     Settings.settings['user_barcode_url'] = "http://#{host}:#{port}"
-    UserBarcode::UserBarcode.site= Settings.user_barcode_url
-
+    UserBarcode::UserBarcode.site= "http://#{host}:#{port}"
   end
 
   def user_barcodes

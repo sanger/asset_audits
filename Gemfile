@@ -12,7 +12,7 @@ gem "uuidtools"
 gem "compass"
 gem 'curb'
 gem 'haml'
-gem 'sequencescape-client-api', :github => 'jamesglover/sequencescape-client-api', :tag => 'import_rails_3_changes', :require => 'sequencescape'
+gem 'sequencescape-client-api', :github => 'jamesglover/sequencescape-client-api', :tag => ' rc1.3.0', :require => 'sequencescape'
 gem 'delayed_job_active_record'
 # gem "jquery-rails"
 

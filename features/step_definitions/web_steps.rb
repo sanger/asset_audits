@@ -152,7 +152,7 @@ Then /^(?:|I )should not display "([^"]*)"$/ do |identif|
   if page.respond_to? :should
     page.should have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
   else
-    assert page.has_xpath?("//*[@id='#{identif}'][contains(@class, 'hidden')]"), "#{identif} displayed"
+    assert !page.find('#visual_check_input',visible: :any).visible?
   end
 end
 

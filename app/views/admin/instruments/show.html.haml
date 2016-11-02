@@ -19,21 +19,21 @@
      = instrument_processes_instrument.witness ? 'Yes' : ''
     %td
      = instrument_processes_instrument.bed_verification_type
-    %td 
+    %td
      = link_to "Unlink #{instrument_processes_instrument.instrument_process.name}",  admin_instrument_processes_instrument_path(instrument_processes_instrument), :method => :delete
 
 %h2 Add process to instrument
 
-= semantic_form_for(InstrumentProcessesInstrument.new, :url => admin_instrument_processes_instruments_path, :method => :post ) do |f|
+= semantic_form_for([:admin,InstrumentProcessesInstrument.new]) do |f|
  = f.inputs :name => 'Instrument details' do
-  = f.input :instrument_process, :label => "Process"
+  = f.input :instrument_process, :label => "Process", :collection => InstrumentProcess.all
   = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
   = f.input :witness, :label => "Witness"
   = f.input :bed_verification_type, :as => :select, :collection => Verification::Base.all_types_for_select
- = f.buttons do
-  = f.commit_button 'Add process'
-  
-  
+ = f.actions do
+  = f.action :submit, label: 'Add process'
+
+
 %table#beds
  %thead
   %tr
@@ -50,10 +50,10 @@
      = bed.barcode
     %td
      = bed.bed_number
-    %td 
+    %td
      = link_to "Delete bed #{bed.barcode}",  admin_bed_path(bed), :method => :delete
-  
-  
+
+
 %h2 Add bed to instrument
 = semantic_form_for(Bed.new, :url => admin_beds_path, :method => :post ) do |f|
  = f.inputs :name => 'Bed details' do
@@ -61,8 +61,8 @@
   = f.input :barcode
   = f.input :bed_number
   = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
- = f.buttons do
-  = f.commit_button 'Add bed'
+ = f.actions do
+  = f.action :submit, label: 'Add bed'
 
 
 
@@ -71,5 +71,5 @@
 
 
 %ul
- %li 
+ %li
   = link_to 'Instrument index', admin_instruments_path

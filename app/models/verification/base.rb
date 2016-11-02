@@ -5,8 +5,8 @@ class Verification::Base
   attr_accessor :scanned_values
   attr_accessor :api
 
-  class_inheritable_accessor :source_beds
-  class_inheritable_accessor :destination_beds
+  class_attribute :source_beds
+  class_attribute :destination_beds
 
 
   def scanned_values
@@ -53,6 +53,7 @@ class Verification::Base
       })
     if process_plate.save
       process_plate.create_audits
+      process_plate.post_audit_actions!
     else
       # add errors to the base of this object
       save_errors_to_base(process_plate.errors)

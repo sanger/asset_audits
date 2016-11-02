@@ -19,19 +19,19 @@
      = instrument.instrument_processes.count
     %td
      = instrument.beds.count
-    %td 
+    %td
      = instrument.barcode
-    %td 
+    %td
      = link_to "Edit #{instrument.name}", edit_admin_instrument_path(instrument)
-    %td 
+    %td
      = link_to "Manage #{instrument.name}", admin_instrument_path(instrument)
-    %td 
+    %td
      = link_to "Delete #{instrument.name}",  admin_instrument_path(instrument), :method => :delete
-    
+
 %ul
- %li 
+ %li
   = link_to 'New instrument', new_admin_instrument_path
- %li 
+ %li
   = link_to 'Process index', admin_processes_path
-      
-      
+
+

@@ -85,18 +85,21 @@ private
 
   def kill_running_sinatra
     Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/die_eat_flaming_death"))
-  rescue EOFError => exception
+  rescue EOFError
     # This is fine, it means that Sinatra apparently died.
-  rescue Errno::ECONNREFUSED => exception
+    true
+  rescue Errno::ECONNREFUSED
+    true
     # This is probably fine too because it means it wasn't running in the first place!
-  rescue SystemExit => exception
+  rescue SystemExit
+    true
     # This one is probably fine to ignore too.
   end
 
   # We have to pause execution until Sinatra has come up.  This makes a number of attempts to
   # retrieve the root document.  If it runs out of attempts it raises an exception
   def wait_for_sinatra_to_startup!
-    (1..10).each do |_|
+    10.times do
       begin
         Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/up_and_running"))
         return

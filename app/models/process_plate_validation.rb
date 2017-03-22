@@ -31,8 +31,9 @@ module  ProcessPlateValidation
 
   def witness_required?
     return false unless instrument
-    instrument_processes_instrument = instrument.instrument_processes_instruments.select{ |instrument_process_link| instrument_process_link.instrument_process_id == instrument_process.id }
-    (! instrument_processes_instrument.empty? ) && instrument_processes_instrument.first.witness
+    instrument.instrument_processes_instruments
+              .where(instrument_process_id: instrument_process, witness: true)
+              .exists?
   end
 
   def visual_check_required?

@@ -20,6 +20,7 @@ gem "byebug"
 
 group :development do
   gem "sinatra"
+  gem 'rubocop'
 end
 
 gem "factory_girl_rails", :groups => [:test,:cucumber]

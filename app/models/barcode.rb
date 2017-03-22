@@ -23,7 +23,7 @@ class Barcode
 
   def self.calculate_barcode(prefix, number)
     barcode = calculate_sanger_barcode(prefix, number)
-    barcode*10+calculate_EAN13(barcode)
+    barcode*10+calculate_ean13(barcode)
   end
 
   def self.calculate_checksum(prefix, number)
@@ -63,7 +63,7 @@ class Barcode
     prefix, number, check = split_human_barcode(barcode)
     return number
   end
-  
+
   def self.prefix_from_barcode(code)
     barcode = barcode_to_human(code)
     prefix, number, check = split_human_barcode(barcode)
@@ -84,29 +84,29 @@ class Barcode
     bcode
   end
 
-  # Returns the Human barcode or raises an InvalidBarcode exception if there is a problem.  The barcode is 
+  # Returns the Human barcode or raises an InvalidBarcode exception if there is a problem.  The barcode is
   # considered invalid if it does not translate to a Human barcode or, when the optional +prefix+ is specified,
   # its human equivalent does not match.
   def self.barcode_to_human!(code, prefix = nil)
     human_barcode = barcode_to_human(code) or raise InvalidBarcode, "Barcode #{ code } appears to be invalid"
     unless prefix.nil? or split_human_barcode(human_barcode).first == prefix
-      raise InvalidBarcode, "Barcode #{ code } (#{ human_barcode }) does not match prefix #{ prefix }" 
+      raise InvalidBarcode, "Barcode #{ code } (#{ human_barcode }) does not match prefix #{ prefix }"
     end
     human_barcode
   end
 
-  def self.check_EAN(code)
+  def self.check_ean(code)
     #the EAN checksum is calculated so that the EAN of the code with checksum added is 0
     #except the new column (the checksum) start with a different weight (so the previous column keep the same weight)
-    calculate_EAN(code, 1) == 0
+    calculate_ean(code, 1) == 0
   end
 
-  def self.calculate_EAN13(code)
-    calculate_EAN(code)
+  def self.calculate_ean13(code)
+    calculate_ean(code)
   end
 
   private
-  def self.calculate_EAN(code, initial_weight=3)
+  def self.calculate_ean(code, initial_weight=3)
     #The EAN is calculated by adding each digit modulo 10 ten weighted by 1 or 3 ( in seq)
     code = code.to_i
     ean = 0

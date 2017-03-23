@@ -1,0 +1,26 @@
+<script type="text/javascript">
+<% presenter.tab_order.each do |current_id, next_id| %>
+    $('#<%= current_id %>').keydown(function (e) {
+       var keyCode = e.keyCode || e.which;
+       if (keyCode == 13) {
+         $('#<%= next_id %>').focus();
+         $('#<%= current_id %>').trigger('change');
+         return false;
+       }
+    });
+<% end %>
+
+<% presenter.bed_columns.each do |bed_position, column_number|
+     ['bed','plate'].each do |input_barcode_type|
+     %>
+    $('#p<%= bed_position %>_<%= input_barcode_type %>').focus(function() {
+      <% presenter.total_columns.times do |col| %>
+        $('.barcode_column_<%= col %>').removeClass("highlight");
+      <% end %>
+      $('.barcode_column_<%= column_number %>').addClass("highlight");
+    });
+  <% end %>
+<% end %>
+$('#<%= presenter.initial_bed %>').focus();
+$('#<%= presenter.initial_bed %>').trigger('change');
+</script>

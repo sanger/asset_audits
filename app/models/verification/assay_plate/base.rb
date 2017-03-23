@@ -4,10 +4,14 @@ class Verification::AssayPlate::Base < Verification::Base
   validates_with Verification::Validator::AllDestinationPlatesScanned
 
   self.partial_name = "assay_plate"
-  self.javascript_partial_name = "nx_assay_plate_javascript"
+  self.javascript_partial_name = "shared_robot_javascript"
 
   def self.ordered_beds
     source_beds + destination_beds
+  end
+
+  def self.column_groups
+    ordered_beds.map { |b| [b] }
   end
 
   def parse_source_and_destination_barcodes(scanned_values)

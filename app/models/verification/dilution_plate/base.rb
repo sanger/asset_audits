@@ -3,8 +3,13 @@ class Verification::DilutionPlate::Base < Verification::Base
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned
 
   self.partial_name = "dilution_plate"
+  self.javascript_partial_name = "shared_robot_javascript"
 
   def self.ordered_beds
+    column_groups.flatten
+  end
+
+  def self.column_groups
     source_beds.zip(destination_beds)
   end
 

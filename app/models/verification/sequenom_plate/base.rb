@@ -4,6 +4,16 @@ class Verification::SequenomPlate::Base < Verification::Base
   validates_with  Verification::Validator::UniqueDestinationPlatesScanned
 
   self.partial_name = "dilution_plate"
+  self.javascript_partial_name = "shared_robot_javascript"
+
+  def self.ordered_beds
+    source_beds + destination_beds
+  end
+
+  # Column groups define highlighting, which Sequenom doesn't have.
+  def self.column_groups
+    []
+  end
 
   def parse_source_and_destination_barcodes(scanned_values)
     source_and_destination_barcodes = []
@@ -20,5 +30,4 @@ class Verification::SequenomPlate::Base < Verification::Base
 
     source_and_destination_barcodes
   end
-
 end

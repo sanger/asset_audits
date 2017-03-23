@@ -1,7 +1,8 @@
 class InstrumentJavascriptPresenter
-  attr_reader :ordered_beds
+  attr_reader :ordered_beds, :column_groups
   def initialize(behaviour_class)
     @ordered_beds = behaviour_class.ordered_beds
+    @column_groups = behaviour_class.column_groups
   end
 
   #
@@ -25,10 +26,16 @@ class InstrumentJavascriptPresenter
   # @return [Array<Array>] An array of [bed, column] integer arrays.
   #
   def bed_columns
-    ordered_beds.each_with_index.map do |bed_name, index|
-      bed_number = bed_name.tr('P','').to_i
-      [bed_number, index]
+    column_groups.each_with_index.flat_map do |bed_names, index|
+      bed_names.map do |bed_name|
+        bed_number = bed_name.tr('P','').to_i
+        [bed_number, index]
+      end
     end
+  end
+
+  def total_columns
+    column_groups.length
   end
 
   #

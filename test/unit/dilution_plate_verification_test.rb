@@ -55,7 +55,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
               p9: { bed: "",  plate: "" },
               p12: { bed: "", plate: "" }
             }
-          }
+        }
 
         api = TestSequencescapeApi.new({"456" => [ TestSearchResult.new("123") ]} )
 
@@ -106,8 +106,8 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
                 p6: { bed: "",   plate: "" },
                 p9: { bed: "",   plate: "" },
                 p12: { bed: "", plate: "" }
-                }
-            }
+              }
+          }
 
           api = TestSequencescapeApi.new({"456" => [ TestSearchResult.new("123") ], "123" => [], "" => [] } )
 

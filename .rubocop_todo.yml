@@ -293,40 +293,6 @@ Style/IfUnlessModifier:
     - 'app/models/barcode.rb'
     - 'app/models/verification/validator/outdated_plates_scanned.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Style/IndentArray:
-  Exclude:
-    - 'app/models/verification/dilution_assay/nx_group.rb'
-    - 'db/migrate/20160205163232_add_biorobot.rb'
-
-# Offense count: 18
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_braces
-Style/IndentHash:
-  Exclude:
-    - 'app/models/verification/base.rb'
-    - 'app/models/verification/dilution_assay/nx_group.rb'
-    - 'app/models/verification/groupable.rb'
-    - 'db/migrate/20151014161021_sets_visual_checks_for_pico.rb'
-    - 'test/unit/asset_audit_test.rb'
-    - 'test/unit/dilution_plate_verification_test.rb'
-    - 'test/unit/witness_test.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: normal, rails
-Style/IndentationConsistency:
-  Exclude:
-    - 'Gemfile'
-    - 'app/controllers/admin/instruments_controller.rb'
-    - 'app/controllers/instruments_controller.rb'
-    - 'db/migrate/20160205163232_add_biorobot.rb'
-
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: Width.

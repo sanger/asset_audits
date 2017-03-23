@@ -11,7 +11,7 @@ class AssetAuditTest < ActiveSupport::TestCase
         instrument_barcode: @instrument.barcode.to_s,
         instrument_process: @instrument.instrument_processes.first.id.to_s,
         source_plates: "source1"
-        }
+      }
       @old_delayed_job_count = Delayed::Job.count
     end
 

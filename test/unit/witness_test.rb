@@ -12,7 +12,7 @@ class WitnessTest < ActiveSupport::TestCase
         instrument_process: @instrument.instrument_processes.first.id.to_s,
         source_plates: "source1",
         witness_barcode: "987"
-        }
+      }
       @old_delayed_job_count = Delayed::Job.count
       @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
       UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode ]).returns("abc")

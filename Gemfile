@@ -47,6 +47,6 @@ group :deployment do
 end
 # Needed for the new asset pipeline
 
-  gem 'sass-rails'
-  gem 'uglifier'
-  gem 'therubyracer'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'therubyracer'

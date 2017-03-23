@@ -1,11 +1,15 @@
 class Verification::DilutionPlate::Base < Verification::Base
   include Verification::BedVerification
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned
-  
+
   def self.partial_name
     "dilution_plate"
   end
-  
+
+  def self.ordered_beds
+    source_beds.zip(destination_beds)
+  end
+
   def parse_source_and_destination_barcodes(scanned_values)
     source_and_destination_barcodes = []
     self.source_beds.each_with_index do |source_bed, index|
@@ -17,5 +21,4 @@ class Verification::DilutionPlate::Base < Verification::Base
 
     source_and_destination_barcodes
   end
-  
 end

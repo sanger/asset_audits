@@ -4,12 +4,12 @@ class InstrumentJavascriptPresenter
     @ordered_beds = behaviour_class.ordered_beds
   end
 
-  def bed_plate_pairs
-    @bed_plate_pairs ||= ordered_beds.each_with_object([]) do |name, array|
-      array << "#{name}_bed".downcase << "#{name}_plate".downcase
-    end
-  end
-
+  #
+  # Reruns an array describing the order in which fields will gain focus.
+  #
+  #
+  # @return [Array<Array>] An array of [field, next_field]
+  #
   def tab_order
     bed_plate_pairs.each_with_index.map do |bed, index|
       # Finds the next bed, returns witness_barcode if we reach the end of the array
@@ -18,6 +18,12 @@ class InstrumentJavascriptPresenter
     end
   end
 
+  #
+  # An array of bed identifiers and a column number to enable highlighting
+  # of paired fields.
+  #
+  # @return [Array<Array>] An array of [bed, column] integer arrays.
+  #
   def bed_columns
     ordered_beds.each_with_index.map do |bed_name, index|
       bed_number = bed_name.tr('P','').to_i
@@ -25,7 +31,26 @@ class InstrumentJavascriptPresenter
     end
   end
 
+  #
+  # The field which will initially have focus.
+  #
+  # @return [String] Fir id of the initial field
+  #
   def initial_bed
-    "#{ordered_beds.first}_bed".downcase
+    bed_plate_pairs.first
+  end
+
+  private
+  #
+  # Robots have both bed and plate input boxes for each positions
+  # When defining tab order, beds come before plates.
+  #
+  # @return [Array<String>] An array of field names for the given beds
+  #         eg. ['p1_bed', 'p1_plate', 'p2_bed', 'p2_plate']
+  #
+  def bed_plate_pairs
+    @bed_plate_pairs ||= ordered_beds.each_with_object([]) do |name, array|
+      array << "#{name}_bed".downcase << "#{name}_plate".downcase
+    end
   end
 end

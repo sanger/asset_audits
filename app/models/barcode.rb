@@ -16,11 +16,11 @@ class Barcode
   private
 
   def self.calculate_sanger_barcode(prefix, number)
-      number_s = number.to_s
-      raise ArgumentError, "Number : #{number} to big to generate a barcode." if number_s.size > 7
-      human = prefix + number_s + calculate_checksum(prefix, number)
-      barcode = prefix_to_number(prefix) + (number * 100)
-      barcode = barcode + human[human.size-1]
+    number_s = number.to_s
+    raise ArgumentError, "Number : #{number} to big to generate a barcode." if number_s.size > 7
+    human = prefix + number_s + calculate_checksum(prefix, number)
+    barcode = prefix_to_number(prefix) + (number * 100)
+    barcode = barcode + human[human.size-1]
   end
 
   def self.calculate_barcode(prefix, number)
@@ -98,8 +98,8 @@ class Barcode
   end
 
   def self.check_ean(code)
-    #the EAN checksum is calculated so that the EAN of the code with checksum added is 0
-    #except the new column (the checksum) start with a different weight (so the previous column keep the same weight)
+    # the EAN checksum is calculated so that the EAN of the code with checksum added is 0
+    # except the new column (the checksum) start with a different weight (so the previous column keep the same weight)
     calculate_ean(code, 1) == 0
   end
 
@@ -110,7 +110,7 @@ class Barcode
   private
 
   def self.calculate_ean(code, initial_weight=3)
-    #The EAN is calculated by adding each digit modulo 10 ten weighted by 1 or 3 ( in seq)
+    # The EAN is calculated by adding each digit modulo 10 ten weighted by 1 or 3 ( in seq)
     code = code.to_i
     ean = 0
     weight = initial_weight

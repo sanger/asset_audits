@@ -1,7 +1,7 @@
 class AddRequestInstrumentFieldToInstrumentProcess < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.transaction do
-       add_column :instrument_processes, :request_instrument, :boolean, default: true
+      add_column :instrument_processes, :request_instrument, :boolean, default: true
     end
   end
 

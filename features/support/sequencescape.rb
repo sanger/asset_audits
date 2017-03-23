@@ -7,7 +7,7 @@ class FakeSequencescapeService < FakeSinatraService
   end
 
   def clear
-     @search_results = {}
+    @search_results = {}
   end
 
   def service
@@ -15,7 +15,7 @@ class FakeSequencescapeService < FakeSinatraService
   end
 
   def search_results
-     @search_results ||= {}
+    @search_results ||= {}
   end
 
   def search_result(search_uuid, barcode, result_json)

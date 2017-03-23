@@ -9,7 +9,7 @@ class ProcessPlate < ActiveRecord::Base
 
   belongs_to :instrument_process
 
-  #after_create :create_events
+  # after_create :create_events
 
   def user_login
     return self.user_name unless self.user_name.blank?

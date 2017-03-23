@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-#source 'http://gems.github.com'
+# source 'http://gems.github.com'
 
 gem 'rails', '~> 4.0'
 gem 'rake'

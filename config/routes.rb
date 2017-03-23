@@ -41,10 +41,10 @@ ProcessTracking::Application.routes.draw do
   end
 
   namespace :admin do
-     resources :instruments
-     resources :processes
-     resources :instrument_processes_instruments
-     resources :beds
+    resources :instruments
+    resources :processes
+    resources :instrument_processes_instruments
+    resources :beds
   end
 
   # Sample resource route with options:

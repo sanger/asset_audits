@@ -44,13 +44,13 @@ class Admin::InstrumentsController < ApplicationController
   end
 
   def destroy
-     instrument = Instrument.find(params[:id])
-     instrument.destroy
-     # also remove links
-     respond_to do |format|
-       flash[:notice] = 'Deleted instrument'
-       format.html { redirect_to(admin_instruments_path) }
-     end
+    instrument = Instrument.find(params[:id])
+    instrument.destroy
+    # also remove links
+    respond_to do |format|
+      flash[:notice] = 'Deleted instrument'
+      format.html { redirect_to(admin_instruments_path) }
+    end
   end
 
   private

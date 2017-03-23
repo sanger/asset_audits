@@ -293,30 +293,6 @@ Style/IfUnlessModifier:
     - 'app/models/barcode.rb'
     - 'app/models/verification/validator/outdated_plates_scanned.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: Width.
-Style/IndentationWidth:
-  Exclude:
-    - 'app/controllers/admin/instruments_controller.rb'
-    - 'app/controllers/plates_controller.rb'
-    - 'app/controllers/users_controller.rb'
-    - 'app/models/barcode.rb'
-    - 'config/routes.rb'
-    - 'db/migrate/20150106154314_add_request_instrument_field_to_instrument_process.rb'
-    - 'db/migrate/20160205163232_add_biorobot.rb'
-    - 'features/support/sequencescape.rb'
-    - 'lib/tasks/cucumber.rake'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/LeadingCommentSpace:
-  Exclude:
-    - 'Gemfile'
-    - 'app/controllers/plates_controller.rb'
-    - 'app/models/barcode.rb'
-    - 'app/models/process_plate.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/LineEndConcatenation:

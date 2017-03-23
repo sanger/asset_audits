@@ -25,5 +25,4 @@ module PostAuditActions::SubtractionVolumeForWorkingDilution
       end
     end
   end
-
 end

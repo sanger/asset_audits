@@ -20,6 +20,4 @@ class InstrumentsController < ApplicationController
 
      render text: witness_required ? 'witness_required' : 'not_required'
    end
-
 end
-

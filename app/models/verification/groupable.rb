@@ -1,5 +1,4 @@
 module Verification::Groupable
-
   def parse_source_and_destination_barcodes(scanned_values)
     source_and_destination_barcodes = []
     self.class.transfers.sort{|a,b| a[:priority] <=> b[:priority] }.each do |transfer|

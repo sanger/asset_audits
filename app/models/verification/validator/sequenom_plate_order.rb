@@ -57,5 +57,3 @@ class Verification::Validator::SequenomPlateOrder < ActiveModel::Validator
     end
   end
 end
-
-

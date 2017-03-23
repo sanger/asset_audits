@@ -50,7 +50,6 @@ class Admin::ProcessesController < ApplicationController
       flash[:notice] = 'Deleted process'
       format.html { redirect_to(admin_processes_path) }
     end
-
   end
 
   def show
@@ -61,5 +60,4 @@ class Admin::ProcessesController < ApplicationController
   def instrument_process_params
     params.require(:instrument_process).permit(:name,:key)
   end
-
 end

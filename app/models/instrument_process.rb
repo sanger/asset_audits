@@ -10,5 +10,4 @@ class InstrumentProcess < ActiveRecord::Base
   validates_uniqueness_of :key, message: "must be unique"
   validates_presence_of :name, message: "can't be blank"
   validates_presence_of :key, message: "can't be blank"
-
 end

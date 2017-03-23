@@ -44,5 +44,4 @@ module ProcessPlateValidation
     return true if instrument
     false
   end
-
 end

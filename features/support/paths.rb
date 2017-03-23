@@ -10,7 +10,7 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-      
+
     when /the new audit page/
       new_process_plate_path
 

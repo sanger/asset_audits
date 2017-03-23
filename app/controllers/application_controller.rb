@@ -10,7 +10,4 @@ class ApplicationController < ActionController::Base
   def sequencescape_api_error_handler(exception)
     raise exception
   end
-
 end
-
-

@@ -8,5 +8,4 @@ module ApplicationHelper
       yield(flash_type, messages)
     end
   end
-
 end

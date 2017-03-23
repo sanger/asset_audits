@@ -15,4 +15,3 @@ class UserBarcode::UserBarcode < ActiveResource::Base
     user_details ? user_details['login'] : nil
   end
 end
-

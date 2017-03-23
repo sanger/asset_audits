@@ -9,5 +9,4 @@ class SubstractedVolumeOnProcess < ActiveRecord::Migration
       remove_column :instrument_processes, :volume_to_pick
     end
   end
-
 end

@@ -12,7 +12,7 @@ ProcessTracking::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  
+
   resources :process_plates
   resources :users do
     collection do
@@ -27,19 +27,19 @@ ProcessTracking::Application.routes.draw do
       post 'witness'
     end
   end
-  
+
   resources :plates do
     collection do
       post 'search'
     end
   end
-  
+
   resources :bed_layouts do
     collection do
       post 'bed_layout_partial'
     end
   end
-  
+
   namespace :admin do
      resources :instruments
      resources :processes

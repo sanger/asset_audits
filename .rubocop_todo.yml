@@ -265,71 +265,6 @@ Style/EmptyLines:
     - 'lib/tasks/cucumber.rake'
     - 'test/unit/dilution_plate_verification_test.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/EmptyLinesAroundAccessModifier:
-  Exclude:
-    - 'app/models/barcode.rb'
-    - 'app/models/verification/validator/beds_and_plates_scanned.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'config/environments/development.rb'
-    - 'config/environments/test.rb'
-    - 'db/schema.rb'
-    - 'test/unit/asset_audit_test.rb'
-    - 'test/unit/dilution_plate_verification_test.rb'
-    - 'test/unit/witness_test.rb'
-
-# Offense count: 16
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Style/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'app/controllers/admin/instrument_processes_instruments_controller.rb'
-    - 'app/controllers/admin/instruments_controller.rb'
-    - 'app/controllers/admin/processes_controller.rb'
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/bed_layouts_controller.rb'
-    - 'app/controllers/instruments_controller.rb'
-    - 'app/controllers/process_plates_controller.rb'
-    - 'app/models/instrument_process.rb'
-    - 'app/models/instrument_processes_instrument.rb'
-    - 'app/models/process_plate.rb'
-    - 'app/models/verification/base.rb'
-    - 'app/models/verification/validator/beds_and_plates_scanned.rb'
-    - 'db/migrate/20160205163232_add_biorobot.rb'
-    - 'db/migrate/20160617122652_substracted_volume_on_process.rb'
-    - 'features/support/sequencescape.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'app/controllers/admin/instrument_processes_instruments_controller.rb'
-    - 'app/controllers/admin/processes_controller.rb'
-    - 'app/models/barcode.rb'
-    - 'db/migrate/20110217151042_add_process_plate_table.rb'
-    - 'features/support/fake_sinatra_service.rb'
-    - 'features/support/sequencescape.rb'
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Style/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/models/post_audit_actions/subtraction_volume_for_working_dilution.rb'
-    - 'app/models/process_plate_validation.rb'
-    - 'app/models/verification/bed_verification.rb'
-    - 'app/models/verification/groupable.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -796,18 +731,6 @@ Style/TernaryParentheses:
   Exclude:
     - 'app/models/verification/validator/sequenom_plate_order.rb'
     - 'features/step_definitions/web_steps.rb'
-
-# Offense count: 30
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: final_newline, final_blank_line
-Style/TrailingBlankLines:
-  Enabled: false
-
-# Offense count: 76
-# Cop supports --auto-correct.
-Style/TrailingWhitespace:
-  Enabled: false
 
 # Offense count: 5
 # Cop supports --auto-correct.

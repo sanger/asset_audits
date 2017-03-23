@@ -25,4 +25,3 @@ Given /^instrument "([^"]*)" has process "([^"]*)"$/ do |instrument_name, proces
   process = InstrumentProcess.find_by_name(process_name)
   instrument.instrument_processes << process
 end
-

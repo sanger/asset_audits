@@ -58,6 +58,4 @@ class Admin::InstrumentsController < ApplicationController
   def instrument_params
     params.require(:instrument).permit(:name,:barcode)
   end
-
-
 end

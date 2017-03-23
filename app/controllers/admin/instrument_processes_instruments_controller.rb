@@ -10,7 +10,6 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
       end
       format.html { redirect_to(admin_instrument_path(instrument_process_link.instrument) ) }
     end
-
   end
 
   def destroy
@@ -28,6 +27,4 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
   def instrument_processes_instrument_params
     params.require(:instrument_processes_instrument).permit(:instrument_process_id,:instrument_id,:witness,:bed_verification_type)
   end
-
 end
-

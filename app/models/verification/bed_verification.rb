@@ -1,5 +1,4 @@
 module Verification::BedVerification
-
   def self.included(base)
     base.class_eval do
       validates_with Verification::Validator::PlatesScanned
@@ -13,6 +12,4 @@ module Verification::BedVerification
     params[:source_plates] = parse_source_and_destination_barcodes(scanned_values).flatten.join(" ")
     return super(params)
   end
-
 end
-

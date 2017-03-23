@@ -13,6 +13,4 @@ class BedLayoutsController < ApplicationController
       format.html { render partial: "bed_layouts/#{bed_layout_partial_name}" , layout: false }
     end
   end
-
 end
-

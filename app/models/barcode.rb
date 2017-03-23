@@ -12,7 +12,9 @@ class Barcode
   end
 
   # NT23432S => 398002343283
+
   private
+
   def self.calculate_sanger_barcode(prefix, number)
       number_s = number.to_s
       raise ArgumentError, "Number : #{number} to big to generate a barcode." if number_s.size > 7
@@ -106,6 +108,7 @@ class Barcode
   end
 
   private
+
   def self.calculate_ean(code, initial_weight=3)
     #The EAN is calculated by adding each digit modulo 10 ten weighted by 1 or 3 ( in seq)
     code = code.to_i
@@ -118,6 +121,5 @@ class Barcode
     end
 
     (10 -ean) % 10
-
   end
 end

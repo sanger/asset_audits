@@ -11,6 +11,5 @@ class AddProcessPlateTable < ActiveRecord::Migration
 
   def self.down
     drop_table :process_plates
-
   end
 end

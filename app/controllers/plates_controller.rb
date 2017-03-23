@@ -3,6 +3,4 @@ class PlatesController < ApplicationController
      render text: ""
      #render :text =>  Plate.sanger_barcodes(params[:source_plates]).join('<br />')
    end
-    
 end
-

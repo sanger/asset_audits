@@ -4,7 +4,7 @@ class AddInstrumentTable < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
-    
+
     create_table :instrument_processes_instruments, force: true do |t|
       t.integer :instrument_id
       t.integer :instrument_process_id

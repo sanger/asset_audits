@@ -71,6 +71,4 @@ class Verification::Base
       self.errors.add(key, message)
     end
   end
-
 end
-

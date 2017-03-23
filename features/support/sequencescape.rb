@@ -4,7 +4,6 @@ class FakeSequencescapeService < FakeSinatraService
   def initialize(*args, &block)
     super
     Settings.settings['sequencescape_url'] = "http://#{host}:#{port}/api/1/"
-
   end
 
   def clear
@@ -44,7 +43,6 @@ class FakeSequencescapeService < FakeSinatraService
 
 
   class Service < FakeSinatraService::Base
-
     get('/api/1/') do
       FakeSequencescapeService.instance
       json = FakeSequencescapeService.instance.load_file('index')
@@ -91,7 +89,6 @@ class FakeSequencescapeService < FakeSinatraService
     get("/api/1/*") do
       status(200)
     end
-
   end
 end
 

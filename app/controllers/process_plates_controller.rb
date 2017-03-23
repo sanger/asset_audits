@@ -31,6 +31,4 @@ class ProcessPlatesController < ApplicationController
       format.html { redirect_to(new_process_plate_path) }
     end
   end
-
 end
-

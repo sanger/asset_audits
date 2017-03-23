@@ -70,12 +70,12 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       should "not have any errors" do
         assert_equal [], @bed_layout_verification.errors.values
       end
-      
+
       should "create audits" do
         assert_equal @old_delayed_job_count + 1, @new_delayed_job_count
       end
     end
-    
+
     [
       ["3", "123", "2", "456", "Invalid layout"],
       ["2", "456", "3", "123", "Invalid source plate layout"],
@@ -108,27 +108,25 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
                 p12: { bed: "", plate: "" }
                 }
             }
-     
+
           api = TestSequencescapeApi.new({"456" => [ TestSearchResult.new("123") ], "123" => [], "" => [] } )
-     
+
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
           UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode ]).returns("abc")
-     
+
           @bed_layout_verification.validate_and_create_audits?(@input_params)
           @new_delayed_job_count = Delayed::Job.count
         end
-     
+
         should "return an error" do
           assert @bed_layout_verification.errors.values.flatten.include?(error_message)
         end
-     
+
         should "not create any audits" do
           assert_equal @old_delayed_job_count, @new_delayed_job_count
         end
       end
-    
     end
-
   end
 end

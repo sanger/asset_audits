@@ -7,8 +7,9 @@ class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
       end
     end
   end
-  
+
   private
+
   def valid_bed?(bed_name, bed_barcode, plate_barcode, record)
     return true if bed_barcode.blank? && plate_barcode.blank?
     if ( ! bed_barcode.blank? ) && ( ! plate_barcode.blank? )
@@ -21,5 +22,4 @@ class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
 
     false
   end
-
 end

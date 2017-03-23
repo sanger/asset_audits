@@ -69,7 +69,6 @@ class FakeSinatraService
 private
 
   def clear
-
   end
 
   def start_sinatra(&block)
@@ -141,4 +140,3 @@ private
     end
   end
 end
-

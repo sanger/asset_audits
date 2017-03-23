@@ -71,5 +71,4 @@ class ProcessPlate < ActiveRecord::Base
 
   # This update is not really in the right application
   include PostAuditActions::SubtractionVolumeForWorkingDilution
-
 end

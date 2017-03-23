@@ -3,13 +3,8 @@ class Verification::AssayPlate::Base < Verification::Base
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned
   validates_with Verification::Validator::AllDestinationPlatesScanned
 
-  def self.partial_name
-    "assay_plate"
-  end
-
-  def self.javascript_partial_name
-    "nx_assay_plate_javascript"
-  end
+  self.partial_name = "assay_plate"
+  self.javascript_partial_name = "nx_assay_plate_javascript"
 
   def self.ordered_beds
     source_beds + destination_beds

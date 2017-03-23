@@ -2,9 +2,7 @@ class Verification::DilutionPlate::Base < Verification::Base
   include Verification::BedVerification
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned
 
-  def self.partial_name
-    "dilution_plate"
-  end
+  self.partial_name = "dilution_plate"
 
   def self.ordered_beds
     source_beds.zip(destination_beds)

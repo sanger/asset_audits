@@ -7,6 +7,13 @@ class Verification::Base
 
   class_attribute :source_beds
   class_attribute :destination_beds
+  class_attribute :partial_name
+  class_attribute :javascript_partial_name
+
+  self.partial_name = 'default'
+  # There is no javascript by default, and it is not loaded by the template.
+  # This is set to nil to ensure that things fail noisily if we misconfigure something.
+  self.javascript_partial_name = nil
 
 
   def scanned_values
@@ -35,10 +42,6 @@ class Verification::Base
 
   def self.all_types_for_select
     ["Verification::Base", "Verification::DilutionPlate::Nx", "Verification::DilutionPlate::Fx", "Verification::AssayPlate::Nx", "Verification::AssayPlate::Fx"]
-  end
-
-  def self.partial_name
-    "default"
   end
 
   def validate_and_create_audits?(params)

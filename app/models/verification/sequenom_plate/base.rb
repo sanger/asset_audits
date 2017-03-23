@@ -2,14 +2,12 @@ class Verification::SequenomPlate::Base < Verification::Base
   include Verification::BedVerification
   validates_with  Verification::Validator::SequenomPlateOrder
   validates_with  Verification::Validator::UniqueDestinationPlatesScanned
-  
-  def self.partial_name
-    "dilution_plate"
-  end
-  
+
+  self.partial_name = "dilution_plate"
+
   def parse_source_and_destination_barcodes(scanned_values)
     source_and_destination_barcodes = []
-    
+
     self.source_beds.each do |source_bed|
       source_barcode = scanned_values[source_bed.downcase.to_sym][:plate]
       next if source_barcode.blank?
@@ -22,5 +20,5 @@ class Verification::SequenomPlate::Base < Verification::Base
 
     source_and_destination_barcodes
   end
-  
+
 end

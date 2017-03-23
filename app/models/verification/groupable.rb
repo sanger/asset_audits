@@ -20,6 +20,8 @@ module Verification::Groupable
   def self.included(base)
     base.class_eval do
       extend ClassMethods
+      self.partial_name = "groupable_assets"
+      self.javascript_partial_name = "groupable_javascript"
       validates_with Verification::Validator::GroupableComplete
     end
   end
@@ -49,14 +51,5 @@ module Verification::Groupable
         end
       end
     end
-
-    def javascript_partial_name
-      "groupable_javascript"
-    end
-
-    def partial_name
-      "groupable_assets"
-    end
   end
-
 end

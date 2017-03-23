@@ -5,9 +5,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   attr_accessor :messages
 
-  def self.partial_name
-    "outdated_labware"
-  end
+  self.partial_name = "outdated_labware"
 
   def scanned_values
     [@attributes[:scanned_values]].flatten.map do |s|

@@ -18,7 +18,7 @@ class Admin::InstrumentsController < ApplicationController
     respond_to do |format|
      if instrument.save
        flash[:notice] = 'Created instrument'
-       format.html { redirect_to(admin_instrument_path(instrument)  ) }
+       format.html { redirect_to(admin_instrument_path(instrument) ) }
      else
        flash[:error] = 'Invalid inputs'
        format.html { redirect_to(new_admin_instrument_path) }
@@ -35,7 +35,7 @@ class Admin::InstrumentsController < ApplicationController
      respond_to do |format|
       if instrument.update_attributes(instrument_params)
         flash[:notice] = 'Updated instrument'
-        format.html { redirect_to(admin_instrument_path(instrument)  ) }
+        format.html { redirect_to(admin_instrument_path(instrument) ) }
       else
         flash[:error] = 'Invalid inputs'
         format.html { redirect_to(new_admin_instrument_path) }

@@ -53,7 +53,7 @@ end
 Given /^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/ do |process_name, instrument_name|
   instrument = Instrument.find_by_name(instrument_name)
   instrument_process = InstrumentProcess.find_by_name(process_name)
-  process_link = instrument.instrument_processes_instruments.select{ |process|  process.instrument_process_id == instrument_process.id }.first
+  process_link = instrument.instrument_processes_instruments.select{ |process| process.instrument_process_id == instrument_process.id }.first
   process_link.update_attributes!( :witness => true ) unless process_link.nil?
 end
 

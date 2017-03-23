@@ -48,6 +48,7 @@ class InstrumentJavascriptPresenter
   end
 
   private
+
   #
   # Robots have both bed and plate input boxes for each positions
   # When defining tab order, beds come before plates.

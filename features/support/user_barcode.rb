@@ -30,7 +30,7 @@ class FakeUserBarcodeService < FakeSinatraService
   class Service < FakeSinatraService::Base
     get('/user_barcodes/lookup_scanned_barcode.xml') do
       user = FakeUserBarcodeService.instance.find_username_from_barcode(params[:barcode])
-      xml  = {'login' =>  user, 'barcode'=>params[:barcode] }
+      xml  = {'login' => user, 'barcode'=>params[:barcode] }
       headers('Content-Type' => 'application/xml')
       body(xml.to_xml(root:'user_barcodes'))
     end

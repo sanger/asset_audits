@@ -19,7 +19,7 @@ class Admin::ProcessesController < ApplicationController
     respond_to do |format|
       if process.save
         flash[:notice] = 'Created process'
-        format.html { redirect_to(admin_processes_path  ) }
+        format.html { redirect_to(admin_processes_path ) }
       else
         flash[:error] = 'Invalid inputs'
         format.html { redirect_to(new_admin_process_path) }
@@ -33,7 +33,7 @@ class Admin::ProcessesController < ApplicationController
     respond_to do |format|
       if process.update_attributes(instrument_process_params)
         flash[:notice] = 'Updated process'
-        format.html { redirect_to(admin_processes_path  ) }
+        format.html { redirect_to(admin_processes_path ) }
       else
         flash[:error] = 'Invalid inputs'
         format.html { redirect_to(new_admin_process_path) }

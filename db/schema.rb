@@ -34,19 +34,19 @@ ActiveRecord::Schema.define(version: 20160617122652) do
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by",  limit: 255
+    t.string   "locked_by", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "queue",      limit: 255
+    t.string   "queue", limit: 255
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "instrument_processes", force: :cascade do |t|
-    t.string   "name",                  limit: 255
+    t.string   "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "key",                   limit: 255
+    t.string   "key", limit: 255
     t.boolean  "request_instrument",                default: true
     t.boolean  "visual_check_required",             default: false
     t.float    "volume_to_pick",        limit: 24
@@ -67,10 +67,10 @@ ActiveRecord::Schema.define(version: 20160617122652) do
   add_index "instrument_processes_instruments", ["instrument_process_id"], name: "ipi_ip", using: :btree
 
   create_table "instruments", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "barcode",    limit: 255
+    t.string   "barcode", limit: 255
   end
 
   add_index "instruments", ["barcode"], name: "index_instruments_on_barcode", using: :btree
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20160617122652) do
     t.integer  "instrument_process_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "witness_barcode",       limit: 255
-    t.boolean  "visual_check",                        default: false
+    t.string   "witness_barcode", limit: 255
+    t.boolean  "visual_check", default: false
   end
 
 end

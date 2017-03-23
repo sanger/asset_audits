@@ -7,7 +7,7 @@ class Barcode
     first  = prefix[0]-64
     second = prefix[1]-64
     first  = 0 if first < 0
-    second  = 0 if second < 0
+    second = 0 if second < 0
     return ((first * 27) + second) * 1000000000
   end
 

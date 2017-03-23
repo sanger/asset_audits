@@ -8,7 +8,7 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
       else
         flash[:error] = 'Process already exists for instrument'
       end
-      format.html { redirect_to(admin_instrument_path(instrument_process_link.instrument)  ) }
+      format.html { redirect_to(admin_instrument_path(instrument_process_link.instrument) ) }
     end
 
   end

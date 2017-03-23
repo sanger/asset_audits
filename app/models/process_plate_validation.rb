@@ -1,4 +1,4 @@
-module  ProcessPlateValidation
+module ProcessPlateValidation
   def self.included(base)
     base.class_eval do
       validate :user_login_exists
@@ -22,7 +22,7 @@ module  ProcessPlateValidation
   end
 
   def witness_for_process
-    errors.add(:witness_barcode, "Invalid witness barcode") if witness_login.blank?  || witness_login == user_login
+    errors.add(:witness_barcode, "Invalid witness barcode") if witness_login.blank? || witness_login == user_login
   end
 
   def visual_check_performed

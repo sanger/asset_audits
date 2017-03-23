@@ -9,7 +9,7 @@ class FakeSinatraService
   # test runs.
   def self.take_next_port
     if @ports.nil?
-      initial_port = (($$ % 100) * 10) + 6000  # Use pid and use a range
+      initial_port = (($$ % 100) * 10) + 6000 # Use pid and use a range
       @ports       = (1..100).to_a.shuffle.map { |p| initial_port + p }
     end
     @ports.shift
@@ -45,7 +45,7 @@ class FakeSinatraService
         Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
         service.instance.start!
       end
-      After(tags)  { |scenario| service.instance.finish! }
+      After(tags) { |scenario| service.instance.finish! }
     end
   end
 
@@ -114,12 +114,12 @@ private
   class Base < Sinatra::Base
     def self.run!(options={})
       set options
-      set :server, %w{webrick}                             # Force Webrick to be used as it's quicker to startup & shutdown
+      set :server, %w{webrick} # Force Webrick to be used as it's quicker to startup & shutdown
       handler      = detect_rack_handler
       handler_name = handler.name.gsub(/.*::/, '')
       handler.run(self, { :Host => bind, :Port => port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true
-        set :quit_handler, Proc.new { server.shutdown }   # Kill the Webrick specific instance if we need to
+        set :quit_handler, Proc.new { server.shutdown } # Kill the Webrick specific instance if we need to
       end
     rescue Errno::EADDRINUSE => e
       raise StandardError, "== Someone is already performing on port #{port}!"

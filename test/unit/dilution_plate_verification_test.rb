@@ -102,7 +102,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
                 :p5  => { :bed => "",   :plate => "" },
                 :p8  => { :bed => "",   :plate => "" },
                 :p11 => { :bed => "",   :plate => "" },
-                :p3  => { :bed => destination_bed,  :plate => destination_plate },
+                :p3  => { :bed => destination_bed, :plate => destination_plate },
                 :p6  => { :bed => "",   :plate => "" },
                 :p9  => { :bed => "",   :plate => "" },
                 :p12 => { :bed => "",   :plate => "" }
@@ -124,7 +124,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
         end
      
         should "not create any audits" do
-          assert_equal  @old_delayed_job_count, @new_delayed_job_count
+          assert_equal @old_delayed_job_count, @new_delayed_job_count
         end
       end
     

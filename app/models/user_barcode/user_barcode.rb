@@ -4,7 +4,7 @@ class UserBarcode::UserBarcode < ActiveResource::Base
 
   def self.find_username_from_barcode(barcode)
     begin
-      user_details = get(:lookup_scanned_barcode, :barcode => barcode)
+      user_details = get(:lookup_scanned_barcode, barcode: barcode)
     rescue ActiveResource::ServerError => exception
       # For some reason the user barcode service returns a 500 Not Found
       # rather than the more sensible 404. We catch this exception

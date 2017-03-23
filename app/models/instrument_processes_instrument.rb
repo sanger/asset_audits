@@ -5,7 +5,7 @@ class InstrumentProcessesInstrument < ActiveRecord::Base
   validates_presence_of :instrument
   validates_presence_of :instrument_process
 
-  validates_uniqueness_of :instrument_id, :scope => [:instrument_process_id]
+  validates_uniqueness_of :instrument_id, scope: [:instrument_process_id]
 
   before_save :default_bed_verification_type
 

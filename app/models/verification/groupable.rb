@@ -40,9 +40,9 @@ module Verification::Groupable
         transfers_of_group = transfers.select{|t| t[:group]==group_id}
 
         transfers_of_group.reduce({
-          :group => group_id,
-          :source_beds => [],
-          :destination_beds => transfers_of_group.map{|t| t[:destination_beds]}.flatten.uniq
+          group: group_id,
+          source_beds: [],
+          destination_beds: transfers_of_group.map{|t| t[:destination_beds]}.flatten.uniq
         }) do |memo, transfer|
           transfer[:source_beds].each do |source_bed|
             memo[:source_beds] << source_bed unless memo[:destination_beds].include?(source_bed)

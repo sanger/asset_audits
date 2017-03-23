@@ -7,10 +7,10 @@ class AssetAuditTest < ActiveSupport::TestCase
       @instrument_process = ipi.instrument_process
       
       @input_params = {
-        :user_barcode => "123", 
-        :instrument_barcode => @instrument.barcode.to_s, 
-        :instrument_process => @instrument.instrument_processes.first.id.to_s, 
-        :source_plates => "source1"
+        user_barcode: "123", 
+        instrument_barcode: @instrument.barcode.to_s, 
+        instrument_process: @instrument.instrument_processes.first.id.to_s, 
+        source_plates: "source1"
         }
       @old_delayed_job_count = Delayed::Job.count
     end
@@ -18,7 +18,7 @@ class AssetAuditTest < ActiveSupport::TestCase
     context "where the user barcode is invalid" do
       setup do
         UserBarcode::UserBarcode.stubs(:find_username_from_barcode).returns(nil)
-        @bed_layout_verification = Verification::Base.new(:instrument_barcode => @input_params[:instrument_barcode], :scanned_values => @input_params[:robot])
+        @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
         @bed_layout_verification.validate_and_create_audits?(@input_params)
         @new_delayed_job_count = Delayed::Job.count
       end
@@ -35,7 +35,7 @@ class AssetAuditTest < ActiveSupport::TestCase
     context "where all parameters are valid" do
       setup do
         UserBarcode::UserBarcode.stubs(:find_username_from_barcode).returns("abc")
-        @bed_layout_verification = Verification::Base.new(:instrument_barcode => @input_params[:instrument_barcode], :scanned_values => @input_params[:robot])
+        @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
         @bed_layout_verification.validate_and_create_audits?(@input_params)
         @new_delayed_job_count = Delayed::Job.count
       end

@@ -5,16 +5,16 @@ class AddBiorobot < ActiveRecord::Migration
 
   def self.up
     ActiveRecord::Base.transaction do
-      instrument = Instrument.create! ({:name => "Biorobot", :barcode => ROBOT_BARCODE })
-      instrument_process = InstrumentProcess.create! ({:name => "Biorobot", :key => "biorobot",
-        :request_instrument => true })
-      instrument_processes_instrument = InstrumentProcessesInstrument.create! ({:instrument => instrument,
-        :instrument_process => instrument_process, :bed_verification_type => "Verification::DilutionPlate::Biorobot"})
+      instrument = Instrument.create! ({name: "Biorobot", barcode: ROBOT_BARCODE })
+      instrument_process = InstrumentProcess.create! ({name: "Biorobot", key: "biorobot",
+        request_instrument: true })
+      instrument_processes_instrument = InstrumentProcessesInstrument.create! ({instrument: instrument,
+        instrument_process: instrument_process, bed_verification_type: "Verification::DilutionPlate::Biorobot"})
         BEDS.each_with_index.map do |b, pos|
-           Bed.create!({:name => "P#{pos+1}",
-                       :bed_number => pos+1,
-                       :barcode => b,
-                       :instrument => instrument})
+           Bed.create!({name: "P#{pos+1}",
+                       bed_number: pos+1,
+                       barcode: b,
+                       instrument: instrument})
         end
     end
   end

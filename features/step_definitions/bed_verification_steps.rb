@@ -1,6 +1,6 @@
 Given /^instrument "([^"]*)" has a bed with name "([^"]*)" barcode "([^"]*)" and number (\d+)$/ do |instrument_name, bed_name, bed_barcode, bed_number|
   instrument = Instrument.find_by_name(instrument_name)
-  bed = Bed.create!(:name => bed_name, :barcode => bed_barcode, :bed_number => bed_number)
+  bed = Bed.create!(name: bed_name, barcode: bed_barcode, bed_number: bed_number)
   instrument.beds << bed
 end
 
@@ -38,5 +38,5 @@ Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with bed 
   instrument = Instrument.find_by_name(instrument_name)
   process = InstrumentProcess.find_by_name(process_name)
   process_link = instrument.instrument_processes_instruments.select{ |inst_process| inst_process.instrument_process_id == process.id }.first
-  process_link.update_attributes!( :bed_verification_type => bed_verification_type )
+  process_link.update_attributes!( bed_verification_type: bed_verification_type )
 end

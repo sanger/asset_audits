@@ -3,9 +3,9 @@ module ProcessPlateValidation
     base.class_eval do
       validate :user_login_exists
       validate :instrument_exists
-      validate :process_on_instrument, :if => :instrument?
-      validate :witness_for_process, :if => :witness_required?
-      validate :visual_check_performed, :if => :visual_check_required?
+      validate :process_on_instrument, if: :instrument?
+      validate :witness_for_process, if: :witness_required?
+      validate :visual_check_performed, if: :visual_check_required?
     end
   end
 

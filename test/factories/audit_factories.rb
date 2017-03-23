@@ -36,7 +36,7 @@ Factory.define :instrument do |a|
   a.barcode  {|a| Factory.next :barcode_number }
   a.name     {|a| Factory.next :instrument_name }
   
-  a.after_build { |instrument| (1..16).each{ |bed_number| Factory(:bed, :name => "P#{bed_number}", :barcode => bed_number, :bed_number => bed_number, :instrument_id => instrument.id ) } }
+  a.after_build { |instrument| (1..16).each{ |bed_number| Factory(:bed, name: "P#{bed_number}", barcode: bed_number, bed_number: bed_number, instrument_id: instrument.id ) } }
 end
 
 Factory.define :instrument_process do |a|

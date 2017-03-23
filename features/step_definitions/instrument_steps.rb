@@ -5,7 +5,7 @@ def tableish(finder)
 end
 
 Given /^I have an instrument "([^"]*)" with barcode "([^"]*)"$/ do |name, barcode|
-  Instrument.create!(:name => name, :barcode => barcode)
+  Instrument.create!(name: name, barcode: barcode)
 end
 
 Then /^the list of (instruments|processes|beds) should look like:$/ do |name, expected_table|
@@ -13,7 +13,7 @@ Then /^the list of (instruments|processes|beds) should look like:$/ do |name, ex
 end
 
 Given /^I have a process "([^"]*)" with key "([^"]*)"$/ do |name, key|
-  InstrumentProcess.create!(:name => name, :key => key)
+  InstrumentProcess.create!(name: name, key: key)
 end
 
 Then /^the instrument process table should be:$/ do |expected_table|

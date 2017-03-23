@@ -78,7 +78,7 @@ private
       logger       = Logger.new(STDERR)
       logger.level = Logger::FATAL
 
-      service.run!(:host => @host, :port => @port, :webrick => { :Logger => logger, :AccessLog => [] })
+      service.run!(host: @host, port: @port, webrick: { Logger: logger, AccessLog: [] })
     end
     yield(thread)
   end
@@ -117,7 +117,7 @@ private
       set :server, %w{webrick} # Force Webrick to be used as it's quicker to startup & shutdown
       handler      = detect_rack_handler
       handler_name = handler.name.gsub(/.*::/, '')
-      handler.run(self, { :Host => bind, :Port => port }.merge(options.fetch(:webrick, {}))) do |server|
+      handler.run(self, { Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true
         set :quit_handler, Proc.new { server.shutdown } # Kill the Webrick specific instance if we need to
       end

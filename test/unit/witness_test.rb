@@ -2,19 +2,19 @@ require 'test_helper'
 class WitnessTest < ActiveSupport::TestCase
   context "Adding Audits for assets which require a witness" do
     setup do
-      ipi = Factory :instrument_processes_instrument, :witness => true
+      ipi = Factory :instrument_processes_instrument, witness: true
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
       
       @input_params = {
-        :user_barcode => "123", 
-        :instrument_barcode => @instrument.barcode.to_s, 
-        :instrument_process => @instrument.instrument_processes.first.id.to_s, 
-        :source_plates => "source1",
-        :witness_barcode => "987"
+        user_barcode: "123", 
+        instrument_barcode: @instrument.barcode.to_s, 
+        instrument_process: @instrument.instrument_processes.first.id.to_s, 
+        source_plates: "source1",
+        witness_barcode: "987"
         }
       @old_delayed_job_count = Delayed::Job.count
-      @bed_layout_verification = Verification::Base.new(:instrument_barcode => @input_params[:instrument_barcode], :scanned_values => @input_params[:robot])
+      @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
       UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode ]).returns("abc")
     end
 

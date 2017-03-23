@@ -41,11 +41,11 @@ class ProcessPlate < ActiveRecord::Base
 
   def asset_search_results_from_plate_barcodes
     return self.asset_search_results unless self.asset_search_results.blank?
-    self.asset_search_results = search_resource.all(api.plate, :barcode => barcodes)
+    self.asset_search_results = search_resource.all(api.plate, barcode: barcodes)
   end
 
   def api
-    @api ||= Sequencescape::Api.new(:url => Settings.sequencescape_url, :authorisation => Settings.sequencescape_authorisation)
+    @api ||= Sequencescape::Api.new(url: Settings.sequencescape_url, authorisation: Settings.sequencescape_authorisation)
   end
 
   def create_audits
@@ -57,11 +57,11 @@ class ProcessPlate < ActiveRecord::Base
 
   def create_remote_audit(asset_uuid)
     api.asset_audit.create!(
-      :key => instrument_process.key,
-      :message => "Process '#{instrument_process.name}' performed on instrument #{instrument.name}",
-      :created_by => user_login,
-      :asset => asset_uuid,
-      :witnessed_by => witness_login
+      key: instrument_process.key,
+      message: "Process '#{instrument_process.name}' performed on instrument #{instrument.name}",
+      created_by: user_login,
+      asset: asset_uuid,
+      witnessed_by: witness_login
     )
   end
 

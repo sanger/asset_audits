@@ -25,7 +25,7 @@ end
 class TestSearchResult
   attr_accessor :barcode
   def initialize(ean13_barcode)
-    @barcode = OpenStruct.new(:ean13 => ean13_barcode)
+    @barcode = OpenStruct.new(ean13: ean13_barcode)
   end
 end
 
@@ -36,31 +36,31 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       ipi = Factory :instrument_processes_instrument
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
-      Bed.all.map{ |bed| bed.update_attributes!(:instrument_id => @instrument.id) }
+      Bed.all.map{ |bed| bed.update_attributes!(instrument_id: @instrument.id) }
     end
 
     context "where valid barcodes are scanned" do
       setup do
         @input_params = {
-          :user_barcode => "123",
-          :instrument_barcode => @instrument.barcode.to_s,
-          :instrument_process => @instrument.instrument_processes.first.id.to_s,
-            :robot => {
-              :p2  => { :bed => "2", :plate => "123" },
-              :p5  => { :bed => "",  :plate => "" },
-              :p8  => { :bed => "",  :plate => "" },
-              :p11 => { :bed => "",  :plate => "" },
-              :p3  => { :bed => "3", :plate => "456" },
-              :p6  => { :bed => "",  :plate => "" },
-              :p9  => { :bed => "",  :plate => "" },
-              :p12 => { :bed => "",  :plate => "" }
+          user_barcode: "123",
+          instrument_barcode: @instrument.barcode.to_s,
+          instrument_process: @instrument.instrument_processes.first.id.to_s,
+            robot: {
+              p2: { bed: "2", plate: "123" },
+              p5: { bed: "",  plate: "" },
+              p8: { bed: "",  plate: "" },
+              p11: { bed: "", plate: "" },
+              p3: { bed: "3", plate: "456" },
+              p6: { bed: "",  plate: "" },
+              p9: { bed: "",  plate: "" },
+              p12: { bed: "", plate: "" }
             }
           }
 
         api = TestSequencescapeApi.new({"456" => [ TestSearchResult.new("123") ]} )
 
         @old_delayed_job_count = Delayed::Job.count
-        @bed_layout_verification = Verification::DilutionPlate::Nx.new(:instrument_barcode => @input_params[:instrument_barcode], :scanned_values => @input_params[:robot], :api => api)
+        @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
         UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode ]).returns("abc")
 
         @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -94,25 +94,25 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       context "where invalid bed barcodes are scanned for #{source_bed}, #{source_plate}, #{destination_bed}, #{destination_plate}, #{error_message}" do
         setup do
           @input_params = {
-            :user_barcode => "123",
-            :instrument_barcode => @instrument.barcode.to_s,
-            :instrument_process => @instrument.instrument_processes.first.id.to_s,
-              :robot => {
-                :p2  => { :bed => source_bed,  :plate => source_plate },
-                :p5  => { :bed => "",   :plate => "" },
-                :p8  => { :bed => "",   :plate => "" },
-                :p11 => { :bed => "",   :plate => "" },
-                :p3  => { :bed => destination_bed, :plate => destination_plate },
-                :p6  => { :bed => "",   :plate => "" },
-                :p9  => { :bed => "",   :plate => "" },
-                :p12 => { :bed => "",   :plate => "" }
+            user_barcode: "123",
+            instrument_barcode: @instrument.barcode.to_s,
+            instrument_process: @instrument.instrument_processes.first.id.to_s,
+              robot: {
+                p2: { bed: source_bed,  plate: source_plate },
+                p5: { bed: "",   plate: "" },
+                p8: { bed: "",   plate: "" },
+                p11: { bed: "", plate: "" },
+                p3: { bed: destination_bed, plate: destination_plate },
+                p6: { bed: "",   plate: "" },
+                p9: { bed: "",   plate: "" },
+                p12: { bed: "", plate: "" }
                 }
             }
      
           api = TestSequencescapeApi.new({"456" => [ TestSearchResult.new("123") ], "123" => [], "" => [] } )
      
           @old_delayed_job_count = Delayed::Job.count
-          @bed_layout_verification = Verification::DilutionPlate::Nx.new(:instrument_barcode => @input_params[:instrument_barcode], :scanned_values => @input_params[:robot], :api => api)
+          @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
           UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode ]).returns("abc")
      
           @bed_layout_verification.validate_and_create_audits?(@input_params)

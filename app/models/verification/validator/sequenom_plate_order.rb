@@ -9,7 +9,7 @@ class Verification::Validator::SequenomPlateOrder < ActiveModel::Validator
       # version I've left them being grouped by EAN13 barcode.
       search_resource = record.api.search.find(Settings.search_find_assets_by_barcode)
       check_source_plate_order_for_destination_plate(
-        search_resource.all(record.api.plate, :barcode => barcodes),
+        search_resource.all(record.api.plate, barcode: barcodes),
         record
       )
     end

@@ -1,6 +1,6 @@
 class AddBedsTable < ActiveRecord::Migration
   def self.up
-    create_table :beds, :force => true do |t|
+    create_table :beds, force: true do |t|
       t.string :name
       t.string :barcode
       t.integer :bed_number

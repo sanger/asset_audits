@@ -5,14 +5,14 @@ class Settings
 
   class << self
     def respond_to?(method, include_private = false)
-      super or self.instance.respond_to?(method, include_private)
+      super or instance.respond_to?(method, include_private)
     end
 
   protected
 
     def method_missing(method, *args, &block)
-      return super unless self.instance.respond_to?(method)
-      self.instance.send(method, *args, &block)
+      return super unless instance.respond_to?(method)
+      instance.send(method, *args, &block)
     end
   end
 

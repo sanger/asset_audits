@@ -10,7 +10,7 @@ class InstrumentProcessesInstrument < ActiveRecord::Base
   before_save :default_bed_verification_type
 
   def default_bed_verification_type
-    self.bed_verification_type = 'Verification::Base' if self.bed_verification_type.nil?
+    self.bed_verification_type = 'Verification::Base' if bed_verification_type.nil?
   end
 
   def self.get_bed_verification_type(instrument_barcode, instrument_process_id)
@@ -30,6 +30,6 @@ class InstrumentProcessesInstrument < ActiveRecord::Base
     process = InstrumentProcess.find(instrument_process_id)
     return nil if instrument.nil? || process.nil?
 
-    self.find_by_instrument_id_and_instrument_process_id(instrument.id,process.id)
+    find_by_instrument_id_and_instrument_process_id(instrument.id,process.id)
   end
 end

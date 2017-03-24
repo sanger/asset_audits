@@ -12,14 +12,14 @@ class ProcessPlate < ActiveRecord::Base
   # after_create :create_events
 
   def user_login
-    return self.user_name unless self.user_name.blank?
-    self.user_name = UserBarcode::UserBarcode.find_username_from_barcode(self.user_barcode)
+    return user_name unless user_name.blank?
+    self.user_name = UserBarcode::UserBarcode.find_username_from_barcode(user_barcode)
   end
 
   def witness_login
-    return nil if self.witness_barcode.blank?
-    return self.witness_name unless self.witness_name.blank?
-    self.witness_name = UserBarcode::UserBarcode.find_username_from_barcode(self.witness_barcode)
+    return nil if witness_barcode.blank?
+    return witness_name unless witness_name.blank?
+    self.witness_name = UserBarcode::UserBarcode.find_username_from_barcode(witness_barcode)
   end
 
   def barcodes
@@ -27,7 +27,7 @@ class ProcessPlate < ActiveRecord::Base
   end
 
   def instrument
-    return self.instrument_used unless self.instrument_used.blank?
+    return instrument_used unless instrument_used.blank?
     self.instrument_used = Instrument.find_by_barcode(instrument_barcode)
   end
 
@@ -40,7 +40,7 @@ class ProcessPlate < ActiveRecord::Base
   end
 
   def asset_search_results_from_plate_barcodes
-    return self.asset_search_results unless self.asset_search_results.blank?
+    return asset_search_results unless asset_search_results.blank?
     self.asset_search_results = search_resource.all(api.plate, barcode: barcodes)
   end
 

@@ -68,7 +68,7 @@ class Verification::Base
 
   def save_errors_to_base(object_errors)
     object_errors.each do |key, message|
-      self.errors.add(key, message)
+      errors.add(key, message)
     end
   end
 end

@@ -16,11 +16,11 @@ class FakeUserBarcodeService < FakeSinatraService
   end
 
   def user_barcode(user, barcode)
-    self.user_barcodes[barcode] = user
+    user_barcodes[barcode] = user
   end
 
   def find_username_from_barcode(barcode)
-    self.user_barcodes[barcode]
+    user_barcodes[barcode]
   end
 
   def service

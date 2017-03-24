@@ -9,7 +9,7 @@ class Instrument < ActiveRecord::Base
   validates_presence_of :barcode, message: "can't be blank"
 
   def self.processes_from_instrument_barcode(barcode)
-    instrument = self.find_by_barcode(barcode)
+    instrument = find_by_barcode(barcode)
     return instrument.instrument_processes if instrument && ! instrument.instrument_processes.empty?
 
     InstrumentProcess.sorted_by_name

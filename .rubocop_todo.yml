@@ -462,24 +462,6 @@ Style/RedundantReturn:
     - 'app/models/verification/validator/groupable_complete.rb'
     - 'app/models/verification/validator/source_and_destination_plates_linked.rb'
 
-# Offense count: 35
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'app/models/barcode.rb'
-    - 'app/models/instrument.rb'
-    - 'app/models/instrument_processes_instrument.rb'
-    - 'app/models/process_plate.rb'
-    - 'app/models/process_plate_validation.rb'
-    - 'app/models/verification/assay_plate/base.rb'
-    - 'app/models/verification/base.rb'
-    - 'app/models/verification/dilution_plate/base.rb'
-    - 'app/models/verification/sequenom_plate/base.rb'
-    - 'config/initializers/settings.rb'
-    - 'features/support/paths.rb'
-    - 'features/support/sequencescape.rb'
-    - 'features/support/user_barcode.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.

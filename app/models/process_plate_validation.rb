@@ -37,7 +37,7 @@ module ProcessPlateValidation
   end
 
   def visual_check_required?
-    return self.instrument_process.visual_check_required? unless self.instrument_process.nil?
+    return instrument_process.visual_check_required? unless instrument_process.nil?
   end
 
   def instrument?

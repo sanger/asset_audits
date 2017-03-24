@@ -78,8 +78,8 @@ class Barcode
 
   def self.barcode_to_human(code)
     bcode = nil
-    prefix, number, check = self.split_barcode(code)
-    human_prefix = self.prefix_to_human(prefix)
+    prefix, number, check = split_barcode(code)
+    human_prefix = prefix_to_human(prefix)
     if calculate_barcode(human_prefix, number.to_i) == code.to_i
       bcode = "#{human_prefix}#{number.to_s}#{check.chr}"
     end

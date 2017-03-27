@@ -26,14 +26,6 @@ Lint/AmbiguousRegexpLiteral:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith, SupportedStylesAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Lint/BlockAlignment:
-  Exclude:
-    - 'app/controllers/admin/instruments_controller.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 Lint/Debugger:
   Exclude:
     - 'features/step_definitions/authentication_steps.rb'
@@ -155,41 +147,6 @@ Security/YAMLLoad:
   Exclude:
     - 'config/initializers/settings.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: outdent, indent
-Style/AccessModifierIndentation:
-  Exclude:
-    - 'config/initializers/settings.rb'
-    - 'features/support/fake_sinatra_service.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/AlignArray:
-  Exclude:
-    - 'app/models/verification/dilution_assay/nx_group.rb'
-
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedHashRocketStyle, SupportedHashRocketStyles, EnforcedColonStyle, SupportedColonStyles, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
-# SupportedHashRocketStyles: key, separator, table
-# SupportedColonStyles: key, separator, table
-# SupportedLastArgumentHashStyles: always_inspect, always_ignore, ignore_implicit, ignore_explicit
-Style/AlignHash:
-  Exclude:
-    - 'db/migrate/20150202171723_add_destroy_labware.rb'
-    - 'db/migrate/20160205163232_add_biorobot.rb'
-    - 'test/unit/dilution_plate_verification_test.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: with_first_parameter, with_fixed_indentation
-Style/AlignParameters:
-  Exclude:
-    - 'app/models/verification/outdated_labware/base.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -227,12 +184,6 @@ Style/BracesAroundHashParameters:
 # SupportedStyles: nested, compact
 Style/ClassAndModuleChildren:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/CommentIndentation:
-  Exclude:
-    - 'Gemfile'
 
 # Offense count: 78
 Style/Documentation:
@@ -305,11 +256,6 @@ Style/MethodMissing:
   Exclude:
     - 'config/initializers/settings.rb'
 
-# Offense count: 3
-# Configuration parameters: SupportedStyles.
-# SupportedStyles: snake_case, camelCase
-Style/MethodName:
-  EnforcedStyle: snake_case
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -339,15 +285,6 @@ Style/MultilineIfModifier:
 Style/MultilineMethodCallBraceLayout:
   Exclude:
     - 'app/controllers/instruments_controller.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: aligned, indented
-Style/MultilineOperationIndentation:
-  Exclude:
-    - 'features/support/paths.rb'
-    - 'features/support/selectors.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.

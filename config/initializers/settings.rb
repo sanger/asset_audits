@@ -8,7 +8,7 @@ class Settings
       super or instance.respond_to?(method, include_private)
     end
 
-  protected
+    protected
 
     def method_missing(method, *args, &block)
       return super unless instance.respond_to?(method)
@@ -25,7 +25,7 @@ class Settings
     super or is_settings_query_method?(method) or @settings.key?(setting_key_for(method))
   end
 
-protected
+  protected
 
   def method_missing(method, *args, &block)
     setting_key    = setting_key_for(method)
@@ -40,7 +40,7 @@ protected
     end
   end
 
-private
+  private
 
   def is_settings_query_method?(method)
     method.to_s =~ /\?$/

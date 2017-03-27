@@ -66,7 +66,7 @@ class FakeSinatraService
     @thread = nil
   end
 
-private
+  private
 
   def clear
   end

@@ -45,16 +45,16 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
           user_barcode: "123",
           instrument_barcode: @instrument.barcode.to_s,
           instrument_process: @instrument.instrument_processes.first.id.to_s,
-            robot: {
-              p2: { bed: "2", plate: "123" },
-              p5: { bed: "",  plate: "" },
-              p8: { bed: "",  plate: "" },
-              p11: { bed: "", plate: "" },
-              p3: { bed: "3", plate: "456" },
-              p6: { bed: "",  plate: "" },
-              p9: { bed: "",  plate: "" },
-              p12: { bed: "", plate: "" }
-            }
+          robot: {
+            p2: { bed: "2", plate: "123" },
+            p5: { bed: "",  plate: "" },
+            p8: { bed: "",  plate: "" },
+            p11: { bed: "", plate: "" },
+            p3: { bed: "3", plate: "456" },
+            p6: { bed: "",  plate: "" },
+            p9: { bed: "",  plate: "" },
+            p12: { bed: "", plate: "" }
+          }
         }
 
         api = TestSequencescapeApi.new({ "456" => [TestSearchResult.new("123")] })
@@ -97,16 +97,16 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
             user_barcode: "123",
             instrument_barcode: @instrument.barcode.to_s,
             instrument_process: @instrument.instrument_processes.first.id.to_s,
-              robot: {
-                p2: { bed: source_bed,  plate: source_plate },
-                p5: { bed: "",   plate: "" },
-                p8: { bed: "",   plate: "" },
-                p11: { bed: "", plate: "" },
-                p3: { bed: destination_bed, plate: destination_plate },
-                p6: { bed: "",   plate: "" },
-                p9: { bed: "",   plate: "" },
-                p12: { bed: "", plate: "" }
-              }
+            robot: {
+              p2: { bed: source_bed, plate: source_plate },
+              p5: { bed: "",   plate: "" },
+              p8: { bed: "",   plate: "" },
+              p11: { bed: "", plate: "" },
+              p3: { bed: destination_bed, plate: destination_plate },
+              p6: { bed: "",   plate: "" },
+              p9: { bed: "",   plate: "" },
+              p12: { bed: "", plate: "" }
+            }
           }
 
           api = TestSequencescapeApi.new({ "456" => [TestSearchResult.new("123")], "123" => [], "" => [] })

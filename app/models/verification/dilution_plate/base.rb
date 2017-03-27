@@ -2,8 +2,8 @@ class Verification::DilutionPlate::Base < Verification::Base
   include Verification::BedVerification
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned
 
-  self.partial_name = "dilution_plate"
-  self.javascript_partial_name = "shared_robot_javascript"
+  self.partial_name = 'dilution_plate'
+  self.javascript_partial_name = 'shared_robot_javascript'
 
   def self.ordered_beds
     column_groups.flatten

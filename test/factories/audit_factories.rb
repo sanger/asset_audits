@@ -47,5 +47,5 @@ end
 Factory.define :instrument_processes_instrument do |ipi|
   ipi.instrument              { |instrument| instrument.association(:instrument) }
   ipi.instrument_process      { |instrument_process| instrument_process.association(:instrument_process) }
-  ipi.bed_verification_type   "Verification::Base"
+  ipi.bed_verification_type   'Verification::Base'
 end

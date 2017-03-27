@@ -1,10 +1,10 @@
 class Instrument < ActiveRecord::Base
-  has_many :instrument_processes_instruments
+  has_many :instrument_processes_instruments, dependent: :destroy
   has_many :instrument_processes, through: :instrument_processes_instruments
-  has_many :beds
+  has_many :beds, dependent: :destroy
 
-  validates_uniqueness_of :name, message: "must be unique"
-  validates_uniqueness_of :barcode, message: "must be unique"
+  validates_uniqueness_of :name, message: 'must be unique'
+  validates_uniqueness_of :barcode, message: 'must be unique'
   validates_presence_of :name, message: "can't be blank"
   validates_presence_of :barcode, message: "can't be blank"
 

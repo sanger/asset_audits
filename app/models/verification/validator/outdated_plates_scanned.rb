@@ -16,7 +16,7 @@ class Verification::Validator::OutdatedPlatesScanned < ActiveModel::Validator
       end
     end
     if (plates.empty?)
-      record.errors.add(:base, "No plates found")
+      record.errors.add(:base, 'No plates found')
     end
   end
 end

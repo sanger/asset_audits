@@ -6,8 +6,8 @@ class InstrumentProcess < ActiveRecord::Base
 
   validates_format_of :key, with: /\A[\w_]+\z/i
 
-  validates_uniqueness_of :name, message: "must be unique"
-  validates_uniqueness_of :key, message: "must be unique"
+  validates_uniqueness_of :name, message: 'must be unique'
+  validates_uniqueness_of :key, message: 'must be unique'
   validates_presence_of :name, message: "can't be blank"
   validates_presence_of :key, message: "can't be blank"
 end

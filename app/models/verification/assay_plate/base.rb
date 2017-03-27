@@ -3,8 +3,8 @@ class Verification::AssayPlate::Base < Verification::Base
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned
   validates_with Verification::Validator::AllDestinationPlatesScanned
 
-  self.partial_name = "assay_plate"
-  self.javascript_partial_name = "shared_robot_javascript"
+  self.partial_name = 'assay_plate'
+  self.javascript_partial_name = 'shared_robot_javascript'
 
   def self.ordered_beds
     source_beds + destination_beds

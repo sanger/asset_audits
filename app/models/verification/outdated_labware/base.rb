@@ -5,7 +5,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   attr_accessor :messages
 
-  self.partial_name = "outdated_labware"
+  self.partial_name = 'outdated_labware'
 
   def scanned_values
     [@attributes[:scanned_values]].flatten.map do |s|
@@ -28,7 +28,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   def validate_and_create_audits?(params)
     return false unless valid?
-    params[:source_plates] = scanned_values.flatten.join(" ")
+    params[:source_plates] = scanned_values.flatten.join(' ')
     return super(params)
   end
 end

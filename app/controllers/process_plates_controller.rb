@@ -15,7 +15,7 @@ class ProcessPlatesController < ApplicationController
     respond_to do |format|
       bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode], params[:instrument_process])
       if bed_verification_model.nil?
-        flash[:error] = "Invalid instrument or process"
+        flash[:error] = 'Invalid instrument or process'
       else
         bed_layout_verification = bed_verification_model.new(
           instrument_barcode: params[:instrument_barcode],

@@ -37,7 +37,7 @@ class Barcode
       sum += character[0] * len
       len = len - 1
     end
-    return (sum % 23 + "A"[0]).chr
+    return (sum % 23 + 'A'[0]).chr
   end
 
   def self.split_barcode(code)
@@ -45,7 +45,7 @@ class Barcode
     if code.size > 11 && code.size < 14
       # Pad with zeros
       while code.size < 13
-        code = "0" + code
+        code = '0' + code
       end
     end
     if /^(...)(.*)(..)(.)$/ =~ code

@@ -122,7 +122,7 @@ Metrics/CyclomaticComplexity:
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Metrics/LineLength:
-  Max: 205
+  Max: 180
 
 # Offense count: 14
 # Configuration parameters: CountComments.
@@ -420,13 +420,6 @@ Style/SelfAssignment:
 Style/SpecialGlobalVars:
   Exclude:
     - 'features/support/fake_sinatra_service.rb'
-
-# Offense count: 318
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.

@@ -20,7 +20,7 @@ end
 When /^(?:|I )fill in AJAX field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
     fill_in(field, with: value)
-    id = "#" + find_field(field)[:id]
+    id = '#' + find_field(field)[:id]
     page.execute_script("$('#{id}').trigger('change');")
   end
   step %Q{wait 1 second}
@@ -35,7 +35,7 @@ end
 When /^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
   with_scope(selector) do
     select(value, from: field)
-    id = "#" + find_field(field)[:id]
+    id = '#' + find_field(field)[:id]
     page.execute_script("$('#{id}').trigger('change');")
   end
   step %Q{wait 1 second}

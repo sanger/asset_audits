@@ -3,8 +3,8 @@ class Verification::SequenomPlate::Base < Verification::Base
   validates_with  Verification::Validator::SequenomPlateOrder
   validates_with  Verification::Validator::UniqueDestinationPlatesScanned
 
-  self.partial_name = "dilution_plate"
-  self.javascript_partial_name = "shared_robot_javascript"
+  self.partial_name = 'dilution_plate'
+  self.javascript_partial_name = 'shared_robot_javascript'
 
   def self.ordered_beds
     source_beds + destination_beds

@@ -107,7 +107,7 @@ class FakeSinatraService
       end
     end
 
-    raise StandardError, "Our dummy webservice did not start up in time!"
+    raise StandardError, 'Our dummy webservice did not start up in time!'
   end
 
   class Base < Sinatra::Base

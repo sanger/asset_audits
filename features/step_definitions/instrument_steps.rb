@@ -17,7 +17,7 @@ Given /^I have a process "([^"]*)" with key "([^"]*)"$/ do |name, key|
 end
 
 Then /^the instrument process table should be:$/ do |expected_table|
-  expected_table.diff!(table(tableish("#instrument_processes")))
+  expected_table.diff!(table(tableish('#instrument_processes')))
 end
 
 Given /^instrument "([^"]*)" has process "([^"]*)"$/ do |instrument_name, process_name|

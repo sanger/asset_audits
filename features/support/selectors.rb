@@ -9,7 +9,7 @@ module HtmlSelectorsHelpers
     case locator
 
     when /the page/
-      "html > body"
+      'html > body'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

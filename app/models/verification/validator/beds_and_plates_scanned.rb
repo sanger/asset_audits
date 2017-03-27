@@ -2,7 +2,7 @@ class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
   def validate(record)
     record.scanned_values.each do |bed_name, position|
       unless valid_bed?(bed_name, position[:bed], position[:plate], record)
-        record.errors[:base] << "Invalid layout"
+        record.errors[:base] << 'Invalid layout'
         return
       end
     end

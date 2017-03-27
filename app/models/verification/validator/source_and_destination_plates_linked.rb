@@ -13,7 +13,7 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
 
   def valid_source_barcode?(source_barcode, search_results, record)
     return true if search_results.map { |p| p.barcode.ean13 }.include?(source_barcode)
-    record.errors[:base] << "Invalid source plate layout"
+    record.errors[:base] << 'Invalid source plate layout'
     return false
   end
   private :valid_source_barcode?

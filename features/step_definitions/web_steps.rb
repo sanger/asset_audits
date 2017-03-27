@@ -144,7 +144,7 @@ Then /^(?:|I )should not display "([^"]*)"$/ do |identif|
   if page.respond_to? :should
     page.should have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
   else
-    assert !page.find('#visual_check_input',visible: :any).visible?
+    assert !page.find('#visual_check_input', visible: :any).visible?
   end
 end
 
@@ -218,7 +218,7 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')}
+  expected_pairs.rows_hash.each_pair { |k, v| expected_params[k] = v.split(',') }
 
   if actual_params.respond_to? :should
     actual_params.should == expected_params

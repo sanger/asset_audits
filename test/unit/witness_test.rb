@@ -15,12 +15,12 @@ class WitnessTest < ActiveSupport::TestCase
       }
       @old_delayed_job_count = Delayed::Job.count
       @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
-      UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode ]).returns("abc")
+      UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode]).returns("abc")
     end
 
     context "where all parameters are valid" do
       setup do
-        UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:witness_barcode ]).returns("xyz")
+        UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:witness_barcode]).returns("xyz")
 
         @bed_layout_verification.validate_and_create_audits?(@input_params)
         @new_delayed_job_count = Delayed::Job.count
@@ -39,7 +39,7 @@ class WitnessTest < ActiveSupport::TestCase
       context "where invalid witness barcodes are scanned with #{witness_barcode}" do
         setup do
           @input_params[:witness_barcode] = witness_barcode
-          UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:witness_barcode ]).returns(witness_login)
+          UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:witness_barcode]).returns(witness_login)
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
           @new_delayed_job_count = Delayed::Job.count

@@ -12,7 +12,7 @@ module PostAuditActions::SubtractionVolumeForWorkingDilution
   end
 
   def source_plates_uuids_to_subtract
-    asset_uuids_from_plate_barcodes.each_with_index.map{|uuid, pos| uuid if pos.even? }.compact
+    asset_uuids_from_plate_barcodes.each_with_index.map { |uuid, pos| uuid if pos.even? }.compact
   end
 
   def subtract_volume_because_of_working_dilution!

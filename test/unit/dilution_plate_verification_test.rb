@@ -36,7 +36,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       ipi = Factory :instrument_processes_instrument
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
-      Bed.all.map{ |bed| bed.update_attributes!(instrument_id: @instrument.id) }
+      Bed.all.map { |bed| bed.update_attributes!(instrument_id: @instrument.id) }
     end
 
     context "where valid barcodes are scanned" do
@@ -57,11 +57,11 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
             }
         }
 
-        api = TestSequencescapeApi.new({"456" => [ TestSearchResult.new("123") ]} )
+        api = TestSequencescapeApi.new({ "456" => [TestSearchResult.new("123")] })
 
         @old_delayed_job_count = Delayed::Job.count
         @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
-        UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode ]).returns("abc")
+        UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode]).returns("abc")
 
         @bed_layout_verification.validate_and_create_audits?(@input_params)
         @new_delayed_job_count = Delayed::Job.count
@@ -80,16 +80,16 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       ["3", "123", "2", "456", "Invalid layout"],
       ["2", "456", "3", "123", "Invalid source plate layout"],
       ["3", "456", "2", "123", "Invalid layout"],
-      ["" , ""   , "" , ""   , "No plates scanned"],
-      ["2", ""   , "" , ""   , "No plates scanned"],
-      ["2", "123", "" , ""   , "Invalid destination plate layout"],
-      ["2", "123", "3", ""   , "Invalid layout"],
-      ["2", "123", "" , "456", "Invalid layout"],
-      ["" , "123", "3", "456", "Invalid layout"],
-      ["" , ""   , "3", "456", "Invalid source plate layout"],
-      ["" , ""   , "" , "456", "Invalid layout"],
-      ["2", ""   , "3", ""   , "No plates scanned"],
-      ["" , "123", "" , "456", "Invalid layout"]
+      ["", "", "", "", "No plates scanned"],
+      ["2", "", "", "", "No plates scanned"],
+      ["2", "123", "", "", "Invalid destination plate layout"],
+      ["2", "123", "3", "", "Invalid layout"],
+      ["2", "123", "", "456", "Invalid layout"],
+      ["", "123", "3", "456", "Invalid layout"],
+      ["", "", "3", "456", "Invalid source plate layout"],
+      ["", "", "", "456", "Invalid layout"],
+      ["2", "", "3", "", "No plates scanned"],
+      ["", "123", "", "456", "Invalid layout"]
     ].each do |source_bed, source_plate, destination_bed, destination_plate, error_message|
       context "where invalid bed barcodes are scanned for #{source_bed}, #{source_plate}, #{destination_bed}, #{destination_plate}, #{error_message}" do
         setup do
@@ -109,11 +109,11 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
               }
           }
 
-          api = TestSequencescapeApi.new({"456" => [ TestSearchResult.new("123") ], "123" => [], "" => [] } )
+          api = TestSequencescapeApi.new({ "456" => [TestSearchResult.new("123")], "123" => [], "" => [] })
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
-          UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode ]).returns("abc")
+          UserBarcode::UserBarcode.expects(:find_username_from_barcode).with(@input_params[:user_barcode]).returns("abc")
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
           @new_delayed_job_count = Delayed::Job.count

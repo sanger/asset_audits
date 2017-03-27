@@ -50,7 +50,7 @@ class Verification::Base
                                        user_barcode: params[:user_barcode],
                                        instrument_barcode: params[:instrument_barcode],
                                        source_plates: params[:source_plates],
-                                       visual_check: params[:visual_check]=="1",
+                                       visual_check: params[:visual_check] == "1",
                                        instrument_process_id: params[:instrument_process],
                                        witness_barcode: params[:witness_barcode]
                                      })

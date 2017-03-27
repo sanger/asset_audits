@@ -111,7 +111,7 @@ private
   end
 
   class Base < Sinatra::Base
-    def self.run!(options={})
+    def self.run!(options = {})
       set options
       set :server, %w{webrick} # Force Webrick to be used as it's quicker to startup & shutdown
       handler      = detect_rack_handler

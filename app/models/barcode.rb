@@ -4,8 +4,8 @@ class Barcode
   # Sanger barcoding scheme
 
   def self.prefix_to_number(prefix)
-    first  = prefix[0]-64
-    second = prefix[1]-64
+    first  = prefix[0] - 64
+    second = prefix[1] - 64
     first  = 0 if first < 0
     second = 0 if second < 0
     return ((first * 27) + second) * 1000000000
@@ -20,12 +20,12 @@ class Barcode
     raise ArgumentError, "Number : #{number} to big to generate a barcode." if number_s.size > 7
     human = prefix + number_s + calculate_checksum(prefix, number)
     barcode = prefix_to_number(prefix) + (number * 100)
-    barcode = barcode + human[human.size-1]
+    barcode = barcode + human[human.size - 1]
   end
 
   def self.calculate_barcode(prefix, number)
     barcode = calculate_sanger_barcode(prefix, number)
-    barcode*10+calculate_ean13(barcode)
+    barcode * 10 + calculate_ean13(barcode)
   end
 
   def self.calculate_checksum(prefix, number)
@@ -73,7 +73,7 @@ class Barcode
   end
 
   def self.prefix_to_human(prefix)
-    human_prefix = ((prefix.to_i/27)+64).chr + ((prefix.to_i%27)+64).chr
+    human_prefix = ((prefix.to_i / 27) + 64).chr + ((prefix.to_i % 27) + 64).chr
   end
 
   def self.barcode_to_human(code)
@@ -90,9 +90,9 @@ class Barcode
   # considered invalid if it does not translate to a Human barcode or, when the optional +prefix+ is specified,
   # its human equivalent does not match.
   def self.barcode_to_human!(code, prefix = nil)
-    human_barcode = barcode_to_human(code) or raise InvalidBarcode, "Barcode #{ code } appears to be invalid"
+    human_barcode = barcode_to_human(code) or raise InvalidBarcode, "Barcode #{code} appears to be invalid"
     unless prefix.nil? or split_human_barcode(human_barcode).first == prefix
-      raise InvalidBarcode, "Barcode #{ code } (#{ human_barcode }) does not match prefix #{ prefix }"
+      raise InvalidBarcode, "Barcode #{code} (#{human_barcode}) does not match prefix #{prefix}"
     end
     human_barcode
   end
@@ -109,17 +109,17 @@ class Barcode
 
   private
 
-  def self.calculate_ean(code, initial_weight=3)
+  def self.calculate_ean(code, initial_weight = 3)
     # The EAN is calculated by adding each digit modulo 10 ten weighted by 1 or 3 ( in seq)
     code = code.to_i
     ean = 0
     weight = initial_weight
-    while code >0
+    while code > 0
       code, c = code.divmod 10
-      ean += c*weight % 10
+      ean += c * weight % 10
       weight = weight == 1 ? 3 : 1
     end
 
-    (10 -ean) % 10
+    (10 - ean) % 10
   end
 end

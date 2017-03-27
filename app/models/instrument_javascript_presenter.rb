@@ -28,7 +28,7 @@ class InstrumentJavascriptPresenter
   def bed_columns
     column_groups.each_with_index.flat_map do |bed_names, index|
       bed_names.map do |bed_name|
-        bed_number = bed_name.tr('P','').to_i
+        bed_number = bed_name.tr('P', '').to_i
         [bed_number, index]
       end
     end

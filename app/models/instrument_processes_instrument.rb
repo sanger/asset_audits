@@ -30,6 +30,6 @@ class InstrumentProcessesInstrument < ActiveRecord::Base
     process = InstrumentProcess.find(instrument_process_id)
     return nil if instrument.nil? || process.nil?
 
-    find_by_instrument_id_and_instrument_process_id(instrument.id,process.id)
+    find_by_instrument_id_and_instrument_process_id(instrument.id, process.id)
   end
 end

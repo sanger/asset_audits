@@ -10,7 +10,7 @@ class Instrument < ActiveRecord::Base
 
   def self.processes_from_instrument_barcode(barcode)
     instrument = find_by_barcode(barcode)
-    return instrument.instrument_processes if instrument && ! instrument.instrument_processes.empty?
+    return instrument.instrument_processes if instrument && !instrument.instrument_processes.empty?
 
     InstrumentProcess.sorted_by_name
   end

@@ -34,7 +34,7 @@ protected
     if is_settings_query_method?(method)
       setting_exists
     elsif setting_exists
-      @settings[ setting_key ]
+      @settings[setting_key]
     else
       super
     end
@@ -47,7 +47,7 @@ private
   end
 
   def setting_key_for(method)
-    method.to_s.match(/^([^\?]+)\??$/)[ 1 ]
+    method.to_s.match(/^([^\?]+)\??$/)[1]
   end
 end
 

@@ -9,7 +9,7 @@ class Admin::BedsController < ApplicationController
       else
         flash[:error] = bed.errors.full_messages.join(', ')
       end
-      format.html { redirect_to(admin_instrument_path(bed.instrument) ) }
+      format.html { redirect_to(admin_instrument_path(bed.instrument)) }
     end
   end
 
@@ -24,6 +24,6 @@ class Admin::BedsController < ApplicationController
   end
 
   def bed_params
-    params.require(:bed).permit(:name,:bed_number,:barcode,:instrument_id)
+    params.require(:bed).permit(:name, :bed_number, :barcode, :instrument_id)
   end
 end

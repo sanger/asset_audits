@@ -23,7 +23,7 @@ group :development do
   gem 'rubocop'
 end
 
-gem "factory_girl_rails", groups: [:test,:cucumber]
+gem "factory_girl_rails", groups: [:test, :cucumber]
 
 group :test do
   gem "mocha"

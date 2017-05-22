@@ -1,8 +1,8 @@
 class AddVisualCheckToProcessPlates < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.transaction do
-      add_column :process_plates, :visual_check, :boolean, :default => false
-      add_column :instrument_processes, :visual_check_required, :boolean, :default => false
+      add_column :process_plates, :visual_check, :boolean, default: false
+      add_column :instrument_processes, :visual_check_required, :boolean, default: false
     end
   end
 

@@ -12,7 +12,7 @@ ProcessTracking::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  
+
   resources :process_plates
   resources :users do
     collection do
@@ -27,24 +27,24 @@ ProcessTracking::Application.routes.draw do
       post 'witness'
     end
   end
-  
+
   resources :plates do
     collection do
       post 'search'
     end
   end
-  
+
   resources :bed_layouts do
     collection do
       post 'bed_layout_partial'
     end
   end
-  
+
   namespace :admin do
-     resources :instruments
-     resources :processes
-     resources :instrument_processes_instruments
-     resources :beds
+    resources :instruments
+    resources :processes
+    resources :instrument_processes_instruments
+    resources :beds
   end
 
   # Sample resource route with options:
@@ -83,7 +83,7 @@ ProcessTracking::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "process_plates#index"
+  root to: 'process_plates#index'
 
   # See how all your routes lay out with "rake routes"
 

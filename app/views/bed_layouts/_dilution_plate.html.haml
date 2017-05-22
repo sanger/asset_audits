@@ -17,4 +17,4 @@
   %li Correct program selected
   %li Program edited for the correct number of plates
 
-= render :partial => @bed_verification_model.javascript_partial_name
+= render :partial => @bed_verification_model.javascript_partial_name, locals: { presenter: InstrumentJavascriptPresenter.new(@bed_verification_model) }

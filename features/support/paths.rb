@@ -10,7 +10,7 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-      
+
     when /the new audit page/
       new_process_plate_path
 
@@ -30,10 +30,10 @@ module NavigationHelpers
       begin
         page_name =~ /the (.*) page/
         path_components = $1.split(/\s+/)
-        self.send(path_components.push('path').join('_').to_sym)
-      rescue Object => e
+        send(path_components.push('path').join('_').to_sym)
+      rescue
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
-          "Now, go and add a mapping in #{__FILE__}"
+              "Now, go and add a mapping in #{__FILE__}"
       end
     end
   end

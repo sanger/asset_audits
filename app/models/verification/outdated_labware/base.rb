@@ -5,9 +5,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   attr_accessor :messages
 
-  def self.partial_name
-    "outdated_labware"
-  end
+  self.partial_name = 'outdated_labware'
 
   def scanned_values
     [@attributes[:scanned_values]].flatten.map do |s|
@@ -21,16 +19,16 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   def plates_from_barcodes(barcodes)
     plates = search_resource.all(api.plate,
-      :barcode => barcodes)
-    plate_hash = Hash[plates.map {|plate| [plate.barcode.ean13, plate]} ]
+                                 barcode: barcodes)
+    plate_hash = Hash[plates.map { |plate| [plate.barcode.ean13, plate] }]
     Hash[barcodes.map do |barcode|
-      [barcode,plate_hash[barcode]]
+      [barcode, plate_hash[barcode]]
     end]
   end
 
   def validate_and_create_audits?(params)
     return false unless valid?
-    params[:source_plates] = scanned_values.flatten.join(" ")
+    params[:source_plates] = scanned_values.flatten.join(' ')
     return super(params)
   end
 end

@@ -9,7 +9,7 @@ class Verification::Validator::SequenomPlateOrder < ActiveModel::Validator
       # version I've left them being grouped by EAN13 barcode.
       search_resource = record.api.search.find(Settings.search_find_assets_by_barcode)
       check_source_plate_order_for_destination_plate(
-        search_resource.all(record.api.plate, :barcode => barcodes),
+        search_resource.all(record.api.plate, barcode: barcodes),
         record
       )
     end
@@ -35,7 +35,7 @@ class Verification::Validator::SequenomPlateOrder < ActiveModel::Validator
     expected_source_barcode_order = source_barcodes(destination_plate_name)
     actual_source_barcode_order = strip_plate_id_from_ean13_barcodes(scanned_source_ean13_barcodes(record))
 
-    record.errors[:base] << "Invalid source plate order" if expected_source_barcode_order != actual_source_barcode_order
+    record.errors[:base] << 'Invalid source plate order' if expected_source_barcode_order != actual_source_barcode_order
   end
 
   def source_barcodes(name)
@@ -57,5 +57,3 @@ class Verification::Validator::SequenomPlateOrder < ActiveModel::Validator
     end
   end
 end
-
-

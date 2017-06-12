@@ -9,7 +9,7 @@ class FakeSinatraService
   # test runs.
   def self.take_next_port
     if @ports.nil?
-      initial_port = (($$ % 100) * 10) + 6000  # Use pid and use a range
+      initial_port = (($$ % 100) * 10) + 6000 # Use pid and use a range
       @ports       = (1..100).to_a.shuffle.map { |p| initial_port + p }
     end
     @ports.shift
@@ -25,7 +25,7 @@ class FakeSinatraService
   def run!(&block)
     start_sinatra do |thread|
       begin
-        wait_for_sinatra_to_startup! 
+        wait_for_sinatra_to_startup!
         yield
       ensure
         kill_running_sinatra
@@ -41,11 +41,11 @@ class FakeSinatraService
       # Ensure that, if we're running in a javascript environment, that the browser has been launched
       # before we start our service.  This ensures that the listening port is not inherited by the fork
       # within the Selenium driver.
-      Before(tags) do |scenario| 
+      Before(tags) do |scenario|
         Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
         service.instance.start!
       end
-      After(tags)  { |scenario| service.instance.finish! }
+      After(tags) { |scenario| service.instance.finish! }
     end
   end
 
@@ -66,10 +66,9 @@ class FakeSinatraService
     @thread = nil
   end
 
-private
+  private
 
   def clear
-
   end
 
   def start_sinatra(&block)
@@ -78,25 +77,28 @@ private
       logger       = Logger.new(STDERR)
       logger.level = Logger::FATAL
 
-      service.run!(:host => @host, :port => @port, :webrick => { :Logger => logger, :AccessLog => [] })
+      service.run!(host: @host, port: @port, webrick: { Logger: logger, AccessLog: [] })
     end
     yield(thread)
   end
 
   def kill_running_sinatra
     Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/die_eat_flaming_death"))
-  rescue EOFError => exception
+  rescue EOFError
     # This is fine, it means that Sinatra apparently died.
-  rescue Errno::ECONNREFUSED => exception
+    true
+  rescue Errno::ECONNREFUSED
+    true
     # This is probably fine too because it means it wasn't running in the first place!
-  rescue SystemExit => exception
+  rescue SystemExit
+    true
     # This one is probably fine to ignore too.
   end
 
   # We have to pause execution until Sinatra has come up.  This makes a number of attempts to
   # retrieve the root document.  If it runs out of attempts it raises an exception
   def wait_for_sinatra_to_startup!
-    (1..10).each do |_|
+    10.times do
       begin
         Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/up_and_running"))
         return
@@ -105,18 +107,18 @@ private
       end
     end
 
-    raise StandardError, "Our dummy webservice did not start up in time!"
+    raise StandardError, 'Our dummy webservice did not start up in time!'
   end
 
   class Base < Sinatra::Base
-    def self.run!(options={})
+    def self.run!(options = {})
       set options
-      set :server, %w{webrick}                             # Force Webrick to be used as it's quicker to startup & shutdown
+      set :server, %w{webrick} # Force Webrick to be used as it's quicker to startup & shutdown
       handler      = detect_rack_handler
       handler_name = handler.name.gsub(/.*::/, '')
-      handler.run(self, { :Host => bind, :Port => port }.merge(options.fetch(:webrick, {}))) do |server|
+      handler.run(self, { Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true
-        set :quit_handler, Proc.new { server.shutdown }   # Kill the Webrick specific instance if we need to
+        set :quit_handler, Proc.new { server.shutdown } # Kill the Webrick specific instance if we need to
       end
     rescue Errno::EADDRINUSE => e
       raise StandardError, "== Someone is already performing on port #{port}!"
@@ -138,4 +140,3 @@ private
     end
   end
 end
-

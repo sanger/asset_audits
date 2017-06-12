@@ -9,79 +9,79 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160523092229) do
-
-  create_table "beds", :force => true do |t|
-    t.string   "name"
-    t.string   "barcode"
-    t.integer  "bed_number"
-    t.integer  "instrument_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+ActiveRecord::Schema.define(version: 20160617122652) do
+  create_table 'beds', force: :cascade do |t|
+    t.string   'name',          limit: 255
+    t.string   'barcode',       limit: 255
+    t.integer  'bed_number',    limit: 4
+    t.integer  'instrument_id', limit: 4
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
-  add_index "beds", ["barcode"], :name => "index_beds_on_barcode"
-  add_index "beds", ["bed_number"], :name => "index_beds_on_bed_number"
-  add_index "beds", ["instrument_id"], :name => "index_beds_on_instrument_id"
+  add_index 'beds', ['barcode'], name: 'index_beds_on_barcode', using: :btree
+  add_index 'beds', ['bed_number'], name: 'index_beds_on_bed_number', using: :btree
+  add_index 'beds', ['instrument_id'], name: 'index_beds_on_instrument_id', using: :btree
 
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'delayed_jobs', force: :cascade do |t|
+    t.integer  'priority',   limit: 4,     default: 0
+    t.integer  'attempts',   limit: 4,     default: 0
+    t.text     'handler',    limit: 65535
+    t.text     'last_error', limit: 65535
+    t.datetime 'run_at'
+    t.datetime 'locked_at'
+    t.datetime 'failed_at'
+    t.string   'locked_by', limit: 255
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.string   'queue', limit: 255
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+  add_index 'delayed_jobs', ['priority', 'run_at'], name: 'delayed_jobs_priority', using: :btree
 
-  create_table "instrument_processes", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "key"
-    t.boolean  "request_instrument",    :default => true
-    t.boolean  "visual_check_required", :default => false
+  create_table 'instrument_processes', force: :cascade do |t|
+    t.string   'name', limit: 255
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.string   'key', limit: 255
+    t.boolean  'request_instrument',                default: true
+    t.boolean  'visual_check_required',             default: false
+    t.float    'volume_to_pick',        limit: 24
   end
 
-  add_index "instrument_processes", ["key"], :name => "index_instrument_processes_on_key"
+  add_index 'instrument_processes', ['key'], name: 'index_instrument_processes_on_key', using: :btree
 
-  create_table "instrument_processes_instruments", :force => true do |t|
-    t.integer  "instrument_id"
-    t.integer  "instrument_process_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "witness"
-    t.string   "bed_verification_type"
+  create_table 'instrument_processes_instruments', force: :cascade do |t|
+    t.integer  'instrument_id',         limit: 4
+    t.integer  'instrument_process_id', limit: 4
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.boolean  'witness'
+    t.string   'bed_verification_type', limit: 255
   end
 
-  add_index "instrument_processes_instruments", ["instrument_id"], :name => "ipi_i"
-  add_index "instrument_processes_instruments", ["instrument_process_id"], :name => "ipi_ip"
+  add_index 'instrument_processes_instruments', ['instrument_id'], name: 'ipi_i', using: :btree
+  add_index 'instrument_processes_instruments', ['instrument_process_id'], name: 'ipi_ip', using: :btree
 
-  create_table "instruments", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "barcode"
+  create_table 'instruments', force: :cascade do |t|
+    t.string   'name', limit: 255
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.string   'barcode', limit: 255
   end
 
-  add_index "instruments", ["barcode"], :name => "index_instruments_on_barcode"
+  add_index 'instruments', ['barcode'], name: 'index_instruments_on_barcode', using: :btree
 
-  create_table "process_plates", :force => true do |t|
-    t.string   "user_barcode"
-    t.string   "instrument_barcode"
-    t.text     "source_plates"
-    t.integer  "instrument_process_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "witness_barcode"
-    t.boolean  "visual_check",          :default => false
+  create_table 'process_plates', force: :cascade do |t|
+    t.string   'user_barcode',          limit: 255
+    t.string   'instrument_barcode',    limit: 255
+    t.text     'source_plates',         limit: 65535
+    t.integer  'instrument_process_id', limit: 4
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.string   'witness_barcode', limit: 255
+    t.boolean  'visual_check', default: false
   end
-
 end

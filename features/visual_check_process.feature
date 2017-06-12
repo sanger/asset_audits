@@ -12,11 +12,13 @@ Feature: Require a visual check for a process
     Given I am on the new audit page
 
   Scenario: Only show the visual check box if its required
-    Given I select "Cherrypick" from "Instrument process"
-    Then I should not display "visual_check_input"
+    And I fill in "Instrument barcode" with "abc123456"
 
     Given I select "Pico dilution" from "Instrument process"
     Then I should display "visual_check_input"
+    Given I select "Cherrypick" from "Instrument process"
+    Then I should not display "visual_check_input"
+
 
   Scenario: Create plates with a visual check required attribute depending on input
     Given I am on the new audit page

@@ -3,9 +3,8 @@
 # or just before the specific one requested.
 namespace :db do
   namespace :test do
-    task :load => :environment do
-      Rake::Task["db:seed"].invoke
+    task load: :environment do
+      Rake::Task['db:seed'].invoke
     end
   end
 end
-

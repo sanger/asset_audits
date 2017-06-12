@@ -1,6 +1,6 @@
 module WaitForAjax
   # Capybara bugfix
-  # Reference: 
+  # Reference:
   # <https://robots.thoughtbot.com/automatically-wait-for-ajax-with-capybara>
   #
   def waiting_max_wait_time

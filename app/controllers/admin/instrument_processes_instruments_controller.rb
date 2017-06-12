@@ -1,17 +1,17 @@
 class Admin::InstrumentProcessesInstrumentsController < ApplicationController
+  skip_before_filter :configure_api
   def create
-    instrument_process_link = InstrumentProcessesInstrument.new(params[:instrument_processes_instrument])
+    instrument_process_link = InstrumentProcessesInstrument.new(instrument_processes_instrument_params)
     respond_to do |format|
       if instrument_process_link.save
         flash[:notice] = 'Process added to instrument'
-      else 
+      else
         flash[:error] = 'Process already exists for instrument'
       end
-      format.html { redirect_to(admin_instrument_path(instrument_process_link.instrument)  ) }
+      format.html { redirect_to(admin_instrument_path(instrument_process_link.instrument)) }
     end
-
   end
-  
+
   def destroy
     instrument_process_link = InstrumentProcessesInstrument.find(params[:id])
     instrument = instrument_process_link.instrument
@@ -22,5 +22,9 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
     end
   end
 
-end
+  private
 
+  def instrument_processes_instrument_params
+    params.require(:instrument_processes_instrument).permit(:instrument_process_id, :instrument_id, :witness, :bed_verification_type)
+  end
+end

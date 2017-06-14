@@ -2,7 +2,7 @@ class AddInstrumentProcessTable < ActiveRecord::Migration
   def self.up
     create_table :instrument_processes, force: true do |t|
       t.string :name
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

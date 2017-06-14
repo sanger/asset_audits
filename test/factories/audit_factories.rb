@@ -30,6 +30,7 @@ Factory.define :bed do |a|
   a.name       { |a| Factory.next :bed_name }
   a.barcode    { |a| Factory.next :bed_barcode }
   a.bed_number { |a| Factory.next :bed_number }
+
 end
 
 Factory.define :instrument do |a|

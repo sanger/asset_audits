@@ -5,7 +5,7 @@ class AddBedsTable < ActiveRecord::Migration
       t.string :barcode
       t.integer :bed_number
       t.integer :instrument_id
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :beds, :barcode

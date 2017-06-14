@@ -5,7 +5,7 @@ class AddProcessPlateTable < ActiveRecord::Migration
       t.string :instrument_barcode
       t.string :source_plates
       t.integer :instrument_process_id
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

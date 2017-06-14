@@ -85,6 +85,29 @@ class InstrumentJavascriptPresenterTest < ActiveSupport::TestCase
     end
   end
 
+  context 'beckman nx dilution plate' do
+    setup do
+      @js_helper = InstrumentJavascriptPresenter.new(Verification::DilutionPlate::BeckmanNx)
+    end
+
+    should 'return the expected array for tab order' do
+      assert_equal [
+        ["p6_bed", "p6_plate"], 
+        ["p6_plate", "p9_bed"], 
+        ["p9_bed", "p9_plate"], 
+        ["p9_plate", "witness_barcode"]
+      ], @js_helper.tab_order
+    end
+
+    should 'return the expected array for highlighting' do
+      assert_equal [[6, 0], [9, 0]], @js_helper.bed_columns
+    end
+
+    should 'return the expected value for the initial bed' do
+      assert_equal 'p6_bed', @js_helper.initial_bed
+    end
+  end
+
   context 'fx dilution plate' do
     setup do
       @js_helper = InstrumentJavascriptPresenter.new(Verification::DilutionPlate::Fx)

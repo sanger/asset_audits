@@ -115,6 +115,7 @@ When /^(?:|I )wait for all AJAX calls$/ do
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
+  sleep(1)
   assert page.has_content?(text)
 end
 
@@ -129,6 +130,7 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
 end
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
+  sleep(1)
   assert page.has_no_content?(text)
 end
 

@@ -14,12 +14,13 @@ gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', github: 'jamesglover/sequencescape-client-api', tag: ' rc1.3.0', require: 'sequencescape'
 gem 'delayed_job_active_record'
+gem 'json_api_client'
 # gem "jquery-rails"
 
 gem 'byebug'
 
 group :development do
-  gem 'sinatra'
+  #gem 'sinatra'
   gem 'rubocop'
 end
 

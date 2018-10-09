@@ -17,7 +17,7 @@ class AssetAuditTest < ActiveSupport::TestCase
 
     context 'where the user barcode is invalid' do
       setup do
-        UserBarcode::UserBarcode.stubs(:find_username_from_barcode).returns(nil)
+        User.stubs(:login_from_user_code).returns(nil)
         @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
         @bed_layout_verification.validate_and_create_audits?(@input_params)
         @new_delayed_job_count = Delayed::Job.count
@@ -34,7 +34,7 @@ class AssetAuditTest < ActiveSupport::TestCase
 
     context 'where all parameters are valid' do
       setup do
-        UserBarcode::UserBarcode.stubs(:find_username_from_barcode).returns('abc')
+        User.stubs(:login_from_user_code).returns('abc')
         @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
         @bed_layout_verification.validate_and_create_audits?(@input_params)
         @new_delayed_job_count = Delayed::Job.count

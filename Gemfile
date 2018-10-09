@@ -20,7 +20,6 @@ gem 'json_api_client'
 gem 'byebug'
 
 group :development do
-  #gem 'sinatra'
   gem 'rubocop'
 end
 

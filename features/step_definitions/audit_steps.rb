@@ -1,5 +1,5 @@
 Given /^user "([^"]*)" with barcode '(\d+)' exists$/ do |user_name, barcode|
-  FakeUserBarcodeService.instance.user_barcode(user_name, barcode)
+  FakeUser.instance.user_barcode(user_name, barcode)
 end
 
 Given /^I have a "([^"]*)" instrument with barcode "([^"]*)"$/ do |instrument_name, instrument_barcode|

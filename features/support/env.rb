@@ -6,7 +6,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
-require 'capybara'
+require 'capybara/cucumber'
 require 'cucumber/rails'
 require 'minitest/autorun'
 require 'capybara/poltergeist'

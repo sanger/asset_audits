@@ -115,6 +115,7 @@ When /^(?:|I )wait for all AJAX calls$/ do
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
+  sleep(1)
   assert page.has_content?(text)
 end
 

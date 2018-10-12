@@ -135,7 +135,6 @@ Then /^(?:|I )should not display "([^"]*)"$/ do |identif|
   expect(page).not_to have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
 end
 
-
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   expect(page).not_to have_xpath('//*', text: regexp)

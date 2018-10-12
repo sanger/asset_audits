@@ -22,6 +22,7 @@ class FakeUser
   def self.install_hooks(target, tags)
     target.instance_eval do
       Before(tags) do |_scenario|
+        Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
         stub_request(:get, /#{Settings.sequencescape_api_v2}\/users\?filter\[user_code\].*/).to_return do |request|
             body_hash = {
               data: [

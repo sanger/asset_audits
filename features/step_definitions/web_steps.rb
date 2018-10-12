@@ -128,11 +128,11 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
 end
 
 Then /^(?:|I )should display "([^"]*)"$/ do |identif|
-  expect(page).to have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
+  expect(page).to have_xpath("//*[@id='#{identif}']")
 end
 
 Then /^(?:|I )should not display "([^"]*)"$/ do |identif|
-  expect(page).not_to have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
+  expect(page).not_to have_xpath("//*[@id='#{identif}']")
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
@@ -186,3 +186,4 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+

@@ -10,6 +10,7 @@ require 'capybara/cucumber'
 require 'cucumber/rails'
 require 'minitest/autorun'
 require 'capybara/poltergeist'
+require 'rspec/expectations'
 Capybara.javascript_driver = :poltergeist
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In

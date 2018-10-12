@@ -128,11 +128,11 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
 end
 
 Then /^(?:|I )should display "([^"]*)"$/ do |identif|
-  expect(page).not_to have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
+  expect(page).to have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
 end
 
 Then /^(?:|I )should not display "([^"]*)"$/ do |identif|
-  expect(page).to have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
+  expect(page).not_to have_xpath("//*[@id='#{identif}'][contains(@class, 'hidden')]")
 end
 
 
@@ -145,11 +145,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field
   with_scope(parent) do
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
-    if field_value.respond_to? :should
-      field_value.should =~ /#{value}/
-    else
-      assert_match(/#{value}/, field_value)
-    end
+    expect(field_value).to match(/#{value}/)
   end
 end
 
@@ -157,11 +153,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |f
   with_scope(parent) do
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
-    if field_value.respond_to? :should_not
-      field_value.should_not =~ /#{value}/
-    else
-      assert_no_match(/#{value}/, field_value)
-    end
+    expect(field_value).not_to match(/#{value}/)
   end
 end
 
@@ -189,7 +181,6 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
   expected_pairs.rows_hash.each_pair { |k, v| expected_params[k] = v.split(',') }
-
   expect(actual_params).to eq(expected_params)
 end
 

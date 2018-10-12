@@ -64,9 +64,11 @@ Given /^a process "([^"]*)" (requires|does not require) visual check$/ do |proce
 end
 
 Then /^I should have (\d+) plates$/ do |num|
-  assert ProcessPlate.count == num.to_i
+  expect(ProcessPlate.count).to eq(num.to_i)
 end
 
 Then /^I (should|should not) have performed visual check on the last plate$/ do |opt|
-  assert ProcessPlate.last.visual_check? == (opt == 'should')
+  visual_check = ProcessPlate.last.visual_check?
+  expect(visual_check).to be_truthy if opt == 'should'
+  expect(visual_check).to be_falsey if opt == 'should not'
 end

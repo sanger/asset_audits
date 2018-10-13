@@ -54,4 +54,5 @@ Feature: Automatically populate the activity logging page when barcodes are scan
     And I select "Shake" from "Instrument process"
     Then I wait 1 second
     And I select "Gel" from "Instrument process"
+    Then I wait 1 second
 

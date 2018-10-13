@@ -49,6 +49,8 @@ Feature: Automatically populate the activity logging page when barcodes are scan
     When I fill in "Instrument barcode" with "xxxxxxxxx"
 
     When I select "Pico" from "Instrument process"
-      And I select "Shake" from "Instrument process"
-      And I select "Gel" from "Instrument process"
+    Then I wait 1 second
+    And I select "Shake" from "Instrument process"
+    Then I wait 1 second
+    And I select "Gel" from "Instrument process"
 

@@ -46,8 +46,9 @@ Feature: Automatically populate the activity logging page when barcodes are scan
       And I have a process "Pico" as part of the "Big robot" instrument
       And I have a process "Gel" as part of the "Big robot" instrument
       And I have a process "Shake" as part of the "Big robot" instrument
-    When I fill in "Instrument barcode" with "xxxxxxxxx"
 
+    When I fill in "Instrument barcode" with "xxxxxxxxx"
+    Then I wait 1 second
     When I select "Pico" from "Instrument process"
     Then I wait 1 second
     And I select "Shake" from "Instrument process"

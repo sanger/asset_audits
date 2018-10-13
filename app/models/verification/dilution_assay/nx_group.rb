@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Verification::DilutionAssay::NxGroup < Verification::DilutionAssay::Base
   def self.transfers
     [

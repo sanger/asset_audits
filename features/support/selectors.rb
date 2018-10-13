@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module HtmlSelectorsHelpers
   # Maps a name to a selector. Used primarily by the
   #

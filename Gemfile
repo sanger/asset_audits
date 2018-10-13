@@ -26,7 +26,7 @@ gem 'factory_girl_rails', groups: [:test, :cucumber]
 
 gem 'pry', groups: [:test, :cucumber, :development]
 
-  group :test do
+group :test do
   gem 'mocha'
   gem 'shoulda'
   gem 'webmock'

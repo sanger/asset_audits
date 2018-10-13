@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ProcessPlate < ActiveRecord::Base
   include ProcessPlateValidation
   attr_accessor :api

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'singleton'
 
 class FakeUser
@@ -24,15 +25,15 @@ class FakeUser
       Before(tags) do |_scenario|
         Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
         stub_request(:get, /#{Settings.sequencescape_api_v2}\/users\?filter\[user_code\].*/).to_return do |request|
-            body_hash = {
-              data: [
-                {
-                  attributes: {
-                    login: FakeUser.instance.login_from_user_code(request.uri.query_values['filter[user_code]'])
-                  }
+          body_hash = {
+            data: [
+              {
+                attributes: {
+                  login: FakeUser.instance.login_from_user_code(request.uri.query_values['filter[user_code]'])
                 }
-              ]
-            }
+              }
+            ]
+          }
           FakeUser.response_format(body_hash)
         end
       end

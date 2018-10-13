@@ -24,7 +24,7 @@ class FakeUser
     target.instance_eval do
       Before(tags) do |_scenario|
         Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
-        stub_request(:get, /#{Settings.sequencescape_api_v2}\/users\?filter\[user_code\].*/).to_return do |request|
+        stub_request(:get, %r{#{Settings.sequencescape_api_v2}\/users\?filter\[user_code\].*}).to_return do |request|
           body_hash = {
             data: [
               {
@@ -43,8 +43,6 @@ class FakeUser
       end
     end
   end
-
-  private
 
   def self.response_format(body_value)
     {

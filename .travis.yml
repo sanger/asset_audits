@@ -8,5 +8,5 @@ before_script:
   - bundle exec rake db:test:prepare
   - export CUCUMBER_FORMAT=progress
 script:
-  - bundle exec rubocop --parallel
+  - bundle exec rubocop
   - bundle exec rake

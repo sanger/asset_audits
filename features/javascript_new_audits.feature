@@ -42,8 +42,11 @@ Feature: Automatically populate the activity logging page when barcodes are scan
       And I have a process "Shake" as part of the "Killer robot" instrument
 
     When I fill in "Instrument barcode" with "xyz99"
+    Then I wait 1 second
     When I select "Pico" from "Instrument process"
+    Then I wait 1 second
       And I select "Gel" from "Instrument process"
+    Then I wait 1 second
       And I should not see "Shake"
 
   Scenario: Scanning an invalid instrument barcode should populate the process list with all processes

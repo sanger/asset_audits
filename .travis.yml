@@ -1,9 +1,7 @@
 language: ruby
-dist: xenial
 services: mysql
 bundler_args: "--without deployment"
-cache:
-  bundler: true
+cache: bundler
 before_install:
 - export TZ=Europe/London
 before_script:

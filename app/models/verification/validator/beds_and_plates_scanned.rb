@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
   def validate(record)
     record.scanned_values.each do |bed_name, position|

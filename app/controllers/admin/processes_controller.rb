@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Admin::ProcessesController < ApplicationController
   skip_before_filter :configure_api
 

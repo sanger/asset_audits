@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddVisualCheckToProcessPlates < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.transaction do

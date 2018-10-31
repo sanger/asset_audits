@@ -1,5 +1,7 @@
 language: ruby
 dist: xenial
+sudo: required
+services: mysql
 bundler_args: "--without deployment"
 cache:
   bundler: true

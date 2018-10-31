@@ -1,6 +1,6 @@
 Asset Audits
 ============
-[![Build Status](https://travis-ci.org/radome/asset_audits.svg?branch=seq-790_swipecard_as_barcode)](https://travis-ci.org/radome/asset_audits)
+[![Build Status](https://travis-ci.org/radome/asset_audits.svg?branch=test_openstack)](https://travis-ci.org/radome/asset_audits)
 
 Description
 -----------

@@ -1,12 +1,26 @@
 language: ruby
-sudo: false
-cache: bundler
+sudo: required
+dist: xenial
+bundler_args: "--without deployment"
+cache:
+  bundler: true
 before_install:
-  - export TZ=Europe/London
+- export TZ=Europe/London
 before_script:
-  - bundle exec rake db:create db:schema:load RAILS_ENV=test
-  - bundle exec rake db:test:prepare
-  - export CUCUMBER_FORMAT=progress
+- bundle exec rake db:create db:schema:load RAILS_ENV=test
+- bundle exec rake db:test:prepare
+- export CUCUMBER_FORMAT=progress
 script:
-  - bundle exec rubocop
-  - bundle exec rake
+- bundle exec rubocop
+- bundle exec rake
+before_deploy: "./compile-build"
+deploy:
+  provider: releases
+  file: release.tar.gz
+  file_glob: true
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: radome/asset_audits
+  api_key:
+    secure: raYjPdR1KtqLtQLVRki1rkgu/gKhn5iiCNwcrNBY70VRPAysOyJIREY3z3G2WwqVRlhOHQR32uIMwyQsMsDxf42iJmLLT06JDZT+lxKQO1+ZRksbdqKNiSZk3NF3UWZ1U85SLxanTpqqH79vfu18XpV5KWzpSB0Gg5ZidbvlF/DaZRqZAl5I9y6mWPxJsGUVAXd1DfUJ1Dl7q0QkuY/CuOfMcienlzWbEgwgjJf2Yq9beywuaegh0jdH3aNsAyZLxH4EAJNmg2G/YYFKso6MKbt1xkYK6yL1nccCpuGuKfpewiD5/DDS/URBsknNguLMLxk+EOS3DpfuQ9e1taOAn0reTb2HyN8apr174f4IO5tkECN2NJ95ps/ConJSH9NeDyYH61wMDg/G6HVg1R9OqdLFZaC8HtN5/wfDQvdo/UVmwPCa4oVeTDxP4WrSailsGvXFR7PnR9nwwWfkTWArI+QoNqFPQv5s4sLoUSdxB0XGgpHhr2G2m9FOEHk1Xc6OCHtoaGDD0neztn//4uwilPP5D0//BygbEuPVcvUCJdjCnQzpOeo3Y0K+0uA5/jlxXRLYhLDNnP6bbP/k6H9BW3IKHpV62NRNX5QRZttC6SV4L0VHKNV2kMsSraDlM4VGPRSyxEk4bseZTA+LJYzQ2qbqkvzfaxrG3aXRqPoQgHc=

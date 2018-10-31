@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class Verification::Validator::SequenomPlateOrder < ActiveModel::Validator
   def validate(record)
     record.destination_beds.map do |destination_bed|

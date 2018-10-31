@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class SetsVisualChecksForPico < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.transaction do

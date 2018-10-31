@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require 'test_helper'
 class InstrumentJavascriptPresenterTest < ActiveSupport::TestCase
   context 'nx assay plate' do

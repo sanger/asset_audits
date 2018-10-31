@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class AddBiorobot < ActiveRecord::Migration
   ROBOT_BARCODE = '4880001006869'
   BEDS = %w(4880001007873 580000015865 4880001008658 4880001009662 4880001010828)

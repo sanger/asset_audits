@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class Verification::Validator::OutdatedPlatesScanned < ActiveModel::Validator
   def validate(record)
     plates = record.plates_from_barcodes(record.scanned_values)

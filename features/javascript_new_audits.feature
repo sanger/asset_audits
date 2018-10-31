@@ -23,15 +23,10 @@ Feature: Automatically populate the activity logging page when barcodes are scan
       And I have a process "Shake" as part of the "Killer robot" instrument
 
     When I fill in "Instrument barcode" with "abc123456"
-    Then I wait 1 second
       And I should see "Big robot" within "#instrument_barcode_results"
-    Then I wait 1 second
     When I select "Pico" from "Instrument process"
-    Then I wait 1 second
       And I select "Shake" from "Instrument process"
-    Then I wait 1 second
       And I select "Gel" from "Instrument process"
-    Then I wait 1 second
 
   Scenario: Scanning a valid instrument barcode with linked process should list only that process
     Given I have a "Big robot" instrument with barcode "abc123456"
@@ -42,11 +37,8 @@ Feature: Automatically populate the activity logging page when barcodes are scan
       And I have a process "Shake" as part of the "Killer robot" instrument
 
     When I fill in "Instrument barcode" with "xyz99"
-    Then I wait 1 second
     When I select "Pico" from "Instrument process"
-    Then I wait 1 second
       And I select "Gel" from "Instrument process"
-    Then I wait 1 second
       And I should not see "Shake"
 
   Scenario: Scanning an invalid instrument barcode should populate the process list with all processes
@@ -54,13 +46,9 @@ Feature: Automatically populate the activity logging page when barcodes are scan
       And I have a process "Pico" as part of the "Big robot" instrument
       And I have a process "Gel" as part of the "Big robot" instrument
       And I have a process "Shake" as part of the "Big robot" instrument
-
     When I fill in "Instrument barcode" with "xxxxxxxxx"
-    Then I wait 1 second
+
     When I select "Pico" from "Instrument process"
-    Then I wait 1 second
-    And I select "Shake" from "Instrument process"
-    Then I wait 1 second
-    And I select "Gel" from "Instrument process"
-    Then I wait 1 second
+      And I select "Shake" from "Instrument process"
+      And I select "Gel" from "Instrument process"
 

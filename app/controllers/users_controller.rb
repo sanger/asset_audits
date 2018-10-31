@@ -1,8 +1,7 @@
-# frozen_string_literal: true
 class UsersController < ApplicationController
   skip_before_filter :configure_api
 
   def search
-    render text: User.login_from_user_code(params[:user_barcode])
+    render text: UserBarcode::UserBarcode.find_username_from_barcode(params[:user_barcode])
   end
 end

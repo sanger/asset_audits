@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class BedLayoutsController < ApplicationController
   skip_before_filter :configure_api
 

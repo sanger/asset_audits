@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class ChangeSourcePlatesToTextType < ActiveRecord::Migration
   def self.up
     change_column :process_plates, :source_plates, :text

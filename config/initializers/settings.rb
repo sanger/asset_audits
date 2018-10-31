@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require 'singleton'
 class Settings
   attr_accessor :settings

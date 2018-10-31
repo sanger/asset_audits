@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require 'timecop'
 
 Given(/^all this is happening at "(.*?)"$/) do |time|

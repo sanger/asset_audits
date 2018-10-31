@@ -14,23 +14,20 @@ gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', github: 'jamesglover/sequencescape-client-api', tag: ' rc1.3.0', require: 'sequencescape'
 gem 'delayed_job_active_record'
-gem 'json_api_client'
+# gem "jquery-rails"
 
 gem 'byebug'
 
 group :development do
+  gem 'sinatra'
   gem 'rubocop'
 end
 
 gem 'factory_girl_rails', groups: [:test, :cucumber]
 
-gem 'pry', groups: [:test, :cucumber, :development]
-
 group :test do
   gem 'mocha'
   gem 'shoulda'
-  gem 'webmock'
-  gem 'sinatra'
 end
 
 group :cucumber do
@@ -39,9 +36,8 @@ group :cucumber do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'poltergeist'
   gem 'timecop'
-  gem 'rspec-expectations'
+  gem 'poltergeist'
 end
 
 group :deployment do

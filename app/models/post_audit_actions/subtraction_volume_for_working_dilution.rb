@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 module PostAuditActions::SubtractionVolumeForWorkingDilution
   def self.included(base)
     base.handle_asynchronously :subtract_volume_because_of_working_dilution!

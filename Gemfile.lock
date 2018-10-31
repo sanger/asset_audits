@@ -57,27 +57,23 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.5.2)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.4.0)
     arel (6.0.3)
     ast (2.3.0)
     builder (3.2.2)
     byebug (9.0.5)
-    capybara (2.18.0)
+    capybara (2.7.1)
       addressable
-      mini_mime (>= 0.1.3)
+      mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
+      xpath (~> 2.0)
     cliver (0.3.2)
-    coderay (1.1.2)
     compass (0.10.6)
       haml (>= 3.0.4)
     concurrent-ruby (1.0.2)
     configuration (1.2.0)
-    crack (0.4.3)
-      safe_yaml (~> 1.0.0)
     cucumber (2.4.0)
       builder (>= 2.1.2)
       cucumber-core (~> 1.5.0)
@@ -113,10 +109,6 @@ GEM
     factory_girl_rails (1.0.1)
       factory_girl (~> 1.3)
       railties (>= 3.0.0)
-    faraday (0.15.3)
-      multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.12.2)
-      faraday (>= 0.7.4, < 1.0)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     gherkin (4.0.0)
@@ -124,15 +116,8 @@ GEM
       activesupport (>= 4.1.0)
     haml (4.0.7)
       tilt
-    hashdiff (0.3.7)
     i18n (0.7.0)
     json (1.8.3)
-    json_api_client (1.6.1)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      addressable (~> 2.2)
-      faraday (~> 0.15, >= 0.15.2)
-      faraday_middleware (~> 0.9)
     launchy (0.4.0)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
@@ -141,34 +126,29 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    method_source (0.9.0)
-    mime-types (3.2.2)
+    mime-types (3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2018.0812)
-    mini_mime (1.0.1)
+    mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     mocha (0.9.12)
     multi_json (1.12.1)
     multi_test (0.1.2)
-    multipart-post (2.0.0)
-    mysql2 (0.4.10)
-    nokogiri (1.6.8.1)
+    mysql2 (0.4.4)
+    nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
     parser (2.4.0.0)
       ast (~> 2.2)
+    pkg-config (1.1.7)
     poltergeist (1.9.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
-    pry (0.11.3)
-      coderay (~> 1.1.0)
-      method_source (~> 0.9.0)
-    public_suffix (3.0.3)
-    rack (1.6.10)
-    rack-protection (1.5.5)
+    rack (1.6.4)
+    rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -201,10 +181,6 @@ GEM
     rainbow (2.2.1)
     rake (11.2.2)
     ref (2.0.0)
-    rspec-expectations (3.8.2)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.8.0)
-    rspec-support (3.8.0)
     rubocop (0.47.1)
       parser (>= 2.3.3.1, < 3.0)
       powerpack (~> 0.1)
@@ -212,7 +188,6 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
-    safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -226,7 +201,7 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    sinatra (1.4.8)
+    sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
@@ -254,14 +229,10 @@ GEM
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.1.3)
     uuidtools (2.1.2)
-    webmock (3.4.2)
-      addressable (>= 2.3.6)
-      crack (>= 0.3.2)
-      hashdiff
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    xpath (2.1.0)
+    xpath (2.0.0)
       nokogiri (~> 1.3)
     yajl-ruby (1.1.0)
 
@@ -281,18 +252,15 @@ DEPENDENCIES
   factory_girl_rails
   formtastic
   haml
-  json_api_client
   launchy
   minitest
   mocha
   mysql2
   nokogiri
   poltergeist
-  pry
   psd_logger!
   rails (~> 4.0)
   rake
-  rspec-expectations
   rubocop
   sass-rails
   sequencescape-client-api!
@@ -303,7 +271,6 @@ DEPENDENCIES
   timecop
   uglifier
   uuidtools
-  webmock
 
 BUNDLED WITH
-   1.16.2
+   1.14.6

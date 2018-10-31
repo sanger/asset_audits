@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 Given /^instrument "([^"]*)" has a bed with name "([^"]*)" barcode "([^"]*)" and number (\d+)$/ do |instrument_name, bed_name, bed_barcode, bed_number|
   instrument = Instrument.find_by_name(instrument_name)
   bed = Bed.create!(name: bed_name, barcode: bed_barcode, bed_number: bed_number)

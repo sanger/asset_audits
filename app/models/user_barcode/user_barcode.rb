@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class UserBarcode::UserBarcode < ActiveResource::Base
   self.site = Settings.user_barcode_url
   self.format = ActiveResource::Formats::XmlFormat

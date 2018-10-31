@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 module ProcessPlateValidation
   def self.included(base)
     base.class_eval do

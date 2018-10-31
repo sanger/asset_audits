@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 Factory.sequence :barcode_number do |n|
   "#{n}"
 end

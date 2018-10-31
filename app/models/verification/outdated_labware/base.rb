@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class Verification::OutdatedLabware::Base < Verification::Base
   validates_with Verification::Validator::OutdatedPlatesScanned
 

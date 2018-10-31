@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 class Verification::Validator::UniqueDestinationPlatesScanned < ActiveModel::Validator
   def validate(record)
     destination_barcodes = record.destination_beds.map do |destination_bed|

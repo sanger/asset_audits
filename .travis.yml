@@ -1,5 +1,4 @@
 language: ruby
-services: mysql
 bundler_args: "--without deployment"
 cache: bundler
 before_install:

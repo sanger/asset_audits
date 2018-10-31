@@ -1,5 +1,4 @@
 language: ruby
-sudo: required
 dist: xenial
 bundler_args: "--without deployment"
 cache:

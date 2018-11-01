@@ -45,8 +45,7 @@ group :cucumber do
 end
 
 group :deployment do
-  gem 'thin'
-  gem 'psd_logger', github: 'sanger/psd_logger'
+  gem 'puma'
   gem 'exception_notification'
 end
 # Needed for the new asset pipeline

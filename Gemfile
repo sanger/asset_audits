@@ -14,6 +14,7 @@ gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', github: 'jamesglover/sequencescape-client-api', tag: ' rc1.3.0', require: 'sequencescape'
 gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'json_api_client'
 
 gem 'byebug'

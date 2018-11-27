@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class InstrumentProcessesInstrument < ActiveRecord::Base
   belongs_to :instrument
   belongs_to :instrument_process

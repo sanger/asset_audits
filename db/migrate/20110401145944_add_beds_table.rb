@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddBedsTable < ActiveRecord::Migration
   def self.up
     create_table :beds, force: true do |t|

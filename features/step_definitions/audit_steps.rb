@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 Given /^user "([^"]*)" with barcode '(\d+)' exists$/ do |user_name, barcode|
-  FakeUserBarcodeService.instance.user_barcode(user_name, barcode)
+  FakeUser.instance.user_barcode(user_name, barcode)
 end
 
 Given /^I have a "([^"]*)" instrument with barcode "([^"]*)"$/ do |instrument_name, instrument_barcode|
@@ -54,7 +55,7 @@ Given /^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witne
   instrument = Instrument.find_by_name(instrument_name)
   instrument_process = InstrumentProcess.find_by_name(process_name)
   process_link = instrument.instrument_processes_instruments.select { |process| process.instrument_process_id == instrument_process.id }.first
-  process_link.update_attributes!(witness: true) unless process_link.nil?
+  process_link&.update_attributes!(witness: true)
 end
 
 
@@ -64,9 +65,11 @@ Given /^a process "([^"]*)" (requires|does not require) visual check$/ do |proce
 end
 
 Then /^I should have (\d+) plates$/ do |num|
-  assert ProcessPlate.count == num.to_i
+  expect(ProcessPlate.count).to eq(num.to_i)
 end
 
 Then /^I (should|should not) have performed visual check on the last plate$/ do |opt|
-  assert ProcessPlate.last.visual_check? == (opt == 'should')
+  visual_check = ProcessPlate.last.visual_check?
+  expect(visual_check).to be_truthy if opt == 'should'
+  expect(visual_check).to be_falsey if opt == 'should not'
 end

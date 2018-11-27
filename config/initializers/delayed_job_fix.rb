@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Module
   def yaml_tag_read_class(name)
     name.sub!(/^YAML::Syck::/, 'Syck::')

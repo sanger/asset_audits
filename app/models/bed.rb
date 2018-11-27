@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Bed < ActiveRecord::Base
   belongs_to :instrument
 

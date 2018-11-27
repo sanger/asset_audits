@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Instrument < ActiveRecord::Base
   has_many :instrument_processes_instruments, dependent: :destroy
   has_many :instrument_processes, through: :instrument_processes_instruments

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Verification::DilutionAssay::Base < Verification::Base
   include Verification::BedVerification
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ProcessPlate < ActiveRecord::Base
   include ProcessPlateValidation
   attr_accessor :api
@@ -13,13 +14,13 @@ class ProcessPlate < ActiveRecord::Base
 
   def user_login
     return user_name unless user_name.blank?
-    self.user_name = UserBarcode::UserBarcode.find_username_from_barcode(user_barcode)
+    self.user_name = User.login_from_user_code(user_barcode)
   end
 
   def witness_login
     return nil if witness_barcode.blank?
     return witness_name unless witness_name.blank?
-    self.witness_name = UserBarcode::UserBarcode.find_username_from_barcode(witness_barcode)
+    self.witness_name = User.login_from_user_code(witness_barcode)
   end
 
   def barcodes
@@ -45,7 +46,7 @@ class ProcessPlate < ActiveRecord::Base
   end
 
   def api
-    @api ||= Sequencescape::Api.new(url: Settings.sequencescape_url, authorisation: Settings.sequencescape_authorisation)
+    @api ||= Sequencescape::Api.new(url: Settings.sequencescape_api_v1, authorisation: Settings.sequencescape_authorisation)
   end
 
   def create_audits

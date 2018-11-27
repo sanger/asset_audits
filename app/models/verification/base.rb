@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Verification::Base
   include ActiveModel::Validations
 

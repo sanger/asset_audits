@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Plate
   def self.sanger_barcodes(barcodes_string)
     return [] if barcodes_string.blank?

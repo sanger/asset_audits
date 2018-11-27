@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Admin::InstrumentProcessesInstrumentsController < ApplicationController
   skip_before_filter :configure_api
   def create

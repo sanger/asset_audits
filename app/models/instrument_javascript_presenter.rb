@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class InstrumentJavascriptPresenter
   attr_reader :ordered_beds, :column_groups
   def initialize(behaviour_class)

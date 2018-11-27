@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Verification::Validator::GroupableComplete < ActiveModel::Validator
   def validate(record)
     unless record.class.transfer_groups.all? { |t| is_transfer_valid?(t, record.scanned_values) }

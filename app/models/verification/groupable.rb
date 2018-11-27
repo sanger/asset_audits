@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Verification::Groupable
   def parse_source_and_destination_barcodes(scanned_values)
     source_and_destination_barcodes = []

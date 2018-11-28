@@ -16,7 +16,7 @@ GIT
     psd_logger (0.1.6)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://gems.github.com/
   specs:
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
@@ -306,4 +306,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.16.2
+   1.17.1

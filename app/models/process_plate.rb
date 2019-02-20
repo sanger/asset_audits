@@ -37,7 +37,7 @@ class ProcessPlate < ActiveRecord::Base
   end
 
   def asset_uuids_from_plate_barcodes
-    asset_search_results_from_plate_barcodes.flatten.map(&:uuid)
+    asset_search_results_from_plate_barcodes.map(&:uuid)
   end
 
   def asset_search_results_from_plate_barcodes

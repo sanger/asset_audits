@@ -120,40 +120,4 @@ class InstrumentJavascriptPresenterTest < ActiveSupport::TestCase
       assert_equal 'p3_bed', @js_helper.initial_bed
     end
   end
-
-  context 'nx sequenom plate' do
-    setup do
-      @js_helper = InstrumentJavascriptPresenter.new(Verification::SequenomPlate::Nx)
-    end
-
-    should 'return the expected array for tab order' do
-      assert_equal [
-        ['p2_bed', 'p2_plate'],
-        ['p2_plate', 'p5_bed'],
-        ['p5_bed', 'p5_plate'],
-        ['p5_plate', 'p8_bed'],
-        ['p8_bed', 'p8_plate'],
-        ['p8_plate', 'p11_bed'],
-        ['p11_bed', 'p11_plate'],
-        ['p11_plate', 'p3_bed'],
-        ['p3_bed', 'p3_plate'],
-        ['p3_plate', 'p6_bed'],
-        ['p6_bed', 'p6_plate'],
-        ['p6_plate', 'p9_bed'],
-        ['p9_bed', 'p9_plate'],
-        ['p9_plate', 'p12_bed'],
-        ['p12_bed', 'p12_plate'],
-        ['p12_plate', 'witness_barcode']
-      ], @js_helper.tab_order
-    end
-
-    should 'return the expected array for highlighting' do
-      # Sequenom doesn't use column highlighting
-      assert_equal [], @js_helper.bed_columns
-    end
-
-    should 'return the expected value for the initial bed' do
-      assert_equal 'p2_bed', @js_helper.initial_bed
-    end
-  end
 end

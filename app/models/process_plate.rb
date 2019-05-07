@@ -24,7 +24,7 @@ class ProcessPlate < ActiveRecord::Base
   end
 
   def barcodes
-    source_plates.scan(/\d+/).map { |plate| plate }
+    source_plates.scan(/\w+/).map { |plate| plate }
   end
 
   def instrument

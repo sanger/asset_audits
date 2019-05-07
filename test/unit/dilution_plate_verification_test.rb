@@ -1,37 +1,7 @@
 # frozen_string_literal: true
 require 'test_helper'
-
-class TestSequencescapeApi
-  attr_accessor :plate
-  attr_accessor :barcode
-  attr_accessor :barcode_to_results
-
-  def initialize(barcode_to_results)
-    @barcode_to_results = barcode_to_results
-  end
-
-  def search
-    self
-  end
-
-  def find(search_uuid)
-    self
-  end
-
-  def all(plate, options = {})
-    @barcode_to_results[options[:barcode]] || []
-  end
-end
-
-class TestSearchResult
-  attr_accessor :barcode
-  def initialize(machine_barcode)
-    # Not what actually happens, but it'll work for our purposes
-    encoded_barcode = machine_barcode.bytes.map { |b| (b % 48).to_s }.join
-    @barcode = OpenStruct.new(ean13: encoded_barcode, machine: machine_barcode)
-  end
-end
-
+require 'support/test_sequencescape_api'
+require 'support/test_search_result'
 
 class DilutionPlateVerificationTest < ActiveSupport::TestCase
   context 'Verifying the creation of dilution plates' do

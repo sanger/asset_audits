@@ -1,5 +1,9 @@
 language: ruby
-sudo: false
+dist: xenial
+sudo: required
+services:
+  - mysql
+  - xvfb
 cache: bundler
 before_install:
   - export TZ=Europe/London

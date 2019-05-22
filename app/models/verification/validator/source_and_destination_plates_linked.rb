@@ -7,15 +7,23 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
       search_resource = record.api.search.find(Settings.search_find_source_assets_by_destination_barcode)
       source_and_destinations.all? do |source_barcode, destination_barcode|
         search_results = search_resource.all(record.api.plate, barcode: destination_barcode)
-        valid_source_barcode?(source_barcode, search_results, record)
+        found_barcodes = search_results.map { |p| p.barcode.machine }
+        valid_source_barcode?(source_barcode, found_barcodes, record, destination_barcode)
       end
     end
   end
 
-  def valid_source_barcode?(source_barcode, search_results, record)
-    return true if search_results.map { |p| p.barcode.ean13 }.include?(source_barcode)
-    record.errors[:base] << 'Invalid source plate layout'
+  private
+
+  def valid_source_barcode?(source_barcode, found_barcodes, record, destination_barcode)
+    return true if found_barcodes.include?(source_barcode)
+    parent_error = case found_barcodes.length
+                   when 0 then "#{destination_barcode} has no known parents."
+                   when 1 then "Known parent is #{found_barcodes.first}."
+                   else "Known parents are #{found_barcodes.join(', ')}"
+                   end
+    record.errors[:base] << "Invalid source plate layout: #{source_barcode} is not a parent of #{destination_barcode}. "\
+                            "#{parent_error}"
     return false
   end
-  private :valid_source_barcode?
 end

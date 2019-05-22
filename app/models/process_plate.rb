@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 class ProcessPlate < ActiveRecord::Base
   include ProcessPlateValidation
+
+  BARCODE_REGEX = /\S+/
+
   attr_accessor :api
   attr_accessor :user_name
   attr_accessor :witness_name
@@ -24,7 +27,7 @@ class ProcessPlate < ActiveRecord::Base
   end
 
   def barcodes
-    source_plates.scan(/\d+/).map { |plate| plate }
+    source_plates.scan(BARCODE_REGEX).map { |plate| plate }
   end
 
   def instrument
@@ -37,7 +40,7 @@ class ProcessPlate < ActiveRecord::Base
   end
 
   def asset_uuids_from_plate_barcodes
-    asset_search_results_from_plate_barcodes.flatten.map(&:uuid)
+    asset_search_results_from_plate_barcodes.map(&:uuid)
   end
 
   def asset_search_results_from_plate_barcodes

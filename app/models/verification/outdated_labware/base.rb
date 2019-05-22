@@ -21,7 +21,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   def plates_from_barcodes(barcodes)
     plates = search_resource.all(api.plate,
                                  barcode: barcodes)
-    plate_hash = Hash[plates.map { |plate| [plate.barcode.ean13, plate] }]
+    plate_hash = Hash[plates.map { |plate| [plate.barcode.machine, plate] }]
     Hash[barcodes.map do |barcode|
       [barcode, plate_hash[barcode]]
     end]

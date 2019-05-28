@@ -1,5 +1,5 @@
-source 'https://rubygems.org'
-# source 'http://gems.github.com'
+# source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '~> 4.0'
 gem 'rake'
@@ -9,10 +9,9 @@ gem 'nokogiri'
 gem 'formtastic'
 gem 'mysql2'
 gem 'uuidtools'
-gem 'compass'
 gem 'curb'
 gem 'haml'
-gem 'sequencescape-client-api', github: 'jamesglover/sequencescape-client-api', tag: ' rc1.3.0', require: 'sequencescape'
+gem 'sequencescape-client-api', require: 'sequencescape'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'json_api_client'
@@ -49,8 +48,3 @@ group :deployment do
   gem 'puma'
   gem 'exception_notification'
 end
-# Needed for the new asset pipeline
-
-gem 'sass-rails'
-gem 'uglifier'
-gem 'therubyracer'

@@ -1,5 +1,10 @@
 language: ruby
 bundler_args: "--without deployment"
+dist: xenial
+sudo: required
+services:
+  - mysql
+  - xvfb
 cache: bundler
 before_install:
 - export TZ=Europe/London
@@ -9,7 +14,7 @@ before_script:
 - export CUCUMBER_FORMAT=progress
 script:
 - bundle exec rubocop
-- bundle exec rake
+- xvfb-run -a bundle exec rake
 before_deploy: "./compile-build"
 deploy:
   provider: releases

@@ -1,35 +1,7 @@
 # frozen_string_literal: true
 require 'test_helper'
-
-class TestSequencescapeApi
-  attr_accessor :plate
-  attr_accessor :barcode
-  attr_accessor :barcode_to_results
-
-  def initialize(barcode_to_results)
-    @barcode_to_results = barcode_to_results
-  end
-
-  def search
-    self
-  end
-
-  def find(search_uuid)
-    self
-  end
-
-  def all(plate, options = {})
-    @barcode_to_results[options[:barcode]]
-  end
-end
-
-class TestSearchResult
-  attr_accessor :barcode
-  def initialize(ean13_barcode)
-    @barcode = OpenStruct.new(ean13: ean13_barcode)
-  end
-end
-
+require 'support/test_sequencescape_api'
+require 'support/test_search_result'
 
 class DilutionPlateVerificationTest < ActiveSupport::TestCase
   context 'Verifying the creation of dilution plates' do
@@ -47,18 +19,18 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
           instrument_barcode: @instrument.barcode.to_s,
           instrument_process: @instrument.instrument_processes.first.id.to_s,
           robot: {
-            p2: { bed: '2', plate: '123' },
+            p2: { bed: '2', plate: 'DN123T' },
             p5: { bed: '',  plate: '' },
             p8: { bed: '',  plate: '' },
             p11: { bed: '', plate: '' },
-            p3: { bed: '3', plate: '456' },
+            p3: { bed: '3', plate: 'DN456S' },
             p6: { bed: '',  plate: '' },
             p9: { bed: '',  plate: '' },
             p12: { bed: '', plate: '' }
           }
         }
 
-        api = TestSequencescapeApi.new({ '456' => [TestSearchResult.new('123')] })
+        api = TestSequencescapeApi.new({ 'DN456S' => [TestSearchResult.new('DN123T')] })
 
         @old_delayed_job_count = Delayed::Job.count
         @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
@@ -79,7 +51,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
 
     [
       ['3', '123', '2', '456', 'Invalid layout'],
-      ['2', '456', '3', '123', 'Invalid source plate layout'],
+      ['2', '456', '3', '123', 'Invalid source plate layout: 456 is not a parent of 123. 123 has no known parents.'],
       ['3', '456', '2', '123', 'Invalid layout'],
       ['', '', '', '', 'No plates scanned'],
       ['2', '', '', '', 'No plates scanned'],
@@ -121,7 +93,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
         end
 
         should 'return an error' do
-          assert @bed_layout_verification.errors.values.flatten.include?(error_message)
+          assert_includes @bed_layout_verification.errors.values.flatten, error_message
         end
 
         should 'not create any audits' do

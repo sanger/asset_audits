@@ -14,13 +14,15 @@ Feature: Verify location of plates
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "123"
+                "ean13": "123",
+                "machine": "123"
               }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
               "barcode": {
-                "ean13": "777"
+                "ean13": "777",
+                "machine": "777"
               }
           }],
           "uuids_to_ids": {
@@ -54,13 +56,15 @@ Feature: Verify location of plates
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "123"
+                "ean13": "123",
+                "machine": "123"
               }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
               "barcode": {
-                "ean13": "777"
+                "ean13": "777",
+                "machine": "777"
               }
           }],
           "uuids_to_ids": {

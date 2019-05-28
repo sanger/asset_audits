@@ -14,7 +14,8 @@ Feature: Verify destruction of plates
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "old_plate"
+                "ean13": "old_plate",
+                "machine": "old_plate"
               },
               "plate_purpose": { "lifespan":30, "uuid":"00000000-2222-2222-3333-444444444444" },
               "created_at":"2015-01-01T13:45:00+01:00"
@@ -22,7 +23,8 @@ Feature: Verify destruction of plates
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
               "barcode": {
-                "ean13": "new_plate"
+                "ean13": "new_plate",
+                "machine": "new_plate"
               },
               "plate_purpose": {"lifespan":30, "uuid":"00000000-2222-2222-3333-444444444444" },
               "created_at":"2015-05-01T13:45:00+01:00"
@@ -30,7 +32,8 @@ Feature: Verify destruction of plates
           {
               "uuid": "00000000-1111-2222-3333-444444444446",
               "barcode": {
-                "ean13": "old_indestructable_plate"
+                "ean13": "old_indestructable_plate",
+                "machine": "old_indestructable_plate"
               },
               "plate_purpose": { "lifespan":null, "name":"immortal", "uuid":"00000000-2222-2222-3333-444444444446"  },
               "created_at":"2015-01-01T13:45:00+01:00"
@@ -38,7 +41,8 @@ Feature: Verify destruction of plates
           {
               "uuid": "00000000-1111-2222-3333-444444444447",
               "barcode": {
-                "ean13": "other_old_plate"
+                "ean13": "other_old_plate",
+                "machine": "other_old_plate"
               },
               "plate_purpose": {"lifespan":30, "uuid":"00000000-2222-2222-3333-444444444444" },
               "created_at":"2015-01-01T13:45:00+01:00"

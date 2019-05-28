@@ -12,13 +12,15 @@ Feature: Verify group assay plates positions on the robot
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "stock1"
+                "ean13": "stock1",
+                "machine": "stock1"
               }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
               "barcode": {
-                "ean13": "stock2"
+                "ean13": "stock2",
+                "machine": "stock2"
               }
           }],
           "uuids_to_ids": {
@@ -33,7 +35,8 @@ Feature: Verify group assay plates positions on the robot
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
               "barcode": {
-                "ean13": "stock2"
+                "ean13": "stock2",
+                "machine": "stock2"
               }
           }],
           "uuids_to_ids": {
@@ -48,7 +51,8 @@ Feature: Verify group assay plates positions on the robot
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
               "barcode": {
-                "ean13": "stock2"
+                "ean13": "stock2",
+                "machine": "stock2"
               }
           }],
           "uuids_to_ids": {
@@ -62,7 +66,8 @@ Feature: Verify group assay plates positions on the robot
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "stock4"
+                "ean13": "stock4",
+                "machine": "stock4"
               }
           }],
           "uuids_to_ids": {
@@ -77,13 +82,15 @@ Feature: Verify group assay plates positions on the robot
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "wd1"
+                "ean13": "wd1",
+                "machine": "wd1"
               }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444445",
               "barcode": {
-                "ean13": "wd2"
+                "ean13": "wd2",
+                "machine": "wd2"
               }
           }],
           "uuids_to_ids": {
@@ -97,13 +104,15 @@ Feature: Verify group assay plates positions on the robot
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "wd1"
+                "ean13": "wd1",
+                "machine": "wd1"
               }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444446",
               "barcode": {
-                "ean13": "wd2"
+                "ean13": "wd2",
+                "machine": "wd2"
               }
           }],
           "uuids_to_ids": {
@@ -117,7 +126,8 @@ Feature: Verify group assay plates positions on the robot
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "wd4"
+                "ean13": "wd4",
+                "machine": "wd4"
               }
           }],
           "uuids_to_ids": {
@@ -132,7 +142,8 @@ Feature: Verify group assay plates positions on the robot
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "wd4"
+                "ean13": "wd4",
+                "machine": "wd4"
               }
           }],
           "uuids_to_ids": {
@@ -147,13 +158,15 @@ Feature: Verify group assay plates positions on the robot
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "plate1"
+                "ean13": "plate1",
+                "machine": "plate1"
               }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444446",
               "barcode": {
-                "ean13": "plate2"
+                "ean13": "plate2",
+                "machine": "plate2"
               }
           }],
           "uuids_to_ids": {
@@ -167,13 +180,15 @@ Feature: Verify group assay plates positions on the robot
           "searches": [{
               "uuid": "00000000-1111-2222-3333-444444444444",
               "barcode": {
-                "ean13": "plate1"
+                "ean13": "plate1",
+                "machine": "plate1"
               }
           },
           {
               "uuid": "00000000-1111-2222-3333-444444444446",
               "barcode": {
-                "ean13": "plate2"
+                "ean13": "plate2",
+                "machine": "plate2"
               }
           }],
           "uuids_to_ids": {

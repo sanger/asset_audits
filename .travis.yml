@@ -3,8 +3,8 @@ bundler_args: "--without deployment"
 dist: xenial
 sudo: required
 services:
-  - mysql
-  - xvfb
+- mysql
+- xvfb
 cache: bundler
 before_install:
 - export TZ=Europe/London
@@ -18,6 +18,8 @@ script:
 before_deploy: "./compile-build"
 deploy:
   provider: releases
+deploy:
+  provider: releases
   file: release.tar.gz
   file_glob: true
   skip_cleanup: true
@@ -25,4 +27,5 @@ deploy:
     tags: true
     repo: radome/asset_audits
   api_key:
-    secure: raYjPdR1KtqLtQLVRki1rkgu/gKhn5iiCNwcrNBY70VRPAysOyJIREY3z3G2WwqVRlhOHQR32uIMwyQsMsDxf42iJmLLT06JDZT+lxKQO1+ZRksbdqKNiSZk3NF3UWZ1U85SLxanTpqqH79vfu18XpV5KWzpSB0Gg5ZidbvlF/DaZRqZAl5I9y6mWPxJsGUVAXd1DfUJ1Dl7q0QkuY/CuOfMcienlzWbEgwgjJf2Yq9beywuaegh0jdH3aNsAyZLxH4EAJNmg2G/YYFKso6MKbt1xkYK6yL1nccCpuGuKfpewiD5/DDS/URBsknNguLMLxk+EOS3DpfuQ9e1taOAn0reTb2HyN8apr174f4IO5tkECN2NJ95ps/ConJSH9NeDyYH61wMDg/G6HVg1R9OqdLFZaC8HtN5/wfDQvdo/UVmwPCa4oVeTDxP4WrSailsGvXFR7PnR9nwwWfkTWArI+QoNqFPQv5s4sLoUSdxB0XGgpHhr2G2m9FOEHk1Xc6OCHtoaGDD0neztn//4uwilPP5D0//BygbEuPVcvUCJdjCnQzpOeo3Y0K+0uA5/jlxXRLYhLDNnP6bbP/k6H9BW3IKHpV62NRNX5QRZttC6SV4L0VHKNV2kMsSraDlM4VGPRSyxEk4bseZTA+LJYzQ2qbqkvzfaxrG3aXRqPoQgHc=
+    secure: UetDOeKexCYnlnSSTgp2miPAwTm40tHI2k/NZP0sytjfzspxNzG1Dp86esRSQ8c0DV2baV27u6E/CcKVsBavLYZqG8dxWfMou0VUscn57MH9QDyxJseS3uNuj6p4lt6zLPQrrPY3m8hsWRpRloVSx40DdpcNkTEnWqKHOqy76yzM230asHYqeTyGqazTWPfDvB/2BLooAfTi35ED80yYgQDFrbqe7oACYnFDGyT33Riy/qdkk1vf3TAdgyWxRnjkt43jvP+B7lNnY/Hhk5vlvo2HjzOfQ67AGFXbRlqM61X3xgCKnv+ZsvfZdIVJN2KScR9FYrH/f57TlTm9Tzp6Kz5Z7rsVE9+zWfN1Fi6i4ozI7m3P86pq2dfgykYEke3DTnDMp0ay9Mi2Ul8oPwtNI4iR06eronmLWefzoRXaNOEjy4KEeWe86fTmV1rCxMlpQ/RG4Z9JwSBhHpwOqGHesMh0AFtAFD45LyxNELoykwTKwpERccu706ZnmPTysZKB/nI0JgrdJoFO7UyTUahgo9EWS3lVwHeN4uopms0Aw2SPE3ipQh8fMx1jrUJQGmXMgq/BjxIiZ78JD7WwmOyuqxpCjjlKVIuuzrvLumca41aSiHDakxansOKpEnWMDRz8PScD2grFqzOPZfU4Rs+PNJm9tFIuwQHoA20t2QUBy6g=
+

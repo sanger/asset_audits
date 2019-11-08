@@ -40,5 +40,5 @@ ProcessTracking::Application.configure do
 
   config.active_support.test_order = :random
 
-  config.support_mail = 'example@example.com'
+  config.admin_email = 'example@example.com'
 end

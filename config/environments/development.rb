@@ -27,5 +27,5 @@ ProcessTracking::Application.configure do
 
   config.serve_static_files = true
 
-  config.support_mail = 'example@example.com'
+  config.admin_email = 'example@example.com'
 end

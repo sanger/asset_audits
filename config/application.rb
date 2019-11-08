@@ -66,6 +66,5 @@ module ProcessTracking
     def self.release_name
       Deployed::RELEASE_NAME
     end
-
   end
 end

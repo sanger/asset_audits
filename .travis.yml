@@ -8,9 +8,9 @@ services:
 cache: bundler
 before_install:
 - export TZ=Europe/London
-before_script:
 - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
 - gem install bundler -v '< 2'
+before_script:
 - RAILS_ENV=test bundle exec rake db:create db:schema:load
 - bundle exec rake db:test:prepare
 - export CUCUMBER_FORMAT=progress

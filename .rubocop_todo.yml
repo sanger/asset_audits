@@ -6,13 +6,74 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 10
+# Offense count: 9
 # Cop supports --auto-correct.
-# Configuration parameters: Include.
-# Include: **/Gemfile, **/gems.rb
+# Configuration parameters: TreatCommentsAsGroupSeparators, Include.
+# Include: **/*.gemfile, **/Gemfile, **/gems.rb
 Bundler/OrderedGems:
   Exclude:
     - 'Gemfile'
+
+# Offense count: 18
+# Cop supports --auto-correct.
+Layout/EmptyLineAfterGuardClause:
+  Exclude:
+    - 'app/models/barcode.rb'
+    - 'app/models/plate.rb'
+    - 'app/models/process_plate.rb'
+    - 'app/models/process_plate_validation.rb'
+    - 'app/models/verification/assay_plate/base.rb'
+    - 'app/models/verification/bed_verification.rb'
+    - 'app/models/verification/dilution_plate/base.rb'
+    - 'app/models/verification/outdated_labware/base.rb'
+    - 'app/models/verification/validator/beds_and_plates_scanned.rb'
+    - 'app/models/verification/validator/source_and_destination_plates_linked.rb'
+    - 'config/initializers/settings.rb'
+    - 'features/step_definitions/delayed_job_steps.rb'
+    - 'features/support/sequencescape.rb'
+
+# Offense count: 100
+# Cop supports --auto-correct.
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: AllowAdjacentOneLineDefs, NumberOfEmptyLines.
+Layout/EmptyLineBetweenDefs:
+  Exclude:
+    - 'db/migrate/20160617122652_substracted_volume_on_process.rb'
+    - 'features/support/sequencescape.rb'
+
+# Offense count: 11
+# Cop supports --auto-correct.
+Layout/EmptyLines:
+  Exclude:
+    - 'app/models/verification/base.rb'
+    - 'features/step_definitions/audit_steps.rb'
+    - 'features/step_definitions/bed_verification_steps.rb'
+    - 'features/step_definitions/web_steps.rb'
+    - 'features/support/sequencescape.rb'
+    - 'lib/tasks/cucumber.rake'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+Layout/LeadingBlankLines:
+  Exclude:
+    - 'features/step_definitions/instrument_steps.rb'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: symmetrical, new_line, same_line
+Layout/MultilineMethodCallBraceLayout:
+  Exclude:
+    - 'app/controllers/instruments_controller.rb'
+
+# Offense count: 1
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'features/support/fake_sinatra_service.rb'
 
 # Offense count: 59
 Lint/AmbiguousRegexpLiteral:
@@ -25,13 +86,19 @@ Lint/AmbiguousRegexpLiteral:
     - 'features/step_definitions/web_steps.rb'
 
 # Offense count: 2
-# Cop supports --auto-correct.
 Lint/Debugger:
   Exclude:
     - 'features/step_definitions/authentication_steps.rb'
     - 'features/step_definitions/web_steps.rb'
 
+# Offense count: 3
+Lint/DuplicateMethods:
+  Exclude:
+    - 'app/models/process_plate.rb'
+    - 'app/models/verification/base.rb'
+
 # Offense count: 2
+# Configuration parameters: AllowComments.
 Lint/HandleExceptions:
   Exclude:
     - 'features/support/fake_sinatra_service.rb'
@@ -53,6 +120,12 @@ Lint/ParenthesesAsGroupedExpression:
   Exclude:
     - 'db/migrate/20150202171723_add_destroy_labware.rb'
 
+# Offense count: 1
+# Cop supports --auto-correct.
+Lint/RedundantSplatExpansion:
+  Exclude:
+    - 'config/initializers/settings.rb'
+
 # Offense count: 8
 Lint/ShadowingOuterLocalVariable:
   Exclude:
@@ -65,12 +138,6 @@ Lint/StringConversionInInterpolation:
   Exclude:
     - 'app/models/barcode.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Lint/UnneededSplatExpansion:
-  Exclude:
-    - 'config/initializers/settings.rb'
-
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
@@ -80,14 +147,13 @@ Lint/UnusedBlockArgument:
     - 'features/support/fake_sinatra_service.rb'
     - 'test/factories/audit_factories.rb'
 
-# Offense count: 7
+# Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
 Lint/UnusedMethodArgument:
   Exclude:
     - 'app/helpers/application_helper.rb'
     - 'features/support/fake_sinatra_service.rb'
-    - 'test/unit/dilution_plate_verification_test.rb'
 
 # Offense count: 2
 # Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
@@ -103,12 +169,13 @@ Lint/UselessAssignment:
     - 'db/migrate/20150202171723_add_destroy_labware.rb'
     - 'features/support/fake_sinatra_service.rb'
 
-# Offense count: 13
+# Offense count: 11
 Metrics/AbcSize:
-  Max: 27
+  Max: 26
 
 # Offense count: 11
 # Configuration parameters: CountComments, ExcludedMethods.
+# ExcludedMethods: refine
 Metrics/BlockLength:
   Max: 84
 
@@ -127,11 +194,24 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 26
 
+# Offense count: 4
+# Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
+# NamePrefix: is_, has_, have_
+# NamePrefixBlacklist: is_, has_, have_
+# NameWhitelist: is_a?
+# MethodDefinitionMacros: define_method, define_singleton_method
+Naming/PredicateName:
+  Exclude:
+    - 'spec/**/*'
+    - 'app/models/verification/validator/groupable_complete.rb'
+    - 'config/initializers/settings.rb'
+
 # Offense count: 1
 # Cop supports --auto-correct.
-Performance/StringReplacement:
+# Configuration parameters: PreferredName.
+Naming/RescuedExceptionsVariableName:
   Exclude:
-    - 'features/step_definitions/audit_steps.rb'
+    - 'features/support/fake_sinatra_service.rb'
 
 # Offense count: 2
 Security/Eval:
@@ -145,19 +225,18 @@ Security/YAMLLoad:
   Exclude:
     - 'config/initializers/settings.rb'
 
-# Offense count: 6
+# Offense count: 5
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
+# Configuration parameters: EnforcedStyle.
 # SupportedStyles: always, conditionals
 Style/AndOr:
   Exclude:
     - 'app/models/barcode.rb'
-    - 'app/models/verification/validator/sequenom_plate_order.rb'
     - 'config/initializers/settings.rb'
 
 # Offense count: 11
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
+# Configuration parameters: EnforcedStyle.
 # SupportedStyles: percent_q, bare_percent
 Style/BarePercentLiterals:
   Exclude:
@@ -167,7 +246,7 @@ Style/BarePercentLiterals:
 
 # Offense count: 7
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
+# Configuration parameters: EnforcedStyle.
 # SupportedStyles: braces, no_braces, context_dependent
 Style/BracesAroundHashParameters:
   Exclude:
@@ -176,6 +255,7 @@ Style/BracesAroundHashParameters:
     - 'db/migrate/20151014161021_sets_visual_checks_for_pico.rb'
     - 'db/migrate/20160205163232_add_biorobot.rb'
     - 'test/unit/dilution_plate_verification_test.rb'
+
 
 # Offense count: 34
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -309,26 +389,13 @@ Style/EachWithObject:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: AllowAdjacentOneLineDefs.
-Style/EmptyLineBetweenDefs:
+Style/EmptyLambdaParameter:
   Exclude:
-    - 'db/migrate/20160617122652_substracted_volume_on_process.rb'
-
-# Offense count: 12
-# Cop supports --auto-correct.
-Style/EmptyLines:
-  Exclude:
-    - 'app/models/verification/base.rb'
-    - 'features/step_definitions/audit_steps.rb'
-    - 'features/step_definitions/bed_verification_steps.rb'
-    - 'features/step_definitions/web_steps.rb'
-    - 'features/support/sequencescape.rb'
-    - 'lib/tasks/cucumber.rake'
-    - 'test/unit/dilution_plate_verification_test.rb'
+    - 'app/models/instrument_process.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
+# Configuration parameters: EnforcedStyle.
 # SupportedStyles: compact, expanded
 Style/EmptyMethod:
   Exclude:
@@ -336,10 +403,11 @@ Style/EmptyMethod:
     - 'app/controllers/process_plates_controller.rb'
     - 'features/support/fake_sinatra_service.rb'
 
+
 # Offense count: 7
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: when_needed, always, never
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: always, never
 Style/FrozenStringLiteralComment:
   Exclude:
     - 'Gemfile'
@@ -369,11 +437,13 @@ Style/HashSyntax:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
   Exclude:
+    - 'app/controllers/bed_layouts_controller.rb'
     - 'app/models/barcode.rb'
     - 'app/models/verification/validator/outdated_plates_scanned.rb'
+    - 'app/models/verification/validator/plates_scanned.rb'
+    - 'features/support/sequencescape.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -383,15 +453,14 @@ Style/LineEndConcatenation:
     - 'features/support/selectors.rb'
 
 # Offense count: 2
-Style/MethodMissing:
+Style/MissingRespondToMissing:
   Exclude:
     - 'config/initializers/settings.rb'
 
-# Offense count: 5
+# Offense count: 3
 Style/MultilineBlockChain:
   Exclude:
     - 'app/helpers/application_helper.rb'
-    - 'app/models/verification/validator/sequenom_plate_order.rb'
     - 'app/models/verification/validator/source_and_destination_plates_linked.rb'
 
 # Offense count: 1
@@ -400,42 +469,32 @@ Style/MultilineIfModifier:
   Exclude:
     - 'config/boot.rb'
 
-# Offense count: 1
+# Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: symmetrical, new_line, same_line
-Style/MultilineMethodCallBraceLayout:
-  Exclude:
-    - 'app/controllers/instruments_controller.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: literals, strict
 Style/MutableConstant:
   Exclude:
+    - 'app/models/process_plate.rb'
     - 'db/migrate/20160205163232_add_biorobot.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength, SupportedStyles.
+# Configuration parameters: EnforcedStyle, MinBodyLength.
 # SupportedStyles: skip_modifier_ifs, always
 Style/Next:
   Exclude:
     - 'app/models/verification/groupable.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/Not:
-  Exclude:
-    - 'app/models/verification/validator/sequenom_plate_order.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
+# Configuration parameters: Strict.
 Style/NumericLiterals:
   MinDigits: 15
 
 # Offense count: 8
 # Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, SupportedStyles.
+# Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.
 # SupportedStyles: predicate, comparison
 Style/NumericPredicate:
   Exclude:
@@ -453,7 +512,7 @@ Style/ParallelAssignment:
 
 # Offense count: 4
 # Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment.
+# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
 Style/ParenthesesAroundCondition:
   Exclude:
     - 'app/models/verification/validator/outdated_plates_scanned.rb'
@@ -463,7 +522,11 @@ Style/ParenthesesAroundCondition:
 # Configuration parameters: PreferredDelimiters.
 Style/PercentLiteralDelimiters:
   Exclude:
-    - 'config/initializers/settings.rb'
+    - 'app/models/verification/dilution_plate/bravo.rb'
+    - 'app/models/verification/dilution_plate/fx.rb'
+    - 'app/models/verification/dilution_plate/nx.rb'
+    - 'app/models/verification/sequenom_plate/nx.rb'
+    - 'db/migrate/20160205163232_add_biorobot.rb'
     - 'features/step_definitions/audit_steps.rb'
     - 'features/step_definitions/bed_verification_steps.rb'
     - 'features/step_definitions/delayed_job_steps.rb'
@@ -473,7 +536,7 @@ Style/PercentLiteralDelimiters:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
+# Configuration parameters: EnforcedStyle.
 # SupportedStyles: lower_case_q, upper_case_q
 Style/PercentQLiterals:
   Exclude:
@@ -486,17 +549,6 @@ Style/PerlBackrefs:
     - 'app/models/barcode.rb'
     - 'features/support/paths.rb'
     - 'features/support/selectors.rb'
-
-# Offense count: 4
-# Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist.
-# NamePrefix: is_, has_, have_
-# NamePrefixBlacklist: is_, has_, have_
-# NameWhitelist: is_a?
-Style/PredicateName:
-  Exclude:
-    - 'spec/**/*'
-    - 'app/models/verification/validator/groupable_complete.rb'
-    - 'config/initializers/settings.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -515,8 +567,14 @@ Style/RedundantFreeze:
 Style/RedundantParentheses:
   Exclude:
     - 'app/models/post_audit_actions/subtraction_volume_for_working_dilution.rb'
-    - 'app/models/verification/validator/beds_and_plates_scanned.rb'
     - 'app/models/verification/validator/outdated_plates_scanned.rb'
+
+# Offense count: 3
+# Cop supports --auto-correct.
+Style/RedundantPercentQ:
+  Exclude:
+    - 'features/step_definitions/audit_steps.rb'
+    - 'features/step_definitions/delayed_job_steps.rb'
 
 # Offense count: 8
 # Cop supports --auto-correct.
@@ -531,11 +589,19 @@ Style/RedundantReturn:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
+# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
 # SupportedStyles: slashes, percent_r, mixed
 Style/RegexpLiteral:
   Exclude:
     - 'features/step_definitions/web_steps.rb'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: implicit, explicit
+Style/RescueStandardError:
+  Exclude:
+    - 'features/support/paths.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -545,7 +611,7 @@ Style/SelfAssignment:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
+# Configuration parameters: EnforcedStyle.
 # SupportedStyles: use_perl_names, use_english_names
 Style/SpecialGlobalVars:
   Exclude:
@@ -553,38 +619,49 @@ Style/SpecialGlobalVars:
 
 # Offense count: 3
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, AllowSafeAssignment.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
-Style/TernaryParentheses:
+Style/StderrPuts:
   Exclude:
-    - 'app/models/verification/validator/sequenom_plate_order.rb'
-    - 'features/step_definitions/web_steps.rb'
+    - 'config/boot.rb'
+    - 'lib/tasks/cucumber.rake'
 
 # Offense count: 5
 # Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'features/support/sequencescape.rb'
-    - 'test/factories/audit_factories.rb'
+# Configuration parameters: MinSize.
+# SupportedStyles: percent, brackets
+Style/SymbolArray:
+  EnforcedStyle: brackets
 
-# Offense count: 3
+# Offense count: 2
 # Cop supports --auto-correct.
-Style/UnneededPercentQ:
+# Configuration parameters: EnforcedStyle, AllowSafeAssignment.
+# SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
+Style/TernaryParentheses:
   Exclude:
-    - 'features/step_definitions/audit_steps.rb'
-    - 'features/step_definitions/delayed_job_steps.rb'
+    - 'features/step_definitions/web_steps.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: MaxLineLength.
 Style/WhileUntilModifier:
   Exclude:
     - 'app/models/barcode.rb'
 
-# Offense count: 68
+# Offense count: 52
 # Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles, WordRegex.
+# Configuration parameters: EnforcedStyle, MinSize, WordRegex.
 # SupportedStyles: percent, brackets
 Style/WordArray:
-  EnforcedStyle: percent
-  MinSize: 3
+  Exclude:
+    - 'app/models/verification/assay_plate/fx.rb'
+    - 'app/models/verification/assay_plate/nx.rb'
+    - 'app/models/verification/dilution_assay/nx_group.rb'
+    - 'app/models/verification/dilution_plate/qiagen_biorobot.rb'
+    - 'db/schema.rb'
+    - 'test/unit/instrument_javascript_presenter_test.rb'
+    - 'test/unit/witness_test.rb'
+
+# Offense count: 288
+# Cop supports --auto-correct.
+# Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
+# URISchemes: http, https
+Metrics/LineLength:
+  Max: 177

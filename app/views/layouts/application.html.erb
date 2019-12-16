@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 <head>
-  <title>ProcessTracking</title>
+  <title><%= ProcessTracking::Application.config.name %></title>
   <%= stylesheet_link_tag(:flash,:form,:formtastic_static,:formtastic_changes) %>
   <%= javascript_include_tag('jquery.min.js','rails.js','application.js') %>
+
   <%= csrf_meta_tag %>
+
 </head>
-<body>
+<body class='aa-env-<%= Rails.env %>'>
+  <div id="flash-holder">
+    <% flash_messages do |flash_type, messages| %>
+      <%= content_tag(:div, messages, :class => 'flash', :id => "message_#{  flash_type}") %>
+    <% end %>
+  </div>
+  <%= yield %>
 
-<% flash_messages do |flash_type, messages| %>
-  <%= content_tag(:div, messages, :class => 'flash', :id => "message_#{  flash_type}") %>
-<% end %>
+  <footer id="main-footer"><%= render partial: 'shared/footer' %></footer>
 
-<%= yield %>
-<%= yield :page_javascript %>
+
+  <%= yield :page_javascript %>
 </body>
 </html>
 

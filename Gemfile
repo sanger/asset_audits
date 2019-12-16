@@ -4,7 +4,6 @@ source 'http://rubygems.org'
 gem 'rails', '~> 4.0'
 gem 'rake'
 gem 'activeresource'
-
 gem 'nokogiri'
 gem 'formtastic'
 gem 'mysql2'
@@ -15,22 +14,21 @@ gem 'sequencescape-client-api', require: 'sequencescape'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'json_api_client'
-
 gem 'byebug'
 
 group :development do
   gem 'rubocop'
+  gem 'pry'
+
 end
-
-gem 'factory_girl_rails', groups: [:test, :cucumber]
-
-gem 'pry', groups: [:test, :cucumber, :development]
 
 group :test do
   gem 'mocha'
   gem 'shoulda'
   gem 'webmock'
   gem 'sinatra'
+  gem 'factory_girl_rails'
+  gem 'pry'
 end
 
 group :cucumber do
@@ -42,6 +40,8 @@ group :cucumber do
   gem 'poltergeist'
   gem 'timecop'
   gem 'rspec-expectations'
+  gem 'factory_girl_rails'
+  gem 'pry'
 end
 
 group :deployment do

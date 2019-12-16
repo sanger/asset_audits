@@ -15,11 +15,10 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'json_api_client'
 gem 'byebug'
+gem 'pry'
 
 group :development do
   gem 'rubocop'
-  gem 'pry'
-
 end
 
 group :test do
@@ -28,7 +27,6 @@ group :test do
   gem 'webmock'
   gem 'sinatra'
   gem 'factory_girl_rails'
-  gem 'pry'
 end
 
 group :cucumber do
@@ -41,7 +39,6 @@ group :cucumber do
   gem 'timecop'
   gem 'rspec-expectations'
   gem 'factory_girl_rails'
-  gem 'pry'
 end
 
 group :deployment do

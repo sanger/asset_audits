@@ -13,6 +13,8 @@ module ProcessTracking
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.name = 'AssetAudits'
+
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
@@ -42,5 +44,27 @@ module ProcessTracking
 
     config.assets.enabled = true
     config.assets.version = '1.0'
+
+    require './lib/deployed_version'
+
+    def self.application_string
+      Deployed::VERSION_STRING
+    end
+
+    def self.commit_information
+      Deployed::VERSION_COMMIT
+    end
+
+    def self.repo_url
+      Deployed::REPO_URL
+    end
+
+    def self.host_name
+      Deployed::HOSTNAME
+    end
+
+    def self.release_name
+      Deployed::RELEASE_NAME
+    end
   end
 end

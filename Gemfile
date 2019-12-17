@@ -4,6 +4,7 @@ source 'http://rubygems.org'
 gem 'rails', '~> 4.0'
 gem 'rake'
 gem 'activeresource'
+
 gem 'nokogiri'
 gem 'formtastic'
 gem 'mysql2'
@@ -12,14 +13,15 @@ gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', require: 'sequencescape'
 gem 'delayed_job_active_record'
-gem 'daemons'
 gem 'json_api_client'
+
 gem 'byebug'
-gem 'pry'
 
 group :development do
   gem 'rubocop'
 end
+
+gem 'pry', groups: [:test, :cucumber, :development]
 
 group :test do
   gem 'mocha'
@@ -40,6 +42,7 @@ group :cucumber do
 end
 
 group :deployment do
-  gem 'puma'
+  gem 'thin'
+  gem 'psd_logger', github: 'sanger/psd_logger'
   gem 'exception_notification'
 end

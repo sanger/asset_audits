@@ -26,7 +26,6 @@ group :test do
   gem 'shoulda'
   gem 'webmock'
   gem 'sinatra'
-  gem 'factory_girl_rails'
 end
 
 group :cucumber do
@@ -38,7 +37,6 @@ group :cucumber do
   gem 'poltergeist'
   gem 'timecop'
   gem 'rspec-expectations'
-  gem 'factory_girl_rails'
 end
 
 group :deployment do

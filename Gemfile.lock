@@ -95,11 +95,6 @@ GEM
     exception_notification (4.4.0)
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
-    factory_girl (4.9.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
-      railties (>= 3.0.0)
     faraday (0.17.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.13.1)
@@ -260,7 +255,6 @@ DEPENDENCIES
   database_cleaner
   delayed_job_active_record
   exception_notification
-  factory_girl_rails
   formtastic
   haml
   json_api_client

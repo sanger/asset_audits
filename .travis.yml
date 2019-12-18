@@ -26,8 +26,8 @@ deploy:
   on:
     tags: true
     repo: sanger/asset_audits
-  file_glob: true
-  skip_cleanup: true
+  name: $TRAVIS_TAG
+  body: $TRAVIS_COMMIT_RANGE
 notifications:
   slack:
     secure: jRpuqQALhIy3bC/GKNPkoPt0GKPiXamWRxaQD8XaebKfrYrB7+TecU4YR+nFpRqB8JGZVQUnOoCtQzH35zNNfxIS7D6RLGIDNPBiY8QRa9s6WdbKSVdKmd44al4MqtWc/7WE8w+gBe8mACovj9aeM9WnAk8UyxISAxgVfTEmTu8=

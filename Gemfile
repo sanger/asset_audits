@@ -21,6 +21,8 @@ group :development do
   gem 'rubocop'
 end
 
+gem 'factory_girl_rails', groups: [:test, :cucumber]
+
 gem 'pry', groups: [:test, :cucumber, :development]
 
 group :test do

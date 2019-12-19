@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 def tableish(finder)
   table = find(finder)

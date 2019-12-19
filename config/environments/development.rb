@@ -26,4 +26,6 @@ ProcessTracking::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   config.serve_static_files = true
+
+  config.admin_email = 'example@example.com'
 end

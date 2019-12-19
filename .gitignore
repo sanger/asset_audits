@@ -4,3 +4,6 @@ db/development.sqlite3
 log/*.log
 tmp/**/*
 *.orig
+
+# created by the byebug gem
+.byebug_history

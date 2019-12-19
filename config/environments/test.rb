@@ -39,4 +39,6 @@ ProcessTracking::Application.configure do
   config.static_cache_control = 'public, max-age=3600'
 
   config.active_support.test_order = :random
+
+  config.admin_email = 'example@example.com'
 end

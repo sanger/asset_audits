@@ -13,6 +13,7 @@ gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', require: 'sequencescape'
 gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'json_api_client'
 
 gem 'byebug'
@@ -44,7 +45,6 @@ group :cucumber do
 end
 
 group :deployment do
-  gem 'thin'
-  gem 'psd_logger', github: 'sanger/psd_logger'
+  gem 'puma'
   gem 'exception_notification'
 end

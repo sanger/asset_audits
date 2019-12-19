@@ -1,18 +1,33 @@
 language: ruby
+bundler_args: "--without deployment"
 dist: xenial
 sudo: required
 services:
-  - mysql
-  - xvfb
+- mysql
+- xvfb
 cache: bundler
 before_install:
-  - export TZ=Europe/London
-  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
-  - gem install bundler -v '< 2'
+- export TZ=Europe/London
+- gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+- gem install bundler -v '< 2'
 before_script:
-  - bundle exec rake db:create db:schema:load RAILS_ENV=test
-  - bundle exec rake db:test:prepare
-  - export CUCUMBER_FORMAT=progress
+- RAILS_ENV=test bundle exec rake db:create db:schema:load
+- bundle exec rake db:test:prepare
+- export CUCUMBER_FORMAT=progress
 script:
-  - bundle exec rubocop
-  - bundle exec rake
+- bundle exec rubocop
+- xvfb-run -a bundle exec rake
+before_deploy: "./compile-build"
+deploy:
+  provider: releases
+  api_key:
+    secure: WklMhG2rAihfH9vdVbDnSmygFg/BcklUXS5KLWOGQKpNM5ZcGZ5ndZdmtmk8Qin5rxtjkNCTxczaH7kWXKFU+LtE6mXkoEG2zV7wTwSl/zbumoCbi9gHpOCcyf4qvam8n3iKOXRH+efJO0ulegD0O0iyyV7SXkamnXZR9GTEFpM=
+  file: release.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: sanger/asset_audits
+  name: $TRAVIS_TAG
+notifications:
+  slack:
+    secure: jRpuqQALhIy3bC/GKNPkoPt0GKPiXamWRxaQD8XaebKfrYrB7+TecU4YR+nFpRqB8JGZVQUnOoCtQzH35zNNfxIS7D6RLGIDNPBiY8QRa9s6WdbKSVdKmd44al4MqtWc/7WE8w+gBe8mACovj9aeM9WnAk8UyxISAxgVfTEmTu8=

@@ -23,6 +23,7 @@ deploy:
   api_key:
     secure: WklMhG2rAihfH9vdVbDnSmygFg/BcklUXS5KLWOGQKpNM5ZcGZ5ndZdmtmk8Qin5rxtjkNCTxczaH7kWXKFU+LtE6mXkoEG2zV7wTwSl/zbumoCbi9gHpOCcyf4qvam8n3iKOXRH+efJO0ulegD0O0iyyV7SXkamnXZR9GTEFpM=
   file: release.tar.gz
+  skip_cleanup: true
   on:
     tags: true
     repo: sanger/asset_audits

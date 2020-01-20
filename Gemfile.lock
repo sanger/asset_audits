@@ -45,7 +45,7 @@ GEM
     arel (6.0.4)
     ast (2.4.0)
     builder (3.2.4)
-    byebug (11.0.1)
+    byebug (11.1.0)
     capybara (2.18.0)
       addressable
       mini_mime (>= 0.1.3)

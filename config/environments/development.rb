@@ -28,4 +28,8 @@ ProcessTracking::Application.configure do
   config.serve_static_files = true
 
   config.admin_email = 'example@example.com'
+
+  config.tube_rack_wrangler_url = 'http://example.com/tube_rack'
+
+  config.logger = ::Logger.new(STDOUT)
 end

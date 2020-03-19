@@ -28,8 +28,12 @@ class ProcessPlatesController < ApplicationController
         if bed_layout_verification.validate_and_create_audits?(params)
           # if the instrument process is "Receive plates", call the tube_rack API
           TubeRackWrangler.check_process_and_call_api(params)
-
-          flash[:notice] = 'Success'
+          unique_barcodes = bed_layout_verification.process_plate&.barcodes.uniq.length
+          if unique_barcodes
+            flash[:notice] = "Success - #{unique_barcodes} unique plate(s) scanned"
+          else
+            flash[:notice] = "Success"
+          end
         else
           flash[:error] = bed_layout_verification.errors.values.flatten.join("\n")
         end

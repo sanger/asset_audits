@@ -6,6 +6,8 @@ class Verification::Base
   attr_accessor :scanned_values
   attr_accessor :api
 
+  attr_reader :process_plate
+
   class_attribute :source_beds
   class_attribute :destination_beds
   class_attribute :partial_name
@@ -31,6 +33,7 @@ class Verification::Base
 
   def initialize(attributes = {})
     @attributes = attributes
+    @process_plate = nil
   end
 
   def read_attribute_for_validation(key)
@@ -46,7 +49,7 @@ class Verification::Base
   end
 
   def validate_and_create_audits?(params)
-    process_plate = ProcessPlate.new({
+    @process_plate = ProcessPlate.new({
                                        api: api,
                                        user_barcode: params[:user_barcode],
                                        instrument_barcode: params[:instrument_barcode],
@@ -55,12 +58,12 @@ class Verification::Base
                                        instrument_process_id: params[:instrument_process],
                                        witness_barcode: params[:witness_barcode]
                                      })
-    if process_plate.save
-      process_plate.create_audits
-      process_plate.post_audit_actions!
+    if @process_plate.save
+      @process_plate.create_audits
+      @process_plate.post_audit_actions!
     else
       # add errors to the base of this object
-      save_errors_to_base(process_plate.errors)
+      save_errors_to_base(@process_plate.errors)
       return false
     end
 

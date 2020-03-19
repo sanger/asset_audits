@@ -32,12 +32,12 @@ class TubeRackWranglerTest < ActiveSupport::TestCase
 
         assert_equal(
           TubeRackWrangler.check_process_and_call_api(@input_params),
-          {@input_params[:source_plates]=>"200"}
+          [{:barcode=>@input_params[:source_plates], :response_code=>'200'}]
         )
       end
 
-      should 'call the API for multiple plate barcodes' do
-        @input_params[:source_plates] = "barcode_one\r\nbarcode_two\r\nbarcode_three"
+      should 'call the API for multiple unique plate barcodes' do
+        @input_params[:source_plates] = "barcode_one\r\nbarcode_two\r\nbarcode_two\r\nbarcode_three"
         uri_template = Addressable::Template.new(
           "#{Rails.application.config.tube_rack_wrangler_url}/{barcode}"
         )
@@ -46,11 +46,11 @@ class TubeRackWranglerTest < ActiveSupport::TestCase
 
         assert_equal(
           TubeRackWrangler.check_process_and_call_api(@input_params),
-          {
-            'barcode_one'=>'200',
-            'barcode_two'=>'200',
-            'barcode_three'=>'200'
-          }
+          [
+            {:barcode=>'barcode_one', :response_code=>'200'},
+            {:barcode=>'barcode_two', :response_code=>'200'},
+            {:barcode=>'barcode_three', :response_code=>'200'}
+          ]
         )
       end
     end

@@ -31,5 +31,5 @@ ProcessTracking::Application.configure do
 
   config.tube_rack_wrangler_url = 'http://example.com/tube_rack'
 
-  config.logger = ::Logger.new(STDOUT)
+  config.logger = Logger.new(STDOUT)
 end

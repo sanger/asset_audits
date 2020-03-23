@@ -125,8 +125,10 @@ class FakeSinatraService
       raise StandardError, "== Someone is already performing on port #{port}!"
     rescue SystemExit => e
       # Ignore and continue (or rather, die).
+      Rails.logger.error(e)
     rescue IOError => e
       # Ignore and continue (or rather, die).
+      Rails.logger.error(e)
     end
 
     get('/up_and_running') do

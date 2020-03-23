@@ -7,6 +7,16 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Old Rails issue of the log message showing twice in STDOUT
+# https://github.com/rails/rails/issues/11415
+ActiveSupport::Logger.class_eval do
+  #monkey patching here so there aren't duplicate lines in console/server
+  def self.broadcast(logger)
+    Module.new do
+    end
+  end
+end
+
 module ProcessTracking
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

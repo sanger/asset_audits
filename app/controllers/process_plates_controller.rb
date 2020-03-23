@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class ProcessPlatesController < ApplicationController
+  require 'tube_rack_wrangler'
+
   skip_before_filter :configure_api, except: [:create]
 
   attr_accessor :messages
@@ -24,7 +26,14 @@ class ProcessPlatesController < ApplicationController
           api: api
         )
         if bed_layout_verification.validate_and_create_audits?(params)
-          flash[:notice] = 'Success'
+          # if the instrument process is "Receive plates", call the tube_rack API
+          TubeRackWrangler.check_process_and_call_api(params)
+          unique_barcodes = bed_layout_verification.process_plate&.barcodes.uniq.length
+          if unique_barcodes
+            flash[:notice] = "Success - #{unique_barcodes} unique plate(s) scanned"
+          else
+            flash[:notice] = "Success"
+          end
         else
           flash[:error] = bed_layout_verification.errors.values.flatten.join("\n")
         end

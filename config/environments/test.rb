@@ -41,4 +41,6 @@ ProcessTracking::Application.configure do
   config.active_support.test_order = :random
 
   config.admin_email = 'example@example.com'
+
+  config.tube_rack_wrangler_url = 'http://example.com/tube_rack'
 end

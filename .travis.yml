@@ -15,7 +15,7 @@ before_script:
 - bundle exec rake db:test:prepare
 - export CUCUMBER_FORMAT=progress
 script:
-- bundle exec rubocop
+- bundle exec rubocop --debug --fail-fast
 - xvfb-run -a bundle exec rake
 before_deploy: "./compile-build"
 deploy:

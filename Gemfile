@@ -1,7 +1,7 @@
 # source 'https://rubygems.org'
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.0'
+gem 'rails', '~> 4.2.10'
 gem 'rake'
 gem 'activeresource'
 

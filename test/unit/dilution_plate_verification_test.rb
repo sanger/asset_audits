@@ -14,6 +14,10 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
 
     context 'where valid barcodes are scanned' do
       setup do
+        child_plate = FactoryBot.create(:v2_plate_with_parent, barcode: 'DN456S', parent_barcode: 'DN123T')
+
+        Sequencescape::Api::V2::Plate.stubs(:where).with(barcode: 'DN456S').returns([child_plate])
+
         @input_params = {
           user_barcode: '123',
           instrument_barcode: @instrument.barcode.to_s,
@@ -66,6 +70,12 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
     ].each do |source_bed, source_plate, destination_bed, destination_plate, error_message|
       context "where invalid bed barcodes are scanned for #{source_bed}, #{source_plate}, #{destination_bed}, #{destination_plate}, #{error_message}" do
         setup do
+          plate_123 = FactoryBot.create(:v2_plate, barcode: '123')
+          plate_456 = FactoryBot.create(:v2_plate_with_parent, barcode: '456', parent_barcode: '123')
+
+          Sequencescape::Api::V2::Plate.stubs(:where).with(barcode: '123').returns([plate_123])
+          Sequencescape::Api::V2::Plate.stubs(:where).with(barcode: '456').returns([plate_456])
+
           @input_params = {
             user_barcode: '123',
             instrument_barcode: @instrument.barcode.to_s,
@@ -86,7 +96,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
-          User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
+          # User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
           @new_delayed_job_count = Delayed::Job.count

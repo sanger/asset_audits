@@ -6,7 +6,7 @@ require 'support/test_search_result'
 class DilutionPlateVerificationTest < ActiveSupport::TestCase
   context 'Verifying the creation of dilution plates' do
     setup do
-      ipi = Factory :instrument_processes_instrument
+      ipi = FactoryBot :instrument_processes_instrument
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
       Bed.all.map { |bed| bed.update_attributes!(instrument_id: @instrument.id) }

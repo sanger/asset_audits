@@ -3,7 +3,7 @@ require 'test_helper'
 class AssetAuditTest < ActiveSupport::TestCase
   context 'Adding Audits for Assets' do
     setup do
-      ipi = Factory :instrument_processes_instrument
+      ipi = FactoryBot :instrument_processes_instrument
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
 

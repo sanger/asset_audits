@@ -6,7 +6,7 @@ require 'tube_rack_wrangler'
 class TubeRackWranglerTest < ActiveSupport::TestCase
   context 'Only call wranger API if a plate is received' do
     setup do
-      ipi = FactoryBot :instrument_processes_instrument
+      ipi = FactoryBot.create(:instrument_processes_instrument)
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
 

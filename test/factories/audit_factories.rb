@@ -13,7 +13,7 @@ FactoryBot.define do
 
     after(:build) do |instrument|
       (1..16).each do |bed_number|
-        FactoryBot(:bed, name: "P#{bed_number}", barcode: bed_number, bed_number: bed_number, instrument_id: instrument.id)
+        FactoryBot.create(:bed, name: "P#{bed_number}", barcode: bed_number, bed_number: bed_number, instrument_id: instrument.id)
       end
     end
   end

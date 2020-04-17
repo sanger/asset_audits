@@ -3,7 +3,7 @@ require 'test_helper'
 class WitnessTest < ActiveSupport::TestCase
   context 'Adding Audits for assets which require a witness' do
     setup do
-      ipi = FactoryBot :instrument_processes_instrument, witness: true
+      ipi = FactoryBot.create(:instrument_processes_instrument, witness: true)
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
 

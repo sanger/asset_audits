@@ -8,50 +8,8 @@ Feature: Verify assay plate positions on the robot
 
   Scenario Outline: Valid plates and bed positions
     Given I have a process "Assay Plate creation" as part of the "Liquid handling" instrument with "<bed_type>" assay plate verification
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "dest1" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "source1",
-                "machine": "source1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "another_source",
-                "machine": "another_source"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "dest2" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "source1",
-                "machine": "source1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444446",
-              "barcode": {
-                "ean13": "another_source2",
-                "machine": "another_source2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
+    Given the plate search with barcode "dest1" is mocked with parent with barcode "source1"
+    Given the plate search with barcode "dest2" is mocked with parent with barcode "source1"
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
@@ -77,50 +35,8 @@ Feature: Verify assay plate positions on the robot
     Given I have a process "Assay Plate creation" as part of the "Liquid handling" instrument with "<bed_type>" assay plate verification
     Given user "jane" with barcode '2470041440697' exists
       And a process "Assay Plate creation" as part of the "Liquid handling" instrument requires a witness
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "dest1" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "source1",
-                "machine": "source1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "another_source",
-                "machine": "another_source"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "dest2" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "source1",
-                "machine": "source1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444446",
-              "barcode": {
-                "ean13": "another_source2",
-                "machine": "another_source2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
+    Given the plate search with barcode "dest1" is mocked with parent with barcode "source1"
+    Given the plate search with barcode "dest2" is mocked with parent with barcode "source1"
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
@@ -147,58 +63,10 @@ Feature: Verify assay plate positions on the robot
 
   Scenario Outline: Barcodes scanned incorrectly on NX
     Given I have a process "Assay Plate creation" as part of the "Liquid handling" instrument with "Nx" assay plate verification
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "dest1" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "source1",
-                "machine": "source1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "another_source",
-                "machine": "another_source"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "dest2" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "source1",
-                "machine": "source1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444446",
-              "barcode": {
-                "ean13": "another_source2",
-                "machine": "another_source2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "xxx" returns the following JSON:
-      """
-      {
-          "searches": [],
-          "uuids_to_ids": {
-          }
-      }
-      """
+
+    Given the plate search with barcode "dest1" is mocked with parent with barcode "source1"
+    Given the plate search with barcode "dest2" is mocked with parent with barcode "source1"
+    Given the plate search with barcode "xxx" is mocked to return nothing
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"

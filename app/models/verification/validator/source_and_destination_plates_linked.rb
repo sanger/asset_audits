@@ -6,8 +6,9 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
       destination_barcode.blank? || source_barcode.blank?
     end.tap do |source_and_destinations|
       source_and_destinations.all? do |source_barcode, destination_barcode|
-        search_results = Sequencescape::Api::V2::Plate.where(barcode: destination_barcode).first.parents
-        found_barcodes = search_results.map { |p| p.labware_barcode['machine_barcode'] }
+        found_barcodes = []
+        search_results = Sequencescape::Api::V2::Plate.where(barcode: destination_barcode).first&.parents
+        found_barcodes = search_results.map { |p| p&.labware_barcode['machine_barcode'] } if search_results
         valid_source_barcode?(source_barcode, found_barcodes, record, destination_barcode)
       end
     end

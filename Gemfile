@@ -39,9 +39,12 @@ group :cucumber do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'poltergeist'
+  #gem 'poltergeist'
   gem 'timecop'
   gem 'rspec-expectations'
+  gem 'selenium-webdriver'
+  gem 'rubyzip', '~> 1.3.0'
+
 end
 
 group :deployment do

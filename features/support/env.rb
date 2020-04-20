@@ -10,9 +10,28 @@ require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 require 'capybara/cucumber'
 require 'cucumber/rails'
 require 'minitest/autorun'
-require 'capybara/poltergeist'
+#require 'capybara/poltergeist'
 require 'rspec/expectations'
-Capybara.javascript_driver = :poltergeist
+
+require "selenium/webdriver"
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(headless disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+end
+
+Capybara.javascript_driver = :selenium_chrome
+
+#Capybara.javascript_driver = :poltergeist
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd

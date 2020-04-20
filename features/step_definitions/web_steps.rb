@@ -116,6 +116,11 @@ When /^(?:|I )wait for all AJAX calls$/ do
   wait_for_ajax
 end
 
+When /^(?:|I )click on the page$/ do
+  # necessary to fire the JavaScript that renders extra fields
+  page.find("body").click
+end
+
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   expect(page).to have_content(text)
 end

@@ -13,6 +13,59 @@ Given /^the search with UUID "([^"]*)" for barcodes "([^"]*)" returns the follow
   FakeSequencescapeService.instance.search_result(search_uuid, barcode.split(',').map(&:strip).reject(&:blank?), returned_json)
 end
 
+Given /^the plate search with barcode "([^"]*)" is mocked with parent with barcode "([^"]*)"$/ do |child_barcode, parent_barcode|
+  puts "DEBUG: mocking method"
+
+  parent_plate = Sequencescape::Api::V2::Plate.new
+  allow(parent_plate).to receive(:labware_barcode).and_return({ "machine_barcode" => "#{parent_barcode}" })
+  allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: parent_barcode).and_return([parent_plate])
+
+  child_plate = Sequencescape::Api::V2::Plate.new
+  allow(child_plate).to receive(:labware_barcode).and_return({ "machine_barcode" => "#{child_barcode}" })
+  allow(child_plate).to receive(:parents).and_return([parent_plate])
+  allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([child_plate])
+
+
+  # # /api/v2/plates?filter%5Bbarcode%5D=DN9000178A&page%5Bpage%5D=1&page%5Bper_page%5D=1
+  # body_value = {
+  #     data: [
+  #       {
+  #         attributes: {
+  #           labware_barcode: {
+  #             ean13_barcode: "",
+  #             machine_barcode: child_barcode,
+  #             human_barcode: ""
+  #           },
+  #         }
+  #       }
+  #     ]
+  #   }
+  # stub_request(:get, %r{#{Settings.sequencescape_api_v2}\/plates\?filter\[barcode\]=#{child_barcode}.*}).to_return(
+  #   status: 200,
+  #   headers: { 'Content-Type': 'application/vnd.api+json' },
+  #   body: JSON.generate(body_value),
+  # )
+  # # /api/v2/plates/2184/parents
+  # body_value_2 = {
+  #     data: [
+  #       {
+  #         attributes: {
+  #           labware_barcode: {
+  #             ean13_barcode: "",
+  #             machine_barcode: parent_barcode,
+  #             human_barcode: ""
+  #           },
+  #         }
+  #       }
+  #     ]
+  #   }
+  # stub_request(:get, %r{#{Settings.sequencescape_api_v2}\/plates\/\d+\/parents\/.*}).to_return(
+  #   status: 200,
+  #   headers: { 'Content-Type': 'application/vnd.api+json' },
+  #   body: JSON.generate(body_value_2),
+  # )
+end
+
 Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with dilution plate verification$/ do |process_name, instrument_name|
   step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::DilutionPlate::Nx"}
 end

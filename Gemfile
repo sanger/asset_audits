@@ -42,6 +42,7 @@ group :cucumber do
   #gem 'poltergeist'
   gem 'timecop'
   gem 'rspec-expectations'
+  gem 'rspec-mocks'
   gem 'selenium-webdriver'
   gem 'rubyzip', '~> 1.3.0'
 

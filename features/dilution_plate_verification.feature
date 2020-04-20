@@ -8,28 +8,8 @@ Feature: Verify location of plates
       And I have a process "Working dilution" as part of the "Liquid handling" instrument with dilution plate verification
 
   Scenario: Valid plates and bed positions
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "456" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "123",
-                "machine": "123"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "777",
-                "machine": "777"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 194216
-          }
-      }
-      """
+
+    Given the plate search with barcode "456" is mocked with parent with barcode "123"
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"

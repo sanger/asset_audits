@@ -25,11 +25,13 @@ class FakeUser
       Before(tags) do |_scenario|
         Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
         stub_request(:get, %r{#{Settings.sequencescape_api_v2}\/users\?filter\[user_code\].*}).to_return do |request|
+          user_code = request.uri.query_values['filter[user_code]']
+          user_code = user_code.to_i if user_code && user_code.is_a?(String)
           body_hash = {
             data: [
               {
                 attributes: {
-                  login: FakeUser.instance.login_from_user_code(request.uri.query_values['filter[user_code]'])
+                  login: FakeUser.instance.login_from_user_code(user_code)
                 }
               }
             ]

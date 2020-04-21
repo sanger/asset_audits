@@ -46,7 +46,7 @@ group :cucumber do
   gem 'rspec-mocks'
   gem 'selenium-webdriver'
   gem 'rubyzip', '~> 1.3.0'
-
+  gem 'webdrivers'
 end
 
 group :deployment do

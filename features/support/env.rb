@@ -14,6 +14,9 @@ require 'minitest/autorun'
 require 'rspec/expectations'
 
 require "selenium/webdriver"
+require 'webdrivers/chromedriver'
+
+Webdrivers::Chromedriver.update
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)

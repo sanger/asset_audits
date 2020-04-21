@@ -51,7 +51,7 @@ Feature: Verify assay plate positions on the robot
       And I fill in "Bed P<dest_2_bed>" with "<dest_2_bed>"
       And I fill in "Plate P<dest_2_bed>" with "dest2"
       And I fill in "Witness barcode" with "2470041440697"
-      And I press "Submit"
+      # And I press "Submit" # above step hits 'enter' which submits the form
     Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed

@@ -44,7 +44,7 @@ Feature: Verify location of plates
       And I fill in "Bed P3" with "3"
       And I fill in "Plate P3" with "456"
       And I fill in "Witness barcode" with "2470041440697"
-      And I press "Submit"
+      # And I press "Submit" # above step triggers an 'enter' which submits the form
       And I wait for all AJAX calls
       Then I should see "Success"
       And I should be on the new audit page

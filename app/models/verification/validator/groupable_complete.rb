@@ -16,7 +16,6 @@ class Verification::Validator::GroupableComplete < ActiveModel::Validator
     transfer_bed_names(transfer).all? do |bed|
       bed_barcode(scanned_values, bed).present? && plate_barcode(scanned_values, bed).present?
     end
-
   end
 
   def is_transfer_empty?(transfer, scanned_values)
@@ -28,6 +27,7 @@ class Verification::Validator::GroupableComplete < ActiveModel::Validator
   def is_transfer_valid?(transfer, record)
     scanned_values = record.scanned_values
     return true if is_transfer_complete?(transfer, scanned_values) || is_transfer_empty?(transfer, scanned_values)
+
     beds = transfer_bed_names(transfer).join(', ')
     record.errors[:base] << "Invalid: All fields for beds #{beds} should be either filled in, or left blank"
     false

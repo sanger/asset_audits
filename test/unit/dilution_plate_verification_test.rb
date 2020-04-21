@@ -70,11 +70,11 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
     ].each do |source_bed, source_plate, destination_bed, destination_plate, error_message|
       context "where invalid bed barcodes are scanned for #{source_bed}, #{source_plate}, #{destination_bed}, #{destination_plate}, #{error_message}" do
         setup do
-          plate_123 = FactoryBot.create(:v2_plate, barcode: '123')
-          plate_456 = FactoryBot.create(:v2_plate_with_parent, barcode: '456', parent_barcode: '123')
+          plate123 = FactoryBot.create(:v2_plate, barcode: '123')
+          plate456 = FactoryBot.create(:v2_plate_with_parent, barcode: '456', parent_barcode: '123')
 
-          Sequencescape::Api::V2::Plate.stubs(:where).with(barcode: '123').returns([plate_123])
-          Sequencescape::Api::V2::Plate.stubs(:where).with(barcode: '456').returns([plate_456])
+          Sequencescape::Api::V2::Plate.stubs(:where).with(barcode: '123').returns([plate123])
+          Sequencescape::Api::V2::Plate.stubs(:where).with(barcode: '456').returns([plate456])
 
           @input_params = {
             user_barcode: '123',

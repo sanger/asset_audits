@@ -6,7 +6,7 @@ FactoryBot.define do
 
     labware_barcode { { 'ean13_barcode' => '', 'machine_barcode' => barcode, 'human_barcode' => '' } }
 
-    after(:build) do |plate, evaluator|
+    after(:build) do |plate, _evaluator|
       plate.stubs(:parents).returns([])
     end
 

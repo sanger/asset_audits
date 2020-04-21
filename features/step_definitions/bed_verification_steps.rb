@@ -15,11 +15,11 @@ end
 
 Given /^the plate search with barcode "([^"]*)" is mocked with parent with barcode "([^"]*)"$/ do |child_barcode, parent_barcode|
   parent_plate = Sequencescape::Api::V2::Plate.new
-  allow(parent_plate).to receive(:labware_barcode).and_return({ "machine_barcode" => "#{parent_barcode}" })
+  allow(parent_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => parent_barcode.to_s })
   # allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: parent_barcode).and_return([parent_plate])
 
   child_plate = Sequencescape::Api::V2::Plate.new
-  allow(child_plate).to receive(:labware_barcode).and_return({ "machine_barcode" => "#{child_barcode}" })
+  allow(child_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => child_barcode.to_s })
   allow(child_plate).to receive(:parents).and_return([parent_plate])
   allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([child_plate])
 end
@@ -31,7 +31,7 @@ Given /^the plate search with barcode "([^"]*)" is mocked with parents with barc
   parent_plates_list = []
   parent_barcodes_list.each do |parent_barcode|
     parent_plate = Sequencescape::Api::V2::Plate.new
-    allow(parent_plate).to receive(:labware_barcode).and_return({ "machine_barcode" => "#{parent_barcode}" })
+    allow(parent_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => parent_barcode.to_s })
     # allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: parent_barcode).and_return([parent_plate])
     parent_plates_list << parent_plate
   end
@@ -39,9 +39,9 @@ Given /^the plate search with barcode "([^"]*)" is mocked with parents with barc
 
   puts "DEBUG: child_barcode: #{child_barcode}"
   child_plate = Sequencescape::Api::V2::Plate.new
-  allow(child_plate).to receive(:labware_barcode).and_return({ "machine_barcode" => "#{child_barcode}" })
+  allow(child_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => child_barcode.to_s })
   allow(child_plate).to receive(:parents).and_return(parent_plates_list)
-  allow(child_plate).to receive(:hello).and_return("stuff")
+  allow(child_plate).to receive(:hello).and_return('stuff')
   allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([child_plate])
 end
 

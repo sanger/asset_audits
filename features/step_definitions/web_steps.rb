@@ -126,7 +126,7 @@ end
 
 When /^(?:|I )click on the page$/ do
   # necessary to fire the JavaScript that renders extra fields
-  page.find("body").click
+  page.find('body').click
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|

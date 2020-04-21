@@ -14,7 +14,7 @@ Feature: Verify group assay plates positions on the robot
       Given the plate search with barcode "pico2" is mocked with parents with barcodes "wd1,wd2"
       Given the plate search with barcode "pico4" is mocked with parent with barcode "wd4"
       Given the plate search with barcode "pico5" is mocked with parent with barcode "wd4"
-      Given the plate search with barcode "stock2" is mocked with parent with barcode "plate2"
+      Given the plate search with barcode "stock2" is mocked with parents with barcodes "plate1,plate2"
       Given the plate search with barcode "stock3" is mocked with parents with barcodes "plate1,plate2"
 
   Scenario Outline: Valid plates and bed positions
@@ -24,8 +24,6 @@ Feature: Verify group assay plates positions on the robot
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Some process" from AJAX dropdown "Instrument process"
-
-
       And I fill in "Bed P2" with "<source_1_bed>"
       And I fill in "Plate P2" with "<plate_1>"
       And I fill in "Bed P3" with "<dest_1_bed>"

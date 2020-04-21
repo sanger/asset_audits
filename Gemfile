@@ -40,7 +40,6 @@ group :cucumber do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'launchy'
-  # gem 'poltergeist'
   gem 'timecop'
   gem 'rspec-expectations'
   gem 'rspec-mocks'

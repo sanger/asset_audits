@@ -17,6 +17,7 @@ gem 'daemons'
 gem 'json_api_client'
 
 gem 'byebug'
+gem 'puma'
 
 group :development do
   gem 'rubocop'
@@ -39,7 +40,7 @@ group :cucumber do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'launchy'
-  #gem 'poltergeist'
+  # gem 'poltergeist'
   gem 'timecop'
   gem 'rspec-expectations'
   gem 'rspec-mocks'
@@ -49,6 +50,5 @@ group :cucumber do
 end
 
 group :deployment do
-  gem 'puma'
   gem 'exception_notification'
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-class AddCovidStamp < ActiveRecord::Migration
-  def self.up
+
+namespace :covid_stamp do
+  task add: :environment do
     ActiveRecord::Base.transaction do
       instrument = Instrument.find_or_create_by!(name: 'Beckman NX', barcode: '009851')
       instrument_process = InstrumentProcess.create!(name: 'COVID stamp', key: 'covid_stamp')
@@ -12,7 +13,7 @@ class AddCovidStamp < ActiveRecord::Migration
     end
   end
 
-  def self.down
+  task remove: :environment do
     ActiveRecord::Base.transaction do
       instrument_process = InstrumentProcess.find_by_key('covid_stamp')
       instrument_processes_instruments = instrument_process.instrument_processes_instruments

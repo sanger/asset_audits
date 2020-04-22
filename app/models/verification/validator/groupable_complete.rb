@@ -4,12 +4,13 @@ class Verification::Validator::GroupableComplete < ActiveModel::Validator
     record.class.transfer_groups.all? { |t| is_transfer_valid?(t, record) }
   end
 
-  def bed_barcode(scanned_values, barcode)
-    scanned_values[barcode.downcase.to_sym][:bed]
-  end
+  def is_transfer_valid?(transfer, record)
+    scanned_values = record.scanned_values
+    return true if is_transfer_complete?(transfer, scanned_values) || is_transfer_empty?(transfer, scanned_values)
 
-  def plate_barcode(scanned_values, barcode)
-    scanned_values[barcode.downcase.to_sym][:plate]
+    beds = transfer_bed_names(transfer).join(', ')
+    record.errors[:base] << "Invalid: All fields for beds #{beds} should be either filled in, or left blank"
+    false
   end
 
   def is_transfer_complete?(transfer, scanned_values)
@@ -24,13 +25,12 @@ class Verification::Validator::GroupableComplete < ActiveModel::Validator
     end
   end
 
-  def is_transfer_valid?(transfer, record)
-    scanned_values = record.scanned_values
-    return true if is_transfer_complete?(transfer, scanned_values) || is_transfer_empty?(transfer, scanned_values)
+  def bed_barcode(scanned_values, barcode)
+    scanned_values[barcode.downcase.to_sym][:bed]
+  end
 
-    beds = transfer_bed_names(transfer).join(', ')
-    record.errors[:base] << "Invalid: All fields for beds #{beds} should be either filled in, or left blank"
-    false
+  def plate_barcode(scanned_values, barcode)
+    scanned_values[barcode.downcase.to_sym][:plate]
   end
 
   def transfer_bed_names(transfer)

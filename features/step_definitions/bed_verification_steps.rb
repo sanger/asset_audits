@@ -16,15 +16,15 @@ end
 Given /^I can retrieve the plate with barcode "([^"]*)" and parent barcodes "([^"]*)"$/ do |child_barcode, parent_barcodes|
   parent_barcodes_list = parent_barcodes.split(',')
 
-  parent_plates_list = parent_barcodes_list.map do |parent_barcode|
-    parent_plate = Sequencescape::Api::V2::Plate.new
-    allow(parent_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => parent_barcode.to_s })
-    parent_plate
+  parent_labware_list = parent_barcodes_list.map do |parent_barcode|
+    parent_labware = Sequencescape::Api::V2::Labware.new
+    allow(parent_labware).to receive(:labware_barcode).and_return({ 'machine_barcode' => parent_barcode.to_s })
+    parent_labware
   end
 
   child_plate = Sequencescape::Api::V2::Plate.new
   allow(child_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => child_barcode.to_s })
-  allow(child_plate).to receive(:parents).and_return(parent_plates_list)
+  allow(child_plate).to receive(:parents).and_return(parent_labware_list)
   allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([child_plate])
 end
 

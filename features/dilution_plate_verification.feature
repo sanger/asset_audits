@@ -13,7 +13,6 @@ Feature: Verify location of plates
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123456"
       And I select "Working dilution" from "Instrument process"
-      And I click on the page
       And I wait for all AJAX calls
       And I fill in "Bed P2" with "2"
       And I fill in "Plate P2" with "123"
@@ -34,7 +33,6 @@ Feature: Verify location of plates
     When I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"
     And I select "Working dilution" from "Instrument process"
-    And I click on the page
     And I wait for all AJAX calls
       And I fill in "Bed P2" with "2"
       And I fill in "Plate P2" with "123"

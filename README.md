@@ -42,3 +42,12 @@ issue. In the `Gemfile` file:
 ```ruby
 gem 'mysql2', '~> 0.4.0'
 ```
+
+You might get the following error when hitting 'Submit' on the process_plates/new page:
+`Sequencescape::Api::ResourceNotFound Exception: ["UUID does not exist"]`
+Follow these steps:
+- note what UUID is listed for search_find_assets_by_barcode in development.yml
+- look in your local Sequencescape database
+- table 'searches' should have a row called 'Find assets by barcode'
+- table 'uuids' should have a row pointing to the search record, with the uuid from development.yml, and resource_type = 'Search'
+- In future, we should create this automatically in a rake task, like Limber does

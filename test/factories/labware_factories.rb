@@ -13,8 +13,6 @@ FactoryBot.define do
     factory :v2_plate_with_parent do
       transient { parent_barcode { 'default_value' } }
 
-      # parents { [FactoryBot.create(:v2_plate_parent, barcode: 'DN123T')] } # doesn't work here for some reason
-
       after(:build) do |plate, evaluator|
         plate.stubs(:parents).returns([FactoryBot.create(:v2_labware, barcode: evaluator.parent_barcode)])
       end

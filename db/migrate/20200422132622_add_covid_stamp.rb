@@ -2,7 +2,7 @@
 class AddCovidStamp < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.transaction do
-      instrument = Instrument.find_by(name: 'Beckman NX')
+      instrument = Instrument.find_or_create_by!(name: 'Beckman NX', barcode: '009851')
       instrument_process = InstrumentProcess.create!(name: 'COVID stamp', key: 'covid_stamp')
       InstrumentProcessesInstrument.create!(
         instrument: instrument,

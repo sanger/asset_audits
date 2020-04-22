@@ -8,9 +8,7 @@ Feature: Verify location of plates
       And I have a process "Working dilution" as part of the "Liquid handling" instrument with dilution plate verification
 
   Scenario: Valid plates and bed positions
-
-    Given the plate search with barcode "456" is mocked with parent with barcode "123"
-
+    Given I can retrieve the plate with barcode "456" and parent barcodes "123"
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123456"
@@ -31,8 +29,7 @@ Feature: Verify location of plates
   Scenario: Valid plates and bed positions where a witness is required
     Given user "jane" with barcode '2470041440697' exists
       And a process "Working dilution" as part of the "Liquid handling" instrument requires a witness
-    Given the plate search with barcode "456" is mocked with parent with barcode "123"
-
+    Given I can retrieve the plate with barcode "456" and parent barcodes "123"
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"

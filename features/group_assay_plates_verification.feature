@@ -6,16 +6,16 @@ Feature: Verify group assay plates positions on the robot
       And I have a "Some stuff" instrument with barcode "abc123456"
       And the "Some stuff" instrument has beds setup
 
-      Given the plate search with barcode "wd1" is mocked with parents with barcodes "stock1,stock2"
-      Given the plate search with barcode "wd2" is mocked with parent with barcode "stock2"
-      Given the plate search with barcode "wd3" is mocked with parent with barcode "stock2"
-      Given the plate search with barcode "wd4" is mocked with parent with barcode "stock4"
-      Given the plate search with barcode "pico1" is mocked with parents with barcodes "wd1,wd2"
-      Given the plate search with barcode "pico2" is mocked with parents with barcodes "wd1,wd2"
-      Given the plate search with barcode "pico4" is mocked with parent with barcode "wd4"
-      Given the plate search with barcode "pico5" is mocked with parent with barcode "wd4"
-      Given the plate search with barcode "stock2" is mocked with parents with barcodes "plate1,plate2"
-      Given the plate search with barcode "stock3" is mocked with parents with barcodes "plate1,plate2"
+      Given I can retrieve the plate with barcode "wd1" and parent barcodes "stock1,stock2"
+      Given I can retrieve the plate with barcode "wd2" and parent barcodes "stock2"
+      Given I can retrieve the plate with barcode "wd3" and parent barcodes "stock2"
+      Given I can retrieve the plate with barcode "wd4" and parent barcodes "stock4"
+      Given I can retrieve the plate with barcode "pico1" and parent barcodes "wd1,wd2"
+      Given I can retrieve the plate with barcode "pico2" and parent barcodes "wd1,wd2"
+      Given I can retrieve the plate with barcode "pico4" and parent barcodes "wd4"
+      Given I can retrieve the plate with barcode "pico5" and parent barcodes "wd4"
+      Given I can retrieve the plate with barcode "stock2" and parent barcodes "plate1,plate2"
+      Given I can retrieve the plate with barcode "stock3" and parent barcodes "plate1,plate2"
 
   Scenario Outline: Valid plates and bed positions
 

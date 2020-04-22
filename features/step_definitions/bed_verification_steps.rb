@@ -13,39 +13,22 @@ Given /^the search with UUID "([^"]*)" for barcodes "([^"]*)" returns the follow
   FakeSequencescapeService.instance.search_result(search_uuid, barcode.split(',').map(&:strip).reject(&:blank?), returned_json)
 end
 
-Given /^the plate search with barcode "([^"]*)" is mocked with parent with barcode "([^"]*)"$/ do |child_barcode, parent_barcode|
-  parent_plate = Sequencescape::Api::V2::Plate.new
-  allow(parent_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => parent_barcode.to_s })
-  # allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: parent_barcode).and_return([parent_plate])
-
-  child_plate = Sequencescape::Api::V2::Plate.new
-  allow(child_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => child_barcode.to_s })
-  allow(child_plate).to receive(:parents).and_return([parent_plate])
-  allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([child_plate])
-end
-
-Given /^the plate search with barcode "([^"]*)" is mocked with parents with barcodes "([^"]*)"$/ do |child_barcode, parent_barcodes|
+Given /^I can retrieve the plate with barcode "([^"]*)" and parent barcodes "([^"]*)"$/ do |child_barcode, parent_barcodes|
   parent_barcodes_list = parent_barcodes.split(',')
-  puts "DEBUG: parent_barcodes_list: #{parent_barcodes_list}"
 
-  parent_plates_list = []
-  parent_barcodes_list.each do |parent_barcode|
+  parent_plates_list = parent_barcodes_list.map do |parent_barcode|
     parent_plate = Sequencescape::Api::V2::Plate.new
     allow(parent_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => parent_barcode.to_s })
-    # allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: parent_barcode).and_return([parent_plate])
-    parent_plates_list << parent_plate
+    parent_plate
   end
-  puts "DEBUG: parent_plates_list: #{parent_plates_list}"
 
-  puts "DEBUG: child_barcode: #{child_barcode}"
   child_plate = Sequencescape::Api::V2::Plate.new
   allow(child_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => child_barcode.to_s })
   allow(child_plate).to receive(:parents).and_return(parent_plates_list)
-  allow(child_plate).to receive(:hello).and_return('stuff')
   allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([child_plate])
 end
 
-Given /^the plate search with barcode "([^"]*)" is mocked to return nothing$/ do |child_barcode|
+Given /^I cannot retrieve the plate with barcode "([^"]*)"$/ do |child_barcode|
   allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([])
 end
 

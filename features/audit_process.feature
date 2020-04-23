@@ -17,7 +17,7 @@ Feature: Add an audit to an asset
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails
 
-@javascript
+  @javascript
   Scenario: Cant find instrument barcode
     Given user "john" with barcode '2470000100730' exists
       And I have a "Tecan robot" instrument with barcode "9876"

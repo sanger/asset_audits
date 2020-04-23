@@ -24,6 +24,7 @@ require 'uri'
 require 'cgi'
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'support', 'paths'))
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'support', 'selectors'))
+require 'cucumber/rspec/doubles'
 
 module WithinHelpers
   def with_scope(locator)
@@ -60,18 +61,26 @@ end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, with: value)
+  find_field(field).send_keys :enter unless Capybara.current_driver == :rack_test
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)" if not empty$/ do |field, value|
-  fill_in(field, with: value) unless value.squish.empty?
+  unless value.squish.empty?
+    fill_in(field, with: value)
+    find_field(field).send_keys :enter unless Capybara.current_driver == :rack_test
+  end
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)" if "([^"]*)" not empty$/ do |field, value, entry|
-  fill_in(field, with: value) unless entry.squish.empty?
+  unless entry.squish.empty?
+    fill_in(field, with: value)
+    find_field(field).send_keys :enter unless Capybara.current_driver == :rack_test
+  end
 end
 
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, with: value)
+  find_field(field).send_keys :enter unless Capybara.current_driver == :rack_test
 end
 
 # Use this to fill in an entire form with data from a table. Example:
@@ -113,6 +122,11 @@ end
 
 When /^(?:|I )wait for all AJAX calls$/ do
   wait_for_ajax
+end
+
+When /^(?:|I )click on the page$/ do
+  # necessary to fire the JavaScript that renders extra fields
+  page.find('body').click
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|

@@ -12,7 +12,7 @@ Feature: Automatically populate the activity logging page when barcodes are scan
   Scenario: When I scan an invalid user barcode nothing should be displayed
     Given user "john" with barcode '2470000100730' exists
     When I fill in "User barcode" with "11111111111"
-      And I should not see "john" within "#user_barcode_results"
+      And I should not see "john" within "body"
 
   Scenario: Scanning a valid instrument barcode with no processes should list all processes and display instrument name
     Given I have a "Big robot" instrument with barcode "abc123456"

@@ -2,3 +2,41 @@ inherit_from: .rubocop_todo.yml
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
+# Blocks are used to structure tests and are part of the shoulda dsl.
+# The standard BlockLength limits are too stringent for this purpose.
+# Block DSL is also used in routes
+# We should be careful keeping rake tasks here, as large tasks are still an issue.
+# Not sure if we need to split namespaces across several files though.
+# We exclude builders, as they are concerned with rendering xml
+Metrics/BlockLength:
+  Exclude:
+    - Gemfile
+    - 'db/seeds/**/*'
+    - '**/*.builder'
+  ExcludedMethods:
+    - describe
+    - context
+    - background
+    - scenario
+    - namespace
+    - task
+    - included
+    - shared_context
+    - shared_examples
+    - state_machine
+    - configure
+    - draw
+    - feature
+    - subject
+    - let
+    - let!
+    - factory
+    - define
+    - guard
+    - transient
+    - with_nested_has_many_association
+    - with_association
+    - it
+    - class_eval
+    - has_metadata
+    - resources

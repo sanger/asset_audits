@@ -25,14 +25,12 @@ class FakeSinatraService
 
   def run!(&block)
     start_sinatra do |thread|
-      begin
-        wait_for_sinatra_to_startup!
-        yield
-      ensure
-        kill_running_sinatra
-        thread.join
-        clear
-      end
+      wait_for_sinatra_to_startup!
+      yield
+    ensure
+      kill_running_sinatra
+      thread.join
+      clear
     end
   end
 
@@ -100,12 +98,10 @@ class FakeSinatraService
   # retrieve the root document.  If it runs out of attempts it raises an exception
   def wait_for_sinatra_to_startup!
     10.times do
-      begin
-        Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/up_and_running"))
-        return
-      rescue Errno::ECONNREFUSED => exception
-        sleep(1)
-      end
+      Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/up_and_running"))
+      return
+    rescue Errno::ECONNREFUSED => exception
+      sleep(1)
     end
 
     raise StandardError, 'Our dummy webservice did not start up in time!'

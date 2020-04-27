@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-Given /^user "([^"]*)" with barcode '(\d+)' exists$/ do |user_name, barcode|
+Given /^user "([^"]*)" with barcode '(\w+)' exists$/ do |user_name, barcode|
   FakeUser.instance.user_barcode(user_name, barcode)
 end
 
@@ -21,8 +21,7 @@ end
 When /^(?:|I )fill in AJAX field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
     fill_in(field, with: value)
-    id = '#' + find_field(field)[:id]
-    page.execute_script("$('#{id}').trigger('change');")
+    step 'I click on the page'
   end
   step %Q{wait 1 second}
 end
@@ -36,10 +35,8 @@ end
 When /^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
   with_scope(selector) do
     select(value, from: field)
-    id = '#' + find_field(field)[:id]
-    page.execute_script("$('#{id}').trigger('change');")
+    step 'I click on the page'
   end
-  step %Q{wait 1 second}
 end
 
 

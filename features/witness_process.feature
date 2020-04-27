@@ -24,10 +24,10 @@ Feature: Require a witness for a process
   Scenario: A process requires a witness
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123456"
-      And I select "Cherrypick" from "Instrument process"
+      And I select "Cherrypick" from AJAX dropdown "Instrument process"
       And I fill in "Source plates" with "1220094216791"
       And I fill in "Witness barcode" with "2470041440697"
-      And I press "Submit"
+      # And I press "Submit" # Not needed because above step hits 'enter' key and submits form
     Then I should see "Success"
       And I should be on the new audit page
     Given all pending delayed jobs are processed
@@ -39,7 +39,7 @@ Feature: Require a witness for a process
       And I select "Cherrypick" from "Instrument process"
       And I fill in "Source plates" with "1220094216791"
       And I fill in "Witness barcode" with "123456789"
-      And I press "Submit"
+      # And I press "Submit" # Not needed because above step hits 'enter' key and submits form
     Then I should see "Invalid witness barcode"
       And I should be on the new audit page
 

@@ -13,6 +13,25 @@ Given /^the search with UUID "([^"]*)" for barcodes "([^"]*)" returns the follow
   FakeSequencescapeService.instance.search_result(search_uuid, barcode.split(',').map(&:strip).reject(&:blank?), returned_json)
 end
 
+Given /^I can retrieve the plate with barcode "([^"]*)" and parent barcodes "([^"]*)"$/ do |child_barcode, parent_barcodes|
+  parent_barcodes_list = parent_barcodes.split(',')
+
+  parent_labware_list = parent_barcodes_list.map do |parent_barcode|
+    parent_labware = Sequencescape::Api::V2::Labware.new
+    allow(parent_labware).to receive(:labware_barcode).and_return({ 'machine_barcode' => parent_barcode.to_s })
+    parent_labware
+  end
+
+  child_plate = Sequencescape::Api::V2::Plate.new
+  allow(child_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => child_barcode.to_s })
+  allow(child_plate).to receive(:parents).and_return(parent_labware_list)
+  allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([child_plate])
+end
+
+Given /^I cannot retrieve the plate with barcode "([^"]*)"$/ do |child_barcode|
+  allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([])
+end
+
 Given /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with dilution plate verification$/ do |process_name, instrument_name|
   step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument with bed verification type "Verification::DilutionPlate::Nx"}
 end

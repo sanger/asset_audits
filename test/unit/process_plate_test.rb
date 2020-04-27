@@ -6,7 +6,7 @@ require 'support/test_search_result'
 class ProcessPlateTest < ActiveSupport::TestCase
   context 'Generating remote asset audits' do
     setup do
-      ipi = Factory :instrument_processes_instrument
+      ipi = FactoryBot.create(:instrument_processes_instrument)
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
     end

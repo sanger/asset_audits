@@ -281,18 +281,6 @@ Style/BlockDelimiters:
   Exclude:
     - 'app/models/tube_rack_wrangler.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: braces, no_braces, context_dependent
-Style/BracesAroundHashParameters:
-  Exclude:
-    - 'app/models/verification/base.rb'
-    - 'app/models/verification/groupable.rb'
-    - 'db/migrate/20151014161021_sets_visual_checks_for_pico.rb'
-    - 'db/migrate/20160205163232_add_biorobot.rb'
-    - 'test/unit/dilution_plate_verification_test.rb'
-
 # Offense count: 33
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, EnforcedStyle.

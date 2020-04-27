@@ -1,7 +1,7 @@
 # source 'https://rubygems.org'
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.0'
+gem 'rails', '~> 4.2.10'
 gem 'rake'
 gem 'activeresource'
 
@@ -17,12 +17,13 @@ gem 'daemons'
 gem 'json_api_client'
 
 gem 'byebug'
+gem 'puma'
 
 group :development do
   gem 'rubocop'
 end
 
-gem 'factory_girl_rails', groups: [:test, :cucumber]
+gem 'factory_bot_rails', groups: [:test, :cucumber]
 
 gem 'pry', groups: [:test, :cucumber, :development]
 
@@ -39,12 +40,14 @@ group :cucumber do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'poltergeist'
   gem 'timecop'
   gem 'rspec-expectations'
+  gem 'rspec-mocks'
+  gem 'selenium-webdriver'
+  gem 'rubyzip', '~> 1.3.0'
+  gem 'webdrivers'
 end
 
 group :deployment do
-  gem 'puma'
   gem 'exception_notification'
 end

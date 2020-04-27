@@ -6,205 +6,24 @@ Feature: Verify group assay plates positions on the robot
       And I have a "Some stuff" instrument with barcode "abc123456"
       And the "Some stuff" instrument has beds setup
 
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "wd1" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "stock1",
-                "machine": "stock1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "stock2",
-                "machine": "stock2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "wd2" returns the following JSON:
-      """
-      {
-          "searches": [
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "stock2",
-                "machine": "stock2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "wd3" returns the following JSON:
-      """
-      {
-          "searches": [
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "stock2",
-                "machine": "stock2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "wd4" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "stock4",
-                "machine": "stock4"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "pico1" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "wd1",
-                "machine": "wd1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "wd2",
-                "machine": "wd2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "pico2" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "wd1",
-                "machine": "wd1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444446",
-              "barcode": {
-                "ean13": "wd2",
-                "machine": "wd2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "pico4" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "wd4",
-                "machine": "wd4"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "pico5" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "wd4",
-                "machine": "wd4"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "stock2" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "plate1",
-                "machine": "plate1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444446",
-              "barcode": {
-                "ean13": "plate2",
-                "machine": "plate2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
-    Given the search with UUID "00000000-0000-0000-0000-000000000002" for barcode "stock3" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "plate1",
-                "machine": "plate1"
-              }
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444446",
-              "barcode": {
-                "ean13": "plate2",
-                "machine": "plate2"
-              }
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 1
-          }
-      }
-      """
+      Given I can retrieve the plate with barcode "wd1" and parent barcodes "stock1,stock2"
+      Given I can retrieve the plate with barcode "wd2" and parent barcodes "stock2"
+      Given I can retrieve the plate with barcode "wd3" and parent barcodes "stock2"
+      Given I can retrieve the plate with barcode "wd4" and parent barcodes "stock4"
+      Given I can retrieve the plate with barcode "pico1" and parent barcodes "wd1,wd2"
+      Given I can retrieve the plate with barcode "pico2" and parent barcodes "wd1,wd2"
+      Given I can retrieve the plate with barcode "pico4" and parent barcodes "wd4"
+      Given I can retrieve the plate with barcode "pico5" and parent barcodes "wd4"
+      Given I can retrieve the plate with barcode "stock2" and parent barcodes "plate1,plate2"
+      Given I can retrieve the plate with barcode "stock3" and parent barcodes "plate1,plate2"
 
   Scenario Outline: Valid plates and bed positions
+
     Given I have a process "Some process" as part of the "Some stuff" instrument with x2 dilution assay nx bed verification
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Some process" from AJAX dropdown "Instrument process"
-
-
       And I fill in "Bed P2" with "<source_1_bed>"
       And I fill in "Plate P2" with "<plate_1>"
       And I fill in "Bed P3" with "<dest_1_bed>"

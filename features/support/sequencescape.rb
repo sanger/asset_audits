@@ -77,22 +77,6 @@ class FakeSequencescapeService < FakeSinatraService
       body(json)
     end
 
-    get("/api/1/#{Settings.search_find_source_assets_by_destination_barcode}") do
-      json = FakeSequencescapeService.instance.load_file('search_find_source_assets_by_destination_barcode')
-      headers('Content-Type' => 'application/json')
-      body(json)
-    end
-
-    post("/api/1/#{Settings.search_find_source_assets_by_destination_barcode}/all") do
-      status(300)
-      json = FakeSequencescapeService.instance.find_result_json_by_search_uuid(
-        Settings.search_find_source_assets_by_destination_barcode,
-        ActiveSupport::JSON.decode(request.body.read)['search']['barcode']
-      )
-      headers('Content-Type' => 'application/json')
-      body(json)
-    end
-
     get('/api/1/*') do
       status(200)
     end

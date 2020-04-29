@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class ProcessPlatesController < ApplicationController
-  require 'tube_rack_wrangler'
+  require 'wrangler'
 
   skip_before_filter :configure_api, except: [:create]
 
@@ -26,11 +26,20 @@ class ProcessPlatesController < ApplicationController
           api: api
         )
         if bed_layout_verification.validate_and_create_audits?(params)
-          # if the instrument process is "Receive plates", call the tube_rack API
-          TubeRackWrangler.check_process_and_call_api(params)
-          unique_barcodes = bed_layout_verification.process_plate&.barcodes.uniq.length
-          if unique_barcodes
-            flash[:notice] = "Success - #{unique_barcodes} unique plate(s) scanned"
+          # if the instrument process is "Receive plates", call the 'wrangler/tube_rack' API
+          # the param is called 'source_plates' but we could be working with tube racks or plates etc.
+          barcodes = sanitize_barcodes(params[:source_plates])
+          receive_plates_process = InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
+
+          if barcodes && receive_plates_process
+            Wrangler.call_api(barcodes)
+            Lighthouse.call_api(barcodes)
+          end
+
+          # add a flash on the page for the number of unique barcodes scanned in
+          num_unique_barcodes = bed_layout_verification.process_plate&.barcodes.uniq.length
+          if num_unique_barcodes
+            flash[:notice] = "Success - #{num_unique_barcodes} unique plate(s) scanned"
           else
             flash[:notice] = "Success"
           end
@@ -40,5 +49,14 @@ class ProcessPlatesController < ApplicationController
       end
       format.html { redirect_to(new_process_plate_path) }
     end
+  end
+
+  private
+
+  def sanitize_barcodes(barcodes)
+    sanitized_barcodes = [barcodes].map do |s|
+      s.split(/\s/).reject(&:blank?)
+    end
+    sanitized_barcodes.flatten.uniq
   end
 end

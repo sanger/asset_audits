@@ -16,7 +16,8 @@
 
    %li
     %label{ :for => "instrument_process" } Instrument process
-    %select#instrument_process{ :name => "instrument_process"}
+    %select#instrument_process{ :name => "instrument_process" }
+     %option{ :value => -1 } Select a process...
      - for process_name, process_id in InstrumentProcess.sorted_by_name.map { |x| [x.name, x.id]}
       %option{ :value => process_id } #{process_name}
 

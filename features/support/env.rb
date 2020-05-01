@@ -31,7 +31,8 @@ Capybara.register_driver :headless_chrome do |app|
                                  desired_capabilities: capabilities
 end
 
-Capybara.javascript_driver = :selenium_chrome
+Capybara.current_driver = :rack_test
+Capybara.javascript_driver = :selenium_chrome_headless
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd

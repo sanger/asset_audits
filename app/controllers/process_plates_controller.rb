@@ -60,10 +60,7 @@ class ProcessPlatesController < ApplicationController
 
   # Returns a list of unique barcodes by removing blanks and duplicates
   def sanitize_barcodes(barcodes)
-    sanitized_barcodes = [barcodes].map do |s|
-      s.split(/\s/).reject(&:blank?)
-    end
-    sanitized_barcodes.flatten.uniq
+    barcodes.split(/\s+/).reject(&:blank?).compact.uniq
   end
 
   # Checks a list of responses if they are all CREATED (201)

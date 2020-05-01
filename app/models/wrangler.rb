@@ -17,7 +17,7 @@ class Wrangler
         http.request(req)
       end
 
-      responses << { barcode: barcode, response_code: res.code }
+      responses << { barcode: barcode, code: res.code }
     end
 
     Rails.logger.info("Sent GET requests to wrangler: #{responses}")

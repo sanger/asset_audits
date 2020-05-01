@@ -70,6 +70,6 @@ class ProcessPlatesController < ApplicationController
   def all_created?(responses)
     return false if responses.empty?
 
-    responses.all? { |response| response.code == 201 }
+    responses.all? { |response| response[:code] == 201 }
   end
 end

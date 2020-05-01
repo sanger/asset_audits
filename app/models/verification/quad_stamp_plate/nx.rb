@@ -15,6 +15,6 @@
 # Source rack 4 transferred to B2 quadrant
 
 class Verification::QuadStampPlate::Nx < Verification::QuadStampPlate::Base
-  self.source_beds      = %w(P2 P5 P8 P11) # NB. in quadrant order 1-4
-  self.destination_beds = %w(P3)
+  self.source_beds      = %w[P2 P5 P8 P11] # NB. in quadrant order 1-4
+  self.destination_beds = %w[P3]
 end

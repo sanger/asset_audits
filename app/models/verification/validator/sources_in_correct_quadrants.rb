@@ -23,20 +23,19 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
       quad_metadata = destination_plate.custom_metadatum_collection.metadata[quadrant_name]
       if quad_metadata.nil?
         record.errors[:base] << "The destination plate doesn\'t have any information for quadrant #{index}"
-        return
+        break
       end
 
       quad_scanned = record.quadrant_to_source_barcode[quadrant_name]
-      unless quad_scanned == quad_metadata
-        bed = record.source_beds[index - 1]
-        record.errors[:base] << "The barcode in bed #{bed} doesn\'t match the plate in #{quadrant_name} on the destination plate."
-        return
-      end
+      next if quad_scanned == quad_metadata
+
+      bed = record.source_beds[index - 1]
+      record.errors[:base] << "The barcode in bed #{bed} doesn\'t match the plate in #{quadrant_name} on the destination plate."
+      break
     end
   end
 
   def missing_custom_metadatum_collection?(plate)
-    plate.custom_metadatum_collection.nil? ||
-    plate.custom_metadatum_collection.metadata.nil?
+    plate.custom_metadatum_collection.nil? || plate.custom_metadatum_collection.metadata.nil?
   end
 end

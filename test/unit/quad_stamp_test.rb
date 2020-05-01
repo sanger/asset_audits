@@ -43,7 +43,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
           api = TestSequencescapeApi.new({ 'DN456S' => [TestSearchResult.new('DN123T')] })
 
           @old_delayed_job_count = Delayed::Job.count
-          @bed_layout_verification = Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
+          @bed_layout_verification = Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode],
+                                                                          scanned_values: @input_params[:robot],
+                                                                          api: api)
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -89,7 +91,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
           api = TestSequencescapeApi.new({ 'DN456S' => [TestSearchResult.new('DN123T')] })
 
           @old_delayed_job_count = Delayed::Job.count
-          @bed_layout_verification = Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
+          @bed_layout_verification = Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode],
+                                                                          scanned_values: @input_params[:robot],
+                                                                          api: api)
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -137,7 +141,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
           api = TestSequencescapeApi.new({ 'DN456S' => [TestSearchResult.new('DN123T')] })
 
           @old_delayed_job_count = Delayed::Job.count
-          @bed_layout_verification = Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
+          @bed_layout_verification = Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode],
+                                                                          scanned_values: @input_params[:robot],
+                                                                          api: api)
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -182,7 +188,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
           api = TestSequencescapeApi.new({ 'DN456S' => [TestSearchResult.new('DN123T')] })
 
           @old_delayed_job_count = Delayed::Job.count
-          @bed_layout_verification = Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
+          @bed_layout_verification = Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode],
+                                                                             scanned_values: @input_params[:robot],
+                                                                             api: api)
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -228,7 +236,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
           api = TestSequencescapeApi.new({ 'DN456S' => [TestSearchResult.new('DN123T')] })
 
           @old_delayed_job_count = Delayed::Job.count
-          @bed_layout_verification = Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
+          @bed_layout_verification = Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode],
+                                                                             scanned_values: @input_params[:robot],
+                                                                             api: api)
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -276,7 +286,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
           api = TestSequencescapeApi.new({ 'DN456S' => [TestSearchResult.new('DN123T')] })
 
           @old_delayed_job_count = Delayed::Job.count
-          @bed_layout_verification = Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
+          @bed_layout_verification = Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode],
+                                                                             scanned_values: @input_params[:robot],
+                                                                             api: api)
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)

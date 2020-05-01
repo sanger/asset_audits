@@ -21,13 +21,14 @@ FactoryBot.define do
 
     factory :v2_plate_with_parents_and_quadrant_metadata do
       transient do
-        # parent_barcodes { ['Empty', 'Empty', 'Empty', 'Empty'] }
-        metadata = {
-          'Quadrant 1' => 'Empty',
-          'Quadrant 2' => 'Empty',
-          'Quadrant 3' => 'Empty',
-          'Quadrant 4' => 'Empty'
-        }
+        metadata do
+          {
+            'Quadrant 1' => 'Empty',
+            'Quadrant 2' => 'Empty',
+            'Quadrant 3' => 'Empty',
+            'Quadrant 4' => 'Empty'
+          }
+        end
       end
 
       after(:build) do |plate, evaluator|

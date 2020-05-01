@@ -31,7 +31,7 @@ class LighthouseTest < ActiveSupport::TestCase
 
         assert_equal(
           Lighthouse.call_api([@input_params[:source_plates]]),
-          [{ response_code: '201', response_body: '' }]
+          [{ code: '201', body: '' }]
         )
       end
 
@@ -47,9 +47,9 @@ class LighthouseTest < ActiveSupport::TestCase
         assert_equal(
           Lighthouse.call_api(barcodes),
           [
-            { response_code: '201', response_body: '' },
-            { response_code: '201', response_body: '' },
-            { response_code: '201', response_body: '' }
+            { code: '201', body: '' },
+            { code: '201', body: '' },
+            { code: '201', body: '' }
           ]
         )
       end

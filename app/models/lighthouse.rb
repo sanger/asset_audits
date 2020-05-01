@@ -5,7 +5,7 @@ class Lighthouse
   require 'json'
 
   def self.call_api(barcodes)
-    response_array = []
+    responses = []
 
     barcodes.each do |barcode|
       url = URI.parse("#{Rails.application.config.lighthouse_host}/plates/new")
@@ -19,12 +19,12 @@ class Lighthouse
         http.request(req)
       end
 
-      response_array << { response_code: res.code, response_body: res.body }
+      responses << { code: res.code, body: res.body }
     end
 
-    Rails.logger.info("Sent POST requests to lighthouse service: #{response_array}")
+    Rails.logger.info("Sent POST requests to lighthouse service: #{responses}")
 
-    response_array
+    responses
   rescue StandardError => e
     Rails.logger.error(e)
     nil

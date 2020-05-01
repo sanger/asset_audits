@@ -32,8 +32,13 @@ class ProcessPlatesController < ApplicationController
           receive_plates_process = InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
 
           if barcodes && receive_plates_process
-            Wrangler.call_api(barcodes)
-            Lighthouse.call_api(barcodes)
+            # call the lighthouse service first as we are assuming that most labware scanned will be
+            #   plates from Lighthouse Labs
+            lighthouse_responses = Lighthouse.call_api(barcodes)
+
+            # keeping it simple for now, if all the responses are not CREATED, send ALL the barcodes
+            #   to the wrangler
+            wrangler_responses = Wrangler.call_api(barcodes) unless all_created?(lighthouse_responses)
           end
 
           # add a flash on the page for the number of unique barcodes scanned in
@@ -53,10 +58,18 @@ class ProcessPlatesController < ApplicationController
 
   private
 
+  # Returns a list of unique barcodes by removing blanks and duplicates
   def sanitize_barcodes(barcodes)
     sanitized_barcodes = [barcodes].map do |s|
       s.split(/\s/).reject(&:blank?)
     end
     sanitized_barcodes.flatten.uniq
+  end
+
+  # Checks a list of responses if they are all CREATED (201)
+  def all_created?(responses)
+    return false if responses.empty?
+
+    responses.all? { |response| response.code == 201 }
   end
 end

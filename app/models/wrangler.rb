@@ -4,7 +4,7 @@ class Wrangler
   require 'net/http'
 
   def self.call_api(barcodes)
-    response_array = []
+    responses = []
 
     barcodes.each do |barcode|
       url = URI.parse("#{Rails.application.config.wrangler_url}/#{barcode}")
@@ -17,12 +17,12 @@ class Wrangler
         http.request(req)
       end
 
-      response_array << { barcode: barcode, response_code: res.code }
+      responses << { barcode: barcode, response_code: res.code }
     end
 
-    Rails.logger.info("Sent GET requests to wrangler: #{response_array}")
+    Rails.logger.info("Sent GET requests to wrangler: #{responses}")
 
-    response_array
+    responses
   rescue StandardError => e
     Rails.logger.error(e)
     nil

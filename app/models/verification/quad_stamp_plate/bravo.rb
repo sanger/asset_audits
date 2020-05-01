@@ -13,7 +13,8 @@
 # Source rack 2 transferred to B1 quadrant
 # Source rack 3 transferred to A2 quadrant
 # Source rack 4 transferred to B2 quadrant
+
 class Verification::QuadStampPlate::Bravo < Verification::QuadStampPlate::Base
-  self.source_beds      = %w(P4 P5 P6 P8)
+  self.source_beds      = %w(P4 P5 P6 P8) # NB. in quadrant order 1-4
   self.destination_beds = %w(P9)
 end

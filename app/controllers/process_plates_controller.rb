@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class ProcessPlatesController < ApplicationController
-  require 'tube_rack_wrangler'
+  require 'wrangler'
 
   skip_before_filter :configure_api, except: [:create]
 
@@ -26,11 +26,25 @@ class ProcessPlatesController < ApplicationController
           api: api
         )
         if bed_layout_verification.validate_and_create_audits?(params)
-          # if the instrument process is "Receive plates", call the tube_rack API
-          TubeRackWrangler.check_process_and_call_api(params)
-          unique_barcodes = bed_layout_verification.process_plate&.barcodes.uniq.length
-          if unique_barcodes
-            flash[:notice] = "Success - #{unique_barcodes} unique plate(s) scanned"
+          # if the instrument process is "Receive plates", call the 'wrangler/tube_rack' API
+          # the param is called 'source_plates' but we could be working with tube racks or plates etc.
+          barcodes = sanitize_barcodes(params[:source_plates])
+          receive_plates_process = InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
+
+          if barcodes && receive_plates_process
+            # call the lighthouse service first as we are assuming that most labware scanned will be
+            #   plates from Lighthouse Labs
+            lighthouse_responses = Lighthouse.call_api(barcodes)
+
+            # keeping it simple for now, if all the responses are not CREATED, send ALL the barcodes
+            #   to the wrangler
+            wrangler_responses = Wrangler.call_api(barcodes) unless all_created?(lighthouse_responses)
+          end
+
+          # add a flash on the page for the number of unique barcodes scanned in
+          num_unique_barcodes = bed_layout_verification.process_plate&.barcodes.uniq.length
+          if num_unique_barcodes
+            flash[:notice] = "Success - #{num_unique_barcodes} unique plate(s) scanned"
           else
             flash[:notice] = "Success"
           end
@@ -40,5 +54,19 @@ class ProcessPlatesController < ApplicationController
       end
       format.html { redirect_to(new_process_plate_path) }
     end
+  end
+
+  private
+
+  # Returns a list of unique barcodes by removing blanks and duplicates
+  def sanitize_barcodes(barcodes)
+    barcodes.split(/\s+/).reject(&:blank?).compact.uniq
+  end
+
+  # Checks a list of responses if they are all CREATED (201)
+  def all_created?(responses)
+    return false if responses.empty?
+
+    responses.all? { |response| response[:code] == 201 }
   end
 end

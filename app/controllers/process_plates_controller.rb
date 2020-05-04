@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class ProcessPlatesController < ApplicationController
   require 'wrangler'
+  require 'lighthouse'
 
   skip_before_filter :configure_api, except: [:create]
 

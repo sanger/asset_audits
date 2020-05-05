@@ -27,20 +27,13 @@ class ProcessPlatesController < ApplicationController
           api: api
         )
         if bed_layout_verification.validate_and_create_audits?(params)
-          # if the instrument process is "Receive plates", call the 'wrangler/tube_rack' API
           # the param is called 'source_plates' but we could be working with tube racks or plates etc.
           barcodes = sanitize_barcodes(params[:source_plates])
+
+          # find out if the 'receive_plates' process was executed
           receive_plates_process = InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
 
-          if barcodes && receive_plates_process
-            # call the lighthouse service first as we are assuming that most labware scanned will be
-            #   plates from Lighthouse Labs
-            lighthouse_responses = Lighthouse.call_api(barcodes)
-
-            # keeping it simple for now, if all the responses are not CREATED, send ALL the barcodes
-            #   to the wrangler
-            wrangler_responses = Wrangler.call_api(barcodes) unless all_created?(lighthouse_responses)
-          end
+          call_external_services(barcodes) if barcodes && receive_plates_process
 
           # add a flash on the page for the number of unique barcodes scanned in
           num_unique_barcodes = bed_layout_verification.process_plate&.barcodes.uniq.length
@@ -57,7 +50,17 @@ class ProcessPlatesController < ApplicationController
     end
   end
 
-  private
+  # Call any external services - currently lighthouse service for plates from Lighthouse Labs and
+  #   wrangler for tube racks. If no samples are found in the lighthouse service, try the wrangler
+  def call_external_services(barcodes)
+    # call the lighthouse service first as we are assuming that most labware scanned will be
+    #   plates from Lighthouse Labs
+    lighthouse_responses = Lighthouse.call_api(barcodes)
+
+    # keeping it simple for now, if all the responses are not CREATED, send ALL the barcodes
+    #   to the wrangler
+    wrangler_responses = Wrangler.call_api(barcodes) unless all_created?(lighthouse_responses)
+  end
 
   # Returns a list of unique barcodes by removing blanks and duplicates
   def sanitize_barcodes(barcodes)
@@ -68,6 +71,6 @@ class ProcessPlatesController < ApplicationController
   def all_created?(responses)
     return false if responses.empty?
 
-    responses.all? { |response| response[:code] == 201 }
+    responses.all? { |response| response[:code] == "201" }
   end
 end

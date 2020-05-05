@@ -11,7 +11,7 @@ ProcessTracking::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
 
   config.action_controller.perform_caching = false
   config.eager_load = false
@@ -29,7 +29,11 @@ ProcessTracking::Application.configure do
 
   config.admin_email = 'example@example.com'
 
-  config.tube_rack_wrangler_url = 'http://example.com/tube_rack'
+  # https://github.com/sanger/wrangler
+  config.wrangler_url = 'http://127.0.0.1:5001/tube_rack'
+
+  # https://github.com/sanger/lighthouse
+  config.lighthouse_host = 'http://127.0.0.1:5000'
 
   config.logger = Logger.new(STDOUT)
 end

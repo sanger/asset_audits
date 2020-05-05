@@ -28,7 +28,7 @@ class InstrumentProcessesInstrument < ActiveRecord::Base
 
   def self.find_from_instrument_barcode_and_instrument_process_id(instrument_barcode, instrument_process_id)
     instrument = Instrument.find_by_barcode(instrument_barcode)
-    process = InstrumentProcess.find(instrument_process_id)
+    process = InstrumentProcess.find_by_id(instrument_process_id)
     return nil if instrument.nil? || process.nil?
 
     find_by_instrument_id_and_instrument_process_id(instrument.id, process.id)

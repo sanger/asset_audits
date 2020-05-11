@@ -1,6 +1,6 @@
 %h2 Activity Logging
 %div{:id => "info_box"}
-= form_for :process_plate, :url => process_plates_path do |form|
+= form_for :process_plate, :url => process_plates_path , :html => {:class => "submit-once"} do |form|
  %fieldset
   %ul
    %li
@@ -33,7 +33,7 @@
     = text_field_tag "witness_barcode"
 
    %li
-    %input{ :type => "submit", :value => 'Submit' }
+    %input{ :id => "btnSubmit", :type => "submit", :value => 'Submit' }
 
 - content_for :page_javascript do
  :javascript
@@ -197,12 +197,21 @@
 
         this._user.setNextInput(this._instrumentBarcode._dom);
         this._instrumentBarcode.setNextInput(this._instrumentProcess.getSourcePlatesResults());
-
       }
 
       new AuditEvent();
+
+      // Quick and dirty to prevent the form from being submitted more than once
+      // https://stackoverflow.com/a/24957486
+      $('form.submit-once').submit(function(e) {
+        // prevent the form from being submitted if it has the 'form-submitted' class
+        if ($(this).hasClass('form-submitted')) {
+          e.preventDefault();
+          return;
+        }
+        $(this).addClass('form-submitted');
+
+        //disable the submit button
+        $("#btnSubmit").attr("disabled", true);
+      });
     })(jQuery);
-
-
-
-

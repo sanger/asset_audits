@@ -10,9 +10,9 @@ class Wrangler
       barcodes.each do |barcode|
         url = URI.parse("#{Rails.application.config.wrangler_url}/#{barcode}")
 
-        Rails.logger.debug("Trying GET to: #{url}")
+        Rails.logger.debug("Trying POST to: #{url}")
 
-        req = Net::HTTP::Get.new(url.to_s)
+        req = Net::HTTP::Post.new(url.to_s)
 
         res = Net::HTTP.start(url.host, url.port) do |http|
           http.request(req)
@@ -24,7 +24,8 @@ class Wrangler
       Rails.logger.error(e)
       nil
     else
-      Rails.logger.info("Sent GET requests to wrangler: #{responses}")
+      Rails.logger.info('Sent POST requests to wrangler')
+      Rails.logger.info("Responses: #{responses}")
     end
     responses
   end

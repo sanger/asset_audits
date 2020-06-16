@@ -16,48 +16,48 @@ class ProcessPlatesController < ApplicationController
   end
 
   def create
-    # respond_to do |format|
-      bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode], params[:instrument_process])
-      if bed_verification_model.nil?
-        flash[:error] = 'Invalid instrument or process'
-      else
-        bed_layout_verification = bed_verification_model.new(
-          instrument_barcode: params[:instrument_barcode],
-          scanned_values: params[:robot],
-          api: api
-        )
-        if bed_layout_verification.validate_and_create_audits?(params)
-          # the param is called 'source_plates' but we could be working with tube racks or plates etc.
-          barcodes = sanitize_barcodes(params[:source_plates])
+    bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(
+      params[:instrument_barcode],
+      params[:instrument_process]
+    )
+    back_to_new_with_error('Invalid instrument or process') and return if bed_verification_model.nil?
 
-          # find out if the 'receive_plates' process was executed
-          receive_plates_process = InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
+    bed_layout_verification = bed_verification_model.new(
+      instrument_barcode: params[:instrument_barcode],
+      scanned_values: params[:robot],
+      api: api
+    )
+    unless bed_layout_verification.validate_and_create_audits?(params)
+      errors = bed_layout_verification.errors.values.flatten.join("\n")
+      back_to_new_with_error(errors) and return
+    end
 
-          message = ''
-          if barcodes && receive_plates_process
-            call_external_services(barcodes)
+    back_to_new_with_message('Success') and return unless receive_plates_process?(params)
 
-            message = @lighthouse_responses.concat(@wrangler_responses)
-          end
+    # the param is called 'source_plates' but we could be working with tube racks or plates etc.
+    barcodes = sanitize_barcodes(params[:source_plates])
+    unless barcodes && !barcodes.empty?
+      back_to_new_with_error('No barcodes were provided') and return
+    end
 
-          # TODO: display the responses from the services in a partial, not a flash
-          # TODO: sort out original flash code below
-          flash[:notice] = message
+    call_external_services(barcodes)
 
-          # add a flash on the page for the number of unique barcodes scanned in
-          # num_unique_barcodes = bed_layout_verification.process_plate&.barcodes.uniq.length
-          # if num_unique_barcodes
-          #   flash[:notice] = "Success - #{num_unique_barcodes} unique plate(s) scanned"
-          # else
-          #   flash[:notice] = "Success"
-          # end
-        else
-          flash[:error] = bed_layout_verification.errors.values.flatten.join("\n")
-        end
-      end
-      @results = parse_responses
-      render :results
-    # end
+    @results = parse_responses
+    render :results
+  end
+
+  def back_to_new_with_message(message, flash_type=:notice)
+    flash[flash_type] = message
+    redirect_to(new_process_plate_path)
+  end
+
+  def back_to_new_with_error(message)
+    back_to_new_with_message(message, :error)
+  end
+
+  # find out if the 'receive_plates' process was executed
+  def receive_plates_process?(params)
+    @is_receive_plates_process ||= InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
   end
 
   # Call any external services - currently lighthouse service for plates from Lighthouse Labs and

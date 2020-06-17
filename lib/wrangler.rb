@@ -19,7 +19,7 @@ class Wrangler
         res = Net::HTTP.start(url.host, url.port) do |http|
           http.request(req)
         end
-        responses << { barcode: barcode, code: res.code, json: JSON.parse(res.body)}
+        responses << { barcode: barcode, code: res.code, body: JSON.parse(res.body)}
       end
     rescue StandardError => e
       Rails.logger.error(e)

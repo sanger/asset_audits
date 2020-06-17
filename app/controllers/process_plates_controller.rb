@@ -43,6 +43,8 @@ class ProcessPlatesController < ApplicationController
     call_external_services(barcodes)
 
     @results = parse_responses
+    back_to_new_with_error('No response from services') and return if @results.empty?
+
     render :results
   end
 
@@ -63,7 +65,6 @@ class ProcessPlatesController < ApplicationController
   # Call any external services - currently lighthouse service for plates from Lighthouse Labs and
   #   wrangler for tube racks. If no samples are found in the lighthouse service, try the wrangler
   def call_external_services(barcodes)
-    puts "DEBUG: call_external_services"
     # call the lighthouse service first as we are assuming that most labware scanned will be
     #   plates from Lighthouse Labs
     @lighthouse_responses = Lighthouse.call_api(barcodes)
@@ -98,12 +99,16 @@ class ProcessPlatesController < ApplicationController
                 else
                   'No'
                 end
-      purpose = r[:purpose]
-      study = r[:study]
+      if r[:body].is_a? Hash
+        error = r.dig(:body, 'error')
+        purpose = r.dig(:body, 'data', 'attributes', 'purpose_name')
+        study = r.dig(:body, 'data', 'attributes', 'study_names')&.join(', ')
+      end
 
       output << {
         :barcode => barcode,
         :success => success,
+        :error => error,
         :purpose => purpose,
         :study => study
       }
@@ -117,12 +122,16 @@ class ProcessPlatesController < ApplicationController
                 else
                   'No'
                 end
-      purpose = r[:json]['data']['attributes']['purpose_name']
-      study = r[:json]['data']['attributes']['study_names'].join(', ')
+      if r[:body].is_a? Hash
+        error = r.dig(:body, 'error')
+        purpose = r.dig(:body, 'data', 'attributes', 'purpose_name')
+        study = r.dig(:body, 'data', 'attributes', 'study_names')&.join(', ')
+      end
 
       output << {
         :barcode => barcode,
         :success => success,
+        :error => error,
         :purpose => purpose,
         :study => study
       }

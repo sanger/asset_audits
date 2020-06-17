@@ -20,7 +20,7 @@ class Lighthouse
           http.request(req)
         end
 
-        responses << { code: res.code, body: res.body }
+        responses << { barcode: barcode, code: res.code, body: res.body }
       end
     rescue StandardError => e
       Rails.logger.error(e)

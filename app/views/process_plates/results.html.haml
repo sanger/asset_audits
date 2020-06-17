@@ -1,9 +1,12 @@
+%h2 Activity Logging
+
 #service_responses
   %table
     %thead
       %tr
         %th.th Barcode
         %th Success?
+        %th Error
         %th Purpose
         %th Study
     %tbody
@@ -13,6 +16,8 @@
             = row[:barcode]
           %td
             = row[:success]
+          %td
+            = row[:error]
           %td
             = row[:purpose]
           %td

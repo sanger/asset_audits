@@ -21,7 +21,6 @@ gem 'puma'
 
 group :development do
   gem 'rubocop'
-  gem 'rubocop-rspec' # Oddly triggered on CI
   gem 'listen' # Hot reloading
 end
 

@@ -44,6 +44,7 @@ Metrics/BlockLength:
 AllCops:
   Exclude:
     - bin/*
+    - vendor/**/*
 # The following cops were added to RuboCop, but are not configured by default.
 # Please set Enabled to either `true` or `false` in your `.rubocop.yml` file:
 # For more information: https://docs.rubocop.org/rubocop/versioning.html

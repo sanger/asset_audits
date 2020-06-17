@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 class Wrangler
   require 'net/http'
 
@@ -17,8 +19,7 @@ class Wrangler
         res = Net::HTTP.start(url.host, url.port) do |http|
           http.request(req)
         end
-
-        responses << { barcode: barcode, code: res.code }
+        responses << { barcode: barcode, code: res.code, json: JSON.parse(res.body)}
       end
     rescue StandardError => e
       Rails.logger.error(e)

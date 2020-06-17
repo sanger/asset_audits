@@ -117,8 +117,8 @@ class ProcessPlatesController < ApplicationController
                 else
                   'No'
                 end
-      purpose = r[:purpose]
-      study = r[:study]
+      purpose = r[:json]['data']['attributes']['purpose_name']
+      study = r[:json]['data']['attributes']['study_names'].join(', ')
 
       output << {
         :barcode => barcode,

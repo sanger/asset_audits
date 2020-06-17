@@ -1,20 +1,22 @@
 #service_responses
   %table
-    %tr
-      %th.th Barcode
-      %th Success?
-      %th Purpose
-      %th Study
-    - for row in @results
+    %thead
       %tr
-        %td
-          = row[:barcode]
-        %td
-          = row[:success]
-        %td
-          = row[:purpose]
-        %td
-          = row[:study]
+        %th.th Barcode
+        %th Success?
+        %th Purpose
+        %th Study
+    %tbody
+      - for row in @results
+        %tr
+          %td
+            = row[:barcode]
+          %td
+            = row[:success]
+          %td
+            = row[:purpose]
+          %td
+            = row[:study]
 
 %br
 = link_to 'Scan more labware', new_process_plate_path

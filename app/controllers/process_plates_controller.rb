@@ -3,7 +3,7 @@ class ProcessPlatesController < ApplicationController
   require 'wrangler'
   require 'lighthouse'
 
-  skip_before_filter :configure_api, except: [:create]
+  skip_before_action :configure_api, except: [:create]
 
   attr_accessor :messages
 

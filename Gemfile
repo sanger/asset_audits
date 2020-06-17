@@ -1,7 +1,7 @@
 # source 'https://rubygems.org'
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 5.0.0'
 gem 'rake'
 gem 'activeresource'
 
@@ -34,7 +34,7 @@ group :test do
   gem 'sinatra'
 end
 
-group :cucumber do
+group :cucumber, :test do
   gem 'capybara'
   gem 'minitest'
   gem 'cucumber-rails', require: false

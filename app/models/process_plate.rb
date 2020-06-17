@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class ProcessPlate < ActiveRecord::Base
+class ProcessPlate < ApplicationRecord
   include ProcessPlateValidation
 
   BARCODE_REGEX = /\S+/

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Bed < ActiveRecord::Base
+class Bed < ApplicationRecord
   belongs_to :instrument
 
   validates_uniqueness_of :barcode, message: 'must be unique'

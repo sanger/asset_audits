@@ -1,21 +1,10 @@
 # frozen_string_literal: true
-require File.expand_path('../boot', __FILE__)
-
+require_relative 'boot'
 require 'rails/all'
 
-# If you have a Gemfile, require the gems listed there, including any gems
+# Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
-# Old Rails issue of the log message showing twice in STDOUT
-# https://github.com/rails/rails/issues/11415
-ActiveSupport::Logger.class_eval do
-  #monkey patching here so there aren't duplicate lines in console/server
-  def self.broadcast(logger)
-    Module.new do
-    end
-  end
-end
 
 module ProcessTracking
   class Application < Rails::Application

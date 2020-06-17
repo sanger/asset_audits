@@ -1,7 +1,7 @@
 # source 'https://rubygems.org'
 source 'http://rubygems.org'
 
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.2.0'
 gem 'rake'
 gem 'activeresource'
 

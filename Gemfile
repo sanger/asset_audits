@@ -1,7 +1,7 @@
 # source 'https://rubygems.org'
 source 'http://rubygems.org'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.1.0'
 gem 'rake'
 gem 'activeresource'
 
@@ -21,6 +21,7 @@ gem 'puma'
 
 group :development do
   gem 'rubocop'
+  gem 'listen' # Hot reloading
 end
 
 gem 'factory_bot_rails', groups: [:test, :cucumber]

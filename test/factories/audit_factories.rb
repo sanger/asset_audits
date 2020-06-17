@@ -11,9 +11,9 @@ FactoryBot.define do
     sequence(:name)    { |n| "Instrument #{n}" }
     sequence(:barcode) { |n| "#{n}" }
 
-    after(:build) do |instrument|
-      (1..16).each do |bed_number|
-        FactoryBot.create(:bed, name: "P#{bed_number}", barcode: bed_number, bed_number: bed_number, instrument_id: instrument.id)
+    beds do
+      (1..16).map do |bed_number|
+        build(:bed, name: "P#{bed_number}", barcode: bed_number, bed_number: bed_number)
       end
     end
   end
@@ -24,8 +24,8 @@ FactoryBot.define do
   end
 
   factory :instrument_processes_instrument do
-    instrument              { |instrument| instrument.association(:instrument) }
-    instrument_process      { |instrument_process| instrument_process.association(:instrument_process) }
-    bed_verification_type   { 'Verification::Base' }
+    association(:instrument)
+    association(:instrument_process)
+    bed_verification_type { 'Verification::Base' }
   end
 end

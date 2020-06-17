@@ -9,6 +9,7 @@ class ProcessPlate < ApplicationRecord
   attr_accessor :witness_name
   attr_accessor :instrument_used
   attr_accessor :asset_search_results
+
   # remove active record
 
   belongs_to :instrument_process

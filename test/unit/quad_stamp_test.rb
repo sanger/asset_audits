@@ -9,7 +9,6 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
       ipi = FactoryBot.create(:instrument_processes_instrument)
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
-      Bed.all.map { |bed| bed.update_attributes!(instrument_id: @instrument.id) }
     end
 
     context 'nx robot' do

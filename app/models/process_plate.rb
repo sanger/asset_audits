@@ -2,38 +2,27 @@
 class ProcessPlate < ApplicationRecord
   include ProcessPlateValidation
 
-  BARCODE_REGEX = /\S+/
+  BARCODE_REGEX = /\S+/.freeze
 
-  attr_accessor :api
-  attr_accessor :user_name
-  attr_accessor :witness_name
-  attr_accessor :instrument_used
-  attr_accessor :asset_search_results
-
-  # remove active record
+  # @return [Sequencescape::Client::Api] An API object for interacting with the V1 API
+  attr_writer :api
 
   belongs_to :instrument_process
 
-  # after_create :create_events
-
   def user_login
-    return user_name unless user_name.blank?
-    self.user_name = User.login_from_user_code(user_barcode)
+    @user_login ||= User.login_from_user_code(user_barcode)
   end
 
   def witness_login
-    return nil if witness_barcode.blank?
-    return witness_name unless witness_name.blank?
-    self.witness_name = User.login_from_user_code(witness_barcode)
+    @witness_login ||= User.login_from_user_code(witness_barcode) unless witness_barcode.blank?
   end
 
   def barcodes
-    source_plates.scan(BARCODE_REGEX).map { |plate| plate }
+    source_plates.scan(BARCODE_REGEX)
   end
 
   def instrument
-    return instrument_used unless instrument_used.blank?
-    self.instrument_used = Instrument.find_by_barcode(instrument_barcode)
+    @instrument ||= Instrument.find_by_barcode(instrument_barcode)
   end
 
   def search_resource
@@ -45,8 +34,7 @@ class ProcessPlate < ApplicationRecord
   end
 
   def asset_search_results_from_plate_barcodes
-    return asset_search_results unless asset_search_results.blank?
-    self.asset_search_results = search_resource.all(api.plate, barcode: barcodes)
+    @asset_search_results_from_plate_barcodes ||= search_resource.all(api.plate, barcode: barcodes)
   end
 
   def api
@@ -66,12 +54,17 @@ class ProcessPlate < ApplicationRecord
       message: "Process '#{instrument_process.name}' performed on instrument #{instrument.name}",
       created_by: user_login,
       asset: asset_uuid,
-      witnessed_by: witness_login
+      witnessed_by: witness_login,
+      metadata: metadata
     )
   end
 
   def post_audit_actions!
     subtract_volumes if defined?(:subtract_volumes)
+  end
+
+  def num_unique_barcodes
+    barcodes.uniq.length
   end
 
   # This update is not really in the right application

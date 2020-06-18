@@ -1,4 +1,11 @@
 # frozen_string_literal: true
+
+# Inherited by {Verification::AssayPlate::Fx} and {Verification::AssayPlate::Nx}
+# Which configure the beds used.
+# Validates the transfer of one source plate onto two destination plates.
+#
+# s1 --> d1
+#   \--> d2
 class Verification::AssayPlate::Base < Verification::Base
   include Verification::BedVerification
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned

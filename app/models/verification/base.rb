@@ -1,11 +1,10 @@
 # frozen_string_literal: true
+
+# Basic verification class
+# No bed verification, just takes a list of source plates
+# and records that the action has been perfromed.
 class Verification::Base
   include ActiveModel::Validations
-
-  attr_accessor :instrument_barcode
-  attr_accessor :scanned_values
-  attr_accessor :api
-
   attr_reader :process_plate
 
   class_attribute :source_beds

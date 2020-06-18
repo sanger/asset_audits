@@ -1,27 +1,26 @@
 %h2 Activity Logging
 
-#service_responses
-  %table
-    %thead
+%table
+  %thead
+    %tr
+      %th Barcode
+      %th Success?
+      %th Source
+      %th Purpose
+      %th Study
+  %tbody
+    - @results.each do |barcode, details|
       %tr
-        %th.th Barcode
-        %th Success?
-        %th Error
-        %th Purpose
-        %th Study
-    %tbody
-      - for row in @results
-        %tr
-          %td
-            = row[:barcode]
-          %td
-            = row[:success]
-          %td
-            = row[:error]
-          %td
-            = row[:purpose]
-          %td
-            = row[:study]
+        %td
+          = barcode
+        %td
+          = details[:success]
+        %td
+          = details[:source]
+        %td
+          = details[:purpose]
+        %td
+          = details[:study]
 
 %br
 = link_to 'Scan more labware', new_process_plate_path

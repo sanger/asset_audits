@@ -42,9 +42,14 @@ class ProcessPlatesController < ApplicationController
 
     call_external_services(barcodes)
 
-    @results = parse_responses
+    @results = generate_results(barcodes)
     back_to_new_with_error('No response from services') and return if @results.empty?
 
+    if all_labware_created?(@results)
+      flash[:notice] = 'All labware were successfully created.'
+    else
+      flash[:error] = 'Some labware were not able to be created.'
+    end
     render :results
   end
 
@@ -68,12 +73,10 @@ class ProcessPlatesController < ApplicationController
     # call the lighthouse service first as we are assuming that most labware scanned will be
     #   plates from Lighthouse Labs
     @lighthouse_responses = Lighthouse.call_api(barcodes)
-    puts "DEBUG: lighthouse_responses: #{@lighthouse_responses}"
 
     # keeping it simple for now, if all the responses are not CREATED, send ALL the barcodes
     #   to the wrangler
     @wrangler_responses = Wrangler.call_api(barcodes) unless all_created?(@lighthouse_responses)
-    puts "DEBUG: wrangler_responses: #{@wrangler_responses}"
   end
 
   # Returns a list of unique barcodes by removing blanks and duplicates
@@ -88,55 +91,34 @@ class ProcessPlatesController < ApplicationController
     responses.all? { |response| response[:code] == "201" }
   end
 
-  def parse_responses
-    output = []
+  def generate_results(barcodes)
+    output = {}
+    # default 'success' for each barcode to 'No'
+    barcodes.each { |b| output[b] = { success: 'No' } }
 
-    @lighthouse_responses.each do |r|
-
-      barcode = r[:barcode]
-      success = if r[:code] == '201'
-                  'Yes'
-                else
-                  'No'
-                end
-      if r[:body].is_a? Hash
-        error = r.dig(:body, 'error')
-        purpose = r.dig(:body, 'data', 'attributes', 'purpose_name')
-        study = r.dig(:body, 'data', 'attributes', 'study_names')&.join(', ')
-      end
-
-      output << {
-        :barcode => barcode,
-        :success => success,
-        :error => error,
-        :purpose => purpose,
-        :study => study
-      }
+    # loop through service responses to update 'output' with successes
+    @lighthouse_responses.select { |r| r[:code] == '201' }.each do |r|
+      output[r[:barcode]] = parse_response(r, :Lighthouse)
     end
-
-    @wrangler_responses.each do |r|
-
-      barcode = r[:barcode]
-      success = if r[:code] == '201'
-                  'Yes'
-                else
-                  'No'
-                end
-      if r[:body].is_a? Hash
-        error = r.dig(:body, 'error')
-        purpose = r.dig(:body, 'data', 'attributes', 'purpose_name')
-        study = r.dig(:body, 'data', 'attributes', 'study_names')&.join(', ')
-      end
-
-      output << {
-        :barcode => barcode,
-        :success => success,
-        :error => error,
-        :purpose => purpose,
-        :study => study
-      }
+    @wrangler_responses.select { |r| r[:code] == '201' }.each do |r|
+      output[r[:barcode]] = parse_response(r, :CGaP)
     end
 
     output
+  end
+
+  def parse_response(response, service)
+    {
+      success: 'Yes',
+      source: service,
+      purpose: response.dig(:body, 'data', 'attributes', 'purpose_name'),
+      study: response.dig(:body, 'data', 'attributes', 'study_names')&.join(', ')
+    }
+  end
+
+  def all_labware_created?(results)
+    return false if results.any?{ |_barcode, details| details[:success] == 'No' }
+
+    true
   end
 end

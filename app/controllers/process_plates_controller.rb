@@ -20,7 +20,7 @@ class ProcessPlatesController < ApplicationController
       params[:instrument_barcode],
       params[:instrument_process]
     )
-    back_to_new_with_error('Invalid instrument or process') and return if bed_verification_model.nil?
+    back_to_new_with_error('Invalid instrument or process') && return if bed_verification_model.nil?
 
     bed_layout_verification = bed_verification_model.new(
       instrument_barcode: params[:instrument_barcode],
@@ -29,21 +29,19 @@ class ProcessPlatesController < ApplicationController
     )
     unless bed_layout_verification.validate_and_create_audits?(params)
       errors = bed_layout_verification.errors.values.flatten.join("\n")
-      back_to_new_with_error(errors) and return
+      back_to_new_with_error(errors) && return
     end
 
-    back_to_new_with_message('Success') and return unless receive_plates_process?(params)
+    back_to_new_with_message('Success') && return unless receive_plates_process?(params)
 
     # the param is called 'source_plates' but we could be working with tube racks or plates etc.
     barcodes = sanitize_barcodes(params[:source_plates])
-    unless barcodes && !barcodes.empty?
-      back_to_new_with_error('No barcodes were provided') and return
-    end
+    back_to_new_with_error('No barcodes were provided') && return unless barcodes && !barcodes.empty?
 
     call_external_services(barcodes)
 
     @results = generate_results(barcodes)
-    back_to_new_with_error('No response from services') and return if @results.empty?
+    back_to_new_with_error('No response from services') && return if @results.empty?
 
     if all_labware_created?(@results)
       flash[:notice] = 'All labware were successfully created.'
@@ -53,7 +51,7 @@ class ProcessPlatesController < ApplicationController
     render :results
   end
 
-  def back_to_new_with_message(message, flash_type=:notice)
+  def back_to_new_with_message(message, flash_type = :notice)
     flash[flash_type] = message
     redirect_to(new_process_plate_path)
   end
@@ -64,7 +62,7 @@ class ProcessPlatesController < ApplicationController
 
   # find out if the 'receive_plates' process was executed
   def receive_plates_process?(params)
-    @is_receive_plates_process ||= InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
+    @receive_plates_process ||= InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
   end
 
   # Call any external services - currently lighthouse service for plates from Lighthouse Labs and
@@ -117,7 +115,7 @@ class ProcessPlatesController < ApplicationController
   end
 
   def all_labware_created?(results)
-    return false if results.any?{ |_barcode, details| details[:success] == 'No' }
+    return false if results.any? { |_barcode, details| details[:success] == 'No' }
 
     true
   end

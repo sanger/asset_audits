@@ -19,7 +19,8 @@ class Wrangler
         res = Net::HTTP.start(url.host, url.port) do |http|
           http.request(req)
         end
-        responses << { barcode: barcode, code: res.code, body: JSON.parse(res.body) }
+
+        responses << { barcode: barcode, code: res.code, body: Wrangler.parse_body(res.body) }
       end
     rescue StandardError => e
       Rails.logger.error(e)
@@ -29,5 +30,12 @@ class Wrangler
       Rails.logger.info("Responses: #{responses}")
     end
     responses
+  end
+
+  def self.parse_body(body)
+    JSON.parse(body)
+  rescue StandardError
+    # return the body as is if not valid JSON
+    return body
   end
 end

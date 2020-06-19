@@ -20,7 +20,7 @@ class ActiveSupport::TestCase
       code: '201',
       body: {
         'data' => {
-          'attributes'=> {
+          'attributes' => {
             'purpose_name' => purpose_name,
             'study_names' => study_names
           }

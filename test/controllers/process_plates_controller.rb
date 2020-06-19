@@ -50,19 +50,21 @@ class ProcessPlatesControllerTest < ActiveSupport::TestCase
       assert_equal(expected_results, results)
     end
 
-
     should 'give detailed results if success' do
-      barcodes = ['AB1', 'AB2', 'AB3']
+      barcodes = %w[AB1 AB2 AB3]
 
       responses = {
         lighthouse: [
           generate_success_response('AB1', 'Purpose 1', ['Study 1', 'Study 2']),
           generate_success_response('AB2', 'Purpose 1', ['Study 1']),
-          generate_fail_response('AB3') ],
+          generate_fail_response('AB3')
+        ],
         wrangler: [
           generate_fail_response('AB1'),
           generate_fail_response('AB2'),
-          generate_success_response('AB3', 'Purpose 1', ['Study 1', 'Study 2']) ]}
+          generate_success_response('AB3', 'Purpose 1', ['Study 1', 'Study 2'])
+        ]
+      }
 
       expected_results = {
         'AB1' => {

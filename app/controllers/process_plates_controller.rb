@@ -95,11 +95,15 @@ class ProcessPlatesController < ApplicationController
     barcodes.each { |b| output[b] = { success: 'No' } }
 
     # loop through service responses to update 'output' with successes
-    @lighthouse_responses.select { |r| r[:code] == '201' }.each do |r|
-      output[r[:barcode]] = parse_response(r, :Lighthouse)
+    if @lighthouse_responses
+      @lighthouse_responses.select { |r| r[:code] == '201' }.each do |r|
+        output[r[:barcode]] = parse_response(r, :Lighthouse)
+      end
     end
-    @wrangler_responses.select { |r| r[:code] == '201' }.each do |r|
-      output[r[:barcode]] = parse_response(r, :CGaP)
+    if @wrangler_responses
+      @wrangler_responses.select { |r| r[:code] == '201' }.each do |r|
+        output[r[:barcode]] = parse_response(r, :CGaP)
+      end
     end
 
     output

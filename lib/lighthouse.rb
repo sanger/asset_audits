@@ -35,6 +35,6 @@ class Lighthouse
     JSON.parse(body)
   rescue StandardError
     # return the body as is if not valid JSON
-    return body
+    body
   end
 end

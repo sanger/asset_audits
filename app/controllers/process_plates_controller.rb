@@ -38,9 +38,9 @@ class ProcessPlatesController < ApplicationController
     barcodes = sanitize_barcodes(params[:source_plates])
     back_to_new_with_error('No barcodes were provided') && return unless barcodes && !barcodes.empty?
 
-    call_external_services(barcodes)
+    responses = call_external_services(barcodes)
 
-    @results = generate_results(barcodes)
+    @results = generate_results(barcodes, responses)
     back_to_new_with_error('No response from services') && return if @results.empty?
 
     if all_labware_created?(@results)
@@ -68,13 +68,16 @@ class ProcessPlatesController < ApplicationController
   # Call any external services - currently lighthouse service for plates from Lighthouse Labs and
   #   wrangler for tube racks. If no samples are found in the lighthouse service, try the wrangler
   def call_external_services(barcodes)
+    output = { lighthouse: [], wrangler: [] }
     # call the lighthouse service first as we are assuming that most labware scanned will be
     #   plates from Lighthouse Labs
-    @lighthouse_responses = Lighthouse.call_api(barcodes)
+    output[:lighthouse] = Lighthouse.call_api(barcodes)
 
     # keeping it simple for now, if all the responses are not CREATED, send ALL the barcodes
     #   to the wrangler
-    @wrangler_responses = Wrangler.call_api(barcodes) unless all_created?(@lighthouse_responses)
+    output[:wrangler] = Wrangler.call_api(barcodes) unless all_created?(output[:lighthouse])
+
+    output
   end
 
   # Returns a list of unique barcodes by removing blanks and duplicates
@@ -89,16 +92,17 @@ class ProcessPlatesController < ApplicationController
     responses.all? { |response| response[:code] == "201" }
   end
 
-  def generate_results(barcodes)
+  def generate_results(barcodes, responses)
     output = {}
     # default 'success' for each barcode to 'No'
     barcodes.each { |b| output[b] = { success: 'No' } }
 
     # loop through service responses to update 'output' with successes
-    @lighthouse_responses&.select { |r| r[:code] == '201' }.each do |r|
+    # puts "DEBUG: responses: #{JSON.pretty_generate(responses)}"
+    responses[:lighthouse]&.select { |r| r[:code] == '201' }.each do |r|
       output[r[:barcode]] = parse_response(r, :Lighthouse)
     end
-    @wrangler_responses&.select { |r| r[:code] == '201' }.each do |r|
+    responses[:wrangler]&.select { |r| r[:code] == '201' }.each do |r|
       output[r[:barcode]] = parse_response(r, :CGaP)
     end
 

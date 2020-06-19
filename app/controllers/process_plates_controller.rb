@@ -16,48 +16,40 @@ class ProcessPlatesController < ApplicationController
   end
 
   def create
-    bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(
-      params[:instrument_barcode],
-      params[:instrument_process]
-    )
-    back_to_new_with_error('Invalid instrument or process') && return if bed_verification_model.nil?
+    bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode], params[:instrument_process])
+    raise 'Invalid instrument or process' if bed_verification_model.nil?
 
     bed_layout_verification = bed_verification_model.new(
       instrument_barcode: params[:instrument_barcode],
       scanned_values: params[:robot],
       api: api
     )
-    unless bed_layout_verification.validate_and_create_audits?(params)
-      errors = bed_layout_verification.errors.values.flatten.join("\n")
-      back_to_new_with_error(errors) && return
-    end
+    raise format_errors(bed_layout_verification) unless bed_layout_verification.validate_and_create_audits?(params)
 
     back_to_new_with_message('Success') && return unless receive_plates_process?(params)
 
+    # here on is relevant to 'receiving plates' only
     # the param is called 'source_plates' but we could be working with tube racks or plates etc.
     barcodes = sanitize_barcodes(params[:source_plates])
-    back_to_new_with_error('No barcodes were provided') && return unless barcodes && !barcodes.empty?
+    raise 'No barcodes were provided' if barcodes.empty?
 
     responses = call_external_services(barcodes)
-
     @results = generate_results(barcodes, responses)
-    back_to_new_with_error('No response from services') && return if @results.empty?
 
-    if all_labware_created?(@results)
-      flash[:notice] = 'All labware were successfully created.'
-    else
-      flash[:error] = 'Some labware were not able to be created.'
-    end
+    display_flash_message(@results)
     render :results
+  rescue StandardError => e
+    flash[:error] = e.message
+    redirect_to(new_process_plate_path)
+  end
+
+  def format_errors(obj)
+    obj.errors.values.flatten.join("\n")
   end
 
   def back_to_new_with_message(message, flash_type = :notice)
     flash[flash_type] = message
     redirect_to(new_process_plate_path)
-  end
-
-  def back_to_new_with_error(message)
-    back_to_new_with_message(message, :error)
   end
 
   # find out if the 'receive_plates' process was executed
@@ -122,5 +114,13 @@ class ProcessPlatesController < ApplicationController
     return false if results.any? { |_barcode, details| details[:success] == 'No' }
 
     true
+  end
+
+  def display_flash_message(results)
+    if all_labware_created?(results)
+      flash[:notice] = 'All labware were successfully created.'
+    else
+      flash[:error] = 'Some labware were not able to be created.'
+    end
   end
 end

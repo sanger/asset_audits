@@ -36,7 +36,6 @@ class ProcessPlatesController < ApplicationController
     responses = call_external_services(barcodes)
     @results = generate_results(barcodes, responses)
 
-    display_flash_message(@results)
     render :results
   rescue StandardError => e
     flash[:error] = e.message
@@ -114,13 +113,5 @@ class ProcessPlatesController < ApplicationController
     return false if results.any? { |_barcode, details| details[:success] == 'No' }
 
     true
-  end
-
-  def display_flash_message(results)
-    if all_labware_created?(results)
-      flash[:notice] = 'All labware were successfully created.'
-    else
-      flash[:error] = 'Some labware were not able to be created.'
-    end
   end
 end

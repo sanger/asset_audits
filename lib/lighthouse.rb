@@ -20,7 +20,7 @@ class Lighthouse
           http.request(req)
         end
 
-        responses << { code: res.code, body: res.body }
+        responses << { barcode: barcode, code: res.code, body: Lighthouse.parse_body(res.body) }
       end
     rescue StandardError => e
       Rails.logger.error(e)
@@ -29,5 +29,12 @@ class Lighthouse
       Rails.logger.info("Sent POST requests to lighthouse service: #{responses}")
     end
     responses
+  end
+
+  def self.parse_body(body)
+    JSON.parse(body)
+  rescue StandardError
+    # return the body as is if not valid JSON
+    body
   end
 end

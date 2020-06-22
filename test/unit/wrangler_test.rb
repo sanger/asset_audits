@@ -31,8 +31,8 @@ class WranglerTest < ActiveSupport::TestCase
         stub_request(:any, uri_template).to_return(status: 200)
 
         assert_equal(
-          Wrangler.call_api([@input_params[:source_plates]]),
-          [{ barcode: @barcode, code: '200' }]
+          [{ barcode: @barcode, code: '200', body: '' }],
+          Wrangler.call_api([@input_params[:source_plates]])
         )
       end
 
@@ -46,12 +46,12 @@ class WranglerTest < ActiveSupport::TestCase
         stub_request(:any, uri_template).to_return(status: 200)
 
         assert_equal(
-          Wrangler.call_api(barcodes),
           [
-            { barcode: 'barcode_one', code: '200' },
-            { barcode: 'barcode_two', code: '200' },
-            { barcode: 'barcode_three', code: '200' }
-          ]
+            { barcode: 'barcode_one', code: '200', body: '' },
+            { barcode: 'barcode_two', code: '200', body: '' },
+            { barcode: 'barcode_three', code: '200', body: '' }
+          ],
+          Wrangler.call_api(barcodes)
         )
       end
     end

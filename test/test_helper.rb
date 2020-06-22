@@ -15,4 +15,31 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   include RSpec::Matchers
+
+  def generate_success_response(barcode, purpose_name, study_names)
+    {
+      barcode: barcode,
+      code: '201',
+      body: {
+        'data' => {
+          'attributes' => {
+            'purpose_name' => purpose_name,
+            'study_names' => study_names
+          }
+        }
+      }
+    }
+  end
+
+  def generate_fail_response(barcode)
+    {
+      barcode: barcode,
+      code: '400',
+      body: {
+        'errors': [
+          'No samples for this barcode'
+        ]
+      }
+    }
+  end
 end

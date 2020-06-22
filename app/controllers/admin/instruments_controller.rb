@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Admin::InstrumentsController < ApplicationController
-  skip_before_filter :configure_api
+  skip_before_action :configure_api
 
   def index
     @instruments = Instrument.all

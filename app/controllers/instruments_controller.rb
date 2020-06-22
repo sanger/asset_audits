@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 class InstrumentsController < ApplicationController
-  skip_before_filter :configure_api
+  skip_before_action :configure_api
 
   def search
     instrument = Instrument.find_by_barcode(params[:instrument_barcode])
-    render text: instrument.nil? ? '' : instrument.name
+    render plain: instrument.nil? ? '' : instrument.name
   end
 
   def processes
@@ -19,6 +19,6 @@ class InstrumentsController < ApplicationController
       instrument_barcode: params[:instrument_barcode],
       instrument_process_id: params[:instrument_process_id].to_i).witness_required?
 
-    render text: witness_required ? 'witness_required' : 'not_required'
+    render plain: witness_required ? 'witness_required' : 'not_required'
   end
 end

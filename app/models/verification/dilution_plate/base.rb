@@ -1,4 +1,12 @@
 # frozen_string_literal: true
+
+# Inherited by {Verification::DilutionPlate::Bravo},
+# {Verification::DilutionPlate::FX} and {Verification::DilutionPlate::NX}
+# which configures the beds used.
+# Validates the transfer of one or more source plates onto one destination plate
+# each
+#
+# s1 --> d1   s2 --> d2   s3 --> d3
 class Verification::DilutionPlate::Base < Verification::Base
   include Verification::BedVerification
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned

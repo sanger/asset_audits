@@ -1,7 +1,7 @@
 # source 'https://rubygems.org'
 source 'http://rubygems.org'
 
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 5.2.0'
 gem 'rake'
 gem 'activeresource'
 
@@ -21,6 +21,7 @@ gem 'puma'
 
 group :development do
   gem 'rubocop'
+  gem 'listen' # Hot reloading
 end
 
 gem 'factory_bot_rails', groups: [:test, :cucumber]
@@ -34,7 +35,7 @@ group :test do
   gem 'sinatra'
 end
 
-group :cucumber do
+group :cucumber, :test do
   gem 'capybara'
   gem 'minitest'
   gem 'cucumber-rails', require: false
@@ -44,7 +45,7 @@ group :cucumber do
   gem 'rspec-expectations'
   gem 'rspec-mocks'
   gem 'selenium-webdriver'
-  gem 'rubyzip', '~> 1.3.0'
+  gem 'rubyzip'
   gem 'webdrivers'
 end
 

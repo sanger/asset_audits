@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class BedLayoutsController < ApplicationController
-  skip_before_filter :configure_api
+  skip_before_action :configure_api
 
   def bed_layout_partial
     bed_layout_partial_name = InstrumentProcessesInstrument.find_partial_name!(params[:instrument_barcode], params[:instrument_process_id])

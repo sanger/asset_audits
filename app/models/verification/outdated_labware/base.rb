@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+#
+# Takes a list of source plates and validates that all plates
+# are older than the lifespan defined by theit plate purpose
 class Verification::OutdatedLabware::Base < Verification::Base
   validates_with Verification::Validator::OutdatedPlatesScanned
 

@@ -48,6 +48,17 @@ class AssetAuditTest < ActiveSupport::TestCase
       should 'create audits' do
         assert_equal @old_delayed_job_count + 1, @new_delayed_job_count
       end
+
+      should 'create a process plate' do
+        expect(ProcessPlate.last).to have_attributes(
+          user_barcode: '123',
+          instrument_barcode: @instrument.barcode.to_s,
+          source_plates: 'source1',
+          instrument_process_id: @instrument.instrument_processes.first.id,
+          visual_check: false,
+          metadata: nil
+        )
+      end
     end
   end
 end

@@ -2,9 +2,10 @@
 <html lang='en'>
 <head>
   <title><%= ProcessTracking::Application.config.name %></title>
-  <%= stylesheet_link_tag(:flash,:formtastic_static,:formtastic_changes,:application) %>
+  <%= stylesheet_link_tag(:application) %>
   <!-- The following are all unmanaged static assets. skip_pipeline: true  Tells rails to jump straight to public -->
-  <%= javascript_include_tag('jquery.min.js','rails.js','application.js', skip_pipeline: true ) %>
+  <%= stylesheet_link_tag(:flash,:formtastic_static,:formtastic_changes, skip_pipeline: true) %>
+  <%= javascript_include_tag('jquery.min.js','rails.js','application.js', skip_pipeline: true) %>
 
   <%= csrf_meta_tag %>
 

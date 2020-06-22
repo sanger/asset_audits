@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class InstrumentProcessesInstrument < ActiveRecord::Base
+class InstrumentProcessesInstrument < ApplicationRecord
   belongs_to :instrument
   belongs_to :instrument_process
 

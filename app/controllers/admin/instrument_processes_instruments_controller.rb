@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Admin::InstrumentProcessesInstrumentsController < ApplicationController
-  skip_before_filter :configure_api
+  skip_before_action :configure_api
   def create
     instrument_process_link = InstrumentProcessesInstrument.new(instrument_processes_instrument_params)
     respond_to do |format|

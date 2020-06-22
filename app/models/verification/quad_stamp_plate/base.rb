@@ -1,4 +1,14 @@
 # frozen_string_literal: true
+
+# Inherited by {Verification::QuadStampPlate::Nx} and
+# {Verification::AssayPlate::Bravo} which configure the beds used.
+# Validates the transfer of one to four source plates onto a destination when
+# combining 96 well plates onto a single 384 well plate
+#
+# s1 --> d1-4
+# s2 /
+# s3 /
+# s4 /
 class Verification::QuadStampPlate::Base < Verification::Base
   include Verification::BedVerification
 

@@ -35,6 +35,7 @@ class ProcessPlatesController < ApplicationController
     responses = call_external_services(barcodes)
     @results = generate_results(barcodes, responses)
 
+    flash[:notice] = "Scanned #{bed_layout_verification.process_plate&.num_unique_barcodes} barcodes."
     render :results
   rescue StandardError => e
     flash[:error] = e.message

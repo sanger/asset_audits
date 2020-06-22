@@ -55,9 +55,6 @@ class ProcessPlatesController < ApplicationController
     @receive_plates_process ||= InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
   end
 
-  # rubocop:todo Lint/UselessAssignment
-  # Disabling Lint/UselessAssignment here as I know KT and AS are both actively working on
-  # displaying some of this information to the user. So don't want to create merge issues by removing it.
   # Call any external services - currently lighthouse service for plates from Lighthouse Labs and
   # wrangler for tube racks. If no samples are found in the lighthouse service, try the wrangler
   def call_external_services(barcodes)
@@ -72,7 +69,6 @@ class ProcessPlatesController < ApplicationController
 
     output
   end
-  # rubocop:enable Lint/UselessAssignment
 
   # Returns a list of unique barcodes by removing blanks and duplicates
   def sanitize_barcodes(barcodes)
@@ -93,10 +89,10 @@ class ProcessPlatesController < ApplicationController
 
     # loop through service responses to update 'output' with successes
     # puts "DEBUG: responses: #{JSON.pretty_generate(responses)}"
-    responses[:lighthouse]&.select { |r| r[:code] == '201' }.each do |r|
+    responses[:lighthouse]&.select { |r| r[:code] == '201' }&.each do |r|
       output[r[:barcode]] = parse_response(r, :Lighthouse)
     end
-    responses[:wrangler]&.select { |r| r[:code] == '201' }.each do |r|
+    responses[:wrangler]&.select { |r| r[:code] == '201' }&.each do |r|
       output[r[:barcode]] = parse_response(r, :CGaP)
     end
 

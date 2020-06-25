@@ -33,7 +33,7 @@ FactoryBot.define do
 
       after(:build) do |plate, evaluator|
         parents = []
-        evaluator.metadata.values.each do |parent_barcode|
+        evaluator.metadata.each_value do |parent_barcode|
           next if parent_barcode == 'Empty'
 
           parents << FactoryBot.create(:v2_labware, barcode: parent_barcode)

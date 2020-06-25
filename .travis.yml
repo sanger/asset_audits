@@ -1,7 +1,6 @@
 language: ruby
 bundler_args: "--without deployment"
 dist: xenial
-sudo: required
 services:
 - mysql
 - xvfb
@@ -10,13 +9,15 @@ before_install:
 - export TZ=Europe/London
 - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
 - gem install bundler -v '< 2'
-before_script:
-- RAILS_ENV=test bundle exec rake db:create db:schema:load
-- bundle exec rake db:test:prepare
 # - export CUCUMBER_FORMAT=progress # uncomment this to make test output less verbose
-script:
-- bundle exec rubocop --debug --fail-fast
-- xvfb-run -a bundle exec rake
+jobs:
+  - name: 'Cops'
+    script: bundle exec rubocop --debug --fail-fast
+  - name: 'Tests'
+    before_script:
+    - RAILS_ENV=test bundle exec rake db:create db:schema:load
+    - bundle exec rake db:test:prepare
+    script: xvfb-run -a bundle exec rake
 before_deploy: "./compile-build"
 deploy:
   provider: releases

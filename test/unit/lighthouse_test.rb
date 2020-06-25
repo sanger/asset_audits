@@ -30,8 +30,8 @@ class LighthouseTest < ActiveSupport::TestCase
         stub_request(:any, uri_template).to_return(status: 201)
 
         assert_equal(
-          Lighthouse.call_api([@input_params[:source_plates]]),
-          [{ code: '201', body: '' }]
+          [{ barcode: 'barcode_one', code: '201', body: '' }],
+          Lighthouse.call_api([@input_params[:source_plates]])
         )
       end
 
@@ -45,12 +45,12 @@ class LighthouseTest < ActiveSupport::TestCase
         stub_request(:any, uri_template).to_return(status: 201)
 
         assert_equal(
-          Lighthouse.call_api(barcodes),
           [
-            { code: '201', body: '' },
-            { code: '201', body: '' },
-            { code: '201', body: '' }
-          ]
+            { barcode: 'barcode_one', code: '201', body: '' },
+            { barcode: 'barcode_two', code: '201', body: '' },
+            { barcode: 'barcode_three', code: '201', body: '' }
+          ],
+          Lighthouse.call_api(barcodes)
         )
       end
     end

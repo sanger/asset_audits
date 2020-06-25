@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-ProcessTracking::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # The test environment is used exclusively to run your application's
@@ -8,13 +8,15 @@ ProcessTracking::Application.configure do
   # and recreated between test runs.  Don't rely on the data there!
   config.cache_classes = true
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
-
   # Show full error reports and disable caching
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
   config.eager_load = false
+
+  config.public_file_server.enabled = true
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=3600'
+  }
 
   # Raise exceptions instead of rendering exception templates
   config.action_dispatch.show_exceptions = false
@@ -35,15 +37,15 @@ ProcessTracking::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :raise
 
-  config.serve_static_files = true
-  config.static_cache_control = 'public, max-age=3600'
+  config.public_file_server.enabled = true
+  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=3600' }
 
   config.active_support.test_order = :random
 
   config.admin_email = 'example@example.com'
 
   # https://github.com/sanger/wrangler
-  config.wrangler_url = 'http://example.com/tube_rack'
+  config.wrangler_url = 'http://example.com/wrangle'
 
   # https://github.com/sanger/lighthouse
   config.lighthouse_host = 'http://127.0.0.1:5000'

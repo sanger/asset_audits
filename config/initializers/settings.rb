@@ -2,6 +2,7 @@
 require 'singleton'
 class Settings
   attr_accessor :settings
+
   include Singleton
 
   class << self
@@ -48,7 +49,7 @@ class Settings
   end
 
   def setting_key_for(method)
-    method.to_s.match(/^([^\?]+)\??$/)[1]
+    method.to_s.match(/^([^?]+)\??$/)[1]
   end
 end
 

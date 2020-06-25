@@ -24,7 +24,10 @@ class ProcessPlateTest < ActiveSupport::TestCase
           source_plates: 'DN456S',
           visual_check: false,
           instrument_process_id: @instrument.instrument_processes.first.id.to_s,
-          witness_barcode: '456'
+          witness_barcode: '456',
+          metadata: {
+            'bed 1' => 'plate 1'
+          }
         )
         process_plate.save
         process_plate.create_audits_without_delay
@@ -36,7 +39,10 @@ class ProcessPlateTest < ActiveSupport::TestCase
                                                      message: "Process '#{@instrument_process.name}' performed on instrument #{@instrument.name}",
                                                      created_by: 'abc',
                                                      asset: 'plate-uuid',
-                                                     witnessed_by: 'def')
+                                                     witnessed_by: 'def',
+                                                     metadata: {
+                                                       'bed 1' => 'plate 1'
+                                                     })
       end
     end
   end

@@ -1,0 +1,27 @@
+%h2 Activity Logging
+%h3 Labware import results
+
+%table
+  %thead
+    %tr
+      %th Barcode
+      %th Imported?
+      %th Source
+      %th Purpose
+      %th Study
+  %tbody
+    - @results.each do |barcode, details|
+      %tr
+        %td
+          = barcode
+        %td
+          = details[:success]
+        %td
+          = details[:source]
+        %td
+          = details[:purpose]
+        %td
+          = details[:study]
+
+%br
+= link_to 'Scan more labware', new_process_plate_path

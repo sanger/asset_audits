@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 class Wrangler
   require 'net/http'
 
@@ -18,7 +20,7 @@ class Wrangler
           http.request(req)
         end
 
-        responses << { barcode: barcode, code: res.code }
+        responses << { barcode: barcode, code: res.code, body: Wrangler.parse_body(res.body) }
       end
     rescue StandardError => e
       Rails.logger.error(e)
@@ -28,5 +30,12 @@ class Wrangler
       Rails.logger.info("Responses: #{responses}")
     end
     responses
+  end
+
+  def self.parse_body(body)
+    JSON.parse(body)
+  rescue StandardError
+    # return the body as is if not valid JSON
+    body
   end
 end

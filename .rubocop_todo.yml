@@ -20,10 +20,8 @@ Layout/EmptyLineAfterGuardClause:
   Exclude:
     - 'app/models/barcode.rb'
     - 'app/models/plate.rb'
-    - 'app/models/process_plate.rb'
     - 'app/models/process_plate_validation.rb'
     - 'app/models/verification/assay_plate/base.rb'
-    - 'app/models/verification/bed_verification.rb'
     - 'app/models/verification/dilution_plate/base.rb'
     - 'app/models/verification/outdated_labware/base.rb'
     - 'app/models/verification/validator/beds_and_plates_scanned.rb'
@@ -49,7 +47,6 @@ Layout/EmptyLineBetweenDefs:
 # Cop supports --auto-correct.
 Layout/EmptyLines:
   Exclude:
-    - 'app/models/verification/base.rb'
     - 'features/step_definitions/audit_steps.rb'
     - 'features/step_definitions/bed_verification_steps.rb'
     - 'features/step_definitions/web_steps.rb'
@@ -61,7 +58,6 @@ Layout/EmptyLines:
 # Configuration parameters: AllowDoxygenCommentStyle, AllowGemfileRubyComment.
 Layout/LeadingCommentSpace:
   Exclude:
-    - 'app/controllers/process_plates_controller.rb'
     - 'config/application.rb'
 
 # Offense count: 1
@@ -93,12 +89,6 @@ Lint/Debugger:
     - 'features/step_definitions/authentication_steps.rb'
     - 'features/step_definitions/web_steps.rb'
 
-# Offense count: 3
-Lint/DuplicateMethods:
-  Exclude:
-    - 'app/models/process_plate.rb'
-    - 'app/models/verification/base.rb'
-
 # Offense count: 13
 Lint/IneffectiveAccessModifier:
   Exclude:
@@ -121,13 +111,6 @@ Lint/ParenthesesAsGroupedExpression:
 Lint/RedundantSplatExpansion:
   Exclude:
     - 'config/initializers/settings.rb'
-
-# Offense count: 1
-# Configuration parameters: AllowedMethods.
-# AllowedMethods: present?, blank?, presence, try, try!
-Lint/SafeNavigationChain:
-  Exclude:
-    - 'app/controllers/process_plates_controller.rb'
 
 # Offense count: 1
 Lint/ShadowingOuterLocalVariable:
@@ -160,7 +143,6 @@ Lint/UselessAccessModifier:
 # Offense count: 13
 Lint/UselessAssignment:
   Exclude:
-    - 'app/controllers/process_plates_controller.rb'
     - 'app/models/barcode.rb'
     - 'app/models/verification/groupable.rb'
     - 'db/migrate/20150202171723_add_destroy_labware.rb'
@@ -232,12 +214,6 @@ Style/AndOr:
     - 'app/models/barcode.rb'
     - 'config/initializers/settings.rb'
 
-# Offense count: 2
-# Configuration parameters: AllowedChars.
-Style/AsciiComments:
-  Exclude:
-    - 'app/controllers/process_plates_controller.rb'
-
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -254,14 +230,6 @@ Style/BarePercentLiterals:
 # SupportedStyles: nested, compact
 Style/ClassAndModuleChildren:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'app/controllers/process_plates_controller.rb'
 
 # Offense count: 88
 Style/Documentation:
@@ -286,7 +254,6 @@ Style/EmptyLambdaParameter:
 Style/EmptyMethod:
   Exclude:
     - 'app/controllers/admin/processes_controller.rb'
-    - 'app/controllers/process_plates_controller.rb'
     - 'features/support/fake_sinatra_service.rb'
 
 # Offense count: 2
@@ -305,7 +272,6 @@ Style/ExpandPathArguments:
     - 'config/boot.rb'
     - 'config/environment.rb'
     - 'script/rails'
-    - 'test/test_helper.rb'
 
 # Offense count: 7
 # Cop supports --auto-correct.
@@ -369,7 +335,6 @@ Style/MultilineIfModifier:
 # SupportedStyles: literals, strict
 Style/MutableConstant:
   Exclude:
-    - 'app/models/process_plate.rb'
     - 'db/migrate/20160205163232_add_biorobot.rb'
 
 # Offense count: 1
@@ -475,7 +440,6 @@ Style/RedundantPercentQ:
 Style/RedundantReturn:
   Exclude:
     - 'app/models/barcode.rb'
-    - 'app/models/verification/bed_verification.rb'
     - 'app/models/verification/outdated_labware/base.rb'
     - 'app/models/verification/validator/source_and_destination_plates_linked.rb'
 
@@ -515,14 +479,6 @@ Style/StderrPuts:
   Exclude:
     - 'config/boot.rb'
     - 'lib/tasks/cucumber.rake'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'app/controllers/process_plates_controller.rb'
 
 # Offense count: 5
 # Cop supports --auto-correct.

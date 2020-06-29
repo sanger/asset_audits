@@ -25,12 +25,17 @@ class ProcessPlatesController < ApplicationController
     )
     raise format_errors(bed_layout_verification) unless bed_layout_verification.validate_and_create_audits?(params)
 
-    back_to_new_with_message('Success') && return unless receive_plates_process?(params)
+    unless receive_plates_process?(params)
+      back_to_new_with_message('Success')
+      return
+    end
 
     # here on is relevant to 'receiving plates' only
     # the param is called 'source_plates' but we could be working with tube racks or plates etc.
     barcodes = sanitize_barcodes(params[:source_plates])
     raise 'No barcodes were provided' if barcodes.empty?
+    # 20 barcodes takes about 2 mins as of 2020-06-22. This limit is to prevent the request timing out.
+    raise 'Please scan 20 barcodes or fewer' if barcodes.count > 20
 
     responses = call_external_services(barcodes)
     @results = generate_results(barcodes, responses)

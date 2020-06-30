@@ -1,4 +1,4 @@
-%label{ :for => "source_plates" } Source plates (20 max.)
+%label{ :for => "source_plates" }= "Source plates (#{ProcessPlate::RECEIVE_PLATES_MAX} max.)"
 = text_area_tag "source_plates", '', :rows => 5,:cols => 17
 .live_results#barcodes_scanned 0 barcodes
 
@@ -9,7 +9,7 @@
 
   function recalcNumBarcodes(){
     const num_barcodes = find_number_barcodes($('#source_plates').val());
-    const colour = num_barcodes > 20 ? 'red' : 'black';
+    const colour = num_barcodes > #{ProcessPlate::RECEIVE_PLATES_MAX} ? 'red' : 'black';
 
     $('#barcodes_scanned').text(num_barcodes + ' barcodes').css('color', colour);
   }

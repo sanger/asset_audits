@@ -3,6 +3,7 @@ class ProcessPlate < ApplicationRecord
   include ProcessPlateValidation
 
   BARCODE_REGEX = /\S+/.freeze
+  RECEIVE_PLATES_MAX = 15
 
   # @return [Sequencescape::Client::Api] An API object for interacting with the V1 API
   attr_writer :api

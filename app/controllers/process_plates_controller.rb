@@ -35,7 +35,7 @@ class ProcessPlatesController < ApplicationController
     barcodes = sanitize_barcodes(params[:source_plates])
     raise 'No barcodes were provided' if barcodes.empty?
     # 20 barcodes takes about 2 mins as of 2020-06-22. This limit is to prevent the request timing out.
-    raise 'Please scan 20 barcodes or fewer' if barcodes.count > 20
+    raise "Please scan #{ProcessPlate::RECEIVE_PLATES_MAX} barcodes or fewer" if barcodes.count > ProcessPlate::RECEIVE_PLATES_MAX
 
     responses = call_external_services(barcodes)
     @results = generate_results(barcodes, responses)

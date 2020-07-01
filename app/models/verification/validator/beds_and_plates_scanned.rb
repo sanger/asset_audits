@@ -13,6 +13,7 @@ class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
 
   def valid_bed?(bed_name, bed_barcode, plate_barcode, record)
     return true if bed_barcode.blank? && plate_barcode.blank?
+
     if bed_barcode.present? && plate_barcode.present?
       bed = record.instrument.beds.detect { |bed| bed.name.downcase.to_s == bed_name.to_s }
       return false if bed.nil?

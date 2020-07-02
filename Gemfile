@@ -19,6 +19,9 @@ gem 'json_api_client'
 gem 'byebug'
 gem 'puma'
 
+# Manage default records
+gem 'record_loader'
+
 group :development do
   gem 'rubocop'
   gem 'listen' # Hot reloading

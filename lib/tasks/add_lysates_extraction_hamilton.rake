@@ -35,10 +35,16 @@ namespace :lysates_extraction_hamilton do
 
   task remove: :environment do
     ActiveRecord::Base.transaction do
-      instrument_process = InstrumentProcess.find_by_key('lysates_extraction')
-      instrument_processes_instruments = instrument_process.instrument_processes_instruments
-      instrument_processes_instruments.each(&:destroy!)
-      instrument_process.destroy!
+      # Leave the robot and process, but remove the join table entry so it no longer shows the process for that instrument
+      # (as the robot and / or process may be used elsewhere)
+      instrument_hamilton = Instrument.find_by(name: 'Hamilton Star 6', barcode: '4880000067878')
+      instrument_process = InstrumentProcess.find_by(name: 'Lysates Extraction', key: 'lysates_extraction')
+      instrument_processes_instrument = InstrumentProcessesInstrument.find_by(
+        instrument: instrument_hamilton,
+        instrument_process: instrument_process,
+        bed_verification_type: 'Verification::DilutionPlate::Hamilton'
+      )
+      instrument_processes_instrument.destroy!
     end
   end
 end

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 namespace :lysates_extraction_hamilton do
-  SRC_BEDS = %w[580000004838 580000005699].freeze
-  DEST_BEDS = %w[580000034668 580000035672].freeze
-  SRC_BED_NUMS = %w[4 5].freeze
-  DEST_BED_NUMS = %w[34 35].freeze
+  SRC_BEDS_LE_HAM = %w[580000004838 580000005699].freeze
+  DEST_BEDS_LE_HAM = %w[580000034668 580000035672].freeze
+  SRC_BED_NUMS_LE_HAM = %w[4 5].freeze
+  DEST_BED_NUMS_LE_HAM = %w[34 35].freeze
 
   task add: :environment do
     ActiveRecord::Base.transaction do
@@ -18,15 +18,15 @@ namespace :lysates_extraction_hamilton do
       )
 
       # create robot beds
-      SRC_BEDS.each_with_index.map do |bc, index|
-        Bed.find_or_create_by!({ name: "SCRC#{SRC_BED_NUMS[index]}",
-                                 bed_number: SRC_BED_NUMS[index],
+      SRC_BEDS_LE_HAM.each_with_index.map do |bc, index|
+        Bed.find_or_create_by!({ name: "SCRC#{SRC_BED_NUMS_LE_HAM[index]}",
+                                 bed_number: SRC_BED_NUMS_LE_HAM[index],
                                  barcode: bc,
                                  instrument: instrument_hamilton })
       end
-      DEST_BEDS.each_with_index.map do |bc, index|
-        Bed.find_or_create_by!({ name: "DEST#{DEST_BED_NUMS[index]}",
-                                 bed_number: DEST_BED_NUMS[index],
+      DEST_BEDS_LE_HAM.each_with_index.map do |bc, index|
+        Bed.find_or_create_by!({ name: "DEST#{DEST_BED_NUMS_LE_HAM[index]}",
+                                 bed_number: DEST_BED_NUMS_LE_HAM[index],
                                  barcode: bc,
                                  instrument: instrument_hamilton })
       end

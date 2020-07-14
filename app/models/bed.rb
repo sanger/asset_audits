@@ -2,7 +2,7 @@
 class Bed < ApplicationRecord
   belongs_to :instrument
 
-  validates_uniqueness_of :barcode, message: 'must be unique'
+  validates_uniqueness_of :barcode, scope: [:instrument_id], message: 'must be unique for an instrument'
   validates_uniqueness_of :name, scope: [:instrument_id]
   validates_uniqueness_of :bed_number, scope: [:instrument_id]
   validates_presence_of :name, message: "can't be blank"

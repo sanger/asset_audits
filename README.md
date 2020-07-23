@@ -11,8 +11,6 @@ Sequencescape.
 * [Sequencescape](https://github.com/sanger/sequencescape/) is required to authenticate against
 * [wrangler](https://github.com/sanger/wrangler/) is required if you want automatic sample creation
 in Sequencescape when tube racks are scanned in
-* [lighthouse](https://github.com/sanger/lighthouse) is required for automatic sample creation in
-Sequencescape for plates received from the Lighthouse Labs
 
 ## Getting started
 

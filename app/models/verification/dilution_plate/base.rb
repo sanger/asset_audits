@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 # Inherited by {Verification::DilutionPlate::Bravo},
-# {Verification::DilutionPlate::FX} and {Verification::DilutionPlate::NX}
+# {Verification::DilutionPlate::FX}, {Verification::DilutionPlate::NX},
+# {Verification::DilutionPlate::Biorobot}, {Verification::DilutionPlate::QiagenBiorobot}
+# {Verification::DilutionPlate::Hamilton} and {Verification::DilutionPlate::BravoLE}
 # which configures the beds used.
 # Validates the transfer of one or more source plates onto one destination plate
 # each

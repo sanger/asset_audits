@@ -49,10 +49,6 @@ Rails.application.configure do
   # https://github.com/sanger/wrangler
   config.wrangler_url = 'http://127.0.0.1:5000/wrangle'
 
-  # https://github.com/sanger/lighthouse
-  config.lighthouse_host = 'http://127.0.0.1:5000'
-
-  config.logger = Logger.new(STDOUT)
   # config.logger.broadcast_messages = false
 
   # Use an evented file watcher to asynchronously detect changes in source code,

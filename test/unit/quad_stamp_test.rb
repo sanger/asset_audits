@@ -211,11 +211,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             instrument_barcode: @instrument.barcode.to_s,
             instrument_process: @instrument.instrument_processes.first.id.to_s,
             robot: {
-              p4: { bed: '4', plate: 'DN123T' },
-              p5: { bed: '',  plate: '' },
-              p6: { bed: '',  plate: '' },
-              p8: { bed: '', plate: '' },
-              p9: { bed: '9', plate: 'DN456S' }
+              p1: { bed: '1', plate: 'DN123T' },
+              p4: { bed: '',  plate: '' },
+              p3: { bed: '',  plate: '' },
+              p6: { bed: '', plate: '' },
+              p5: { bed: '5', plate: 'DN456S' }
             }
           }
 
@@ -259,11 +259,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             instrument_barcode: @instrument.barcode.to_s,
             instrument_process: @instrument.instrument_processes.first.id.to_s,
             robot: {
-              p4: { bed: '4', plate: 'DN123T' },
-              p5: { bed: '5',  plate: 'DN123U' },
-              p6: { bed: '6',  plate: 'DN123V' },
-              p8: { bed: '8', plate: 'DN123W' },
-              p9: { bed: '9', plate: 'DN456S' }
+              p1: { bed: '1', plate: 'DN123T' },
+              p4: { bed: '4',  plate: 'DN123U' },
+              p3: { bed: '3',  plate: 'DN123V' },
+              p6: { bed: '6', plate: 'DN123W' },
+              p5: { bed: '5', plate: 'DN456S' }
             }
           }
 
@@ -309,11 +309,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             instrument_barcode: @instrument.barcode.to_s,
             instrument_process: @instrument.instrument_processes.first.id.to_s,
             robot: {
-              p4: { bed: '4', plate: 'DN123T' },
-              p5: { bed: '',  plate: '' },
-              p6: { bed: '',  plate: '' },
-              p8: { bed: '', plate: '' },
-              p9: { bed: '9', plate: 'DN456S' }
+              p1: { bed: '1', plate: 'DN123T' },
+              p4: { bed: '',  plate: '' },
+              p3: { bed: '',  plate: '' },
+              p6: { bed: '', plate: '' },
+              p5: { bed: '5', plate: 'DN456S' }
             }
           }
 
@@ -330,7 +330,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'return an error' do
-          error_message = 'The barcode in bed P4 doesn\'t match the plate in Quadrant 1 on the destination plate.'
+          error_message = 'The barcode in bed P1 doesn\'t match the plate in Quadrant 1 on the destination plate.'
           assert_includes @bed_layout_verification.errors.values.flatten, error_message
         end
       end

@@ -35,6 +35,7 @@ group :test do
 end
 
 group :cucumber, :test do
+  gem 'simplecov', require: false
   gem 'capybara'
   gem 'minitest'
   gem 'cucumber-rails', require: false

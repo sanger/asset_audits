@@ -9,7 +9,6 @@ gem 'nokogiri'
 gem 'formtastic'
 gem 'mysql2'
 gem 'uuidtools'
-gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', require: 'sequencescape'
 gem 'delayed_job_active_record'
@@ -36,6 +35,7 @@ group :test do
 end
 
 group :cucumber, :test do
+  gem 'simplecov', require: false
   gem 'capybara'
   gem 'minitest'
   gem 'cucumber-rails', require: false

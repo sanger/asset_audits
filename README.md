@@ -9,8 +9,6 @@ Sequencescape.
 ### Running applications
 
 * [Sequencescape](https://github.com/sanger/sequencescape/) is required to authenticate against
-* [wrangler](https://github.com/sanger/wrangler/) is required if you want automatic sample creation
-in Sequencescape when tube racks are scanned in
 
 ## Getting started
 

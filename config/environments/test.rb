@@ -44,6 +44,4 @@ Rails.application.configure do
 
   config.admin_email = 'example@example.com'
 
-  # https://github.com/sanger/wrangler
-  config.wrangler_url = 'http://example.com/wrangle'
 end

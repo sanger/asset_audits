@@ -43,5 +43,4 @@ Rails.application.configure do
   config.active_support.test_order = :random
 
   config.admin_email = 'example@example.com'
-
 end

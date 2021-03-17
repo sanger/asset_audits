@@ -31,11 +31,9 @@ class ProcessPlatesController < ApplicationController
     # the param is called 'source_plates' but we could be working with tube racks or plates etc.
     barcodes = sanitize_barcodes(params[:source_plates])
     raise 'No barcodes were provided' if barcodes.empty?
-    # 20 barcodes takes about 2 mins as of 2020-06-22. This limit is to prevent the request timing out.
-    raise "Please scan #{ProcessPlate::RECEIVE_PLATES_MAX} barcodes or fewer" if barcodes.count > ProcessPlate::RECEIVE_PLATES_MAX
-
+  
     flash[:notice] = "Scanned #{bed_layout_verification.process_plate&.num_unique_barcodes} barcodes."
-    render :results
+    format.html { redirect_to(new_process_plate_path) }
   rescue StandardError => e
     flash[:error] = e.message
     redirect_to(new_process_plate_path)

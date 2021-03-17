@@ -1,0 +1,262 @@
+---
+# Add entries to this file to generate them automatically upon running
+# rake record_loader:all or rake record_loader:<%= underscore %>
+# If you want entries which are only created in development mode then simply
+# create a file in this directory ending in '.dev.yml'
+# You can add as many additional .yml files to this directory as you wish.
+# Note: The keys here are for reference only and instrument process instruments have no name
+
+Reception fridge - Receive plates:
+  instrument: Reception fridge
+  instrument_process: slf_receive_plates
+  bed_verification_type: Verification::Base
+P200 Pipette - Control addition:
+  instrument: P200 Pipette
+  instrument_process: slf_control_addition
+  bed_verification_type: Verification::Base
+Volume checker_old - Volume check:
+  instrument: Volume checker_old
+  instrument_process: slf_volume_check
+  bed_verification_type: Verification::Base
+Beckman NX - Working dilution:
+  instrument: Beckman NX
+  instrument_process: slf_working_dilution
+  bed_verification_type: Verification::DilutionPlate::Nx
+Beckman NX - Sequenom:
+  instrument: Beckman NX
+  instrument_process: slf_sequenom
+  bed_verification_type: Verification::SequenomPlate::Nx
+Beckman NX - Buffer addition:
+  instrument: Beckman NX
+  instrument_process: slf_buffer_addition
+  bed_verification_type: Verification::Base
+Beckman NX - Pico assay plate creation:
+  instrument: Beckman NX
+  instrument_process: slf_pico_assay_plates
+  bed_verification_type: Verification::AssayPlate::Nx
+Beckman NX - Standard plate:
+  instrument: Beckman NX
+  instrument_process: slf_standard_plate
+  bed_verification_type: Verification::Base
+Beckman FX - Pico dilution:
+  instrument: Beckman FX
+  instrument_process: slf_pico_dilution
+  bed_verification_type: Verification::DilutionPlate::Fx
+Beckman FX - Working dilution:
+  instrument: Beckman FX
+  instrument_process: slf_working_dilution
+  bed_verification_type: Verification::DilutionPlate::Fx
+Beckman FX - Gel plates:
+  instrument: Beckman FX
+  instrument_process: slf_gel_plates
+  bed_verification_type: Verification::Base
+Beckman FX - Sequenom:
+  instrument: Beckman FX
+  instrument_process: slf_sequenom
+  bed_verification_type: Verification::Base
+Beckman FX - Buffer addition:
+  instrument: Beckman FX
+  instrument_process: slf_buffer_addition
+  bed_verification_type: Verification::Base
+Beckman FX - Pico assay plate creation:
+  instrument: Beckman FX
+  instrument_process: slf_pico_assay_plates
+  bed_verification_type: Verification::AssayPlate::Fx
+Beckman FX - Standard plate:
+  instrument: Beckman FX
+  instrument_process: slf_standard_plate
+  bed_verification_type: Verification::Base
+Beckman FX - Cherrypicking:
+  instrument: Beckman FX
+  instrument_process: slf_cherrypicking
+  bed_verification_type: Verification::Base
+DTX 1 - Pico assay:
+  instrument: DTX 1
+  instrument_process: slf_pico_assay
+  bed_verification_type: Verification::Base
+DTX 2 - Pico assay:
+  instrument: DTX 2
+  instrument_process: slf_pico_assay
+  bed_verification_type: Verification::Base
+Tecan 1 - Cherrypicking:
+  instrument: Tecan 1
+  instrument_process: slf_cherrypicking
+  bed_verification_type: Verification::Base
+Tecan 2 - Cherrypicking:
+  instrument: Tecan 2
+  instrument_process: slf_cherrypicking
+  bed_verification_type: Verification::Base
+Tecan 3 - Cherrypicking:
+  instrument: Tecan 3
+  instrument_process: slf_cherrypicking
+  bed_verification_type: Verification::Base
+Delivery freezer - Plates complete ready for delivery:
+  instrument: Delivery freezer
+  instrument_process: slf_plates_complete_ready_for_delivery
+  bed_verification_type: Verification::Base
+Left SLF - Delivered:
+  instrument: Left SLF
+  instrument_process: slf_plates_delivered
+  witness: true
+  bed_verification_type: Verification::Base
+Tecan 4 - Cherrypicking:
+  instrument: Tecan 4
+  instrument_process: slf_cherrypicking
+  bed_verification_type: Verification::Base
+Tecan 4 - STA dilution:
+  instrument: Tecan 4
+  instrument_process: slf_sta_dilution
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 4 - STA2 plate creation:
+  instrument: Tecan 4
+  instrument_process: slf_sta2_plate_creation
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 4 - 96.96 SNPtype Plate creation:
+  instrument: Tecan 4
+  instrument_process: slf_96_snptype_creation
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 4 - 192.24 SNPtype Plate creation:
+  instrument: Tecan 4
+  instrument_process: slf_192_snptype_creation
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 4 - 96.96 Chip loading:
+  instrument: Tecan 4
+  instrument_process: slf_96_chip_loading
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 4 - 192.24 Chip loading:
+  instrument: Tecan 4
+  instrument_process: slf_192_chip_loading
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 1 - STA Reagent Addition:
+  instrument: Tecan 1
+  instrument_process: slf_sta_reagent_addition
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 2 - STA Reagent Addition:
+  instrument: Tecan 2
+  instrument_process: slf_sta_reagent_addition
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 3 - STA Reagent Addition:
+  instrument: Tecan 3
+  instrument_process: slf_sta_reagent_addition
+  witness: false
+  bed_verification_type: Verification::Base
+Destroying instrument - Destroying labware:
+  instrument: Destroying instrument
+  instrument_process: destroy_labware
+  bed_verification_type: Verification::OutdatedLabware::Base
+Beckman NX - 1ul Removal:
+  instrument: Beckman NX
+  instrument_process: slf_1ul_removal
+  witness: false
+  bed_verification_type: Verification::Base
+DTX 1 - Absorbancy Check:
+  instrument: DTX 1
+  instrument_process: slf_abs_check
+  witness: false
+  bed_verification_type: Verification::Base
+DTX 2 - Absorbancy Check:
+  instrument: DTX 2
+  instrument_process: slf_abs_check
+  witness: false
+  bed_verification_type: Verification::Base
+Beckman NX - Working Dilution and Pico Assay (x2):
+  instrument: Beckman NX
+  instrument_process: x2_wd_and_pico_assay
+  bed_verification_type: Verification::DilutionAssay::NxGroup
+Biorobot - QIAamp DNA BloodCard UNIV rcv237:
+  instrument: Biorobot
+  instrument_process: biorobot
+  bed_verification_type: Verification::DilutionPlate::Biorobot
+Biorobot - QIAamp pathogen vet UNIV_rcV226a:
+  instrument: Biorobot
+  instrument_process: qiagen_biorobot
+  bed_verification_type: Verification::DilutionPlate::QiagenBiorobot
+Tecan 5 - Cherrypicking:
+  instrument: Tecan 5
+  instrument_process: slf_cherrypicking
+  witness: false
+  bed_verification_type: Verification::Base
+Tecan 6 - Cherrypicking:
+  instrument: Tecan 6
+  instrument_process: slf_cherrypicking
+  witness: false
+  bed_verification_type: Verification::Base
+Bravo - SWGA - Bravo:
+  instrument: Bravo
+  instrument_process: swga_bravo
+  bed_verification_type: Verification::DilutionPlate::Bravo
+Beckman NX - UKBB 5ul stamp :
+  instrument: Beckman NX
+  instrument_process: ukbb_5ul_stamp
+  witness: false
+  bed_verification_type: Verification::DilutionPlate::Nx
+Beckman NX - Pico dilution:
+  instrument: Beckman NX
+  instrument_process: slf_pico_dilution
+  witness: false
+  bed_verification_type: Verification::Base
+Bravo - DNA Quant:
+  instrument: Bravo
+  instrument_process: dna_quant
+  witness: false
+  bed_verification_type: Verification::Base
+Bravo - RNA Quant:
+  instrument: Bravo
+  instrument_process: rna_quant
+  witness: false
+  bed_verification_type: Verification::Base
+Mosquito 1 - DNA Quant:
+  instrument: Mosquito 1
+  instrument_process: dna_quant
+  witness: false
+  bed_verification_type: Verification::Base
+Mosquito 1 - RNA Quant:
+  instrument: Mosquito 1
+  instrument_process: rna_quant
+  witness: false
+  bed_verification_type: Verification::Base
+Mosquito 2 - DNA Quant:
+  instrument: Mosquito 2
+  instrument_process: dna_quant
+  witness: false
+  bed_verification_type: Verification::Base
+Mosquito 2 - RNA Quant:
+  instrument: Mosquito 2
+  instrument_process: rna_quant
+  witness: false
+  bed_verification_type: Verification::Base
+Beckman NX - Nexttec NX Bed Verification:
+  instrument: Beckman NX
+  instrument_process: slf_nexttec_verification
+  witness: false
+  bed_verification_type: Verification::DilutionPlate::Nx
+Volume Checker_new - Volume check:
+  instrument: Volume Checker_new
+  instrument_process: slf_volume_check
+  witness: false
+  bed_verification_type: Verification::Base
+Beckman NX - COVID 96 Well STAMP:
+  instrument: Beckman NX
+  instrument_process: covid_stamp
+  bed_verification_type: Verification::DilutionPlate::Nx
+Beckman NX - 384 Quadrant STAMP:
+  instrument: Beckman NX
+  instrument_process: quad_stamp
+  bed_verification_type: Verification::QuadStampPlate::Nx
+Bravo - 384 Quadrant STAMP:
+  instrument: Bravo
+  instrument_process: quad_stamp
+  bed_verification_type: Verification::QuadStampPlate::Bravo
+Hamilton Star 6 - Cherrypicking:
+  instrument: Hamilton Star 6
+  instrument_process: slf_cherrypicking
+  witness: false
+  bed_verification_type: Verification::Base

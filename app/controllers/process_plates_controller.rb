@@ -33,7 +33,7 @@ class ProcessPlatesController < ApplicationController
     raise 'No barcodes were provided' if barcodes.empty?
 
     flash[:notice] = "Scanned #{bed_layout_verification.process_plate&.num_unique_barcodes} barcodes."
-    format.html { redirect_to(new_process_plate_path) }
+    redirect_to(new_process_plate_path)
   rescue StandardError => e
     flash[:error] = e.message
     redirect_to(new_process_plate_path)

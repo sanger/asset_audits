@@ -7,3 +7,5 @@ tmp/**/*
 
 # created by the byebug gem
 .byebug_history
+
+coverage

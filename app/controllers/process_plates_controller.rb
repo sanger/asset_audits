@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class ProcessPlatesController < ApplicationController
   require 'wrangler'
-  require 'lighthouse'
 
   skip_before_action :configure_api, except: [:create]
 
@@ -61,17 +60,12 @@ class ProcessPlatesController < ApplicationController
     @receive_plates_process ||= InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
   end
 
-  # Call any external services - currently lighthouse service for plates from Lighthouse Labs and
-  # wrangler for tube racks. If no samples are found in the lighthouse service, try the wrangler
+  # Call any external services - currently wrangler for tube racks.
   def call_external_services(barcodes)
-    output = { lighthouse: [], wrangler: [] }
-    # call the lighthouse service first as we are assuming that most labware scanned will be
-    #   plates from Lighthouse Labs
-    output[:lighthouse] = Lighthouse.call_api(barcodes)
+    output = { wrangler: [] }
 
-    # keeping it simple for now, if all the responses are not CREATED, send ALL the barcodes
-    #   to the wrangler
-    output[:wrangler] = Wrangler.call_api(barcodes) unless all_created?(output[:lighthouse])
+    # Send all the barcodes to the wrangler
+    output[:wrangler] = Wrangler.call_api(barcodes)
 
     output
   end
@@ -94,10 +88,6 @@ class ProcessPlatesController < ApplicationController
     barcodes.each { |b| output[b] = { success: 'No' } }
 
     # loop through service responses to update 'output' with successes
-    # puts "DEBUG: responses: #{JSON.pretty_generate(responses)}"
-    responses[:lighthouse]&.select { |r| r[:code] == '201' }&.each do |r|
-      output[r[:barcode]] = parse_response(r, :Lighthouse)
-    end
     responses[:wrangler]&.select { |r| r[:code] == '201' }&.each do |r|
       output[r[:barcode]] = parse_response(r, :CGaP)
     end

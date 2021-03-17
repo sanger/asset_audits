@@ -21,7 +21,7 @@ Feature: Manage beds on an instrument
     Then the list of instruments should look like:
       | Instrument  | Number of Beds |
       | Big robot   | 1              |
-      
+
   @delete
   Scenario: Delete a bed from an instrument
     Given I have an instrument "Big robot" with barcode "1234"
@@ -41,9 +41,29 @@ Feature: Manage beds on an instrument
     Then the list of instruments should look like:
       | Instrument  | Number of Beds |
       | Big robot   | 0              |
-  
-      
-  Scenario: Duplicate barcodes are not allowed globally
+
+  Scenario: Duplicate bed barcodes are not allowed for the same instrument
+    Given I have an instrument "Big robot" with barcode "1234"
+      And I have an instrument "Small robot" with barcode "5678"
+      And instrument "Big robot" has a bed with name "SCRC1" barcode "9999" and number 1
+      And I am on the instrument management page
+    Then the list of instruments should look like:
+      | Instrument  | Number of Beds |
+      | Big robot   | 1              |
+      | Small robot | 0              |
+    When I follow "Manage Big robot"
+      And I fill in "Bed number" with "1"
+      And I fill in "Bed name" with "SCRC1"
+      And I fill in "Barcode" with "9999"
+      And I press "Add bed"
+    Then I should see "Barcode must be unique for an instrument"
+    Given I am on the instrument management page
+    Then the list of instruments should look like:
+      | Instrument  | Number of Beds |
+      | Big robot   | 1              |
+      | Small robot | 0              |
+
+  Scenario: Duplicate bed barcodes are allowed for different instruments
     Given I have an instrument "Big robot" with barcode "1234"
       And I have an instrument "Small robot" with barcode "5678"
       And instrument "Big robot" has a bed with name "SCRC1" barcode "9999" and number 1
@@ -57,13 +77,13 @@ Feature: Manage beds on an instrument
       And I fill in "Bed name" with "SCRC1"
       And I fill in "Barcode" with "9999"
       And I press "Add bed"
-    Then I should see "Barcode must be unique"
+    Then I should see "Bed created"
     Given I am on the instrument management page
     Then the list of instruments should look like:
       | Instrument  | Number of Beds |
       | Big robot   | 1              |
-      | Small robot | 0              |
-  
+      | Small robot | 1              |
+
   Scenario: Duplicate bed names are not allowed on the same instrument
     Given I have an instrument "Big robot" with barcode "1234"
       And instrument "Big robot" has a bed with name "SCRC1" barcode "9999" and number 1
@@ -81,8 +101,7 @@ Feature: Manage beds on an instrument
     Then the list of instruments should look like:
       | Instrument  | Number of Beds |
       | Big robot   | 1              |
-  
-  
+
   Scenario: Duplicate bed numbers are not allowed on the same instrument
     Given I have an instrument "Big robot" with barcode "1234"
       And instrument "Big robot" has a bed with name "SCRC1" barcode "9999" and number 1
@@ -100,8 +119,7 @@ Feature: Manage beds on an instrument
     Then the list of instruments should look like:
       | Instrument  | Number of Beds |
       | Big robot   | 1              |
-      
-      
+
   Scenario Outline: Only integers are allowed for bed numbers between 0 and 100
     Given I have an instrument "Big robot" with barcode "1234"
       And I am on the instrument management page
@@ -122,4 +140,3 @@ Feature: Manage beds on an instrument
       | 1.0        | can only be whole numbers.     |
       | -1         | can only be between 0 and 100. |
       | 101        | can only be between 0 and 100. |
-  

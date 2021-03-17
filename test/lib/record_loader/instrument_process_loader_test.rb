@@ -13,16 +13,15 @@ class RecordLoader::InstrumentProcessLoaderTest < ActiveSupport::TestCase
   end
 
   context 'with two_entry_example selected' do
-
     should 'create two records' do
-      expect { record_loader.create! }.to change { InstrumentProcess.count }.by(2)
+      expect { record_loader.create! }.to change(InstrumentProcess, :count).by(2)
     end
 
     # It is important that multiple runs of a RecordLoader do not create additional
     # copies of existing records.
     should 'be idempotent' do
       record_loader.create!
-      expect { record_loader.create! }.not_to change { InstrumentProcess.count }
+      expect { record_loader.create! }.not_to change(InstrumentProcess, :count)
     end
 
     should 'set attributes on the created records' do

@@ -6,8 +6,9 @@ namespace :record_loader do
   task instrument_processes_instrument: [
     :environment,
     'record_loader:instrument',
-    'record_loader:instrument_process'] do
-      require './lib/record_loader/instrument_processes_instrument_loader'
+    'record_loader:instrument_process'
+  ] do
+    require './lib/record_loader/instrument_processes_instrument_loader'
     RecordLoader::InstrumentProcessesInstrumentLoader.new.create!
   end
 end

@@ -31,7 +31,7 @@ class ProcessPlatesController < ApplicationController
     # the param is called 'source_plates' but we could be working with tube racks or plates etc.
     barcodes = sanitize_barcodes(params[:source_plates])
     raise 'No barcodes were provided' if barcodes.empty?
-  
+
     flash[:notice] = "Scanned #{bed_layout_verification.process_plate&.num_unique_barcodes} barcodes."
     format.html { redirect_to(new_process_plate_path) }
   rescue StandardError => e

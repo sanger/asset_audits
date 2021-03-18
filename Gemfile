@@ -9,7 +9,6 @@ gem 'nokogiri'
 gem 'formtastic'
 gem 'mysql2'
 gem 'uuidtools'
-gem 'curb'
 gem 'haml'
 gem 'sequencescape-client-api', require: 'sequencescape'
 gem 'delayed_job_active_record'
@@ -18,6 +17,9 @@ gem 'json_api_client'
 
 gem 'byebug'
 gem 'puma'
+
+# Manage default records
+gem 'record_loader'
 
 group :development do
   gem 'rubocop'
@@ -36,6 +38,7 @@ group :test do
 end
 
 group :cucumber, :test do
+  gem 'simplecov', require: false
   gem 'capybara'
   gem 'minitest'
   gem 'cucumber-rails', require: false

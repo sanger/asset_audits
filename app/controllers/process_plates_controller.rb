@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 class ProcessPlatesController < ApplicationController
-  require 'wrangler'
-
   skip_before_action :configure_api, except: [:create]
 
   attr_accessor :messages
@@ -33,14 +31,9 @@ class ProcessPlatesController < ApplicationController
     # the param is called 'source_plates' but we could be working with tube racks or plates etc.
     barcodes = sanitize_barcodes(params[:source_plates])
     raise 'No barcodes were provided' if barcodes.empty?
-    # 20 barcodes takes about 2 mins as of 2020-06-22. This limit is to prevent the request timing out.
-    raise "Please scan #{ProcessPlate::RECEIVE_PLATES_MAX} barcodes or fewer" if barcodes.count > ProcessPlate::RECEIVE_PLATES_MAX
-
-    responses = call_external_services(barcodes)
-    @results = generate_results(barcodes, responses)
 
     flash[:notice] = "Scanned #{bed_layout_verification.process_plate&.num_unique_barcodes} barcodes."
-    render :results
+    redirect_to(new_process_plate_path)
   rescue StandardError => e
     flash[:error] = e.message
     redirect_to(new_process_plate_path)
@@ -60,48 +53,9 @@ class ProcessPlatesController < ApplicationController
     @receive_plates_process ||= InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
   end
 
-  # Call any external services - currently wrangler for tube racks.
-  def call_external_services(barcodes)
-    output = { wrangler: [] }
-
-    # Send all the barcodes to the wrangler
-    output[:wrangler] = Wrangler.call_api(barcodes)
-
-    output
-  end
-
   # Returns a list of unique barcodes by removing blanks and duplicates
   def sanitize_barcodes(barcodes)
     barcodes.split(/\s+/).reject(&:blank?).compact.uniq
-  end
-
-  # Checks a list of responses if they are all CREATED (201)
-  def all_created?(responses)
-    return false if responses.empty?
-
-    responses.all? { |response| response[:code] == '201' }
-  end
-
-  def generate_results(barcodes, responses)
-    output = {}
-    # default 'success' for each barcode to 'No'
-    barcodes.each { |b| output[b] = { success: 'No' } }
-
-    # loop through service responses to update 'output' with successes
-    responses[:wrangler]&.select { |r| r[:code] == '201' }&.each do |r|
-      output[r[:barcode]] = parse_response(r, :CGaP)
-    end
-
-    output
-  end
-
-  def parse_response(response, service)
-    {
-      success: 'Yes',
-      source: service,
-      purpose: response.dig(:body, 'data', 'attributes', 'purpose_name'),
-      study: response.dig(:body, 'data', 'attributes', 'study_names')&.join(', ')
-    }
   end
 
   def all_labware_created?(results)

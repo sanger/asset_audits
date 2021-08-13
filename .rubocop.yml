@@ -13,7 +13,7 @@ Metrics/BlockLength:
     - Gemfile
     - 'db/seeds/**/*'
     - '**/*.builder'
-  ExcludedMethods:
+  IgnoredMethods:
     - describe
     - context
     - background

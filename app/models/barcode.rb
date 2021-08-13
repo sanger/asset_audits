@@ -31,7 +31,7 @@ class Barcode
 
   def self.calculate_checksum(prefix, number)
     string = prefix + number.to_s
-    list = string.split(//)
+    list = string.chars
     len  = list.size
     sum = 0
     list.each do |character|

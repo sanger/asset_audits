@@ -82,15 +82,11 @@ class FakeSinatraService
 
   def kill_running_sinatra
     Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/die_eat_flaming_death"))
-  rescue EOFError
-    # This is fine, it means that Sinatra apparently died.
+  rescue EOFError, Errno::ECONNREFUSED, SystemExit
+    # EOFError:            This is fine, it means that Sinatra apparently died.
+    # Errno::ECONNREFUSED: This is probably fine too because it means it wasn't running in the first place!
+    # SystemExit:          This one is probably fine to ignore too.
     true
-  rescue Errno::ECONNREFUSED
-    true
-    # This is probably fine too because it means it wasn't running in the first place!
-  rescue SystemExit
-    true
-    # This one is probably fine to ignore too.
   end
 
   # We have to pause execution until Sinatra has come up.  This makes a number of attempts to
@@ -118,10 +114,7 @@ class FakeSinatraService
       end
     rescue Errno::EADDRINUSE => e
       raise StandardError, "== Someone is already performing on port #{port}!"
-    rescue SystemExit => e
-      # Ignore and continue (or rather, die).
-      Rails.logger.error(e)
-    rescue IOError => e
+    rescue SystemExit, IOError => e
       # Ignore and continue (or rather, die).
       Rails.logger.error(e)
     end

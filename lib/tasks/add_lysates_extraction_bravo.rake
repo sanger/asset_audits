@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-namespace :lysates_extraction_bravo do
-  SRC_BEDS_LE_BRV = %w[580000004838].freeze
-  DEST_BEDS_LE_BRV = %w[580000014851].freeze
-  SRC_BED_NUMS_LE_BRV = %w[4].freeze
-  DEST_BED_NUMS_LE_BRV = %w[14].freeze
+SRC_BEDS_LE_BRV = %w[580000004838].freeze
+DEST_BEDS_LE_BRV = %w[580000014851].freeze
+SRC_BED_NUMS_LE_BRV = %w[4].freeze
+DEST_BED_NUMS_LE_BRV = %w[14].freeze
 
+namespace :lysates_extraction_bravo do
   task add: :environment do
     ActiveRecord::Base.transaction do
       # create robot instrument and the lysates process

@@ -5,8 +5,6 @@ module ApplicationHelper
       [f, flash[f]]
     end.reject do |_, v|
       v.blank?
-    end.map do |flash_type, messages|
-      yield(flash_type, messages)
-    end
+    end.map(&block)
   end
 end

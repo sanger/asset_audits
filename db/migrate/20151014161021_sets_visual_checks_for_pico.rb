@@ -17,6 +17,7 @@ class SetsVisualChecksForPico < ActiveRecord::Migration
 
   def self.down
     ActiveRecord::Base.transaction do
+      # No down implementation
     end
   end
 end

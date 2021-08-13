@@ -1,4 +1,5 @@
 inherit_from: .rubocop_todo.yml
+
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
@@ -13,64 +14,86 @@ Metrics/BlockLength:
     - Gemfile
     - 'db/seeds/**/*'
     - '**/*.builder'
-  ExcludedMethods:
-    - describe
-    - context
-    - background
-    - scenario
-    - namespace
-    - task
-    - included
-    - shared_context
-    - shared_examples
-    - state_machine
-    - configure
-    - draw
-    - feature
-    - subject
-    - let
-    - let!
-    - factory
-    - define
-    - guard
-    - transient
-    - with_nested_has_many_association
-    - with_association
-    - it
-    - class_eval
-    - has_metadata
-    - resources
+    - 'db/schema.rb'
+    - 'test/**/*'
 
 AllCops:
   Exclude:
     - bin/*
     - vendor/**/*
+
 # The following cops were added to RuboCop, but are not configured by default.
 # Please set Enabled to either `true` or `false` in your `.rubocop.yml` file:
 # For more information: https://docs.rubocop.org/rubocop/versioning.html
-Layout/EmptyLinesAroundAttributeAccessor:
+Gemspec/DateAssignment: # (new in 1.10)
   Enabled: true
-Layout/SpaceAroundMethodCallOperator:
+Layout/LineEndStringConcatenationIndentation: # (new in 1.18)
   Enabled: true
-Lint/DeprecatedOpenSSLConstant:
+Layout/SpaceBeforeBrackets: # (new in 1.7)
   Enabled: true
-Lint/MixedRegexpCaptureTypes:
+Lint/AmbiguousAssignment: # (new in 1.7)
   Enabled: true
-Lint/RaiseException:
+Lint/DeprecatedConstants: # (new in 1.8)
   Enabled: true
-Lint/StructNewOverride:
+Lint/DuplicateBranch: # (new in 1.3)
   Enabled: true
-Style/ExponentialNotation:
+Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
   Enabled: true
-Style/HashEachMethods:
+Lint/EmptyBlock: # (new in 1.1)
   Enabled: true
-Style/HashTransformKeys:
+Lint/EmptyClass: # (new in 1.3)
   Enabled: true
-Style/HashTransformValues:
+Lint/EmptyInPattern: # (new in 1.16)
   Enabled: true
-Style/RedundantRegexpCharacterClass:
+Lint/LambdaWithoutLiteralBlock: # (new in 1.8)
   Enabled: true
-Style/RedundantRegexpEscape:
+Lint/NoReturnInBeginEndBlocks: # (new in 1.2)
   Enabled: true
-Style/SlicingWithRange:
+Lint/NumberedParameterAssignment: # (new in 1.9)
+  Enabled: true
+Lint/OrAssignmentToConstant: # (new in 1.9)
+  Enabled: true
+Lint/RedundantDirGlobSort: # (new in 1.8)
+  Enabled: true
+Lint/SymbolConversion: # (new in 1.9)
+  Enabled: true
+Lint/ToEnumArguments: # (new in 1.1)
+  Enabled: true
+Lint/TripleQuotes: # (new in 1.9)
+  Enabled: true
+Lint/UnexpectedBlockArity: # (new in 1.5)
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
+  Enabled: true
+Naming/InclusiveLanguage: # (new in 1.18)
+  Enabled: true
+Style/ArgumentsForwarding: # (new in 1.1)
+  Enabled: true
+Style/CollectionCompact: # (new in 1.2)
+  Enabled: true
+Style/DocumentDynamicEvalDefinition: # (new in 1.1)
+  Enabled: true
+Style/EndlessMethod: # (new in 1.8)
+  Enabled: true
+Style/HashConversion: # (new in 1.10)
+  Enabled: true
+Style/HashExcept: # (new in 1.7)
+  Enabled: true
+Style/IfWithBooleanLiteralBranches: # (new in 1.9)
+  Enabled: true
+Style/InPatternThen: # (new in 1.16)
+  Enabled: true
+Style/MultilineInPatternThen: # (new in 1.16)
+  Enabled: true
+Style/NegatedIfElseCondition: # (new in 1.2)
+  Enabled: true
+Style/NilLambda: # (new in 1.3)
+  Enabled: true
+Style/QuotedSymbols: # (new in 1.16)
+  Enabled: true
+Style/RedundantArgument: # (new in 1.4)
+  Enabled: true
+Style/StringChars: # (new in 1.12)
+  Enabled: true
+Style/SwapValues: # (new in 1.1)
   Enabled: true

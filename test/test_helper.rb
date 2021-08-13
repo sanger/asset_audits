@@ -39,7 +39,7 @@ class ActiveSupport::TestCase
       barcode: barcode,
       code: '400',
       body: {
-        'errors': [
+        errors: [
           'No samples for this barcode'
         ]
       }

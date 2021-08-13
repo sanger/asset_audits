@@ -1,0 +1,148 @@
+---
+# Add entries to this file to generate them automatically upon running
+# rake record_loader:all or rake record_loader:<%= underscore %>
+# If you want entries which are only created in development mode then simply
+# create a file in this directory ending in '.dev.yml'
+# You can add as many additional .yml files to this directory as you wish.
+# Example:
+
+slf_receive_plates:
+  name: Receive plates
+  request_instrument: true
+  visual_check_required: false
+slf_control_addition:
+  name: Control addition
+  request_instrument: true
+  visual_check_required: false
+slf_volume_check:
+  name: Volume check
+  request_instrument: true
+  visual_check_required: false
+slf_pico_dilution:
+  name: Pico dilution
+  request_instrument: true
+  visual_check_required: true
+slf_working_dilution:
+  name: Working dilution
+  request_instrument: true
+  visual_check_required: false
+slf_gel_plates:
+  name: Gel plates
+  request_instrument: true
+  visual_check_required: false
+slf_sequenom:
+  name: Sequenom
+  request_instrument: true
+  visual_check_required: false
+slf_buffer_addition:
+  name: Buffer addition
+  request_instrument: true
+  visual_check_required: false
+slf_pico_assay_plates:
+  name: Pico assay plate creation
+  request_instrument: true
+  visual_check_required: true
+slf_standard_plate:
+  name: Standard plate
+  request_instrument: true
+  visual_check_required: false
+slf_cherrypicking:
+  name: Cherrypicking
+  request_instrument: true
+  visual_check_required: false
+slf_pico_assay:
+  name: Pico assay
+  request_instrument: true
+  visual_check_required: false
+slf_plates_complete_ready_for_delivery:
+  name: Plates complete ready for delivery
+  request_instrument: true
+  visual_check_required: false
+slf_plates_delivered:
+  name: Delivered
+  request_instrument: true
+  visual_check_required: false
+slf_sta_dilution:
+  name: STA dilution
+  request_instrument: true
+  visual_check_required: false
+slf_sta2_plate_creation:
+  name: STA2 plate creation
+  request_instrument: true
+  visual_check_required: false
+slf_96_snptype_creation:
+  name: 96.96 SNPtype Plate creation
+  request_instrument: true
+  visual_check_required: false
+slf_192_snptype_creation:
+  name: 192.24 SNPtype Plate creation
+  request_instrument: true
+  visual_check_required: false
+slf_96_chip_loading:
+  name: 96.96 Chip loading
+  request_instrument: true
+  visual_check_required: false
+slf_192_chip_loading:
+  name: 192.24 Chip loading
+  request_instrument: true
+  visual_check_required: false
+slf_sta_reagent_addition:
+  name: STA Reagent Addition
+  request_instrument: true
+  visual_check_required: false
+destroy_labware:
+  name: Destroying labware
+  request_instrument: false
+  visual_check_required: false
+slf_1ul_removal:
+  name: 1ul Removal
+  request_instrument: true
+  visual_check_required: false
+slf_abs_check:
+  name: Absorbancy Check
+  request_instrument: true
+  visual_check_required: false
+x2_wd_and_pico_assay:
+  name: Working Dilution and Pico Assay (x2)
+  request_instrument: true
+  visual_check_required: false
+biorobot:
+  name: QIAamp DNA BloodCard UNIV rcv237
+  request_instrument: true
+  visual_check_required: false
+qiagen_biorobot:
+  name: QIAamp pathogen vet UNIV_rcV226a
+  request_instrument: true
+  visual_check_required: false
+swga_bravo:
+  name: SWGA - Bravo
+  request_instrument: true
+  visual_check_required: false
+ukbb_5ul_stamp:
+  name: UKBB 5ul stamp
+  request_instrument: true
+  visual_check_required: false
+dna_quant:
+  name: DNA Quant
+  request_instrument: true
+  visual_check_required: false
+rna_quant:
+  name: RNA Quant
+  request_instrument: true
+  visual_check_required: false
+slf_nexttec_verification:
+  name: Nexttec NX Bed Verification
+  request_instrument: true
+  visual_check_required: false
+slf_Mosquito_verification:
+  name: Mosquito Bed Verification
+  request_instrument: true
+  visual_check_required: false
+covid_stamp:
+  name: COVID 96 Well STAMP
+  request_instrument: true
+  visual_check_required: false
+quad_stamp:
+  name: 384 Quadrant STAMP
+  request_instrument: true
+  visual_check_required: false

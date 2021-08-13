@@ -5,9 +5,7 @@
 class Verification::OutdatedLabware::Base < Verification::Base
   validates_with Verification::Validator::OutdatedPlatesScanned
 
-  attr_accessor :plate_barcodes_to_destroy
-
-  attr_accessor :messages
+  attr_accessor :plate_barcodes_to_destroy, :messages
 
   self.partial_name = 'outdated_labware'
 
@@ -24,10 +22,10 @@ class Verification::OutdatedLabware::Base < Verification::Base
   def plates_from_barcodes(barcodes)
     plates = search_resource.all(api.plate,
                                  barcode: barcodes)
-    plate_hash = Hash[plates.map { |plate| [plate.barcode.machine, plate] }]
-    Hash[barcodes.map do |barcode|
+    plate_hash = plates.map { |plate| [plate.barcode.machine, plate] }.to_h
+    barcodes.map do |barcode|
       [barcode, plate_hash[barcode]]
-    end]
+    end.to_h
   end
 
   def validate_and_create_audits?(params)

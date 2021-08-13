@@ -13,33 +13,8 @@ Metrics/BlockLength:
     - Gemfile
     - 'db/seeds/**/*'
     - '**/*.builder'
-  IgnoredMethods:
-    - describe
-    - context
-    - background
-    - scenario
-    - namespace
-    - task
-    - included
-    - shared_context
-    - shared_examples
-    - state_machine
-    - configure
-    - draw
-    - feature
-    - subject
-    - let
-    - let!
-    - factory
-    - define
-    - guard
-    - transient
-    - with_nested_has_many_association
-    - with_association
-    - it
-    - class_eval
-    - has_metadata
-    - resources
+    - 'db/schema.rb'
+    - 'test/**/*'
 
 AllCops:
   Exclude:

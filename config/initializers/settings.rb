@@ -6,7 +6,7 @@ class Settings
   include Singleton
 
   class << self
-    def respond_to?(method, include_private = false)
+    def respond_to?(method, include_private: false)
       super or instance.respond_to?(method, include_private)
     end
 
@@ -23,7 +23,7 @@ class Settings
     @settings   = YAML.load(eval(ERB.new(File.read(filename)).src, nil, filename))
   end
 
-  def respond_to?(method, include_private = false)
+  def respond_to?(method, include_private: false)
     super or is_settings_query_method?(method) or @settings.key?(setting_key_for(method))
   end
 

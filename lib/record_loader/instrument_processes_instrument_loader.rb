@@ -19,11 +19,11 @@ module RecordLoader
     end
 
     def instruments
-      @instruments ||= Hash[Instrument.pluck(:name, :id)]
+      @instruments ||= Instrument.pluck(:name, :id).to_h
     end
 
     def instrument_processes
-      @instrument_processes ||= Hash[InstrumentProcess.pluck(:key, :id)]
+      @instrument_processes ||= InstrumentProcess.pluck(:key, :id).to_h
     end
   end
 end

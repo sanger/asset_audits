@@ -31,6 +31,9 @@ Metrics/ClassLength:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/Documentation:
+  Enabled: false
+
 # Turns numbers like 1234567 into 1_234_567. However this code deals with large
 # numbers for things like barcodes which we don't want displayed like that.
 Style/NumericLiterals:

@@ -58,11 +58,6 @@ Security/Eval:
     - 'app/models/instrument_processes_instrument.rb'
     - 'config/initializers/settings.rb'
 
-# Offense count: 77
-# Configuration parameters: AllowedConstants.
-Style/Documentation:
-  Enabled: false
-
 # Offense count: 2
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:

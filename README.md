@@ -12,6 +12,10 @@ Sequencescape.
 
 ## Getting started
 
+1. If you are working on a Macintosh:
+   1. Install [Homebrew](https://brew.sh)
+   1. Install `shared-mime-info` with `brew install shared-mime-info`. This is
+      needed by one of the required Gems in this project.
 1. Install the required version of ruby - look for the version in the `.ruby-version` file
 1. Install bundler: `gem install bundler`
 1. Install the required gems: `bundle install`

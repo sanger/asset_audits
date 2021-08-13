@@ -1,0 +1,11 @@
+---
+# This file was automatically generated via `rails g record_loader`
+# You should modify it to match your particular model.
+instrument_process_1:
+  name: Instrument Process 1
+  request_instrument: true
+  visual_check_required: false
+instrument_process_2:
+  name: Instrument Process 2
+  request_instrument: false
+  visual_check_required: true

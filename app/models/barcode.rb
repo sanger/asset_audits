@@ -15,7 +15,7 @@ class Barcode
 
   # NT23432S => 398002343283
 
-  private
+  private_class_method
 
   def self.calculate_sanger_barcode(prefix, number)
     number_s = number.to_s
@@ -110,8 +110,6 @@ class Barcode
   def self.calculate_ean13(code)
     calculate_ean(code)
   end
-
-  private
 
   def self.calculate_ean(code, initial_weight = 3)
     # The EAN is calculated by adding each digit modulo 10 ten weighted by 1 or 3 ( in seq)

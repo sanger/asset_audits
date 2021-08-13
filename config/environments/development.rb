@@ -46,9 +46,6 @@ Rails.application.configure do
 
   config.admin_email = 'example@example.com'
 
-  # https://github.com/sanger/wrangler
-  config.wrangler_url = 'http://127.0.0.1:5000/wrangle'
-
   # config.logger.broadcast_messages = false
 
   # Use an evented file watcher to asynchronously detect changes in source code,

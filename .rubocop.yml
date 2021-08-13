@@ -1,8 +1,10 @@
 inherit_from: .rubocop_todo.yml
 
-Metrics/ClassLength:
+AllCops:
   Exclude:
-    - 'test/**/*'
+    - bin/*
+    - vendor/**/*
+
 # Blocks are used to structure tests and are part of the shoulda dsl.
 # The standard BlockLength limits are too stringent for this purpose.
 # Block DSL is also used in routes
@@ -17,10 +19,14 @@ Metrics/BlockLength:
     - 'db/schema.rb'
     - 'test/**/*'
 
-AllCops:
+Metrics/ClassLength:
   Exclude:
-    - bin/*
-    - vendor/**/*
+    - 'test/**/*'
+
+Lint/Debugger:
+  Exclude:
+    - 'features/step_definitions/authentication_steps.rb'
+    - 'features/step_definitions/web_steps.rb'
 
 # The following cops were added to RuboCop, but are not configured by default.
 # Please set Enabled to either `true` or `false` in your `.rubocop.yml` file:

@@ -163,6 +163,10 @@ Metrics/BlockLength:
 # Configuration parameters: IgnoredMethods.
 Metrics/CyclomaticComplexity:
   Max: 7
+  Exclude:
+    - 'app/controllers/process_plates_controller.rb'
+    - 'app/models/verification/groupable.rb'
+    -  'app/models/verification/validator/beds_and_plates_scanned.rb'
 
 # Offense count: 16
 # Configuration parameters: CountComments, ExcludedMethods.

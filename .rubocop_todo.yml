@@ -6,23 +6,10 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Lint/ParenthesesAsGroupedExpression:
-  Exclude:
-    - 'db/migrate/20150202171723_add_destroy_labware.rb'
-
 # Offense count: 1
 Lint/ShadowingOuterLocalVariable:
   Exclude:
     - 'app/models/verification/validator/beds_and_plates_scanned.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
-Lint/UselessAccessModifier:
-  Exclude:
-    - 'app/models/barcode.rb'
 
 # Offense count: 12
 Lint/UselessAssignment:

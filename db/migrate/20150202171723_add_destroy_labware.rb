@@ -3,9 +3,9 @@
 class AddDestroyLabware < ActiveRecord::Migration
   def self.up
     ActiveRecord::Base.transaction do
-      instrument = Instrument.create ({ name: 'Destroying instrument', barcode: '6720000011694' })
-      instrument_process = InstrumentProcess.create ({ name: 'Destroying labware', key: 'destroy_labware',
-                                                       request_instrument: false })
+      instrument = Instrument.create({ name: 'Destroying instrument', barcode: '6720000011694' })
+      instrument_process = InstrumentProcess.create({ name: 'Destroying labware', key: 'destroy_labware',
+                                                      request_instrument: false })
       instrument_processes_instrument = InstrumentProcessesInstrument.create(
         instrument: instrument,
         instrument_process: instrument_process,

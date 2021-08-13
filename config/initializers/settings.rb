@@ -22,7 +22,7 @@ class Settings
 
   def initialize
     filename    = File.join(File.dirname(__FILE__), *%W[.. settings #{Rails.env}.yml])
-    @settings   = YAML.load(eval(ERB.new(File.read(filename)).src, nil, filename))
+    @settings   = YAML.safe_load(eval(ERB.new(File.read(filename)).src, nil, filename))
   end
 
   def respond_to?(method, include_private: false)

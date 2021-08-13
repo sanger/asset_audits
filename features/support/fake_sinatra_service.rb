@@ -11,7 +11,7 @@ class FakeSinatraService
   # test runs.
   def self.take_next_port
     if @ports.nil?
-      initial_port = (($$ % 100) * 10) + 6000 # Use pid and use a range
+      initial_port = (($PROCESS_ID % 100) * 10) + 6000 # Use pid and use a range
       @ports       = (1..100).to_a.shuffle.map { |p| initial_port + p }
     end
     @ports.shift

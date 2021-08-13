@@ -8,8 +8,8 @@ class Barcode
   def self.prefix_to_number(prefix)
     first  = prefix[0] - 64
     second = prefix[1] - 64
-    first  = 0 if first < 0
-    second = 0 if second < 0
+    first  = 0 if first.negative?
+    second = 0 if second.negative?
     ((first * 27) + second) * 1000000000
   end
 
@@ -103,7 +103,7 @@ class Barcode
   def self.check_ean(code)
     # the EAN checksum is calculated so that the EAN of the code with checksum added is 0
     # except the new column (the checksum) start with a different weight (so the previous column keep the same weight)
-    calculate_ean(code, 1) == 0
+    calculate_ean(code, 1).zero?
   end
 
   def self.calculate_ean13(code)
@@ -115,7 +115,7 @@ class Barcode
     code = code.to_i
     ean = 0
     weight = initial_weight
-    while code > 0
+    while code.positive?
       code, c = code.divmod 10
       ean += c * weight % 10
       weight = weight == 1 ? 3 : 1

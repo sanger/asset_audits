@@ -2,14 +2,14 @@
 
 FactoryBot.define do
   factory :bed do
-    sequence(:name)       { |n| n.to_s }
-    sequence(:barcode)    { |n| n.to_s }
-    sequence(:bed_number) { |n| n.to_s }
+    sequence(:name, &:to_s)
+    sequence(:barcode, &:to_s)
+    sequence(:bed_number, &:to_s)
   end
 
   factory :instrument do
     sequence(:name)    { |n| "Instrument #{n}" }
-    sequence(:barcode) { |n| n.to_s }
+    sequence(:barcode, &:to_s)
 
     beds do
       (1..16).map do |bed_number|

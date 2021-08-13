@@ -6,8 +6,8 @@ class Verification::Validator::UniqueDestinationPlatesScanned < ActiveModel::Val
       record.scanned_values[destination_bed.downcase.to_sym][:plate]
     end.reject(&:blank?)
 
-    if destination_barcodes != destination_barcodes.uniq
-      record.errors[:base] << 'Destination plate scanned more than once'
-    end
+    return unless destination_barcodes != destination_barcodes.uniq
+
+    record.errors[:base] << 'Destination plate scanned more than once'
   end
 end

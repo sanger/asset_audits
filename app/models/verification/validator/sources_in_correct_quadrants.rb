@@ -19,6 +19,10 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
       return
     end
 
+    validate_quadrants(record, destination_plate)
+  end
+
+  def validate_quadrants(record, destination_plate)
     (1..4).each do |index|
       quadrant_name = "Quadrant #{index}"
       quad_metadata = destination_plate.custom_metadatum_collection.metadata[quadrant_name]

@@ -52,7 +52,9 @@ class ProcessPlatesController < ApplicationController
 
   # find out if the 'receive_plates' process was executed
   def receive_plates_process?(params)
-    @receive_plates_process ||= InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
+    @receive_plates_process ||= InstrumentProcess
+                                .find_by(id: params[:instrument_process])
+                                .key.eql?('slf_receive_plates')
   end
 
   # Returns a list of unique barcodes by removing blanks and duplicates

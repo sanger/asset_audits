@@ -13,9 +13,7 @@ class TestSequencescapeApi
     end
   end
 
-  attr_accessor :plate
-  attr_accessor :barcode
-  attr_accessor :barcode_to_results
+  attr_accessor :plate, :barcode, :barcode_to_results
 
   def initialize(barcode_to_results)
     @barcode_to_results = barcode_to_results

@@ -31,7 +31,7 @@ class Barcode
 
   def self.calculate_checksum(prefix, number)
     string = prefix + number.to_s
-    list = string.split(//)
+    list = string.chars
     len  = list.size
     sum = 0
     list.each do |character|
@@ -46,7 +46,7 @@ class Barcode
     if code.size > 11 && code.size < 14
       # Pad with zeros
       while code.size < 13
-        code = '0' + code
+        code = "0#{code}"
       end
     end
     if /^(...)(.*)(..)(.)$/ =~ code

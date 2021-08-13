@@ -26,6 +26,6 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
                    end
     record.errors[:base] << "Invalid source plate layout: #{source_barcode} is not a parent of #{destination_barcode}. "\
                             "#{parent_error}"
-    return false
+    false
   end
 end

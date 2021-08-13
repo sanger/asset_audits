@@ -13,7 +13,8 @@ class ProcessPlatesController < ApplicationController
   end
 
   def create
-    bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode], params[:instrument_process])
+    bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode],
+                                                                                     params[:instrument_process])
     raise 'Invalid instrument or process' if bed_verification_model.nil?
 
     bed_layout_verification = bed_verification_model.new(

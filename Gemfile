@@ -29,9 +29,9 @@ group :development do
   gem 'rubocop-rake'
 end
 
-gem 'factory_bot_rails', groups: [:test, :cucumber]
+gem 'factory_bot_rails', groups: %i[test cucumber]
 
-gem 'pry', groups: [:test, :cucumber, :development]
+gem 'pry', groups: %i[test cucumber development]
 
 group :test do
   gem 'mocha'

@@ -33,6 +33,6 @@ class Verification::OutdatedLabware::Base < Verification::Base
     return false unless valid?
 
     params[:source_plates] = scanned_values.flatten.join(' ')
-    return super(params)
+    super(params)
   end
 end

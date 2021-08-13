@@ -20,7 +20,10 @@ module ProcessPlateValidation
   end
 
   def process_on_instrument
-    errors.add(:instrument_process, 'Invalid process for instrument') unless instrument.instrument_processes.include?(instrument_process)
+    unless instrument.instrument_processes.include?(instrument_process)
+      errors.add(:instrument_process,
+                 'Invalid process for instrument')
+    end
   end
 
   def witness_for_process

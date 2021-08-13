@@ -27,6 +27,7 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
   private
 
   def instrument_processes_instrument_params
-    params.require(:instrument_processes_instrument).permit(:instrument_process_id, :instrument_id, :witness, :bed_verification_type)
+    params.require(:instrument_processes_instrument).permit(:instrument_process_id, :instrument_id, :witness,
+                                                            :bed_verification_type)
   end
 end

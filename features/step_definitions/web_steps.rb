@@ -96,7 +96,7 @@ end
 #
 When(/^(?:|I )fill in the following:$/) do |fields|
   fields.rows_hash.each do |name, value|
-    When %{I fill in "#{name}" with "#{value}"}
+    When %(I fill in "#{name}" with "#{value}")
   end
 end
 
@@ -133,7 +133,7 @@ Then(/^(?:|I )should see "([^"]*)"$/) do |text|
   expect(page).to have_content(text)
 end
 
-Then(/^(?:|I )should see \/([^\/]*)\/$/) do |regexp|
+Then(%r{^(?:|I )should see /([^/]*)/$}) do |regexp|
   regexp = Regexp.new(regexp)
   expect(page).to have_xpath('//*', text: regexp)
 end
@@ -150,7 +150,7 @@ Then(/^(?:|I )should not display "([^"]*)"$/) do |identif|
   expect(page).not_to have_xpath("//*[@id='#{identif}']")
 end
 
-Then(/^(?:|I )should not see \/([^\/]*)\/$/) do |regexp|
+Then(%r{^(?:|I )should not see /([^/]*)/$}) do |regexp|
   regexp = Regexp.new(regexp)
   expect(page).not_to have_xpath('//*', text: regexp)
 end
@@ -158,7 +158,7 @@ end
 Then(/^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/) do |field, parent, value|
   with_scope(parent) do
     field = find_field(field)
-    field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    field_value = field.tag_name == 'textarea' ? field.text : field.value
     expect(field_value).to match(/#{value}/)
   end
 end
@@ -166,7 +166,7 @@ end
 Then(/^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/) do |field, parent, value|
   with_scope(parent) do
     field = find_field(field)
-    field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    field_value = field.tag_name == 'textarea' ? field.text : field.value
     expect(field_value).not_to match(/#{value}/)
   end
 end

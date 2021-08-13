@@ -10,7 +10,7 @@ class Barcode
     second = prefix[1] - 64
     first  = 0 if first < 0
     second = 0 if second < 0
-    return ((first * 27) + second) * 1000000000
+    ((first * 27) + second) * 1000000000
   end
 
   # NT23432S => 398002343283
@@ -23,7 +23,7 @@ class Barcode
 
     human = prefix + number_s + calculate_checksum(prefix, number)
     barcode = prefix_to_number(prefix) + (number * 100)
-    barcode = barcode + human[human.size - 1]
+    barcode += human[human.size - 1]
   end
 
   def self.calculate_barcode(prefix, number)
@@ -38,41 +38,42 @@ class Barcode
     sum = 0
     list.each do |character|
       sum += character[0] * len
-      len = len - 1
+      len -= 1
     end
-    return (sum % 23 + 'A'[0]).chr
+    (sum % 23 + 'A'[0]).chr
   end
 
   def self.split_barcode(code)
     code = code.to_s
     if code.size > 11 && code.size < 14
       # Pad with zeros
-      while code.size < 13
-        code = "0#{code}"
-      end
+      code = "0#{code}" while code.size < 13
     end
     if /^(...)(.*)(..)(.)$/ =~ code
-      prefix, number, check, printer_check = $1, $2, $3, $4
+      prefix = Regexp.last_match(1)
+      number = Regexp.last_match(2)
+      check = Regexp.last_match(3)
+      printer_check = Regexp.last_match(4)
     end
     [prefix, number.to_i, check.to_i]
   end
 
   def self.split_human_barcode(code)
     if /^(..)(.*)(.)$/ =~code
-      [$1, $2, $3]
+      [Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)]
     end
   end
 
   def self.number_to_human(code)
     barcode = barcode_to_human(code)
     prefix, number, check = split_human_barcode(barcode)
-    return number
+    number
   end
 
   def self.prefix_from_barcode(code)
     barcode = barcode_to_human(code)
     prefix, number, check = split_human_barcode(barcode)
-    return prefix
+    prefix
   end
 
   def self.prefix_to_human(prefix)
@@ -83,9 +84,7 @@ class Barcode
     bcode = nil
     prefix, number, check = split_barcode(code)
     human_prefix = prefix_to_human(prefix)
-    if calculate_barcode(human_prefix, number.to_i) == code.to_i
-      bcode = "#{human_prefix}#{number}#{check.chr}"
-    end
+    bcode = "#{human_prefix}#{number}#{check.chr}" if calculate_barcode(human_prefix, number.to_i) == code.to_i
     bcode
   end
 
@@ -94,7 +93,7 @@ class Barcode
   # its human equivalent does not match.
   def self.barcode_to_human!(code, prefix = nil)
     human_barcode = barcode_to_human(code) or raise InvalidBarcode, "Barcode #{code} appears to be invalid"
-    unless prefix.nil? or split_human_barcode(human_barcode).first == prefix
+    unless prefix.nil? || (split_human_barcode(human_barcode).first == prefix)
       raise InvalidBarcode, "Barcode #{code} (#{human_barcode}) does not match prefix #{prefix}"
     end
 

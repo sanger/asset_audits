@@ -40,7 +40,8 @@ class ProcessPlate < ApplicationRecord
   end
 
   def api
-    @api ||= Sequencescape::Api.new(url: Settings.sequencescape_api_v1, authorisation: Settings.sequencescape_authorisation)
+    @api ||= Sequencescape::Api.new(url: Settings.sequencescape_api_v1,
+                                    authorisation: Settings.sequencescape_authorisation)
   end
 
   def create_audits

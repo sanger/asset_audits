@@ -16,7 +16,8 @@ class WitnessTest < ActiveSupport::TestCase
         witness_barcode: '987'
       }
       @old_delayed_job_count = Delayed::Job.count
-      @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
+      @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode],
+                                                        scanned_values: @input_params[:robot])
     end
 
     context 'where all parameters are valid' do

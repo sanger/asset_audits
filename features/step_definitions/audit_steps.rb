@@ -23,12 +23,12 @@ When(/^(?:|I )fill in AJAX field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$
     fill_in(field, with: value)
     step 'I click on the page'
   end
-  step %Q{wait 1 second}
+  step %(wait 1 second)
 end
 
 Given(/^I have a process "([^"]*)" as part of the "([^"]*)" instrument which requires a witness$/) do |process_name, instrument_name|
-  step %Q{I have a process "#{process_name}" as part of the "#{instrument_name}" instrument}
-  step %Q{a process "#{process_name}" as part of the "#{instrument_name}" instrument requires a witness}
+  step %(I have a process "#{process_name}" as part of the "#{instrument_name}" instrument)
+  step %(a process "#{process_name}" as part of the "#{instrument_name}" instrument requires a witness)
 end
 
 When(/^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")?$/) do |value, field, selector|
@@ -48,7 +48,9 @@ end
 Given(/^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/) do |process_name, instrument_name|
   instrument = Instrument.find_by_name(instrument_name)
   instrument_process = InstrumentProcess.find_by_name(process_name)
-  process_link = instrument.instrument_processes_instruments.select { |process| process.instrument_process_id == instrument_process.id }.first
+  process_link = instrument.instrument_processes_instruments.select do |process|
+    process.instrument_process_id == instrument_process.id
+  end.first
   process_link&.update_attributes!(witness: true)
 end
 

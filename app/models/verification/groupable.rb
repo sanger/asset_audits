@@ -7,11 +7,11 @@ module Verification::Groupable
       transfer[:source_beds].each do |source_bed|
         source_barcode = scanned_values[source_bed.downcase.to_sym][:plate]
         bed_barcode = scanned_values[source_bed.downcase.to_sym][:bed]
-        unless source_barcode.blank?
-          transfer[:destination_beds].each do |destination_bed|
-            destination_barcode = scanned_values[destination_bed.downcase.to_sym][:plate]
-            source_and_destination_barcodes << [source_barcode, destination_barcode]
-          end
+        next if source_barcode.blank?
+
+        transfer[:destination_beds].each do |destination_bed|
+          destination_barcode = scanned_values[destination_bed.downcase.to_sym][:plate]
+          source_and_destination_barcodes << [source_barcode, destination_barcode]
         end
       end
     end
@@ -40,15 +40,16 @@ module Verification::Groupable
       transfers.map { |t| t[:group] }.uniq.map do |group_id|
         transfers_of_group = transfers.select { |t| t[:group] == group_id }
 
-        transfers_of_group.reduce({
-                                    group: group_id,
-                                    source_beds: [],
-                                    destination_beds: transfers_of_group.map { |t| t[:destination_beds] }.flatten.uniq
-                                  }) do |memo, transfer|
+        transfers_of_group.each_with_object({
+                                              group: group_id,
+                                              source_beds: [],
+                                              destination_beds: transfers_of_group.map do |t|
+                                                                  t[:destination_beds]
+                                                                end.flatten.uniq
+                                            }) do |transfer, memo|
           transfer[:source_beds].each do |source_bed|
             memo[:source_beds] << source_bed unless memo[:destination_beds].include?(source_bed)
           end
-          memo
         end
       end
     end

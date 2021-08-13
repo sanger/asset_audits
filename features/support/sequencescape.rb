@@ -38,7 +38,7 @@ class FakeSequencescapeService < FakeSinatraService
   end
 
   def replace_host_and_port(json)
-    json.gsub(/locahost/, host).gsub(/3000/, "#{port}")
+    json.gsub(/locahost/, host).gsub(/3000/, port.to_s)
   end
 
   class Service < FakeSinatraService::Base
@@ -68,9 +68,7 @@ class FakeSequencescapeService < FakeSinatraService
         Settings.search_find_assets_by_barcode,
         ActiveSupport::JSON.decode(request.body.read)['search']['barcode']
       )
-      if json.blank?
-        json = FakeSequencescapeService.instance.load_file('search_results_for_find_asset_by_barcode')
-      end
+      json = FakeSequencescapeService.instance.load_file('search_results_for_find_asset_by_barcode') if json.blank?
       headers('Content-Type' => 'application/json')
       body(json)
     end

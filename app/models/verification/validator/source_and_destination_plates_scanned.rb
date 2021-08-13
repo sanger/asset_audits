@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Verification::Validator::SourceAndDestinationPlatesScanned < ActiveModel::Validator
   def validate(record)
     record.parse_source_and_destination_barcodes(record.scanned_values).each do |source_barcode, destination_barcode|

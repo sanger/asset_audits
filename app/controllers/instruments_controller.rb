@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class InstrumentsController < ApplicationController
   skip_before_action :configure_api
 

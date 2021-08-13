@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given /^user "([^"]*)" with barcode '(\w+)' exists$/ do |user_name, barcode|
   FakeUser.instance.user_barcode(user_name, barcode)
 end

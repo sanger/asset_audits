@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 def tableish(finder)
   table = find(finder)
   table.all('tr').map { |row| row.all('th, td').map { |cell| cell.text.strip } }

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddBarcodeColumnToInstrument < ActiveRecord::Migration
   def self.up
     add_column :instruments, :barcode, :string

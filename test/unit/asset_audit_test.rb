@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 class AssetAuditTest < ActiveSupport::TestCase
   context 'Adding Audits for Assets' do

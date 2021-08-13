@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 class WitnessTest < ActiveSupport::TestCase
   context 'Adding Audits for assets which require a witness' do

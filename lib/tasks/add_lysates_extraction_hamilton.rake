@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-namespace :lysates_extraction_hamilton do
-  SRC_BEDS_LE_HAM = %w[580000004838 580000005699].freeze
-  DEST_BEDS_LE_HAM = %w[580000034668 580000035672].freeze
-  SRC_BED_NUMS_LE_HAM = %w[4 5].freeze
-  DEST_BED_NUMS_LE_HAM = %w[34 35].freeze
+SRC_BEDS_LE_HAM = %w[580000004838 580000005699].freeze
+DEST_BEDS_LE_HAM = %w[580000034668 580000035672].freeze
+SRC_BED_NUMS_LE_HAM = %w[4 5].freeze
+DEST_BED_NUMS_LE_HAM = %w[34 35].freeze
 
+namespace :lysates_extraction_hamilton do
   task add: :environment do
     ActiveRecord::Base.transaction do
       # create robot instrument and the lysates process

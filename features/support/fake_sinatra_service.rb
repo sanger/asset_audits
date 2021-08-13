@@ -111,7 +111,7 @@ class FakeSinatraService
       handler_name = handler.name.gsub(/.*::/, '')
       handler.run(self, { Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true
-        set :quit_handler, Proc.new { server.shutdown } # Kill the Webrick specific instance if we need to
+        set :quit_handler, (Proc.new { server.shutdown }) # Kill the Webrick specific instance if we need to
       end
     rescue Errno::EADDRINUSE => e
       raise StandardError, "== Someone is already performing on port #{port}!"

@@ -7,14 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineMethodCallBraceLayout:
-  Exclude:
-    - 'app/controllers/instruments_controller.rb'
-
-# Offense count: 1
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'features/support/fake_sinatra_service.rb'

@@ -72,7 +72,7 @@ class FakeSinatraService
   def start_sinatra(&block)
     thread = Thread.new do
       # The effort you have to go through to silence Sinatra/WEBrick!
-      logger       = Logger.new(STDERR)
+      logger       = Logger.new($stderr)
       logger.level = Logger::FATAL
 
       service.run!(host: @host, port: @port, webrick: { Logger: logger, AccessLog: [] })

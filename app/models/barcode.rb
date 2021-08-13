@@ -46,7 +46,7 @@ class Barcode
     if code.size > 11 && code.size < 14
       # Pad with zeros
       while code.size < 13
-        code = '0' + code
+        code = "0#{code}"
       end
     end
     if /^(...)(.*)(..)(.)$/ =~ code

@@ -31,7 +31,6 @@ class FakeSequencescapeService < FakeSinatraService
     search_results[search_uuid][barcode]
   end
 
-
   def load_file(filename)
     base_path = File.join(File.dirname(__FILE__), '..', 'data')
     json = IO.read(File.join(base_path, filename).to_s)
@@ -41,7 +40,6 @@ class FakeSequencescapeService < FakeSinatraService
   def replace_host_and_port(json)
     json.gsub(/locahost/, host).gsub(/3000/, "#{port}")
   end
-
 
   class Service < FakeSinatraService::Base
     get('/api/1/') do

@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAdjacentOneLineDefs, NumberOfEmptyLines.
-Layout/EmptyLineBetweenDefs:
-  Exclude:
-    - 'db/migrate/20160617122652_substracted_volume_on_process.rb'
-    - 'features/support/sequencescape.rb'
-
 # Offense count: 11
 # Cop supports --auto-correct.
 Layout/EmptyLines:

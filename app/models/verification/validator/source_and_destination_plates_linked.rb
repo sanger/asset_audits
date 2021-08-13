@@ -18,6 +18,7 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
 
   def valid_source_barcode?(source_barcode, found_barcodes, record, destination_barcode)
     return true if found_barcodes.include?(source_barcode)
+
     parent_error = case found_barcodes.length
                    when 0 then "#{destination_barcode} has no known parents."
                    when 1 then "Known parent is #{found_barcodes.first}."

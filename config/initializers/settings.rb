@@ -14,6 +14,7 @@ class Settings
 
     def method_missing(method, *args, &block)
       return super unless instance.respond_to?(method)
+
       instance.send(method, *args, &block)
     end
   end

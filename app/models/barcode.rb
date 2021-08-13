@@ -19,6 +19,7 @@ class Barcode
   def self.calculate_sanger_barcode(prefix, number)
     number_s = number.to_s
     raise ArgumentError, "Number : #{number} to big to generate a barcode." if number_s.size > 7
+
     human = prefix + number_s + calculate_checksum(prefix, number)
     barcode = prefix_to_number(prefix) + (number * 100)
     barcode = barcode + human[human.size - 1]
@@ -95,6 +96,7 @@ class Barcode
     unless prefix.nil? or split_human_barcode(human_barcode).first == prefix
       raise InvalidBarcode, "Barcode #{code} (#{human_barcode}) does not match prefix #{prefix}"
     end
+
     human_barcode
   end
 

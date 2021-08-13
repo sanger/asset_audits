@@ -30,6 +30,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   def validate_and_create_audits?(params)
     return false unless valid?
+
     params[:source_plates] = scanned_values.flatten.join(' ')
     return super(params)
   end

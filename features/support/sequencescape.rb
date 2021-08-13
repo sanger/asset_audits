@@ -26,6 +26,7 @@ class FakeSequencescapeService < FakeSinatraService
 
   def find_result_json_by_search_uuid(search_uuid, barcode)
     return nil unless search_results[search_uuid]
+
     search_results[search_uuid][barcode]
   end
 

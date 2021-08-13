@@ -6,22 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 18
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterGuardClause:
-  Exclude:
-    - 'app/models/barcode.rb'
-    - 'app/models/plate.rb'
-    - 'app/models/process_plate_validation.rb'
-    - 'app/models/verification/assay_plate/base.rb'
-    - 'app/models/verification/dilution_plate/base.rb'
-    - 'app/models/verification/outdated_labware/base.rb'
-    - 'app/models/verification/validator/beds_and_plates_scanned.rb'
-    - 'app/models/verification/validator/source_and_destination_plates_linked.rb'
-    - 'config/initializers/settings.rb'
-    - 'features/step_definitions/delayed_job_steps.rb'
-    - 'features/support/sequencescape.rb'
-
 # Offense count: 101
 # Cop supports --auto-correct.
 Layout/EmptyLineAfterMagicComment:

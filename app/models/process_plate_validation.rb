@@ -32,6 +32,7 @@ module ProcessPlateValidation
 
   def witness_required?
     return false unless instrument
+
     instrument.instrument_processes_instruments
               .where(instrument_process_id: instrument_process, witness: true)
               .exists?
@@ -43,6 +44,7 @@ module ProcessPlateValidation
 
   def instrument?
     return true if instrument
+
     false
   end
 end

@@ -23,6 +23,9 @@ gem 'record_loader'
 
 group :development do
   gem 'rubocop'
+  gem 'rubocop-minitest'
+  gem 'rubocop-rails'
+  gem 'rubocop-rake'
   gem 'listen' # Hot reloading
 end
 

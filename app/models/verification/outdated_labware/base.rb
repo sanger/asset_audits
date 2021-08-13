@@ -5,9 +5,7 @@
 class Verification::OutdatedLabware::Base < Verification::Base
   validates_with Verification::Validator::OutdatedPlatesScanned
 
-  attr_accessor :plate_barcodes_to_destroy
-
-  attr_accessor :messages
+  attr_accessor :plate_barcodes_to_destroy, :messages
 
   self.partial_name = 'outdated_labware'
 

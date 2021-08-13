@@ -16,8 +16,7 @@ class FakeSinatraService
     @ports.shift
   end
 
-  attr_reader :port
-  attr_reader :host
+  attr_reader :port, :host
 
   def initialize(*args, &block)
     @host, @port = 'localhost', self.class.take_next_port

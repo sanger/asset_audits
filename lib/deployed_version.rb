@@ -53,7 +53,7 @@ module Deployed
     end
 
     def version_label
-      major == 0 && minor == 0 && patch == 0 ? 'WIP' : "#{major}.#{minor}.#{patch}"
+      major == '0' && minor == '0' && patch == '0' ? 'WIP' : "#{major}.#{minor}.#{patch}"
     end
 
     private

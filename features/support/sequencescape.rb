@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require File.expand_path(File.join(File.dirname(__FILE__), 'fake_sinatra_service.rb'))
 
 class FakeSequencescapeService < FakeSinatraService
@@ -26,9 +27,9 @@ class FakeSequencescapeService < FakeSinatraService
 
   def find_result_json_by_search_uuid(search_uuid, barcode)
     return nil unless search_results[search_uuid]
+
     search_results[search_uuid][barcode]
   end
-
 
   def load_file(filename)
     base_path = File.join(File.dirname(__FILE__), '..', 'data')
@@ -37,9 +38,8 @@ class FakeSequencescapeService < FakeSinatraService
   end
 
   def replace_host_and_port(json)
-    json.gsub(/locahost/, host).gsub(/3000/, "#{port}")
+    json.gsub(/locahost/, host).gsub(/3000/, port.to_s)
   end
-
 
   class Service < FakeSinatraService::Base
     get('/api/1/') do
@@ -68,9 +68,7 @@ class FakeSequencescapeService < FakeSinatraService
         Settings.search_find_assets_by_barcode,
         ActiveSupport::JSON.decode(request.body.read)['search']['barcode']
       )
-      if json.blank?
-        json = FakeSequencescapeService.instance.load_file('search_results_for_find_asset_by_barcode')
-      end
+      json = FakeSequencescapeService.instance.load_file('search_results_for_find_asset_by_barcode') if json.blank?
       headers('Content-Type' => 'application/json')
       body(json)
     end

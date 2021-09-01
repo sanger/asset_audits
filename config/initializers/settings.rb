@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'singleton'
 class Settings
   attr_accessor :settings
@@ -14,13 +15,14 @@ class Settings
 
     def method_missing(method, *args, &block)
       return super unless instance.respond_to?(method)
+
       instance.send(method, *args, &block)
     end
   end
 
   def initialize
     filename    = File.join(File.dirname(__FILE__), *%W[.. settings #{Rails.env}.yml])
-    @settings   = YAML.load(eval(ERB.new(File.read(filename)).src, nil, filename))
+    @settings   = YAML.safe_load(eval(ERB.new(File.read(filename)).src, nil, filename))
   end
 
   def respond_to?(method, include_private: false)

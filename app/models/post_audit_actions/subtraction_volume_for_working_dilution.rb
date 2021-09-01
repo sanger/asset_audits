@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PostAuditActions::SubtractionVolumeForWorkingDilution
   def self.included(base)
     base.handle_asynchronously :subtract_volume_because_of_working_dilution!
@@ -20,7 +21,7 @@ module PostAuditActions::SubtractionVolumeForWorkingDilution
     ActiveRecord::Base.transaction do
       if needs_to_subtract_volume?
         source_plates_uuids_to_subtract.each do |asset_uuid|
-          decrease_volume = (-1) * instrument_process.volume_to_pick
+          decrease_volume = -1 * instrument_process.volume_to_pick
           api.plate.find(asset_uuid).volume_updates.create!(volume_change: decrease_volume, created_by: user_login)
         end
       end

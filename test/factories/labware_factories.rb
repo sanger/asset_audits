@@ -39,7 +39,8 @@ FactoryBot.define do
           parents << FactoryBot.create(:v2_labware, barcode: parent_barcode)
         end
         plate.stubs(:parents).returns(parents)
-        plate.stubs(:custom_metadatum_collection).returns(FactoryBot.create(:custom_metadatum_collection, metadata: evaluator.metadata))
+        plate.stubs(:custom_metadatum_collection).returns(FactoryBot.create(:custom_metadatum_collection,
+                                                                            metadata: evaluator.metadata))
       end
     end
 

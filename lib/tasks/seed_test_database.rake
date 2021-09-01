@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This ensures that the test database is seeded with the correct data before any tests
 # are run.  The great thing about this is that it happens before *all* tests and features,
 # or just before the specific one requested.

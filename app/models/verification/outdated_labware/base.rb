@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Takes a list of source plates and validates that all plates
 # are older than the lifespan defined by theit plate purpose
@@ -30,7 +31,8 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   def validate_and_create_audits?(params)
     return false unless valid?
+
     params[:source_plates] = scanned_values.flatten.join(' ')
-    return super(params)
+    super(params)
   end
 end

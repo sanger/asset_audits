@@ -14,10 +14,15 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
     end
 
     if missing_custom_metadatum_collection?(destination_plate)
-      record.errors[:base] << 'The destination plate doesn\'t have any quadrant information. Was it made by a quadrant stamp?'
+      record.errors[:base] << 'The destination plate doesn\'t have any quadrant information. ' \
+                              'Was it made by a quadrant stamp?'
       return
     end
 
+    validate_quadrants(record, destination_plate)
+  end
+
+  def validate_quadrants(record, destination_plate)
     (1..4).each do |index|
       quadrant_name = "Quadrant #{index}"
       quad_metadata = destination_plate.custom_metadatum_collection.metadata[quadrant_name]
@@ -30,7 +35,8 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
       next if quad_scanned == quad_metadata
 
       bed = record.source_beds[index - 1]
-      record.errors[:base] << "The barcode in bed #{bed} doesn\'t match the plate in #{quadrant_name} on the destination plate."
+      record.errors[:base] << "The barcode in bed #{bed} doesn\'t match the plate in " \
+                              "#{quadrant_name} on the destination plate."
       break
     end
   end

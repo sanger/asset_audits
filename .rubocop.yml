@@ -1,8 +1,15 @@
 inherit_from: .rubocop_todo.yml
 
-Metrics/ClassLength:
+AllCops:
+  Exclude:
+    - bin/*
+    - vendor/**/*
+
+Layout/LineLength:
   Exclude:
     - 'test/**/*'
+    - 'features/**/*'
+
 # Blocks are used to structure tests and are part of the shoulda dsl.
 # The standard BlockLength limits are too stringent for this purpose.
 # Block DSL is also used in routes
@@ -17,10 +24,28 @@ Metrics/BlockLength:
     - 'db/schema.rb'
     - 'test/**/*'
 
-AllCops:
+Metrics/ClassLength:
   Exclude:
-    - bin/*
-    - vendor/**/*
+    - 'test/**/*'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+# Turns numbers like 1234567 into 1_234_567. However this code deals with large
+# numbers for things like barcodes which we don't want displayed like that.
+Style/NumericLiterals:
+  Enabled: false
+
+Style/WordArray:
+  MinSize: 3
+
+Lint/Debugger:
+  Exclude:
+    - 'features/step_definitions/authentication_steps.rb'
+    - 'features/step_definitions/web_steps.rb'
 
 # The following cops were added to RuboCop, but are not configured by default.
 # Please set Enabled to either `true` or `false` in your `.rubocop.yml` file:

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class InstrumentsController < ApplicationController
   skip_before_action :configure_api
 
@@ -17,7 +18,8 @@ class InstrumentsController < ApplicationController
   def witness
     witness_required = ProcessPlate.new(
       instrument_barcode: params[:instrument_barcode],
-      instrument_process_id: params[:instrument_process_id].to_i).witness_required?
+      instrument_process_id: params[:instrument_process_id].to_i
+    ).witness_required?
 
     render plain: witness_required ? 'witness_required' : 'not_required'
   end

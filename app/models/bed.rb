@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Bed < ApplicationRecord
   belongs_to :instrument
 

@@ -1,4 +1,3 @@
-# encoding: utf-8
 # frozen_string_literal: true
 
 # Set the default text field size when input is a string. Default is nil.
@@ -111,4 +110,5 @@ Formtastic::FormBuilder.action_class_finder = Formtastic::ActionClassFinder
 # Formtastic::FormBuilder.action_namespaces = [ ::Object, ::MyActionsModule, ::Formtastic::Actions ]
 
 # Which columns to skip when automatically rendering a form without any fields specified.
-# Formtastic::FormBuilder.skipped_columns = [:created_at, :updated_at, :created_on, :updated_on, :lock_version, :version]
+# Formtastic::FormBuilder.skipped_columns =
+#    [:created_at, :updated_at, :created_on, :updated_on, :lock_version, :version]

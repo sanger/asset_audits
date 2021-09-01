@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 class InstrumentProcess < ApplicationRecord
   has_many :instrument_processes_instruments
   has_many :instruments, through: :instrument_processes_instruments
 
-  scope :sorted_by_name, ->() { order(name: :ASC) }
+  scope :sorted_by_name, -> { order(name: :ASC) }
 
   validates_format_of :key, with: /\A[\w_]+\z/i
 

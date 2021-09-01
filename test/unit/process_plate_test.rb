@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 require 'support/test_sequencescape_api'
 require 'support/test_search_result'

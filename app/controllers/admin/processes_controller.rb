@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Admin::ProcessesController < ApplicationController
   skip_before_action :configure_api
 
@@ -53,8 +54,7 @@ class Admin::ProcessesController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   private
 

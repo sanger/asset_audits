@@ -257,7 +257,7 @@ GEM
       rubocop (~> 1.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.4)
-    rubyzip (2.3.0)
+    rubyzip (2.3.2)
     safe_yaml (1.0.5)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
@@ -350,7 +350,6 @@ DEPENDENCIES
   rubocop-minitest
   rubocop-rails
   rubocop-rake
-  rubyzip
   selenium-webdriver
   sequencescape-client-api
   shoulda

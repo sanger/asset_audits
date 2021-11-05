@@ -50,7 +50,6 @@ group :cucumber, :test do
   gem 'minitest'
   gem 'rspec-expectations'
   gem 'rspec-mocks'
-  gem 'rubyzip'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'timecop'

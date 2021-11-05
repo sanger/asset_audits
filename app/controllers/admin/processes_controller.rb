@@ -33,7 +33,7 @@ class Admin::ProcessesController < ApplicationController
     process = InstrumentProcess.find(params[:id])
 
     respond_to do |format|
-      if process.update_attributes(instrument_process_params)
+      if process.update(instrument_process_params)
         flash[:notice] = 'Updated process'
         format.html { redirect_to(admin_processes_path) }
       else

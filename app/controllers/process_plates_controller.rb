@@ -12,7 +12,7 @@ class ProcessPlatesController < ApplicationController
     @process_plate = ProcessPlate.new
   end
 
-  def create
+  def create # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode],
                                                                                      params[:instrument_process])
     raise 'Invalid instrument or process' if bed_verification_model.nil?

@@ -6,7 +6,7 @@ SRC_BED_NUMS_LE_HAM = %w[4 5].freeze
 DEST_BED_NUMS_LE_HAM = %w[34 35].freeze
 
 namespace :lysates_extraction_hamilton do
-  task add: :environment do
+  task add: :environment do # rubocop:todo Rake/Desc
     ActiveRecord::Base.transaction do
       # create robot instrument and the lysates process
       instrument_hamilton = Instrument.find_or_create_by!(name: 'Hamilton Star 6', barcode: '4880000067878')
@@ -33,7 +33,7 @@ namespace :lysates_extraction_hamilton do
     end
   end
 
-  task remove: :environment do
+  task remove: :environment do # rubocop:todo Rake/Desc
     ActiveRecord::Base.transaction do
       # Leave the robot and process, but remove the join table entry so it no
       # longer shows the process for that instrument (as the robot and / or process may be used elsewhere)

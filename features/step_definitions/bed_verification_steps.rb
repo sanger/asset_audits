@@ -56,10 +56,9 @@ end
 
 Given(/^I have a process "([^"]*)" as part of the "([^"]*)" instrument with bed verification type "([^"]*)"$/) do |process_name, instrument_name, bed_verification_type|
   step %(I have a process "#{process_name}" as part of the "#{instrument_name}" instrument)
-  instrument = Instrument.find_by_name(instrument_name)
-  process = InstrumentProcess.find_by_name(process_name)
-  process_link = instrument.instrument_processes_instruments.select do |inst_process|
-    inst_process.instrument_process_id == process.id
-  end.first
-  process_link.update_attributes!(bed_verification_type: bed_verification_type)
+  InstrumentProcessesInstrument.includes(:instrument, :instrument_process)
+                               .find_by!(
+                                 instruments: { name: instrument_name },
+                                 instrument_processes: { name: process_name }
+                               ).update!(bed_verification_type: bed_verification_type)
 end

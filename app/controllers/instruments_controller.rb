@@ -4,7 +4,7 @@ class InstrumentsController < ApplicationController
   skip_before_action :configure_api
 
   def search
-    instrument = Instrument.find_by_barcode(params[:instrument_barcode])
+    instrument = Instrument.find_by(barcode: params[:instrument_barcode])
     render plain: instrument.nil? ? '' : instrument.name
   end
 

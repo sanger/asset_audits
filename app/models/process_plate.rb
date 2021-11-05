@@ -16,7 +16,7 @@ class ProcessPlate < ApplicationRecord
   end
 
   def witness_login
-    @witness_login ||= User.login_from_user_code(witness_barcode) unless witness_barcode.blank?
+    @witness_login ||= User.login_from_user_code(witness_barcode) if witness_barcode.present?
   end
 
   def barcodes
@@ -24,7 +24,7 @@ class ProcessPlate < ApplicationRecord
   end
 
   def instrument
-    @instrument ||= Instrument.find_by_barcode(instrument_barcode)
+    @instrument ||= Instrument.find_by(barcode: instrument_barcode)
   end
 
   def search_resource

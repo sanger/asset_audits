@@ -36,8 +36,7 @@ module ProcessPlateValidation
     return false unless instrument
 
     instrument.instrument_processes_instruments
-              .where(instrument_process_id: instrument_process, witness: true)
-              .exists?
+              .exists?(instrument_process_id: instrument_process, witness: true)
   end
 
   def visual_check_required?

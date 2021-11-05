@@ -27,6 +27,7 @@ group :development do
   gem 'listen' # Hot reloading
   gem 'rubocop'
   gem 'rubocop-minitest'
+  gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rake'
 end

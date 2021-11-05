@@ -21,7 +21,8 @@ class FakeUser
     user_barcodes[barcode]
   end
 
-  def self.install_hooks(target, tags)
+  # rubocop:todo Metrics/MethodLength
+  def self.install_hooks(target, tags) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     target.instance_eval do
       Before(tags) do |_scenario|
         Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
@@ -45,6 +46,7 @@ class FakeUser
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def self.response_format(body_value)
     {

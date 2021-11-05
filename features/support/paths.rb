@@ -7,7 +7,7 @@ module NavigationHelpers
   #
   # step definition in web_steps.rb
   #
-  def path_to(page_name)
+  def path_to(page_name) # rubocop:todo Metrics/MethodLength
     case page_name
 
     when /the home\s?page/

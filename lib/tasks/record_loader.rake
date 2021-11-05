@@ -5,7 +5,7 @@
 # will register themselves as a dependency.
 namespace :record_loader do
   desc 'Automatically runs all record loader tasks'
-  task :all do
+  task all: :environment do
     puts 'Loading all records'
   end
 end

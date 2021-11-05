@@ -23,7 +23,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   def plates_from_barcodes(barcodes)
     plates = search_resource.all(api.plate,
                                  barcode: barcodes)
-    plate_hash = plates.map { |plate| [plate.barcode.machine, plate] }.to_h
+    plate_hash = plates.index_by { |plate| plate.barcode.machine }
     barcodes.map do |barcode|
       [barcode, plate_hash[barcode]]
     end.to_h

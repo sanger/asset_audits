@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Verification::Validator::OutdatedPlatesScanned < ActiveModel::Validator
-  def validate(record)
+  # rubocop:todo Metrics/MethodLength
+  def validate(record) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     plates = record.plates_from_barcodes(record.scanned_values)
     plates.each do |barcode, plate|
       if plate.nil?
@@ -19,4 +20,5 @@ class Verification::Validator::OutdatedPlatesScanned < ActiveModel::Validator
     end
     record.errors.add(:base, 'No plates found') if plates.empty?
   end
+  # rubocop:enable Metrics/MethodLength
 end

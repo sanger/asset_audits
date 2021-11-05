@@ -35,7 +35,7 @@ class ProcessPlateTest < ActiveSupport::TestCase
       end
 
       should 'generate remote asset audits' do
-        assert_equal @api.asset_audit.created.length, 1
+        assert_equal(1, @api.asset_audit.created.length)
         assert_equal(@api.asset_audit.created.first, key: @instrument_process.key,
                                                      message: "Process '#{@instrument_process.name}' performed on instrument #{@instrument.name}",
                                                      created_by: 'abc',

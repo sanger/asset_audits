@@ -22,7 +22,7 @@ Then(/^the instrument process table should be:$/) do |expected_table|
 end
 
 Given(/^instrument "([^"]*)" has process "([^"]*)"$/) do |instrument_name, process_name|
-  instrument = Instrument.find_by_name(instrument_name)
-  process = InstrumentProcess.find_by_name(process_name)
+  instrument = Instrument.find_by(name: instrument_name)
+  process = InstrumentProcess.find_by(name: process_name)
   instrument.instrument_processes << process
 end

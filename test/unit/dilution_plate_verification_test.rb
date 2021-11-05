@@ -10,7 +10,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       ipi = FactoryBot.create(:instrument_processes_instrument)
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
-      Bed.all.map { |bed| bed.update_attributes!(instrument_id: @instrument.id) }
+      Bed.all.map { |bed| bed.update!(instrument_id: @instrument.id) }
     end
 
     context 'where valid barcodes are scanned' do
@@ -48,7 +48,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       end
 
       should 'not have any errors' do
-        assert_equal [], @bed_layout_verification.errors.values
+        assert_empty @bed_layout_verification.errors.values
       end
 
       should 'create audits' do

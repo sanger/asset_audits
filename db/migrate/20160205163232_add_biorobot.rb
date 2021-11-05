@@ -27,9 +27,9 @@ class AddBiorobot < ActiveRecord::Migration
 
   def self.down
     ActiveRecord::Base.transaction do
-      BEDS.each { |b| Bed.find_by_barcode(b).destroy }
-      InstrumentProcess.find_by_name('Biorobot').destroy
-      Instrument.find_by_name('Biorobot').destroy
+      BEDS.each { |b| Bed.find_by(barcode: b).destroy }
+      InstrumentProcess.find_by(name: 'Biorobot').destroy
+      Instrument.find_by(name: 'Biorobot').destroy
     end
   end
 end

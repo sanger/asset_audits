@@ -28,7 +28,7 @@ class Verification::Base
   end
 
   def instrument
-    Instrument.find_by_barcode(@attributes[:instrument_barcode])
+    Instrument.find_by(barcode: @attributes[:instrument_barcode])
   end
 
   def initialize(attributes = {})

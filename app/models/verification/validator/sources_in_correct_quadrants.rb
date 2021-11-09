@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validator
-  def validate(record)
+  def validate(record) # rubocop:todo Metrics/MethodLength
     destination_plate = Sequencescape::Api::V2::Plate.where(barcode: record.destination_barcode).first
     if destination_plate.nil?
       record.errors[:base] << 'Couldn\'t find the destination plate.'
@@ -22,7 +22,8 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
     validate_quadrants(record, destination_plate)
   end
 
-  def validate_quadrants(record, destination_plate)
+  # rubocop:todo Metrics/MethodLength
+  def validate_quadrants(record, destination_plate) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     (1..4).each do |index|
       quadrant_name = "Quadrant #{index}"
       quad_metadata = destination_plate.custom_metadatum_collection.metadata[quadrant_name]
@@ -40,6 +41,7 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
       break
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def missing_custom_metadatum_collection?(plate)
     plate.custom_metadatum_collection.nil? || plate.custom_metadatum_collection.metadata.nil?

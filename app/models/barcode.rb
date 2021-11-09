@@ -21,12 +21,12 @@ class Barcode
 
     human = prefix + number_s + calculate_checksum(prefix, number)
     barcode = prefix_to_number(prefix) + (number * 100)
-    barcode += human[human.size - 1]
+    barcode += human[human.size - 1] # rubocop:todo Lint/UselessAssignment
   end
 
   def self.calculate_barcode(prefix, number)
     barcode = calculate_sanger_barcode(prefix, number)
-    barcode * 10 + calculate_ean13(barcode)
+    (barcode * 10) + calculate_ean13(barcode)
   end
 
   def self.calculate_checksum(prefix, number)
@@ -38,10 +38,10 @@ class Barcode
       sum += character[0] * len
       len -= 1
     end
-    (sum % 23 + 'A'[0]).chr
+    ((sum % 23) + 'A'[0]).chr
   end
 
-  def self.split_barcode(code)
+  def self.split_barcode(code) # rubocop:todo Metrics/MethodLength
     code = code.to_s
     if code.size > 11 && code.size < 14
       # Pad with zeros
@@ -51,31 +51,31 @@ class Barcode
       prefix = Regexp.last_match(1)
       number = Regexp.last_match(2)
       check = Regexp.last_match(3)
-      printer_check = Regexp.last_match(4)
+      printer_check = Regexp.last_match(4) # rubocop:todo Lint/UselessAssignment
     end
     [prefix, number.to_i, check.to_i]
   end
 
   def self.split_human_barcode(code)
-    if /^(..)(.*)(.)$/ =~code
+    if /^(..)(.*)(.)$/ =~code # rubocop:todo Style/GuardClause
       [Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)]
     end
   end
 
   def self.number_to_human(code)
     barcode = barcode_to_human(code)
-    prefix, number, check = split_human_barcode(barcode)
+    prefix, number, check = split_human_barcode(barcode) # rubocop:todo Lint/UselessAssignment
     number
   end
 
   def self.prefix_from_barcode(code)
     barcode = barcode_to_human(code)
-    prefix, number, check = split_human_barcode(barcode)
+    prefix, number, check = split_human_barcode(barcode) # rubocop:todo Lint/UselessAssignment
     prefix
   end
 
   def self.prefix_to_human(prefix)
-    human_prefix = ((prefix.to_i / 27) + 64).chr + ((prefix.to_i % 27) + 64).chr
+    human_prefix = ((prefix.to_i / 27) + 64).chr + ((prefix.to_i % 27) + 64).chr # rubocop:todo Lint/UselessAssignment
   end
 
   def self.barcode_to_human(code)

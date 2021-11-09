@@ -53,7 +53,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'not have any errors' do
-          assert_equal [], @bed_layout_verification.errors.values
+          assert_empty @bed_layout_verification.errors.values
         end
 
         should 'create audits' do
@@ -117,7 +117,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'not have any errors' do
-          assert_equal [], @bed_layout_verification.errors.values
+          assert_empty @bed_layout_verification.errors.values
         end
 
         should 'create audits' do
@@ -233,7 +233,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'not have any errors' do
-          assert_equal [], @bed_layout_verification.errors.values
+          assert_empty @bed_layout_verification.errors.values
         end
 
         should 'create audits' do
@@ -281,7 +281,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'not have any errors' do
-          assert_equal [], @bed_layout_verification.errors.values
+          assert_empty @bed_layout_verification.errors.values
         end
 
         should 'create audits' do

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::Validator
-  def validate(record)
+  def validate(record) # rubocop:todo Metrics/AbcSize
     record.parse_source_and_destination_barcodes(record.scanned_values).reject do |source_barcode, destination_barcode|
       destination_barcode.blank? || source_barcode.blank?
-    end.tap do |source_and_destinations|
+    end.tap do |source_and_destinations| # rubocop:todo Style/MultilineBlockChain
       source_and_destinations.all? do |source_barcode, destination_barcode|
         found_barcodes = []
         search_results = Sequencescape::Api::V2::Plate.where(barcode: destination_barcode).first&.parents

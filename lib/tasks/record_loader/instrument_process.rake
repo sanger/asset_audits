@@ -11,4 +11,4 @@ end
 
 # Automatically run this record loader as part of record_loader:all
 # Remove this line if the task should only run when invoked explicitly
-task 'record_loader:all' => 'record_loader:instrument_process'
+task 'record_loader:all' => 'record_loader:instrument_process' # rubocop:todo Rake/Desc

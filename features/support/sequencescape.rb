@@ -33,7 +33,7 @@ class FakeSequencescapeService < FakeSinatraService
 
   def load_file(filename)
     base_path = File.join(File.dirname(__FILE__), '..', 'data')
-    json = IO.read(File.join(base_path, filename).to_s)
+    json = File.read(File.join(base_path, filename).to_s)
     replace_host_and_port(json)
   end
 

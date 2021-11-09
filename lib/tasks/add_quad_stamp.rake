@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :quad_stamp do
-  task add: :environment do
+  task add: :environment do # rubocop:todo Rake/Desc
     ActiveRecord::Base.transaction do
       instrument_nx = Instrument.find_or_create_by!(name: 'Beckman NX', barcode: '009851')
       instrument_process = InstrumentProcess.create!(name: '384 Quadrant STAMP', key: 'quad_stamp')
@@ -20,9 +20,9 @@ namespace :quad_stamp do
     end
   end
 
-  task remove: :environment do
+  task remove: :environment do # rubocop:todo Rake/Desc
     ActiveRecord::Base.transaction do
-      instrument_process = InstrumentProcess.find_by_key('quad_stamp')
+      instrument_process = InstrumentProcess.find_by(key: 'quad_stamp')
       instrument_processes_instruments = instrument_process.instrument_processes_instruments
       instrument_processes_instruments.each(&:destroy!)
       instrument_process.destroy!

@@ -96,7 +96,7 @@ class FakeSinatraService
     10.times do
       Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/up_and_running"))
       return
-    rescue Errno::ECONNREFUSED => e
+    rescue Errno::ECONNREFUSED => e # rubocop:todo Lint/UselessAssignment
       sleep(1)
     end
 
@@ -104,21 +104,23 @@ class FakeSinatraService
   end
 
   class Base < Sinatra::Base
-    def self.run!(options = {})
+    # rubocop:todo Metrics/MethodLength
+    def self.run!(options = {}) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       set options
       set :server, %w[webrick] # Force Webrick to be used as it's quicker to startup & shutdown
       handler      = detect_rack_handler
-      handler_name = handler.name.gsub(/.*::/, '')
+      handler_name = handler.name.gsub(/.*::/, '') # rubocop:todo Lint/UselessAssignment
       handler.run(self, { Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true
         set :quit_handler, (proc { server.shutdown }) # Kill the Webrick specific instance if we need to
       end
-    rescue Errno::EADDRINUSE => e
+    rescue Errno::EADDRINUSE => e # rubocop:todo Lint/UselessAssignment
       raise StandardError, "== Someone is already performing on port #{port}!"
     rescue SystemExit, IOError => e
       # Ignore and continue (or rather, die).
       Rails.logger.error(e)
     end
+    # rubocop:enable Metrics/MethodLength
 
     get('/up_and_running') do
       status(200)

@@ -35,7 +35,7 @@ class Admin::InstrumentsController < ApplicationController
   def update
     instrument = Instrument.find(params[:id])
     respond_to do |format|
-      if instrument.update_attributes(instrument_params)
+      if instrument.update(instrument_params)
         flash[:notice] = 'Updated instrument'
         format.html { redirect_to(admin_instrument_path(instrument)) }
       else

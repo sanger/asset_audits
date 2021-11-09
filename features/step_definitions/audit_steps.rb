@@ -9,8 +9,8 @@ Given(/^I have a "([^"]*)" instrument with barcode "([^"]*)"$/) do |instrument_n
 end
 
 Given(/^I have a process "([^"]*)" as part of the "([^"]*)" instrument$/) do |process_name, instrument_name|
-  instrument = Instrument.find_by_name(instrument_name)
-  instrument_process = InstrumentProcess.create!(name: process_name, key: process_name.gsub(/ /, '_'))
+  instrument = Instrument.find_by(name: instrument_name)
+  instrument_process = InstrumentProcess.create!(name: process_name, key: process_name.tr(' ', '_'))
   instrument.instrument_processes << instrument_process
 end
 
@@ -39,24 +39,24 @@ When(/^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")
 end
 
 Given(/^the "([^"]*)" instrument has beds setup$/) do |instrument_name|
-  instrument = Instrument.find_by_name(instrument_name)
+  instrument = Instrument.find_by(name: instrument_name)
   (1..12).each do |bed_number|
     instrument.beds.create!(bed_number: bed_number, name: "P#{bed_number}", barcode: bed_number)
   end
 end
 
 Given(/^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/) do |process_name, instrument_name|
-  instrument = Instrument.find_by_name(instrument_name)
-  instrument_process = InstrumentProcess.find_by_name(process_name)
-  process_link = instrument.instrument_processes_instruments.select do |process|
-    process.instrument_process_id == instrument_process.id
-  end.first
-  process_link&.update_attributes!(witness: true)
+  InstrumentProcessesInstrument.includes(:instrument, :instrument_process)
+                               .find_by!(
+                                 instruments: { name: instrument_name },
+                                 instrument_processes: { name: process_name }
+                               )
+                               .update!(witness: true)
 end
 
 Given(/^a process "([^"]*)" (requires|does not require) visual check$/) do |process_name, optional|
-  instrument_process = InstrumentProcess.find_by_name(process_name)
-  instrument_process.update_attributes!(visual_check_required: (optional == 'requires'))
+  instrument_process = InstrumentProcess.find_by(name: process_name)
+  instrument_process.update!(visual_check_required: (optional == 'requires'))
 end
 
 Then(/^I should have (\d+) plates$/) do |num|

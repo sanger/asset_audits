@@ -14,21 +14,21 @@ Given(/^I have a process "([^"]*)" as part of the "([^"]*)" instrument$/) do |pr
   instrument.instrument_processes << instrument_process
 end
 
-Then(/^(?:|I )wait (\d+) seconds?$/) do |seconds|
-  sleep(seconds.to_i)
-end
+Then(/^(?:|I )wait (\d+) seconds?$/) { |seconds| sleep(seconds.to_i) }
 
 When(/^(?:|I )fill in AJAX field "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/) do |field, value, selector|
   with_scope(selector) do
     fill_in(field, with: value)
     step 'I click on the page'
   end
-  step %(wait 1 second)
+  step 'wait 1 second'
 end
 
-Given(/^I have a process "([^"]*)" as part of the "([^"]*)" instrument which requires a witness$/) do |process_name, instrument_name|
-  step %(I have a process "#{process_name}" as part of the "#{instrument_name}" instrument)
-  step %(a process "#{process_name}" as part of the "#{instrument_name}" instrument requires a witness)
+Given(
+  /^I have a process "([^"]*)" as part of the "([^"]*)" instrument which requires a witness$/
+) do |process_name, instrument_name|
+  step "I have a process \"#{process_name}\" as part of the \"#{instrument_name}\" instrument"
+  step "a process \"#{process_name}\" as part of the \"#{instrument_name}\" instrument requires a witness"
 end
 
 When(/^(?:|I )select "([^"]*)" from AJAX dropdown "([^"]*)"(?: within "([^"]*)")?$/) do |value, field, selector|
@@ -45,13 +45,13 @@ Given(/^the "([^"]*)" instrument has beds setup$/) do |instrument_name|
   end
 end
 
-Given(/^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/) do |process_name, instrument_name|
-  InstrumentProcessesInstrument.includes(:instrument, :instrument_process)
-                               .find_by!(
-                                 instruments: { name: instrument_name },
-                                 instrument_processes: { name: process_name }
-                               )
-                               .update!(witness: true)
+Given(
+  /^a process "([^"]*)" as part of the "([^"]*)" instrument requires a witness$/
+) do |process_name, instrument_name|
+  InstrumentProcessesInstrument
+    .includes(:instrument, :instrument_process)
+    .find_by!(instruments: { name: instrument_name }, instrument_processes: { name: process_name })
+    .update!(witness: true)
 end
 
 Given(/^a process "([^"]*)" (requires|does not require) visual check$/) do |process_name, optional|
@@ -59,9 +59,7 @@ Given(/^a process "([^"]*)" (requires|does not require) visual check$/) do |proc
   instrument_process.update!(visual_check_required: (optional == 'requires'))
 end
 
-Then(/^I should have (\d+) plates$/) do |num|
-  expect(ProcessPlate.count).to eq(num.to_i)
-end
+Then(/^I should have (\d+) plates$/) { |num| expect(ProcessPlate.count).to eq(num.to_i) }
 
 Then(/^I (should|should not) have performed visual check on the last plate$/) do |opt|
   visual_check = ProcessPlate.last.visual_check?

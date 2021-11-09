@@ -2,9 +2,11 @@
 
 class Verification::Validator::UniqueDestinationPlatesScanned < ActiveModel::Validator
   def validate(record)
-    destination_barcodes = record.destination_beds.map do |destination_bed|
-      record.scanned_values[destination_bed.downcase.to_sym][:plate]
-    end.reject(&:blank?)
+    destination_barcodes =
+      record
+        .destination_beds
+        .map { |destination_bed| record.scanned_values[destination_bed.downcase.to_sym][:plate] }
+        .reject(&:blank?)
 
     return unless destination_barcodes != destination_barcodes.uniq
 

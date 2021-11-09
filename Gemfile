@@ -30,6 +30,10 @@ group :development do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rake'
+
+  # Installing prettier via the ruby-gem as this project currently has no
+  # other node dependencies
+  gem 'prettier'
 end
 
 gem 'factory_bot_rails', groups: %i[test cucumber]

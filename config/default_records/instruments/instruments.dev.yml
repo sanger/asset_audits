@@ -6,46 +6,46 @@
 # You can add as many additional .yml files to this directory as you wish.
 # Note: This data was dumped from production on 2020-07-02
 Reception fridge:
-  barcode: '010430'
+  barcode: "010430"
 P200 Pipette:
-  barcode: 'WG0206799-DNA'
+  barcode: "WG0206799-DNA"
 Volume checker_old:
-  barcode: '009867'
+  barcode: "009867"
 Beckman NX:
-  barcode: '009851'
+  barcode: "009851"
 Beckman FX:
-  barcode: '010468'
+  barcode: "010468"
 DTX 1:
-  barcode: '010464'
+  barcode: "010464"
 DTX 2:
-  barcode: '010456'
+  barcode: "010456"
 Tecan 1:
-  barcode: '014296'
+  barcode: "014296"
 Tecan 2:
-  barcode: '014297'
+  barcode: "014297"
 Tecan 3:
-  barcode: '014218'
+  barcode: "014218"
 Delivery freezer:
-  barcode: '009886'
+  barcode: "009886"
 Left SLF:
-  barcode: 'WG0112207-DNA'
+  barcode: "WG0112207-DNA"
 Tecan 4:
-  barcode: '014219'
+  barcode: "014219"
 Destroying instrument:
-  barcode: '6720000011694'
+  barcode: "6720000011694"
 Biorobot:
-  barcode: '4880001006869'
+  barcode: "4880001006869"
 Tecan 5:
-  barcode: '015434'
+  barcode: "015434"
 Tecan 6:
-  barcode: '015435'
+  barcode: "015435"
 Bravo:
-  barcode: '4880000059873'
+  barcode: "4880000059873"
 Mosquito 1:
-  barcode: '23860-1'
+  barcode: "23860-1"
 Mosquito 2:
-  barcode: '23861-1'
+  barcode: "23861-1"
 Volume Checker_new:
-  barcode: '036678'
+  barcode: "036678"
 Hamilton Star 6:
-  barcode: '4880000067878'
+  barcode: "4880000067878"

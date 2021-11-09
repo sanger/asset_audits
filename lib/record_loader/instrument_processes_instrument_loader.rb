@@ -12,11 +12,12 @@ module RecordLoader
 
     def create_or_update!(_name, options)
       instrument, instrument_process = options.fetch_values('instrument', 'instrument_process')
-      InstrumentProcessesInstrument.create_with(options.except('instrument', 'instrument_process'))
-                                   .find_or_create_by!(
-                                     instrument_id: instruments.fetch(instrument),
-                                     instrument_process_id: instrument_processes.fetch(instrument_process)
-                                   )
+      InstrumentProcessesInstrument
+        .create_with(options.except('instrument', 'instrument_process'))
+        .find_or_create_by!(
+          instrument_id: instruments.fetch(instrument),
+          instrument_process_id: instrument_processes.fetch(instrument_process)
+        )
     end
 
     def instruments

@@ -1,12 +1,10 @@
 .bed_layout
-
 %ul
 - @bed_verification_model.transfer_groups.each do |transfer_group|
- %li#beds_and_plates{:class => "verification-group-#{transfer_group[:group]}"}
-  %ul#source
-   = render :partial => "barcode_inputs_row", :locals => { :bed_ids => transfer_group[:source_beds]}
- %li#beds_and_plates{:class => "verification-group-#{transfer_group[:group]}"}
-  %ul#destination
-   = render :partial => "barcode_inputs_row", :locals => { :bed_ids => transfer_group[:destination_beds] }
-
+  %li#beds_and_plates{class: "verification-group-#{transfer_group[:group]}"}
+    %ul#source
+      = render :partial => "barcode_inputs_row", :locals => { :bed_ids => transfer_group[:source_beds]}
+  %li#beds_and_plates{class: "verification-group-#{transfer_group[:group]}"}
+    %ul#destination
+      = render :partial => "barcode_inputs_row", :locals => { :bed_ids => transfer_group[:destination_beds] }
 = render :partial => @bed_verification_model.javascript_partial_name

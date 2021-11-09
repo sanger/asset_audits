@@ -193,7 +193,7 @@ Bravo - SWGA - Bravo:
   instrument: Bravo
   instrument_process: swga_bravo
   bed_verification_type: Verification::DilutionPlate::Bravo
-Beckman NX - UKBB 5ul stamp :
+Beckman NX - UKBB 5ul stamp:
   instrument: Beckman NX
   instrument_process: ukbb_5ul_stamp
   witness: false

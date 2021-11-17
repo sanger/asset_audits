@@ -21,8 +21,8 @@ class Settings
   end
 
   def initialize
-    filename    = File.join(File.dirname(__FILE__), *%W[.. settings #{Rails.env}.yml])
-    @settings   = YAML.safe_load(eval(ERB.new(File.read(filename)).src, nil, filename)) # rubocop:todo Security/Eval
+    filename = File.join(File.dirname(__FILE__), *%W[.. settings #{Rails.env}.yml])
+    @settings = YAML.safe_load(eval(ERB.new(File.read(filename)).src, nil, filename)) # rubocop:todo Security/Eval
   end
 
   def respond_to?(method, include_private: false)
@@ -32,7 +32,7 @@ class Settings
   protected
 
   def method_missing(method, *args, &block) # rubocop:todo Style/MissingRespondToMissing
-    setting_key    = setting_key_for(method)
+    setting_key = setting_key_for(method)
     setting_exists = @settings.key?(setting_key)
 
     if is_settings_query_method?(method)

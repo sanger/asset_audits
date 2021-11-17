@@ -6,11 +6,11 @@ class Barcode
   # Sanger barcoding scheme
 
   def self.prefix_to_number(prefix)
-    first  = prefix[0] - 64
+    first = prefix[0] - 64
     second = prefix[1] - 64
-    first  = 0 if first.negative?
+    first = 0 if first.negative?
     second = 0 if second.negative?
-    ((first * 27) + second) * 1000000000
+    ((first * 27) + second) * 1_000_000_000
   end
 
   # NT23432S => 398002343283
@@ -32,7 +32,7 @@ class Barcode
   def self.calculate_checksum(prefix, number)
     string = prefix + number.to_s
     list = string.chars
-    len  = list.size
+    len = list.size
     sum = 0
     list.each do |character|
       sum += character[0] * len
@@ -57,9 +57,7 @@ class Barcode
   end
 
   def self.split_human_barcode(code)
-    if /^(..)(.*)(.)$/ =~code # rubocop:todo Style/GuardClause
-      [Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)]
-    end
+    [Regexp.last_match(1), Regexp.last_match(2), Regexp.last_match(3)] if /^(..)(.*)(.)$/ =~ code
   end
 
   def self.number_to_human(code)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
+Rails.application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -17,9 +17,7 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
 
   resources :process_plates
   resources :users do
-    collection do
-      post 'search'
-    end
+    collection { post 'search' }
   end
 
   resources :instruments do
@@ -31,15 +29,11 @@ Rails.application.routes.draw do # rubocop:todo Metrics/BlockLength
   end
 
   resources :plates do
-    collection do
-      post 'search'
-    end
+    collection { post 'search' }
   end
 
   resources :bed_layouts do
-    collection do
-      post 'bed_layout_partial'
-    end
+    collection { post 'bed_layout_partial' }
   end
 
   namespace :admin do

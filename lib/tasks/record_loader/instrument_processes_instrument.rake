@@ -4,10 +4,10 @@
 namespace :record_loader do
   desc 'Automatically generate InstrumentProcessesInstrument through InstrumentProcessesInstrumentLoader'
   task instrument_processes_instrument: [
-    :environment,
-    'record_loader:instrument',
-    'record_loader:instrument_process'
-  ] do
+         :environment,
+         'record_loader:instrument',
+         'record_loader:instrument_process'
+       ] do
     require './lib/record_loader/instrument_processes_instrument_loader'
     RecordLoader::InstrumentProcessesInstrumentLoader.new.create!
   end

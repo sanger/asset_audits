@@ -46,6 +46,7 @@ class Admin::ProcessesController < ApplicationController
   def destroy
     process = InstrumentProcess.find(params[:id])
     process.destroy
+
     # also remove links
 
     respond_to do |format|

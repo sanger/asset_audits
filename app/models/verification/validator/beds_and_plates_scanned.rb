@@ -18,6 +18,7 @@ class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
     if bed_barcode.present? && plate_barcode.present?
       # rubocop:todo Lint/ShadowingOuterLocalVariable
       bed = record.instrument.beds.detect { |bed| bed.name.downcase.to_s == bed_name.to_s }
+
       # rubocop:enable Lint/ShadowingOuterLocalVariable
       return false if bed.nil?
       return false if bed.barcode != bed_barcode

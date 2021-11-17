@@ -2,8 +2,9 @@
 
 class Admin::InstrumentProcessesInstrumentsController < ApplicationController
   skip_before_action :configure_api
+
   def create
-    instrument_process_link = InstrumentProcessesInstrument.new(instrument_processes_instrument_params)
+    instrument_process_link = InstrumentProcessesInstrument.new(permitted_params)
     respond_to do |format|
       if instrument_process_link.save
         flash[:notice] = 'Process added to instrument'
@@ -26,8 +27,9 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
 
   private
 
-  def instrument_processes_instrument_params
-    params.require(:instrument_processes_instrument).permit(:instrument_process_id, :instrument_id, :witness,
-                                                            :bed_verification_type)
+  def permitted_params
+    params
+      .require(:instrument_processes_instrument)
+      .permit(:instrument_process_id, :instrument_id, :witness, :bed_verification_type)
   end
 end

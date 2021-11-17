@@ -1,30 +1,27 @@
 %h1 Manage Processes
-
 %table#processes
- %thead
-  %tr
-   %th Process
-   %th Number of Instruments
-   %th Key
-   %th Edit
-   %th Delete
- %tbody
-  - @processes.each  do |process|
-   %tr
-    %td
-     = process.name
-    %td
-     = process.instruments.count
-    %td
-     = process.key
-    %td
-     = link_to "Edit #{process.name}", edit_admin_process_path(process)
-    %td
-     = link_to "Delete #{process.name}",  admin_process_path(process), :method => :delete
-
+  %thead
+    %tr
+      %th Process
+      %th Number of Instruments
+      %th Key
+      %th Edit
+      %th Delete
+  %tbody
+    - @processes.each  do |process|
+      %tr
+        %td
+          = process.name
+        %td
+          = process.instruments.count
+        %td
+          = process.key
+        %td
+          = link_to "Edit #{process.name}", edit_admin_process_path(process)
+        %td
+          = link_to "Delete #{process.name}",  admin_process_path(process), :method => :delete
 %ul
- %li
-  = link_to 'New process', new_admin_process_path
- %li
-  = link_to 'Instrument index', admin_instruments_path
-
+  %li
+    = link_to 'New process', new_admin_process_path
+  %li
+    = link_to 'Instrument index', admin_instruments_path

@@ -14,6 +14,7 @@ gem 'haml'
 gem 'json_api_client'
 gem 'mysql2'
 gem 'nokogiri'
+gem 'oj'
 gem 'sequencescape-client-api', require: 'sequencescape'
 gem 'uuidtools'
 

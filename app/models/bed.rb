@@ -5,6 +5,7 @@ class Bed < ApplicationRecord
 
   # rubocop:todo Rails/UniqueValidationWithoutIndex
   validates :barcode, uniqueness: { scope: [:instrument_id], message: 'must be unique for an instrument' }
+
   # rubocop:enable Rails/UniqueValidationWithoutIndex
   validates :name, uniqueness: { scope: [:instrument_id] } # rubocop:todo Rails/UniqueValidationWithoutIndex
   validates :bed_number, uniqueness: { scope: [:instrument_id] } # rubocop:todo Rails/UniqueValidationWithoutIndex

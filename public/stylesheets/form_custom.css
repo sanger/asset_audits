@@ -1,68 +1,69 @@
 fieldset {
-margin: 1.5em 0 0 0;
-padding: 0;
+  margin: 1.5em 0 0 0;
+  padding: 0;
 }
 
 fieldset li {
-padding-bottom: 1em;
-list-style-type: none;
+  padding-bottom: 1em;
+  list-style-type: none;
 }
 
 label {
-float: left;
-width: 10em;
-margin-right: 1em;
-text-align: right;
+  float: left;
+  width: 10em;
+  margin-right: 1em;
+  text-align: right;
 }
 
 .live_results {
-	float: right;
-	width: 8em;
-	margin-right: 1em;
-	text-align: left;
+  float: right;
+  width: 8em;
+  margin-right: 1em;
+  text-align: left;
 }
 
 .hidden {
-  display:none !important;
+  display: none !important;
 }
 
 .highlight {
-	background-color: #FFF1A6;
+  background-color: #fff1a6;
 }
 
 li#beds_and_plates {
- clear:both;
+  clear: both;
 }
 
-li#beds_and_plates ul fieldset{
- display:inline;
- margin-right: 0px;
- margin-left: 0px;
- padding-right: 5px;
- padding-left: 0px;
+li#beds_and_plates ul fieldset {
+  display: inline;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-right: 5px;
+  padding-left: 0px;
 }
 
-
-label.layout_input_text{
- display:inline;
- margin-right: 5px;
- margin-left: 0px;
- padding-right: 0px;
- padding-left: 0px;
- width: 2.5em;
+label.layout_input_text {
+  display: inline;
+  margin-right: 5px;
+  margin-left: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  width: 2.5em;
 }
 
-.bed_layout ul{
- margin: 0px;
- padding: 0px;
+.bed_layout ul {
+  margin: 0px;
+  padding: 0px;
 }
 
-li#beds_and_plates ul{
- margin: 0px;
- padding: 0px;
+li#beds_and_plates ul {
+  margin: 0px;
+  padding: 0px;
 }
 
-table, td, th {
+table,
+td,
+th {
   border: 1px solid #ddd;
   text-align: left;
 }
@@ -71,6 +72,7 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   padding: 15px;
 }

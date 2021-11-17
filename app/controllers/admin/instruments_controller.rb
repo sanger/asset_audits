@@ -48,6 +48,7 @@ class Admin::InstrumentsController < ApplicationController
   def destroy
     instrument = Instrument.find(params[:id])
     instrument.destroy
+
     # also remove links
     respond_to do |format|
       flash[:notice] = 'Deleted instrument'

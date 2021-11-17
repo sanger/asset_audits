@@ -16,8 +16,11 @@ class WitnessTest < ActiveSupport::TestCase
         witness_barcode: '987'
       }
       @old_delayed_job_count = Delayed::Job.count
-      @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode],
-                                                        scanned_values: @input_params[:robot])
+      @bed_layout_verification =
+        Verification::Base.new(
+          instrument_barcode: @input_params[:instrument_barcode],
+          scanned_values: @input_params[:robot]
+        )
     end
 
     context 'where all parameters are valid' do
@@ -38,7 +41,7 @@ class WitnessTest < ActiveSupport::TestCase
       end
     end
 
-    [['123', 'abc'], ['', nil], ['abc', nil]].each do |witness_barcode, witness_login|
+    [%w[123 abc], ['', nil], ['abc', nil]].each do |witness_barcode, witness_login|
       context "where invalid witness barcodes are scanned with #{witness_barcode}" do
         setup do
           @input_params[:witness_barcode] = witness_barcode

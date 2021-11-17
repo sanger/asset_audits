@@ -1,0 +1,22 @@
+.bundle
+db/test.sqlite3
+db/development.sqlite3
+log/*.log
+tmp/**/*
+*.orig
+
+# created by the byebug gem
+.byebug_history
+
+coverage
+
+# Doesn't expect the erb formatting, so confuses things
+config/cucumber.yml
+db/schema.rb
+
+# Ignore vendored files
+public/javascripts/jquery.js
+public/javascripts/jquery.min.js
+public/javascripts/rails.js
+public/stylesheets/formtastic_static.css
+vendor/**/*

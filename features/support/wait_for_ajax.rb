@@ -11,9 +11,7 @@ module WaitForAjax
   end
 
   def wait_for_ajax
-    Timeout.timeout(waiting_max_wait_time) do
-      loop until finished_all_ajax_requests?
-    end
+    Timeout.timeout(waiting_max_wait_time) { loop until finished_all_ajax_requests? }
   end
 
   def finished_all_ajax_requests?

@@ -12,7 +12,7 @@ class FakeSinatraService
   def self.take_next_port
     if @ports.nil?
       initial_port = (($PROCESS_ID % 100) * 10) + 6000 # Use pid and use a range
-      @ports       = (1..100).to_a.shuffle.map { |p| initial_port + p }
+      @ports = (1..100).to_a.shuffle.map { |p| initial_port + p }
     end
     @ports.shift
   end
@@ -71,13 +71,14 @@ class FakeSinatraService
   def clear; end
 
   def start_sinatra
-    thread = Thread.new do
-      # The effort you have to go through to silence Sinatra/WEBrick!
-      logger       = Logger.new($stderr)
-      logger.level = Logger::FATAL
+    thread =
+      Thread.new do
+        # The effort you have to go through to silence Sinatra/WEBrick!
+        logger = Logger.new($stderr)
+        logger.level = Logger::FATAL
 
-      service.run!(host: @host, port: @port, webrick: { Logger: logger, AccessLog: [] })
-    end
+        service.run!(host: @host, port: @port, webrick: { Logger: logger, AccessLog: [] })
+      end
     yield(thread)
   end
 
@@ -108,7 +109,7 @@ class FakeSinatraService
     def self.run!(options = {}) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       set options
       set :server, %w[webrick] # Force Webrick to be used as it's quicker to startup & shutdown
-      handler      = detect_rack_handler
+      handler = detect_rack_handler
       handler_name = handler.name.gsub(/.*::/, '') # rubocop:todo Lint/UselessAssignment
       handler.run(self, { Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true
@@ -120,6 +121,7 @@ class FakeSinatraService
       # Ignore and continue (or rather, die).
       Rails.logger.error(e)
     end
+
     # rubocop:enable Metrics/MethodLength
 
     get('/up_and_running') do

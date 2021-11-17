@@ -5,9 +5,9 @@ IPI1:
   instrument: test_instrument
   instrument_process: test_process
   witness: true
-  bed_verification_type: 'Verification::Base'
+  bed_verification_type: "Verification::Base"
 IPI2:
   instrument: test_instrument
   instrument_process: test_process_2
   witness: false
-  bed_verification_type: 'Verification::DilutionPlate::Nx'
+  bed_verification_type: "Verification::DilutionPlate::Nx"

@@ -34,30 +34,20 @@ end
 World(WithinHelpers)
 
 # Single-line step scoper
-When(/^(.*) within ([^:]+)$/) do |step, parent|
-  with_scope(parent) { step(step) }
-end
+When(/^(.*) within ([^:]+)$/) { |step, parent| with_scope(parent) { step(step) } }
 
 # Multi-line step scoper
 When(/^(.*) within ([^:]+):$/) do |step, parent, table_or_string|
   with_scope(parent) { step("#{step}:", table_or_string) }
 end
 
-Given(/^(?:|I )am on (.+)$/) do |page_name|
-  visit path_to(page_name)
-end
+Given(/^(?:|I )am on (.+)$/) { |page_name| visit path_to(page_name) }
 
-When(/^(?:|I )go to (.+)$/) do |page_name|
-  visit path_to(page_name)
-end
+When(/^(?:|I )go to (.+)$/) { |page_name| visit path_to(page_name) }
 
-When(/^(?:|I )press "([^"]*)"$/) do |button|
-  click_button(button)
-end
+When(/^(?:|I )press "([^"]*)"$/) { |button| click_button(button) }
 
-When(/^(?:|I )follow "([^"]*)"$/) do |link|
-  click_link(link)
-end
+When(/^(?:|I )follow "([^"]*)"$/) { |link| click_link(link) }
 
 When(/^(?:|I )fill in "([^"]*)" with "([^"]*)"$/) do |field, value|
   fill_in(field, with: value)
@@ -95,60 +85,38 @@ end
 # based on naming conventions.
 #
 When(/^(?:|I )fill in the following:$/) do |fields|
-  fields.rows_hash.each do |name, value|
-    When %(I fill in "#{name}" with "#{value}")
-  end
+  fields.rows_hash.each { |name, value| When "I fill in \"#{name}\" with \"#{value}\"" }
 end
 
-When(/^(?:|I )select "([^"]*)" from "([^"]*)"$/) do |value, field|
-  select(value, from: field)
-end
+When(/^(?:|I )select "([^"]*)" from "([^"]*)"$/) { |value, field| select(value, from: field) }
 
-When(/^(?:|I )check "([^"]*)"$/) do |field|
-  check(field)
-end
+When(/^(?:|I )check "([^"]*)"$/) { |field| check(field) }
 
-When(/^(?:|I )uncheck "([^"]*)"$/) do |field|
-  uncheck(field)
-end
+When(/^(?:|I )uncheck "([^"]*)"$/) { |field| uncheck(field) }
 
-When(/^(?:|I )choose "([^"]*)"$/) do |field|
-  choose(field)
-end
+When(/^(?:|I )choose "([^"]*)"$/) { |field| choose(field) }
 
-When(/^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/) do |path, field|
-  attach_file(field, File.expand_path(path))
-end
+When(/^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/) { |path, field| attach_file(field, File.expand_path(path)) }
 
-When(/^(?:|I )wait for all AJAX calls$/) do
-  wait_for_ajax
-end
+When(/^(?:|I )wait for all AJAX calls$/) { wait_for_ajax }
 
 When(/^(?:|I )click on the page$/) do
   # necessary to fire the JavaScript that renders extra fields
   page.find('body').click
 end
 
-Then(/^(?:|I )should see "([^"]*)"$/) do |text|
-  expect(page).to have_content(text)
-end
+Then(/^(?:|I )should see "([^"]*)"$/) { |text| expect(page).to have_content(text) }
 
 Then(%r{^(?:|I )should see /([^/]*)/$}) do |regexp|
   regexp = Regexp.new(regexp)
   expect(page).to have_xpath('//*', text: regexp)
 end
 
-Then(/^(?:|I )should not see "([^"]*)"$/) do |text|
-  expect(page).not_to have_content(text)
-end
+Then(/^(?:|I )should not see "([^"]*)"$/) { |text| expect(page).not_to have_content(text) }
 
-Then(/^(?:|I )should display "([^"]*)"$/) do |identif|
-  expect(page).to have_xpath("//*[@id='#{identif}']")
-end
+Then(/^(?:|I )should display "([^"]*)"$/) { |identif| expect(page).to have_xpath("//*[@id='#{identif}']") }
 
-Then(/^(?:|I )should not display "([^"]*)"$/) do |identif|
-  expect(page).not_to have_xpath("//*[@id='#{identif}']")
-end
+Then(/^(?:|I )should not display "([^"]*)"$/) { |identif| expect(page).not_to have_xpath("//*[@id='#{identif}']") }
 
 Then(%r{^(?:|I )should not see /([^/]*)/$}) do |regexp|
   regexp = Regexp.new(regexp)
@@ -198,6 +166,4 @@ Then(/^(?:|I )should have the following query string:$/) do |expected_pairs|
   expect(actual_params).to eq(expected_params)
 end
 
-Then(/^show me the page$/) do
-  save_and_open_page
-end
+Then(/^show me the page$/) { save_and_open_page }

@@ -171,6 +171,7 @@ GEM
     mini_portile2 (2.6.1)
     minitest (5.14.4)
     mocha (1.13.0)
+    multi_json (1.15.0)
     multi_test (0.1.2)
     multipart-post (2.1.1)
     mustermann (1.1.1)
@@ -180,6 +181,7 @@ GEM
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
+    oj (3.13.9)
     parallel (1.21.0)
     parser (3.0.2.0)
       ast (~> 2.4.1)
@@ -264,11 +266,11 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    sequencescape-client-api (0.4.1)
+    sequencescape-client-api (0.7.1)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
       i18n
-      yajl-ruby (>= 1.4.1)
+      multi_json
     shoulda (4.0.0)
       shoulda-context (~> 2.0)
       shoulda-matchers (~> 4.0)
@@ -318,7 +320,6 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yajl-ruby (1.4.1)
 
 PLATFORMS
   ruby
@@ -342,6 +343,7 @@ DEPENDENCIES
   mocha
   mysql2
   nokogiri
+  oj
   prettier
   pry
   puma

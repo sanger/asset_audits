@@ -23,9 +23,7 @@ class Verification::QuadStampPlate::Base < Verification::Base
   end
 
   def self.column_groups
-    source_beds.map do |source_bed|
-      [source_bed, destination_beds.first]
-    end
+    source_beds.map { |source_bed| [source_bed, destination_beds.first] }
   end
 
   def parse_source_and_destination_barcodes(scanned_values)

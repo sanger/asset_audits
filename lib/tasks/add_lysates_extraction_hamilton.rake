@@ -19,16 +19,24 @@ namespace :lysates_extraction_hamilton do
 
       # create robot beds
       SRC_BEDS_LE_HAM.each_with_index.map do |bc, index|
-        Bed.find_or_create_by!({ name: "SCRC#{SRC_BED_NUMS_LE_HAM[index]}",
-                                 bed_number: SRC_BED_NUMS_LE_HAM[index],
-                                 barcode: bc,
-                                 instrument: instrument_hamilton })
+        Bed.find_or_create_by!(
+          {
+            name: "SCRC#{SRC_BED_NUMS_LE_HAM[index]}",
+            bed_number: SRC_BED_NUMS_LE_HAM[index],
+            barcode: bc,
+            instrument: instrument_hamilton
+          }
+        )
       end
       DEST_BEDS_LE_HAM.each_with_index.map do |bc, index|
-        Bed.find_or_create_by!({ name: "DEST#{DEST_BED_NUMS_LE_HAM[index]}",
-                                 bed_number: DEST_BED_NUMS_LE_HAM[index],
-                                 barcode: bc,
-                                 instrument: instrument_hamilton })
+        Bed.find_or_create_by!(
+          {
+            name: "DEST#{DEST_BED_NUMS_LE_HAM[index]}",
+            bed_number: DEST_BED_NUMS_LE_HAM[index],
+            barcode: bc,
+            instrument: instrument_hamilton
+          }
+        )
       end
     end
   end
@@ -39,11 +47,12 @@ namespace :lysates_extraction_hamilton do
       # longer shows the process for that instrument (as the robot and / or process may be used elsewhere)
       instrument_hamilton = Instrument.find_by(name: 'Hamilton Star 6', barcode: '4880000067878')
       instrument_process = InstrumentProcess.find_by(name: 'Lysates Extraction', key: 'lysates_extraction')
-      instrument_processes_instrument = InstrumentProcessesInstrument.find_by(
-        instrument: instrument_hamilton,
-        instrument_process: instrument_process,
-        bed_verification_type: 'Verification::DilutionPlate::Hamilton'
-      )
+      instrument_processes_instrument =
+        InstrumentProcessesInstrument.find_by(
+          instrument: instrument_hamilton,
+          instrument_process: instrument_process,
+          bed_verification_type: 'Verification::DilutionPlate::Hamilton'
+        )
       instrument_processes_instrument.destroy!
     end
   end

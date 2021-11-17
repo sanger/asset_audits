@@ -11,9 +11,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   self.partial_name = 'outdated_labware'
 
   def scanned_values
-    [@attributes[:scanned_values]].flatten.map do |s|
-      s.split(/\s/).reject(&:blank?)
-    end.flatten
+    [@attributes[:scanned_values]].flatten.map { |s| s.split(/\s/).reject(&:blank?) }.flatten
   end
 
   def search_resource
@@ -21,12 +19,9 @@ class Verification::OutdatedLabware::Base < Verification::Base
   end
 
   def plates_from_barcodes(barcodes)
-    plates = search_resource.all(api.plate,
-                                 barcode: barcodes)
+    plates = search_resource.all(api.plate, barcode: barcodes)
     plate_hash = plates.index_by { |plate| plate.barcode.machine }
-    barcodes.map do |barcode|
-      [barcode, plate_hash[barcode]]
-    end.to_h
+    barcodes.map { |barcode| [barcode, plate_hash[barcode]] }.to_h
   end
 
   def validate_and_create_audits?(params)

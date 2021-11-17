@@ -4,20 +4,25 @@ module Verification::Groupable
   # rubocop:todo Metrics/MethodLength
   def parse_source_and_destination_barcodes(scanned_values) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     source_and_destination_barcodes = []
-    self.class.transfers.sort_by { |a| a[:priority] }.each do |transfer|
-      transfer[:source_beds].each do |source_bed|
-        source_barcode = scanned_values[source_bed.downcase.to_sym][:plate]
-        bed_barcode = scanned_values[source_bed.downcase.to_sym][:bed] # rubocop:todo Lint/UselessAssignment
-        next if source_barcode.blank?
+    self
+      .class
+      .transfers
+      .sort_by { |a| a[:priority] }
+      .each do |transfer|
+        transfer[:source_beds].each do |source_bed|
+          source_barcode = scanned_values[source_bed.downcase.to_sym][:plate]
+          bed_barcode = scanned_values[source_bed.downcase.to_sym][:bed] # rubocop:todo Lint/UselessAssignment
+          next if source_barcode.blank?
 
-        transfer[:destination_beds].each do |destination_bed|
-          destination_barcode = scanned_values[destination_bed.downcase.to_sym][:plate]
-          source_and_destination_barcodes << [source_barcode, destination_barcode]
+          transfer[:destination_beds].each do |destination_bed|
+            destination_barcode = scanned_values[destination_bed.downcase.to_sym][:plate]
+            source_and_destination_barcodes << [source_barcode, destination_barcode]
+          end
         end
       end
-    end
     source_and_destination_barcodes
   end
+
   # rubocop:enable Metrics/MethodLength
 
   def self.included(base)
@@ -39,21 +44,24 @@ module Verification::Groupable
     end
 
     # rubocop:todo Metrics/AbcSize
-    def transfer_groups # rubocop:todo Metrics/AbcSize
-      transfers.pluck(:group).uniq.map do |group_id|
-        transfers_of_group = transfers.select { |t| t[:group] == group_id }
-        destination_beds = transfers_of_group.pluck(:destination_beds).flatten.uniq
-        transfers_of_group.each_with_object({
-                                              group: group_id,
-                                              source_beds: [],
-                                              destination_beds: destination_beds
-                                            }) do |transfer, memo|
-          transfer[:source_beds].each do |source_bed|
-            memo[:source_beds] << source_bed unless memo[:destination_beds].include?(source_bed)
+    # rubocop:todo Metrics/MethodLength
+    def transfer_groups # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
+      transfers
+        .pluck(:group)
+        .uniq
+        .map do |group_id|
+          transfers_of_group = transfers.select { |t| t[:group] == group_id }
+          destination_beds = transfers_of_group.pluck(:destination_beds).flatten.uniq
+          transfers_of_group.each_with_object(
+            { group: group_id, source_beds: [], destination_beds: destination_beds }
+          ) do |transfer, memo|
+            transfer[:source_beds].each do |source_bed|
+              memo[:source_beds] << source_bed unless memo[:destination_beds].include?(source_bed)
+            end
           end
         end
-      end
     end
+    # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/AbcSize
   end
 end

@@ -60,8 +60,7 @@ class InstrumentJavascriptPresenter
   #         eg. ['p1_bed', 'p1_plate', 'p2_bed', 'p2_plate']
   #
   def bed_plate_pairs
-    @bed_plate_pairs ||= ordered_beds.each_with_object([]) do |name, array|
-      array << "#{name}_bed".downcase << "#{name}_plate".downcase
-    end
+    @bed_plate_pairs ||=
+      ordered_beds.each_with_object([]) { |name, array| array << "#{name}_bed".downcase << "#{name}_plate".downcase }
   end
 end

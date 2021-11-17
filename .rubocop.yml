@@ -1,3 +1,6 @@
+inherit_gem:
+  prettier: rubocop.yml
+
 require:
   - rubocop-performance
   - rubocop-rails
@@ -13,8 +16,8 @@ AllCops:
 
 Layout/LineLength:
   Exclude:
-    - 'test/**/*'
-    - 'features/**/*'
+    - "test/**/*"
+    - "features/**/*"
 
 # Blocks are used to structure tests and are part of the shoulda dsl.
 # The standard BlockLength limits are too stringent for this purpose.
@@ -25,10 +28,11 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - Gemfile
-    - 'db/seeds/**/*'
-    - '**/*.builder'
-    - 'db/schema.rb'
-    - 'test/**/*'
+    - "db/seeds/**/*"
+    - "**/*.builder"
+    - "db/schema.rb"
+    - "test/**/*"
+    - config/routes.rb
   CountAsOne:
     - array
     - hash
@@ -46,7 +50,7 @@ Metrics/MethodLength:
 
 Metrics/ClassLength:
   Exclude:
-    - 'test/**/*'
+    - "test/**/*"
   CountAsOne:
     - array
     - hash
@@ -68,5 +72,5 @@ Style/WordArray:
 
 Lint/Debugger:
   Exclude:
-    - 'features/step_definitions/authentication_steps.rb'
-    - 'features/step_definitions/web_steps.rb'
+    - "features/step_definitions/authentication_steps.rb"
+    - "features/step_definitions/web_steps.rb"

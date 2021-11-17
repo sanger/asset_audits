@@ -26,10 +26,7 @@ class RecordLoader::InstrumentLoaderTest < ActiveSupport::TestCase
 
     should 'set attributes on the created records' do
       record_loader.create!
-      expect(Instrument.first).to have_attributes(
-        name: 'Instrument 1',
-        barcode: '1'
-      )
+      expect(Instrument.first).to have_attributes(name: 'Instrument 1', barcode: '1')
     end
   end
 end

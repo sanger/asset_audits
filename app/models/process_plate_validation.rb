@@ -35,12 +35,11 @@ module ProcessPlateValidation
   def witness_required?
     return false unless instrument
 
-    instrument.instrument_processes_instruments
-              .exists?(instrument_process_id: instrument_process, witness: true)
+    instrument.instrument_processes_instruments.exists?(instrument_process_id: instrument_process, witness: true)
   end
 
   def visual_check_required?
-    return instrument_process.visual_check_required? unless instrument_process.nil?
+    instrument_process&.visual_check_required?
   end
 
   def instrument?

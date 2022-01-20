@@ -15,7 +15,7 @@ gem 'json_api_client'
 gem 'mysql2'
 gem 'nokogiri'
 gem 'oj'
-gem 'sequencescape-client-api', require: 'sequencescape'
+gem 'sequencescape-client-api', '0.8.0.pre.rcx', require: 'sequencescape'
 gem 'uuidtools'
 
 gem 'byebug'

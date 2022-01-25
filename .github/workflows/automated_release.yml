@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - develop
-      - dpl-243-ss-gem-https
 
 jobs:
   build-and-release:

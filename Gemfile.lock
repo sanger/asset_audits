@@ -269,7 +269,7 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    sequencescape-client-api (0.8.2.pre.rcx)
+    sequencescape-client-api (2.0.0)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
       i18n
@@ -361,7 +361,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rake
   selenium-webdriver
-  sequencescape-client-api (= 0.8.2.pre.rcx)
+  sequencescape-client-api
   shoulda
   simplecov
   sinatra

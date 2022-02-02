@@ -8,10 +8,14 @@ Sequencescape.
 
 ### Running applications
 
-* [Sequencescape](https://github.com/sanger/sequencescape/) is required to authenticate against
+- [Sequencescape](https://github.com/sanger/sequencescape/) is required to authenticate against
 
 ## Getting started
 
+1. If you are working on a Macintosh:
+   1. Install [Homebrew](https://brew.sh)
+   1. Install `shared-mime-info` with `brew install shared-mime-info`. This is
+      needed by one of the required Gems in this project.
 1. Install the required version of ruby - look for the version in the `.ruby-version` file
 1. Install bundler: `gem install bundler`
 1. Install the required gems: `bundle install`
@@ -36,9 +40,9 @@ You might get the following error when hitting 'Submit' on the `process_plates/n
 
 Follow these steps:
 
-* note what UUID is listed for `search_find_assets_by_barcode` in `development.yml`
-* look in your local Sequencescape database
-* table `searches` should have a row called `Find assets by barcode`
-* table `uuids` should have a row pointing to the search record, with the UUID from
-`development.yml`, and `resource_type = 'Search'`
-* In future, we should create this automatically in a rake task, like Limber does
+- note what UUID is listed for `search_find_assets_by_barcode` in `development.yml`
+- look in your local Sequencescape database
+- table `searches` should have a row called `Find assets by barcode`
+- table `uuids` should have a row pointing to the search record, with the UUID from
+  `development.yml`, and `resource_type = 'Search'`
+- In future, we should create this automatically in a rake task, like Limber does

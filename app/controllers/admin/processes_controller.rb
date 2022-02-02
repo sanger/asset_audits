@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Admin::ProcessesController < ApplicationController
   skip_before_action :configure_api
 
@@ -32,7 +33,7 @@ class Admin::ProcessesController < ApplicationController
     process = InstrumentProcess.find(params[:id])
 
     respond_to do |format|
-      if process.update_attributes(instrument_process_params)
+      if process.update(instrument_process_params)
         flash[:notice] = 'Updated process'
         format.html { redirect_to(admin_processes_path) }
       else
@@ -45,6 +46,7 @@ class Admin::ProcessesController < ApplicationController
   def destroy
     process = InstrumentProcess.find(params[:id])
     process.destroy
+
     # also remove links
 
     respond_to do |format|
@@ -53,8 +55,7 @@ class Admin::ProcessesController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   private
 

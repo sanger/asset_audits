@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddWitnessColumnToInstrumentProcessInstruments < ActiveRecord::Migration
   def self.up
     add_column :instrument_processes_instruments, :witness, :boolean

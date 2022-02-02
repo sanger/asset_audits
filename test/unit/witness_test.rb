@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 class WitnessTest < ActiveSupport::TestCase
   context 'Adding Audits for assets which require a witness' do
@@ -15,7 +16,11 @@ class WitnessTest < ActiveSupport::TestCase
         witness_barcode: '987'
       }
       @old_delayed_job_count = Delayed::Job.count
-      @bed_layout_verification = Verification::Base.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot])
+      @bed_layout_verification =
+        Verification::Base.new(
+          instrument_barcode: @input_params[:instrument_barcode],
+          scanned_values: @input_params[:robot]
+        )
     end
 
     context 'where all parameters are valid' do
@@ -28,7 +33,7 @@ class WitnessTest < ActiveSupport::TestCase
       end
 
       should 'not have any errors' do
-        assert_equal [], @bed_layout_verification.errors.values
+        assert_empty @bed_layout_verification.errors.values
       end
 
       should 'create audits' do
@@ -36,7 +41,7 @@ class WitnessTest < ActiveSupport::TestCase
       end
     end
 
-    [['123', 'abc'], ['', nil], ['abc', nil]].each do |witness_barcode, witness_login|
+    [%w[123 abc], ['', nil], ['abc', nil]].each do |witness_barcode, witness_login|
       context "where invalid witness barcodes are scanned with #{witness_barcode}" do
         setup do
           @input_params[:witness_barcode] = witness_barcode
@@ -48,7 +53,7 @@ class WitnessTest < ActiveSupport::TestCase
         end
 
         should 'return an error' do
-          assert @bed_layout_verification.errors.values.flatten.include?('Invalid witness barcode')
+          assert_includes @bed_layout_verification.errors.values.flatten, 'Invalid witness barcode'
         end
 
         should 'not create any audits' do

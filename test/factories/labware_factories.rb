@@ -7,9 +7,7 @@ FactoryBot.define do
     size { 96 }
     labware_barcode { { 'ean13_barcode' => '', 'machine_barcode' => barcode, 'human_barcode' => '' } }
 
-    after(:build) do |plate, _evaluator|
-      plate.stubs(:parents).returns([])
-    end
+    after(:build) { |plate, _evaluator| plate.stubs(:parents).returns([]) }
 
     factory :v2_plate_with_parent do
       transient { parent_barcode { 'default_value' } }
@@ -22,12 +20,7 @@ FactoryBot.define do
     factory :v2_plate_with_parents_and_quadrant_metadata do
       transient do
         metadata do
-          {
-            'Quadrant 1' => 'Empty',
-            'Quadrant 2' => 'Empty',
-            'Quadrant 3' => 'Empty',
-            'Quadrant 4' => 'Empty'
-          }
+          { 'Quadrant 1' => 'Empty', 'Quadrant 2' => 'Empty', 'Quadrant 3' => 'Empty', 'Quadrant 4' => 'Empty' }
         end
       end
 
@@ -39,7 +32,9 @@ FactoryBot.define do
           parents << FactoryBot.create(:v2_labware, barcode: parent_barcode)
         end
         plate.stubs(:parents).returns(parents)
-        plate.stubs(:custom_metadatum_collection).returns(FactoryBot.create(:custom_metadatum_collection, metadata: evaluator.metadata))
+        plate
+          .stubs(:custom_metadatum_collection)
+          .returns(FactoryBot.create(:custom_metadatum_collection, metadata: evaluator.metadata))
       end
     end
 

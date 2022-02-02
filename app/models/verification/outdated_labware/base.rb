@@ -1,20 +1,17 @@
 # frozen_string_literal: true
+
 #
 # Takes a list of source plates and validates that all plates
 # are older than the lifespan defined by theit plate purpose
 class Verification::OutdatedLabware::Base < Verification::Base
   validates_with Verification::Validator::OutdatedPlatesScanned
 
-  attr_accessor :plate_barcodes_to_destroy
-
-  attr_accessor :messages
+  attr_accessor :plate_barcodes_to_destroy, :messages
 
   self.partial_name = 'outdated_labware'
 
   def scanned_values
-    [@attributes[:scanned_values]].flatten.map do |s|
-      s.split(/\s/).reject(&:blank?)
-    end.flatten
+    [@attributes[:scanned_values]].flatten.map { |s| s.split(/\s/).reject(&:blank?) }.flatten
   end
 
   def search_resource
@@ -22,17 +19,15 @@ class Verification::OutdatedLabware::Base < Verification::Base
   end
 
   def plates_from_barcodes(barcodes)
-    plates = search_resource.all(api.plate,
-                                 barcode: barcodes)
-    plate_hash = Hash[plates.map { |plate| [plate.barcode.machine, plate] }]
-    Hash[barcodes.map do |barcode|
-      [barcode, plate_hash[barcode]]
-    end]
+    plates = search_resource.all(api.plate, barcode: barcodes)
+    plate_hash = plates.index_by { |plate| plate.barcode.machine }
+    barcodes.map { |barcode| [barcode, plate_hash[barcode]] }.to_h
   end
 
   def validate_and_create_audits?(params)
     return false unless valid?
+
     params[:source_plates] = scanned_values.flatten.join(' ')
-    return super(params)
+    super(params)
   end
 end

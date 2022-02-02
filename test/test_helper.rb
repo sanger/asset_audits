@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
 
@@ -35,14 +36,6 @@ class ActiveSupport::TestCase
   end
 
   def generate_fail_response(barcode)
-    {
-      barcode: barcode,
-      code: '400',
-      body: {
-        'errors': [
-          'No samples for this barcode'
-        ]
-      }
-    }
+    { barcode: barcode, code: '400', body: { errors: ['No samples for this barcode'] } }
   end
 end

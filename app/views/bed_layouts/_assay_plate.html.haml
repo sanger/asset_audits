@@ -1,8 +1,6 @@
 .bed_layout
-
- %ul
-  %li#beds_and_plates
-   %ul#source
-    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => @bed_verification_model.source_beds | @bed_verification_model.destination_beds }
-
+  %ul
+    %li#beds_and_plates
+      %ul#source
+        = render :partial => "barcode_inputs_row", :locals => { :bed_ids => @bed_verification_model.source_beds | @bed_verification_model.destination_beds }
 = render :partial => @bed_verification_model.javascript_partial_name, locals: { presenter: InstrumentJavascriptPresenter.new(@bed_verification_model) }

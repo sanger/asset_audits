@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ProcessPlatesController < ApplicationController
   skip_before_action :configure_api, except: [:create]
 
@@ -11,15 +12,17 @@ class ProcessPlatesController < ApplicationController
     @process_plate = ProcessPlate.new
   end
 
-  def create
-    bed_verification_model = InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode], params[:instrument_process])
+  def create # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
+    bed_verification_model =
+      InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode], params[:instrument_process])
     raise 'Invalid instrument or process' if bed_verification_model.nil?
 
-    bed_layout_verification = bed_verification_model.new(
-      instrument_barcode: params[:instrument_barcode],
-      scanned_values: params[:robot],
-      api: api
-    )
+    bed_layout_verification =
+      bed_verification_model.new(
+        instrument_barcode: params[:instrument_barcode],
+        scanned_values: params[:robot],
+        api: api
+      )
     raise format_errors(bed_layout_verification) unless bed_layout_verification.validate_and_create_audits?(params)
 
     unless receive_plates_process?(params)
@@ -50,7 +53,8 @@ class ProcessPlatesController < ApplicationController
 
   # find out if the 'receive_plates' process was executed
   def receive_plates_process?(params)
-    @receive_plates_process ||= InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
+    @receive_plates_process ||=
+      InstrumentProcess.find_by(id: params[:instrument_process]).key.eql?('slf_receive_plates')
   end
 
   # Returns a list of unique barcodes by removing blanks and duplicates

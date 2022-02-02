@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ProcessPlateValidation
   def self.included(base)
     base.class_eval do
@@ -19,7 +20,8 @@ module ProcessPlateValidation
   end
 
   def process_on_instrument
-    errors.add(:instrument_process, 'Invalid process for instrument') unless instrument.instrument_processes.include?(instrument_process)
+    instrument_includes_process = instrument.instrument_processes.include?(instrument_process)
+    errors.add(:instrument_process, 'Invalid process for instrument') unless instrument_includes_process
   end
 
   def witness_for_process
@@ -32,17 +34,17 @@ module ProcessPlateValidation
 
   def witness_required?
     return false unless instrument
-    instrument.instrument_processes_instruments
-              .where(instrument_process_id: instrument_process, witness: true)
-              .exists?
+
+    instrument.instrument_processes_instruments.exists?(instrument_process_id: instrument_process, witness: true)
   end
 
   def visual_check_required?
-    return instrument_process.visual_check_required? unless instrument_process.nil?
+    instrument_process&.visual_check_required?
   end
 
   def instrument?
     return true if instrument
+
     false
   end
 end

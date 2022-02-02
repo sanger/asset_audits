@@ -1,7 +1,24 @@
-inherit_from: .rubocop_todo.yml
-Metrics/ClassLength:
+inherit_gem:
+  prettier: rubocop.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rake
+  - rubocop-minitest
+
+AllCops:
+  NewCops: enable
   Exclude:
-    - 'test/**/*'
+    - bin/*
+    - vendor/**/*
+    - lib/tasks/cucumber.rake
+
+Layout/LineLength:
+  Exclude:
+    - "test/**/*"
+    - "features/**/*"
+
 # Blocks are used to structure tests and are part of the shoulda dsl.
 # The standard BlockLength limits are too stringent for this purpose.
 # Block DSL is also used in routes
@@ -11,66 +28,49 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   Exclude:
     - Gemfile
-    - 'db/seeds/**/*'
-    - '**/*.builder'
-  ExcludedMethods:
-    - describe
-    - context
-    - background
-    - scenario
-    - namespace
-    - task
-    - included
-    - shared_context
-    - shared_examples
-    - state_machine
-    - configure
-    - draw
-    - feature
-    - subject
-    - let
-    - let!
-    - factory
-    - define
-    - guard
-    - transient
-    - with_nested_has_many_association
-    - with_association
-    - it
-    - class_eval
-    - has_metadata
-    - resources
+    - "db/seeds/**/*"
+    - "**/*.builder"
+    - "db/schema.rb"
+    - "test/**/*"
+    - config/routes.rb
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
 
-AllCops:
+# Method length limits make little sense when you are describing a table schema
+# or a view.
+Metrics/MethodLength:
   Exclude:
-    - bin/*
-    - vendor/**/*
-# The following cops were added to RuboCop, but are not configured by default.
-# Please set Enabled to either `true` or `false` in your `.rubocop.yml` file:
-# For more information: https://docs.rubocop.org/rubocop/versioning.html
-Layout/EmptyLinesAroundAttributeAccessor:
-  Enabled: true
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-Lint/DeprecatedOpenSSLConstant:
-  Enabled: true
-Lint/MixedRegexpCaptureTypes:
-  Enabled: true
-Lint/RaiseException:
-  Enabled: true
-Lint/StructNewOverride:
-  Enabled: true
-Style/ExponentialNotation:
-  Enabled: true
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
-Style/RedundantRegexpCharacterClass:
-  Enabled: true
-Style/RedundantRegexpEscape:
-  Enabled: true
-Style/SlicingWithRange:
-  Enabled: true
+    - "db/migrate/*"
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+
+Metrics/ClassLength:
+  Exclude:
+    - "test/**/*"
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+# Turns numbers like 1234567 into 1_234_567. However this code deals with large
+# numbers for things like barcodes which we don't want displayed like that.
+Style/NumericLiterals:
+  Enabled: false
+
+Style/WordArray:
+  MinSize: 3
+
+Lint/Debugger:
+  Exclude:
+    - "features/step_definitions/authentication_steps.rb"
+    - "features/step_definitions/web_steps.rb"

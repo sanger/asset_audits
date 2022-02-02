@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Verification::BedVerification
   def self.included(base)
     base.class_eval do

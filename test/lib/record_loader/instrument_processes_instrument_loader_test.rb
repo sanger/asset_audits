@@ -12,7 +12,8 @@ class RecordLoader::InstrumentProcessesInstrumentLoaderTest < ActiveSupport::Tes
     @instrument_process = FactoryBot.create :instrument_process, key: 'test_process'
     FactoryBot.create :instrument_process, key: 'test_process_2'
 
-    @record_loader = RecordLoader::InstrumentProcessesInstrumentLoader.new(directory: test_directory, files: selected_files)
+    @record_loader =
+      RecordLoader::InstrumentProcessesInstrumentLoader.new(directory: test_directory, files: selected_files)
     @selected_files = 'two_entry_example'
   end
 

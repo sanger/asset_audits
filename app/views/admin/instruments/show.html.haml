@@ -1,75 +1,61 @@
 %h1 Instrument #{@instrument.name}
-
 %table#instrument_processes
- %thead
-  %tr
-   %th Process
-   %th Key
-   %th Witness?
-   %th Bed verification type
-   %th Remove
- %tbody
-  - @instrument.instrument_processes_instruments.each  do |instrument_processes_instrument|
-   %tr
-    %td
-     = link_to instrument_processes_instrument.instrument_process.name, admin_process_path(instrument_processes_instrument.instrument_process)
-    %td
-     = instrument_processes_instrument.instrument_process.key
-    %td
-     = instrument_processes_instrument.witness ? 'Yes' : ''
-    %td
-     = instrument_processes_instrument.bed_verification_type
-    %td
-     = link_to "Unlink #{instrument_processes_instrument.instrument_process.name}",  admin_instrument_processes_instrument_path(instrument_processes_instrument), :method => :delete
-
+  %thead
+    %tr
+      %th Process
+      %th Key
+      %th Witness?
+      %th Bed verification type
+      %th Remove
+  %tbody
+    - @instrument.instrument_processes_instruments.each  do |instrument_processes_instrument|
+      %tr
+        %td
+          = link_to instrument_processes_instrument.instrument_process.name, admin_process_path(instrument_processes_instrument.instrument_process)
+        %td
+          = instrument_processes_instrument.instrument_process.key
+        %td
+          = instrument_processes_instrument.witness ? 'Yes' : ''
+        %td
+          = instrument_processes_instrument.bed_verification_type
+        %td
+          = link_to "Unlink #{instrument_processes_instrument.instrument_process.name}",  admin_instrument_processes_instrument_path(instrument_processes_instrument), :method => :delete
 %h2 Add process to instrument
-
 = semantic_form_for([:admin,InstrumentProcessesInstrument.new]) do |f|
- = f.inputs :name => 'Instrument details' do
-  = f.input :instrument_process, :label => "Process", :collection => InstrumentProcess.all
-  = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
-  = f.input :witness, :label => "Witness"
-  = f.input :bed_verification_type, :as => :select, :collection => Verification::Base.all_types_for_select
- = f.actions do
-  = f.action :submit, label: 'Add process'
-
-
+  = f.inputs :name => 'Instrument details' do
+    = f.input :instrument_process, :label => "Process", :collection => InstrumentProcess.all
+    = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
+    = f.input :witness, :label => "Witness"
+    = f.input :bed_verification_type, :as => :select, :collection => Verification::Base.all_types_for_select
+  = f.actions do
+    = f.action :submit, label: 'Add process'
 %table#beds
- %thead
-  %tr
-   %th Name
-   %th Barcode
-   %th Number
-   %th Remove
- %tbody
-  - @instrument.beds.each  do |bed|
-   %tr
-    %td
-     = bed.name
-    %td
-     = bed.barcode
-    %td
-     = bed.bed_number
-    %td
-     = link_to "Delete bed #{bed.barcode}",  admin_bed_path(bed), :method => :delete
-
-
+  %thead
+    %tr
+      %th Name
+      %th Barcode
+      %th Number
+      %th Remove
+  %tbody
+    - @instrument.beds.each  do |bed|
+      %tr
+        %td
+          = bed.name
+        %td
+          = bed.barcode
+        %td
+          = bed.bed_number
+        %td
+          = link_to "Delete bed #{bed.barcode}",  admin_bed_path(bed), :method => :delete
 %h2 Add bed to instrument
 = semantic_form_for(Bed.new, :url => admin_beds_path, :method => :post ) do |f|
- = f.inputs :name => 'Bed details' do
-  = f.input :name, :label => "Bed name"
-  = f.input :barcode
-  = f.input :bed_number
-  = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
- = f.actions do
-  = f.action :submit, label: 'Add bed'
-
-
-
-
-
-
-
+  = f.inputs :name => 'Bed details' do
+    = f.input :name, :label => "Bed name"
+    = f.input :barcode
+    = f.input :bed_number
+    = f.input :instrument_id, :as => :hidden, :input_html => { :value => @instrument.id }
+  = f.actions do
+    = f.action :submit, label: 'Add bed'
 %ul
- %li
-  = link_to 'Instrument index', admin_instruments_path
+  %li
+    = link_to 'Instrument index', admin_instruments_path

@@ -7,8 +7,7 @@ class PsdFormatter < Syslog::Logger::Formatter
   LINE_FORMAT = "(thread-%s) [%s] %5s -- : %s\n"
 
   def initialize(deployment_info)
-    info = OpenStruct.new(deployment_info)
-    @app_tag = [info.name, info.version, info.environment].compact.join(':').freeze
+    @app_tag = deployment_info.values_at(:version, :environment).compact.join(':').freeze
     super()
   end
 
@@ -23,10 +22,6 @@ class PsdFormatter < Syslog::Logger::Formatter
   SEV_LABEL = %w[DEBUG INFO WARN ERROR FATAL ANY].each(&:freeze).freeze
 
   def format_severity(severity)
-    if severity.is_a?(Integer)
-      SEV_LABEL[severity] || 'ANY'
-    else
-      severity
-    end
+    severity.is_a?(Integer) ? SEV_LABEL[severity] || 'ANY' : severity
   end
 end

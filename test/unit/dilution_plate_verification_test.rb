@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 require 'support/test_sequencescape_api'
 require 'support/test_search_result'
@@ -9,7 +10,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       ipi = FactoryBot.create(:instrument_processes_instrument)
       @instrument = ipi.instrument
       @instrument_process = ipi.instrument_process
-      Bed.all.map { |bed| bed.update_attributes!(instrument_id: @instrument.id) }
+      Bed.all.map { |bed| bed.update!(instrument_id: @instrument.id) }
     end
 
     context 'where valid barcodes are scanned' do
@@ -23,21 +24,50 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
           instrument_barcode: @instrument.barcode.to_s,
           instrument_process: @instrument.instrument_processes.first.id.to_s,
           robot: {
-            p2: { bed: '2', plate: 'DN123T' },
-            p5: { bed: '',  plate: '' },
-            p8: { bed: '',  plate: '' },
-            p11: { bed: '', plate: '' },
-            p3: { bed: '3', plate: 'DN456S' },
-            p6: { bed: '',  plate: '' },
-            p9: { bed: '',  plate: '' },
-            p12: { bed: '', plate: '' }
+            p2: {
+              bed: '2',
+              plate: 'DN123T'
+            },
+            p5: {
+              bed: '',
+              plate: ''
+            },
+            p8: {
+              bed: '',
+              plate: ''
+            },
+            p11: {
+              bed: '',
+              plate: ''
+            },
+            p3: {
+              bed: '3',
+              plate: 'DN456S'
+            },
+            p6: {
+              bed: '',
+              plate: ''
+            },
+            p9: {
+              bed: '',
+              plate: ''
+            },
+            p12: {
+              bed: '',
+              plate: ''
+            }
           }
         }
 
         api = TestSequencescapeApi.new({ 'DN456S' => [TestSearchResult.new('DN123T')] })
 
         @old_delayed_job_count = Delayed::Job.count
-        @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
+        @bed_layout_verification =
+          Verification::DilutionPlate::Nx.new(
+            instrument_barcode: @input_params[:instrument_barcode],
+            scanned_values: @input_params[:robot],
+            api: api
+          )
         User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
         @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -45,7 +75,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       end
 
       should 'not have any errors' do
-        assert_equal [], @bed_layout_verification.errors.values
+        assert_empty @bed_layout_verification.errors.values
       end
 
       should 'create audits' do
@@ -61,8 +91,14 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
           visual_check: false,
           metadata: {
             'scanned' => {
-              'p2' => { 'bed' => '2', 'plate' => 'DN123T' },
-              'p3' => { 'bed' => '3', 'plate' => 'DN456S' }
+              'p2' => {
+                'bed' => '2',
+                'plate' => 'DN123T'
+              },
+              'p3' => {
+                'bed' => '3',
+                'plate' => 'DN456S'
+              }
             }
           }
         )
@@ -97,21 +133,50 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
             instrument_barcode: @instrument.barcode.to_s,
             instrument_process: @instrument.instrument_processes.first.id.to_s,
             robot: {
-              p2: { bed: source_bed, plate: source_plate },
-              p5: { bed: '',   plate: '' },
-              p8: { bed: '',   plate: '' },
-              p11: { bed: '', plate: '' },
-              p3: { bed: destination_bed, plate: destination_plate },
-              p6: { bed: '',   plate: '' },
-              p9: { bed: '',   plate: '' },
-              p12: { bed: '', plate: '' }
+              p2: {
+                bed: source_bed,
+                plate: source_plate
+              },
+              p5: {
+                bed: '',
+                plate: ''
+              },
+              p8: {
+                bed: '',
+                plate: ''
+              },
+              p11: {
+                bed: '',
+                plate: ''
+              },
+              p3: {
+                bed: destination_bed,
+                plate: destination_plate
+              },
+              p6: {
+                bed: '',
+                plate: ''
+              },
+              p9: {
+                bed: '',
+                plate: ''
+              },
+              p12: {
+                bed: '',
+                plate: ''
+              }
             }
           }
 
           api = TestSequencescapeApi.new({ '456' => [TestSearchResult.new('123')], '123' => [], '' => [] })
 
           @old_delayed_job_count = Delayed::Job.count
-          @bed_layout_verification = Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode], scanned_values: @input_params[:robot], api: api)
+          @bed_layout_verification =
+            Verification::DilutionPlate::Nx.new(
+              instrument_barcode: @input_params[:instrument_barcode],
+              scanned_values: @input_params[:robot],
+              api: api
+            )
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validator
-  def validate(record)
+  def validate(record) # rubocop:todo Metrics/MethodLength
     destination_plate = Sequencescape::Api::V2::Plate.where(barcode: record.destination_barcode).first
     if destination_plate.nil?
       record.errors[:base] << 'Couldn\'t find the destination plate.'
@@ -14,10 +14,17 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
     end
 
     if missing_custom_metadatum_collection?(destination_plate)
-      record.errors[:base] << 'The destination plate doesn\'t have any quadrant information. Was it made by a quadrant stamp?'
+      record.errors[:base] <<
+        'The destination plate doesn\'t have any quadrant information. ' \
+          'Was it made by a quadrant stamp?'
       return
     end
 
+    validate_quadrants(record, destination_plate)
+  end
+
+  # rubocop:todo Metrics/MethodLength
+  def validate_quadrants(record, destination_plate) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     (1..4).each do |index|
       quadrant_name = "Quadrant #{index}"
       quad_metadata = destination_plate.custom_metadatum_collection.metadata[quadrant_name]
@@ -30,10 +37,14 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
       next if quad_scanned == quad_metadata
 
       bed = record.source_beds[index - 1]
-      record.errors[:base] << "The barcode in bed #{bed} doesn\'t match the plate in #{quadrant_name} on the destination plate."
+      record.errors[:base] <<
+        "The barcode in bed #{bed} doesn\'t match the plate in " \
+          "#{quadrant_name} on the destination plate."
       break
     end
   end
+
+  # rubocop:enable Metrics/MethodLength
 
   def missing_custom_metadatum_collection?(plate)
     plate.custom_metadatum_collection.nil? || plate.custom_metadatum_collection.metadata.nil?

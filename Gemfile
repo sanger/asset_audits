@@ -1,19 +1,22 @@
+# frozen_string_literal: true
+
 # source 'https://rubygems.org'
 source 'http://rubygems.org'
 
+gem 'activeresource'
 gem 'rails', '~> 5.2.0'
 gem 'rake'
-gem 'activeresource'
 
-gem 'nokogiri'
-gem 'formtastic'
-gem 'mysql2'
-gem 'uuidtools'
-gem 'haml'
-gem 'sequencescape-client-api', require: 'sequencescape'
-gem 'delayed_job_active_record'
 gem 'daemons'
+gem 'delayed_job_active_record'
+gem 'formtastic'
+gem 'haml'
 gem 'json_api_client'
+gem 'mysql2'
+gem 'nokogiri'
+gem 'oj'
+gem 'sequencescape-client-api', require: 'sequencescape'
+gem 'uuidtools'
 
 gem 'byebug'
 gem 'puma'
@@ -22,33 +25,40 @@ gem 'puma'
 gem 'record_loader'
 
 group :development do
-  gem 'rubocop'
   gem 'listen' # Hot reloading
+  gem 'rubocop'
+  gem 'rubocop-minitest'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rake'
+
+  # Installing prettier via the ruby-gem as this project currently has no
+  # other node dependencies
+  gem 'prettier'
 end
 
-gem 'factory_bot_rails', groups: [:test, :cucumber]
+gem 'factory_bot_rails', groups: %i[test cucumber]
 
-gem 'pry', groups: [:test, :cucumber, :development]
+gem 'pry', groups: %i[test cucumber development]
 
 group :test do
   gem 'mocha'
   gem 'shoulda'
-  gem 'webmock'
   gem 'sinatra'
+  gem 'webmock'
 end
 
 group :cucumber, :test do
-  gem 'simplecov', require: false
   gem 'capybara'
-  gem 'minitest'
   gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
+  gem 'database_cleaner-active_record'
   gem 'launchy'
-  gem 'timecop'
+  gem 'minitest'
   gem 'rspec-expectations'
   gem 'rspec-mocks'
   gem 'selenium-webdriver'
-  gem 'rubyzip'
+  gem 'simplecov', require: false
+  gem 'timecop'
   gem 'webdrivers'
 end
 

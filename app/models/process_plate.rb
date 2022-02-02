@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ProcessPlate < ApplicationRecord
   include ProcessPlateValidation
 
@@ -15,7 +16,7 @@ class ProcessPlate < ApplicationRecord
   end
 
   def witness_login
-    @witness_login ||= User.login_from_user_code(witness_barcode) unless witness_barcode.blank?
+    @witness_login ||= User.login_from_user_code(witness_barcode) if witness_barcode.present?
   end
 
   def barcodes
@@ -23,7 +24,7 @@ class ProcessPlate < ApplicationRecord
   end
 
   def instrument
-    @instrument ||= Instrument.find_by_barcode(instrument_barcode)
+    @instrument ||= Instrument.find_by(barcode: instrument_barcode)
   end
 
   def search_resource
@@ -39,13 +40,12 @@ class ProcessPlate < ApplicationRecord
   end
 
   def api
-    @api ||= Sequencescape::Api.new(url: Settings.sequencescape_api_v1, authorisation: Settings.sequencescape_authorisation)
+    @api ||=
+      Sequencescape::Api.new(url: Settings.sequencescape_api_v1, authorisation: Settings.sequencescape_authorisation)
   end
 
   def create_audits
-    asset_uuids_from_plate_barcodes.each do |asset_uuid|
-      create_remote_audit(asset_uuid)
-    end
+    asset_uuids_from_plate_barcodes.each { |asset_uuid| create_remote_audit(asset_uuid) }
   end
   handle_asynchronously :create_audits
 

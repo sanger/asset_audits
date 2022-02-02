@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'singleton'
 require 'sinatra'
 
@@ -10,20 +11,20 @@ class FakeSinatraService
   # test runs.
   def self.take_next_port
     if @ports.nil?
-      initial_port = (($$ % 100) * 10) + 6000 # Use pid and use a range
-      @ports       = (1..100).to_a.shuffle.map { |p| initial_port + p }
+      initial_port = (($PROCESS_ID % 100) * 10) + 6000 # Use pid and use a range
+      @ports = (1..100).to_a.shuffle.map { |p| initial_port + p }
     end
     @ports.shift
   end
 
-  attr_reader :port
-  attr_reader :host
+  attr_reader :port, :host
 
-  def initialize(*args, &block)
-    @host, @port = 'localhost', self.class.take_next_port
+  def initialize(*_args)
+    @host = 'localhost'
+    @port = self.class.take_next_port
   end
 
-  def run!(&block)
+  def run!
     start_sinatra do |thread|
       wait_for_sinatra_to_startup!
       yield
@@ -40,11 +41,11 @@ class FakeSinatraService
       # Ensure that, if we're running in a javascript environment, that the browser has been launched
       # before we start our service.  This ensures that the listening port is not inherited by the fork
       # within the Selenium driver.
-      Before(tags) do |scenario|
+      Before(tags) do |_scenario|
         Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
         service.instance.start!
       end
-      After(tags) { |scenario| service.instance.finish! }
+      After(tags) { |_scenario| service.instance.finish! }
     end
   end
 
@@ -67,31 +68,27 @@ class FakeSinatraService
 
   private
 
-  def clear
-  end
+  def clear; end
 
-  def start_sinatra(&block)
-    thread = Thread.new do
-      # The effort you have to go through to silence Sinatra/WEBrick!
-      logger       = Logger.new(STDERR)
-      logger.level = Logger::FATAL
+  def start_sinatra
+    thread =
+      Thread.new do
+        # The effort you have to go through to silence Sinatra/WEBrick!
+        logger = Logger.new($stderr)
+        logger.level = Logger::FATAL
 
-      service.run!(host: @host, port: @port, webrick: { Logger: logger, AccessLog: [] })
-    end
+        service.run!(host: @host, port: @port, webrick: { Logger: logger, AccessLog: [] })
+      end
     yield(thread)
   end
 
   def kill_running_sinatra
     Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/die_eat_flaming_death"))
-  rescue EOFError
-    # This is fine, it means that Sinatra apparently died.
+  rescue EOFError, Errno::ECONNREFUSED, SystemExit
+    # EOFError:            This is fine, it means that Sinatra apparently died.
+    # Errno::ECONNREFUSED: This is probably fine too because it means it wasn't running in the first place!
+    # SystemExit:          This one is probably fine to ignore too.
     true
-  rescue Errno::ECONNREFUSED
-    true
-    # This is probably fine too because it means it wasn't running in the first place!
-  rescue SystemExit
-    true
-    # This one is probably fine to ignore too.
   end
 
   # We have to pause execution until Sinatra has come up.  This makes a number of attempts to
@@ -100,7 +97,7 @@ class FakeSinatraService
     10.times do
       Net::HTTP.get(URI.parse("http://#{@host}:#{@port}/up_and_running"))
       return
-    rescue Errno::ECONNREFUSED => exception
+    rescue Errno::ECONNREFUSED => e # rubocop:todo Lint/UselessAssignment
       sleep(1)
     end
 
@@ -108,24 +105,24 @@ class FakeSinatraService
   end
 
   class Base < Sinatra::Base
-    def self.run!(options = {})
+    # rubocop:todo Metrics/MethodLength
+    def self.run!(options = {}) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       set options
-      set :server, %w{webrick} # Force Webrick to be used as it's quicker to startup & shutdown
-      handler      = detect_rack_handler
-      handler_name = handler.name.gsub(/.*::/, '')
+      set :server, %w[webrick] # Force Webrick to be used as it's quicker to startup & shutdown
+      handler = detect_rack_handler
+      handler_name = handler.name.gsub(/.*::/, '') # rubocop:todo Lint/UselessAssignment
       handler.run(self, { Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true
-        set :quit_handler, Proc.new { server.shutdown } # Kill the Webrick specific instance if we need to
+        set :quit_handler, (proc { server.shutdown }) # Kill the Webrick specific instance if we need to
       end
-    rescue Errno::EADDRINUSE => e
+    rescue Errno::EADDRINUSE => e # rubocop:todo Lint/UselessAssignment
       raise StandardError, "== Someone is already performing on port #{port}!"
-    rescue SystemExit => e
-      # Ignore and continue (or rather, die).
-      Rails.logger.error(e)
-    rescue IOError => e
+    rescue SystemExit, IOError => e
       # Ignore and continue (or rather, die).
       Rails.logger.error(e)
     end
+
+    # rubocop:enable Metrics/MethodLength
 
     get('/up_and_running') do
       status(200)

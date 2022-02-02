@@ -30,6 +30,7 @@ class Verification::AssayPlate::Base < Verification::Base
     destination_beds.each do |destination_bed|
       destination_barcode = scanned_values[destination_bed.downcase.to_sym][:plate]
       next if destination_barcode.blank?
+
       source_and_destination_barcodes << [source_barcode, destination_barcode]
     end
 

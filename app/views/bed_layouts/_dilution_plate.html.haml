@@ -1,20 +1,17 @@
 .bed_layout
-
- %ul
-  %li#beds_and_plates
-   %ul#source
-    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => @bed_verification_model.source_beds }
-  %li#beds_and_plates
-   %ul#destination
-    = render :partial => "barcode_inputs_row", :locals => { :bed_ids => @bed_verification_model.destination_beds }
-
+  %ul
+    %li#beds_and_plates
+      %ul#source
+        = render :partial => "barcode_inputs_row", :locals => { :bed_ids => @bed_verification_model.source_beds }
+    %li#beds_and_plates
+      %ul#destination
+        = render :partial => "barcode_inputs_row", :locals => { :bed_ids => @bed_verification_model.destination_beds }
 %h3 Checklist
 .checklist
- %ol
-  %li Buffer full
-  %li Tips added
-  %li Covers removed
-  %li Correct program selected
-  %li Program edited for the correct number of plates
-
+  %ol
+    %li Buffer full
+    %li Tips added
+    %li Covers removed
+    %li Correct program selected
+    %li Program edited for the correct number of plates
 = render :partial => @bed_verification_model.javascript_partial_name, locals: { presenter: InstrumentJavascriptPresenter.new(@bed_verification_model) }

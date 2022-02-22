@@ -21,7 +21,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   def plates_from_barcodes(barcodes)
     plates = search_resource.all(api.plate, barcode: barcodes)
     plate_hash = plates.index_by { |plate| plate.barcode.machine }
-    barcodes.map { |barcode| [barcode, plate_hash[barcode]] }.to_h
+    barcodes.to_h { |barcode| [barcode, plate_hash[barcode]] }
   end
 
   def validate_and_create_audits?(params)

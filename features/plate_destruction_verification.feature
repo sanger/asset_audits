@@ -67,13 +67,13 @@ Feature: Verify destruction of plates
 
     # The delayed job will raise an exception if it fails
     Examples:
-      | plate_1                  | plate_2                  | valid  | message                                                                      |
-      | old_plate                |                          | notice | Success                                                                      |
-      | old_plate                | other_old_plate          | notice | Success                                                                      |
-      | old_plate                | fake_plate               | error  | The plate fake_plate hasn't been found                                       |
-      | new_plate                |                          | error  | The plate new_plate is less than 30 days old                                 |
-      | old_plate                | new_plate                | error  | The plate new_plate is less than 30 days old                                 |
-      | old_indestructable_plate |                          | error  | The plate old_indestructable_plate can't be destroyed because its a immortal |
-      | old_plate                | old_indestructable_plate | error  | The plate old_indestructable_plate can't be destroyed because its a immortal |
+      | plate_1                  | plate_2                  | valid  | message                                                                       |
+      | old_plate                |                          | notice | Success                                                                       |
+      | old_plate                | other_old_plate          | notice | Success                                                                       |
+      | old_plate                | fake_plate               | error  | The plate fake_plate hasn't been found                                        |
+      | new_plate                |                          | error  | The plate new_plate is less than 30 days old                                  |
+      | old_plate                | new_plate                | error  | The plate new_plate is less than 30 days old                                  |
+      | old_indestructable_plate |                          | error  | The plate old_indestructable_plate can't be destroyed because it's a immortal |
+      | old_plate                | old_indestructable_plate | error  | The plate old_indestructable_plate can't be destroyed because it's a immortal |
 
 

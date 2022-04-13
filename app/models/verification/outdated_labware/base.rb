@@ -19,8 +19,9 @@ class Verification::OutdatedLabware::Base < Verification::Base
   end
 
   def plates_from_barcodes(barcodes)
-    plates = search_resource.all(api.plate, barcode: barcodes)
-    plate_hash = plates.index_by { |plate| plate.barcode.machine }
+    plates = Sequencescape::Api::V2::Labware.where(barcode: barcodes)
+    plate_hash = plates.index_by { |plate| plate.labware_barcode['machine_barcode'] }
+
     barcodes.to_h { |barcode| [barcode, plate_hash[barcode]] }
   end
 

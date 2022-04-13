@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 #
-# Takes a list of source plates and validates that all plates
-# are older than the lifespan defined by their plate purpose
+# Takes a list of source labware and validates that all labware
+# are older than the lifespan defined by their purpose
 class Verification::OutdatedLabware::Base < Verification::Base
   validates_with Verification::Validator::OutdatedPlatesScanned
 
@@ -12,11 +12,11 @@ class Verification::OutdatedLabware::Base < Verification::Base
     [@attributes[:scanned_values]].flatten.map { |s| s.split(/\s/).reject(&:blank?) }.flatten
   end
 
-  def plates_from_barcodes(barcodes)
-    plates = Sequencescape::Api::V2::Labware.where(barcode: barcodes)
-    plate_hash = plates.index_by { |plate| plate.labware_barcode['machine_barcode'] }
+  def labware_from_barcodes(barcodes)
+    labware = Sequencescape::Api::V2::Labware.where(barcode: barcodes)
+    labware_hash = labware.index_by { |labware| labware.labware_barcode['machine_barcode'] }
 
-    barcodes.to_h { |barcode| [barcode, plate_hash[barcode]] }
+    barcodes.to_h { |barcode| [barcode, labware_hash[barcode]] }
   end
 
   def validate_and_create_audits?(params)

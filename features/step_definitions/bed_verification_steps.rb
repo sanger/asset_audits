@@ -47,7 +47,7 @@ Given(
     labware = Sequencescape::Api::V2::Labware.new
     allow(labware).to receive(:purpose).and_return(purpose)
     allow(labware).to receive(:labware_barcode).and_return({ 'machine_barcode' => barcode.to_s })
-    allow(labware).to receive(:created_at).and_return(Date.today - age_list[index])
+    allow(labware).to receive(:created_at).and_return(Time.zone.today - age_list[index])
 
     labware_list << labware
   end

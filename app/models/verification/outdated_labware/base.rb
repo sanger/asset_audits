@@ -13,9 +13,8 @@ class Verification::OutdatedLabware::Base < Verification::Base
   end
 
   def labware_from_barcodes(barcodes)
-    labware = Sequencescape::Api::V2::Labware.where(barcode: barcodes)
-    labware_hash = labware.index_by { |labware| labware.labware_barcode['machine_barcode'] }
-
+    labware_list = Sequencescape::Api::V2::Labware.where(barcode: barcodes)
+    labware_hash = labware_list.index_by { |labw| labw.labware_barcode['machine_barcode'] }
     barcodes.to_h { |barcode| [barcode, labware_hash[barcode]] }
   end
 

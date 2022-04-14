@@ -29,10 +29,14 @@ Given(
   /^I can retrieve the labware with barcodes "([^"]*)" and lifespans "([^"]*)" and ages "([^"]*)" and existence "([^"]*)"$/
 ) do |barcodes, lifespans, ages, existence|
   barcode_list = barcodes.split(',').map(&:strip).reject(&:blank?)
-  lifespan_list = lifespans.split(',').reject(&:blank?).map do |lifespan|
-    lifespan.strip!
-    lifespan == 'nil' ? nil : lifespan.to_i
-  end
+  lifespan_list =
+    lifespans
+      .split(',')
+      .reject(&:blank?)
+      .map do |lifespan|
+        lifespan.strip!
+        lifespan == 'nil' ? nil : lifespan.to_i
+      end
   age_list = ages.split(',').reject(&:blank?).map(&:to_i)
   exists_list = existence.split(',').reject(&:blank?).map { |e| e.strip == 'true' }
 

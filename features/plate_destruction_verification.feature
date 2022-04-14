@@ -60,7 +60,7 @@ Feature: Verify destruction of plates
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Destroy plates" from AJAX dropdown "Instrument process"
-      And I fill in "Source plates" with "<plate_1> <plate_2>"
+      And I fill in "Source labware" with "<plate_1> <plate_2>"
       And I press "Submit"
       Then I should see "<message>"
       And I should be on the new audit page

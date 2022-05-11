@@ -4,9 +4,6 @@ class InstrumentProcessesInstrument < ApplicationRecord
   belongs_to :instrument
   belongs_to :instrument_process
 
-  validates :instrument, presence: true
-  validates :instrument_process, presence: true
-
   # rubocop:todo Rails/UniqueValidationWithoutIndex
   validates :instrument_id, uniqueness: { scope: [:instrument_process_id] }
 

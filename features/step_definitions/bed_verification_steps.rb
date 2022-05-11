@@ -24,6 +24,41 @@ Given(
   )
 end
 
+# Mocking Sequencescape::Api::V2::Labware.where(barcode: barcodes)
+Given(
+  /^I can retrieve the labware with barcodes "([^"]*)" and lifespans "([^"]*)" and ages "([^"]*)" and existence "([^"]*)"$/
+) do |barcodes, lifespans, ages, existence|
+  barcode_list = barcodes.split(',').map(&:strip).reject(&:blank?)
+  lifespan_list =
+    lifespans
+      .split(',')
+      .reject(&:blank?)
+      .map do |lifespan|
+        lifespan.strip!
+        lifespan == 'nil' ? nil : lifespan.to_i
+      end
+  age_list = ages.split(',').reject(&:blank?).map(&:to_i)
+  exists_list = existence.split(',').reject(&:blank?).map { |e| e.strip == 'true' }
+
+  labware_list = []
+  barcode_list.each_with_index do |barcode, index|
+    next unless exists_list[index]
+
+    purpose = Sequencescape::Api::V2::Purpose.new
+    allow(purpose).to receive(:lifespan).and_return(lifespan_list[index])
+    allow(purpose).to receive(:name).and_return('immortal')
+
+    labware = Sequencescape::Api::V2::Labware.new
+    allow(labware).to receive(:purpose).and_return(purpose)
+    allow(labware).to receive(:labware_barcode).and_return({ 'machine_barcode' => barcode.to_s })
+    allow(labware).to receive(:created_at).and_return(Time.zone.today - age_list[index])
+
+    labware_list << labware
+  end
+
+  allow(Sequencescape::Api::V2::Labware).to receive(:where).with(barcode: barcode_list).and_return(labware_list)
+end
+
 Given(
   /^I can retrieve the plate with barcode "([^"]*)" and parent barcodes "([^"]*)"$/
 ) do |child_barcode, parent_barcodes|

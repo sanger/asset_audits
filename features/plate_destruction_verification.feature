@@ -8,72 +8,26 @@ Feature: Verify destruction of plates
       And all this is happening at "2015-05-05T13:45:00+01:00"
 
   Scenario Outline: Destroying various plates
-    Given the search with UUID "00000000-0000-0000-0000-000000000001" for barcodes "<plate_1>, <plate_2>" returns the following JSON:
-      """
-      {
-          "searches": [{
-              "uuid": "00000000-1111-2222-3333-444444444444",
-              "barcode": {
-                "ean13": "old_plate",
-                "machine": "old_plate"
-              },
-              "plate_purpose": { "lifespan":30, "uuid":"00000000-2222-2222-3333-444444444444" },
-              "created_at":"2015-01-01T13:45:00+01:00"
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444445",
-              "barcode": {
-                "ean13": "new_plate",
-                "machine": "new_plate"
-              },
-              "plate_purpose": {"lifespan":30, "uuid":"00000000-2222-2222-3333-444444444444" },
-              "created_at":"2015-05-01T13:45:00+01:00"
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444446",
-              "barcode": {
-                "ean13": "old_indestructable_plate",
-                "machine": "old_indestructable_plate"
-              },
-              "plate_purpose": { "lifespan":null, "name":"immortal", "uuid":"00000000-2222-2222-3333-444444444446"  },
-              "created_at":"2015-01-01T13:45:00+01:00"
-          },
-          {
-              "uuid": "00000000-1111-2222-3333-444444444447",
-              "barcode": {
-                "ean13": "other_old_plate",
-                "machine": "other_old_plate"
-              },
-              "plate_purpose": {"lifespan":30, "uuid":"00000000-2222-2222-3333-444444444444" },
-              "created_at":"2015-01-01T13:45:00+01:00"
-          }],
-          "uuids_to_ids": {
-              "00000000-1111-2222-3333-444444444444": 194216,
-              "00000000-1111-2222-3333-444444444445": 194217,
-              "00000000-1111-2222-3333-444444444446": 194218,
-              "00000000-1111-2222-3333-444444444447": 194219
-          }
-      }
-      """
+    Given I can retrieve the labware with barcodes "<plate_1>, <plate_2>" and lifespans "<lifespan_1>, <lifespan_2>" and ages "<age_1>, <age_2>" and existence "<exists_1>, <exists_2>"
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
       And I fill in AJAX field "Instrument barcode" with "abc123456"
       And I select "Destroy plates" from AJAX dropdown "Instrument process"
-      And I fill in "Source plates" with "<plate_1> <plate_2>"
+      And I fill in "Source labware" with "<plate_1> <plate_2>"
       And I press "Submit"
       Then I should see "<message>"
       And I should be on the new audit page
 
     # The delayed job will raise an exception if it fails
     Examples:
-      | plate_1                  | plate_2                  | valid  | message                                                                      |
-      | old_plate                |                          | notice | Success                                                                      |
-      | old_plate                | other_old_plate          | notice | Success                                                                      |
-      | old_plate                | fake_plate               | error  | The plate fake_plate hasn't been found                                       |
-      | new_plate                |                          | error  | The plate new_plate is less than 30 days old                                 |
-      | old_plate                | new_plate                | error  | The plate new_plate is less than 30 days old                                 |
-      | old_indestructable_plate |                          | error  | The plate old_indestructable_plate can't be destroyed because its a immortal |
-      | old_plate                | old_indestructable_plate | error  | The plate old_indestructable_plate can't be destroyed because its a immortal |
+      | plate_1                  | plate_2                  | lifespan_1 | lifespan_2 | age_1 | age_2 | exists_1 | exists_2 | valid  | message                                                                         |
+      | old_plate                |                          |  30        |            | 35    |       | true     |          | notice | Success                                                                         |
+      | old_plate                | other_old_plate          |  30        |  30        | 35    | 35    | true     | true     | notice | Success                                                                         |
+      | old_plate                | fake_plate               |  30        |            | 35    |       | true     | false    | error  | The labware fake_plate hasn't been found                                        |
+      | new_plate                |                          |  30        |            | 5     |       | true     |          | error  | The labware new_plate is less than 30 days old                                  |
+      | old_plate                | new_plate                |  30        |  30        | 35    | 5     | true     | true     | error  | The labware new_plate is less than 30 days old                                  |
+      | old_indestructable_plate |                          |  nil       |            | 35    |       | true     |          | error  | The labware old_indestructable_plate can't be destroyed because it's a immortal |
+      | old_plate                | old_indestructable_plate |  30        |  nil       | 35    | 35    | true     | true     | error  | The labware old_indestructable_plate can't be destroyed because it's a immortal |
 
 

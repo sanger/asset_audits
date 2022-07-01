@@ -109,7 +109,7 @@ class FakeSinatraService
     def self.run!(options = {}) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       set options
       set :server, %w[webrick] # Force Webrick to be used as it's quicker to startup & shutdown
-      handler = detect_rack_handler
+      handler = Rack::Handler.pick(server)
       handler_name = handler.name.gsub(/.*::/, '') # rubocop:todo Lint/UselessAssignment
       handler.run(self, { Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true

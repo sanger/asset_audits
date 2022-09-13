@@ -22,6 +22,10 @@ label {
   text-align: left;
 }
 
+.custom_width {
+  width: 30em;
+}
+
 .hidden {
   display: none !important;
 }

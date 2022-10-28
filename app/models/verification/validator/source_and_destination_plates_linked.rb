@@ -6,7 +6,7 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
       .parse_source_and_destination_barcodes(record.scanned_values)
       .reject { |source_barcode, destination_barcode| destination_barcode.blank? || source_barcode.blank? }
 
-      sources_and_destinations.all? { |source, destination| valid_source_destination_pair?(source, destination, record) }
+      sources_and_destinations.all? { |sc, dest| valid_source_destination_pair?(sc, dest, record) }
   end
 
   private

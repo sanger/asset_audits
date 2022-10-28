@@ -5,7 +5,7 @@ DEST_BEDS_LE_BRV = %w[580000014851].freeze
 SRC_BED_NUMS_LE_BRV = %w[4].freeze
 DEST_BED_NUMS_LE_BRV = %w[14].freeze
 
-namespace :lysates_extraction_bravo do
+namespace :lysates_extraction_bravo do # rubocop:disable Metrics/BlockLength
   task add: :environment do # rubocop:todo Rake/Desc
     ActiveRecord::Base.transaction do
       # create robot instrument and the lysates process

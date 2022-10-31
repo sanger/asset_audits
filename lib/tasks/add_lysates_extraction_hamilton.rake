@@ -5,7 +5,7 @@ DEST_BEDS_LE_HAM = %w[580000034668 580000035672].freeze
 SRC_BED_NUMS_LE_HAM = %w[4 5].freeze
 DEST_BED_NUMS_LE_HAM = %w[34 35].freeze
 
-namespace :lysates_extraction_hamilton do
+namespace :lysates_extraction_hamilton do # rubocop:disable Metrics/BlockLength
   task add: :environment do # rubocop:todo Rake/Desc
     ActiveRecord::Base.transaction do
       # create robot instrument and the lysates process

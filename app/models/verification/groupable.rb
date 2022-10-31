@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 module Verification::Groupable
+  # Returns pairs of source and destination barcodes, e.g.
+  # [
+  #   [source_barcode_1, dest_barcode_1],
+  #   [source_barcode_2, dest_barcode_2],
+  #   [source_barcode_3, dest_barcode_3]
+  # ]
+  #
   # rubocop:todo Metrics/MethodLength
   def parse_source_and_destination_barcodes(scanned_values) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     source_and_destination_barcodes = []

@@ -29,7 +29,7 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
       quadrant_name = "Quadrant #{index}"
       quad_metadata = destination_plate.custom_metadatum_collection.metadata[quadrant_name]
       if quad_metadata.nil?
-        record.errors[:base] << "The destination plate doesn\'t have any information for quadrant #{index}"
+        record.errors[:base] << "The destination plate doesn't have any information for quadrant #{index}"
         break
       end
 
@@ -38,7 +38,7 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
 
       bed = record.source_beds[index - 1]
       record.errors[:base] <<
-        "The barcode in bed #{bed} doesn\'t match the plate in " \
+        "The barcode in bed #{bed} doesn't match the plate in " \
           "#{quadrant_name} on the destination plate."
       break
     end

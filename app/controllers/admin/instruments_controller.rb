@@ -15,6 +15,9 @@ class Admin::InstrumentsController < ApplicationController
     @instrument = Instrument.new
   end
 
+  def edit
+    @instrument = Instrument.find(params[:id])
+  end
   def create
     instrument = Instrument.new(instrument_params)
     respond_to do |format|
@@ -28,9 +31,6 @@ class Admin::InstrumentsController < ApplicationController
     end
   end
 
-  def edit
-    @instrument = Instrument.find(params[:id])
-  end
 
   def update
     instrument = Instrument.find(params[:id])

@@ -8,6 +8,6 @@ class Verification::Validator::AllDestinationPlatesScanned < ActiveModel::Valida
       return
     end
 
-    record.errors[:base] << 'All destination plates must be scanned'
+    record.errors.add(:base, 'All destination plates must be scanned')
   end
 end

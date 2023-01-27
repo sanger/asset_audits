@@ -7,6 +7,7 @@ class Admin::ProcessesController < ApplicationController
     @processes = InstrumentProcess.all
   end
 
+  def show; end
   def new
     @process = InstrumentProcess.new
   end
@@ -55,7 +56,6 @@ class Admin::ProcessesController < ApplicationController
     end
   end
 
-  def show; end
 
   private
 

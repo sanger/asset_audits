@@ -22,7 +22,7 @@ class ActiveSupport::TestCase
 
   def generate_success_response(barcode, purpose_name, study_names)
     {
-      barcode: barcode,
+      barcode:,
       code: '201',
       body: {
         'data' => {
@@ -36,6 +36,6 @@ class ActiveSupport::TestCase
   end
 
   def generate_fail_response(barcode)
-    { barcode: barcode, code: '400', body: { errors: ['No samples for this barcode'] } }
+    { barcode:, code: '400', body: { errors: ['No samples for this barcode'] } }
   end
 end

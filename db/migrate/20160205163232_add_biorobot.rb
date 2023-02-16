@@ -9,12 +9,12 @@ class AddBiorobot < ActiveRecord::Migration
       instrument = Instrument.create!(name: 'Biorobot', barcode: ROBOT_BARCODE)
       instrument_process = InstrumentProcess.create!(name: 'Biorobot', key: 'biorobot', request_instrument: true)
       InstrumentProcessesInstrument.create!(
-        instrument: instrument,
-        instrument_process: instrument_process,
+        instrument:,
+        instrument_process:,
         bed_verification_type: 'Verification::DilutionPlate::Biorobot'
       )
       BEDS.each_with_index.map do |b, pos|
-        Bed.create!({ name: "P#{pos + 1}", bed_number: pos + 1, barcode: b, instrument: instrument })
+        Bed.create!({ name: "P#{pos + 1}", bed_number: pos + 1, barcode: b, instrument: })
       end
     end
   end

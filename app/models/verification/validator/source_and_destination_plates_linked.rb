@@ -30,9 +30,10 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
       else
         "Known parents are #{found_barcodes.join(', ')}"
       end
-    record.errors[:base] <<
+
+    record.errors.add(:base, 
       "Invalid source plate layout: #{source_barcode} " \
-        "is not a parent of #{destination_barcode}. #{parent_error}"
+        "is not a parent of #{destination_barcode}. #{parent_error}")
     false
   end
 end

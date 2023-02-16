@@ -3,7 +3,7 @@
 class ProcessPlate < ApplicationRecord
   include ProcessPlateValidation
 
-  BARCODE_REGEX = /\S+/.freeze
+  BARCODE_REGEX = /\S+/
   RECEIVE_PLATES_MAX = 15
 
   # @return [Sequencescape::Client::Api] An API object for interacting with the V1 API
@@ -56,7 +56,7 @@ class ProcessPlate < ApplicationRecord
       created_by: user_login,
       asset: asset_uuid,
       witnessed_by: witness_login,
-      metadata: metadata
+      metadata:
     )
   end
 

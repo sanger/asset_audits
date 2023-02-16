@@ -3,7 +3,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), 'fake_sinatra_service.rb'))
 
 class FakeSequencescapeService < FakeSinatraService
-  def initialize(*args, &block)
+  def initialize(*args, &)
     super
     Settings.settings['sequencescape_api_v1'] = "http://#{host}:#{port}/api/1/"
   end

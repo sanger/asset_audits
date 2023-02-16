@@ -63,11 +63,9 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
 
         @old_delayed_job_count = Delayed::Job.count
         @bed_layout_verification =
-          Verification::DilutionPlate::Nx.new(
-            instrument_barcode: @input_params[:instrument_barcode],
+          Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode],
             scanned_values: @input_params[:robot],
-            api: api
-          )
+            api:)
         User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
         @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -75,7 +73,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
       end
 
       should 'not have any errors' do
-        assert_empty @bed_layout_verification.errors.values
+        assert_empty @bed_layout_verification.errors
       end
 
       should 'create audits' do
@@ -172,11 +170,9 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
-            Verification::DilutionPlate::Nx.new(
-              instrument_barcode: @input_params[:instrument_barcode],
+            Verification::DilutionPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode],
               scanned_values: @input_params[:robot],
-              api: api
-            )
+              api:)
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -184,7 +180,7 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
         end
 
         should 'return an error' do
-          assert_includes @bed_layout_verification.errors.values.flatten, error_message
+          assert_includes @bed_layout_verification.errors[:base], error_message
         end
 
         should 'not create any audits' do

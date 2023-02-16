@@ -27,8 +27,8 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'support', 'sel
 require 'cucumber/rspec/doubles'
 
 module WithinHelpers
-  def with_scope(locator, &block)
-    locator ? within(*selector_for(locator), &block) : yield
+  def with_scope(locator, &)
+    locator ? within(*selector_for(locator), &) : yield
   end
 end
 World(WithinHelpers)

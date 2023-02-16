@@ -7,14 +7,14 @@ namespace :quad_stamp do
       instrument_process = InstrumentProcess.create!(name: '384 Quadrant STAMP', key: 'quad_stamp')
       InstrumentProcessesInstrument.create!(
         instrument: instrument_nx,
-        instrument_process: instrument_process,
+        instrument_process:,
         bed_verification_type: 'Verification::QuadStampPlate::Nx'
       )
 
       instrument_brv = Instrument.find_or_create_by!(name: 'Bravo', barcode: '4880000059873')
       InstrumentProcessesInstrument.create!(
         instrument: instrument_brv,
-        instrument_process: instrument_process,
+        instrument_process:,
         bed_verification_type: 'Verification::QuadStampPlate::Bravo'
       )
     end

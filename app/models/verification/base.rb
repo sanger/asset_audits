@@ -54,7 +54,7 @@ class Verification::Base
   def validate_and_create_audits?(params)
     @process_plate =
       ProcessPlate.new(
-        api: api,
+        api:,
         user_barcode: params[:user_barcode],
         instrument_barcode: params[:instrument_barcode],
         source_plates: params[:source_plates],
@@ -80,6 +80,8 @@ class Verification::Base
   end
 
   def save_errors_to_base(object_errors)
-    object_errors.each { |key, message| errors.add(key, message) }
+    object_errors.each do |error| 
+      errors.add(error.attribute, error.message)
+    end
   end
 end

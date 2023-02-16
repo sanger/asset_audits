@@ -5,7 +5,8 @@ class ProcessPlatesController < ApplicationController
 
   attr_accessor :messages
 
-  def index; end
+  def index
+  end
 
   def new
     @processes_requiring_visual_check = InstrumentProcess.where(visual_check_required: true).pluck(:id)
@@ -18,11 +19,9 @@ class ProcessPlatesController < ApplicationController
     raise 'Invalid instrument or process' if bed_verification_model.nil?
 
     bed_layout_verification =
-      bed_verification_model.new(
-        instrument_barcode: params[:instrument_barcode],
+      bed_verification_model.new(instrument_barcode: params[:instrument_barcode],
         scanned_values: params[:robot],
-        api: api
-      )
+        api:)
     raise format_errors(bed_layout_verification) unless bed_layout_verification.validate_and_create_audits?(params)
 
     unless receive_plates_process?(params)
@@ -43,7 +42,7 @@ class ProcessPlatesController < ApplicationController
   end
 
   def format_errors(obj)
-    obj.errors.values.flatten.join("\n")
+    obj.errors.map(&:message).join("\n")
   end
 
   def back_to_new_with_message(message, flash_type = :notice)
@@ -59,7 +58,7 @@ class ProcessPlatesController < ApplicationController
 
   # Returns a list of unique barcodes by removing blanks and duplicates
   def sanitize_barcodes(barcodes)
-    barcodes.split(/\s+/).reject(&:blank?).compact.uniq
+    barcodes.split(/\s+/).compact_blank.compact.uniq
   end
 
   def all_labware_created?(results)

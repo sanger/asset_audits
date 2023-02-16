@@ -13,7 +13,7 @@ namespace :lysates_extraction_bravo do # rubocop:disable Metrics/BlockLength
       instrument_process = InstrumentProcess.find_or_create_by!(name: 'Lysates Extraction', key: 'lysates_extraction')
       InstrumentProcessesInstrument.find_or_create_by!(
         instrument: instrument_bravo,
-        instrument_process: instrument_process,
+        instrument_process:,
         bed_verification_type: 'Verification::DilutionPlate::BravoLE'
       )
 
@@ -50,7 +50,7 @@ namespace :lysates_extraction_bravo do # rubocop:disable Metrics/BlockLength
       instrument_processes_instrument =
         InstrumentProcessesInstrument.find_by(
           instrument: instrument_bravo,
-          instrument_process: instrument_process,
+          instrument_process:,
           bed_verification_type: 'Verification::DilutionPlate::BravoLE'
         )
       instrument_processes_instrument.destroy!

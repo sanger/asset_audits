@@ -13,10 +13,10 @@ class Settings
 
     protected
 
-    def method_missing(method, *args, &block) # rubocop:todo Style/MissingRespondToMissing
+    def method_missing(method, *args, &) # rubocop:todo Style/MissingRespondToMissing
       return super unless instance.respond_to?(method)
 
-      instance.send(method, *args, &block)
+      instance.send(method, *args, &)
     end
   end
 
@@ -31,7 +31,7 @@ class Settings
 
   protected
 
-  def method_missing(method, *args, &block) # rubocop:todo Style/MissingRespondToMissing
+  def method_missing(method, *args, &) # rubocop:todo Style/MissingRespondToMissing
     setting_key = setting_key_for(method)
     setting_exists = @settings.key?(setting_key)
 

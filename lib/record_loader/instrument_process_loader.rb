@@ -11,7 +11,7 @@ module RecordLoader
     config_folder 'instrument_processes'
 
     def create_or_update!(key, options)
-      InstrumentProcess.create_with(options).find_or_create_by!(key: key)
+      InstrumentProcess.create_with(options).find_or_create_by!(key:)
     end
   end
 end

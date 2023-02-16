@@ -10,7 +10,7 @@ class Verification::Validator::GroupableComplete < ActiveModel::Validator
     return true if is_transfer_complete?(transfer, scanned_values) || is_transfer_empty?(transfer, scanned_values)
 
     beds = transfer_bed_names(transfer).join(', ')
-    record.errors[:base] << "Invalid: All fields for beds #{beds} should be either filled in, or left blank"
+    record.errors.add(:base, "Invalid: All fields for beds #{beds} should be either filled in, or left blank")
     false
   end
 

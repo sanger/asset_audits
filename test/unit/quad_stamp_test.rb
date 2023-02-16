@@ -62,11 +62,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
-            Verification::QuadStampPlate::Nx.new(
-              instrument_barcode: @input_params[:instrument_barcode],
+            Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode],
               scanned_values: @input_params[:robot],
-              api: api
-            )
+              api:)
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -74,7 +72,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'not have any errors' do
-          assert_empty @bed_layout_verification.errors.values
+          assert_empty @bed_layout_verification.errors
         end
 
         should 'create audits' do
@@ -153,11 +151,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
-            Verification::QuadStampPlate::Nx.new(
-              instrument_barcode: @input_params[:instrument_barcode],
+            Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode],
               scanned_values: @input_params[:robot],
-              api: api
-            )
+              api:)
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -165,7 +161,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'not have any errors' do
-          assert_empty @bed_layout_verification.errors.values
+          assert_empty @bed_layout_verification.errors
         end
 
         should 'create audits' do
@@ -259,11 +255,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
-            Verification::QuadStampPlate::Nx.new(
-              instrument_barcode: @input_params[:instrument_barcode],
+            Verification::QuadStampPlate::Nx.new(instrument_barcode: @input_params[:instrument_barcode],
               scanned_values: @input_params[:robot],
-              api: api
-            )
+              api:)
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -272,7 +266,8 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
 
         should 'return an error' do
           error_message = 'The barcode in bed P2 doesn\'t match the plate in Quadrant 1 on the destination plate.'
-          assert_includes @bed_layout_verification.errors.values.flatten, error_message
+
+          assert_includes @bed_layout_verification.errors[:base], error_message
         end
       end
     end
@@ -327,11 +322,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
-            Verification::QuadStampPlate::Bravo.new(
-              instrument_barcode: @input_params[:instrument_barcode],
+            Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode],
               scanned_values: @input_params[:robot],
-              api: api
-            )
+              api:)
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -339,7 +332,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'not have any errors' do
-          assert_empty @bed_layout_verification.errors.values
+          assert_empty @bed_layout_verification.errors
         end
 
         should 'create audits' do
@@ -396,11 +389,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
-            Verification::QuadStampPlate::Bravo.new(
-              instrument_barcode: @input_params[:instrument_barcode],
+            Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode],
               scanned_values: @input_params[:robot],
-              api: api
-            )
+              api:)
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -408,7 +399,7 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
         end
 
         should 'not have any errors' do
-          assert_empty @bed_layout_verification.errors.values
+          assert_empty @bed_layout_verification.errors
         end
 
         should 'create audits' do
@@ -468,11 +459,9 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
 
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
-            Verification::QuadStampPlate::Bravo.new(
-              instrument_barcode: @input_params[:instrument_barcode],
+            Verification::QuadStampPlate::Bravo.new(instrument_barcode: @input_params[:instrument_barcode],
               scanned_values: @input_params[:robot],
-              api: api
-            )
+              api:)
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns('abc')
 
           @bed_layout_verification.validate_and_create_audits?(@input_params)
@@ -481,7 +470,8 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
 
         should 'return an error' do
           error_message = 'The barcode in bed P4 doesn\'t match the plate in Quadrant 1 on the destination plate.'
-          assert_includes @bed_layout_verification.errors.values.flatten, error_message
+
+          assert_includes @bed_layout_verification.errors[:base], error_message
         end
       end
     end

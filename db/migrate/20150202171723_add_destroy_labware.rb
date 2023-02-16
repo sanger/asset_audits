@@ -8,8 +8,8 @@ class AddDestroyLabware < ActiveRecord::Migration
         InstrumentProcess.create({ name: 'Destroying labware', key: 'destroy_labware', request_instrument: false })
       instrument_processes_instrument = # rubocop:todo Lint/UselessAssignment
         InstrumentProcessesInstrument.create(
-          instrument: instrument,
-          instrument_process: instrument_process,
+          instrument:,
+          instrument_process:,
           bed_verification_type: 'Verification::OutdatedLabware::Base'
         )
     end

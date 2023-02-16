@@ -12,7 +12,7 @@ FactoryBot.define do
     sequence(:barcode, &:to_s)
 
     beds do
-      (1..16).map { |bed_number| build(:bed, name: "P#{bed_number}", barcode: bed_number, bed_number: bed_number) }
+      (1..16).map { |bed_number| build(:bed, name: "P#{bed_number}", barcode: bed_number, bed_number:) }
     end
   end
 

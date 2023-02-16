@@ -6,14 +6,14 @@ def tableish(finder)
 end
 
 Given(/^I have an instrument "([^"]*)" with barcode "([^"]*)"$/) do |name, barcode|
-  Instrument.create!(name: name, barcode: barcode)
+  Instrument.create!(name:, barcode:)
 end
 
 Then(/^the list of (instruments|processes|beds) should look like:$/) do |name, expected_table|
   expected_table.diff!(table(tableish("##{name}")))
 end
 
-Given(/^I have a process "([^"]*)" with key "([^"]*)"$/) { |name, key| InstrumentProcess.create!(name: name, key: key) }
+Given(/^I have a process "([^"]*)" with key "([^"]*)"$/) { |name, key| InstrumentProcess.create!(name:, key:) }
 
 Then(/^the instrument process table should be:$/) do |expected_table|
   expected_table.diff!(table(tableish('#instrument_processes')))

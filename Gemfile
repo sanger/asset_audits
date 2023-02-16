@@ -4,7 +4,7 @@
 source 'http://rubygems.org'
 
 gem 'activeresource'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.1.7'
 gem 'rake'
 
 gem 'daemons'

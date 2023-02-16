@@ -6,8 +6,8 @@ namespace :covid_stamp do
       instrument = Instrument.find_or_create_by!(name: 'Beckman NX', barcode: '009851')
       instrument_process = InstrumentProcess.create!(name: 'COVID 96 Well STAMP', key: 'covid_stamp')
       InstrumentProcessesInstrument.create!(
-        instrument: instrument,
-        instrument_process: instrument_process,
+        instrument:,
+        instrument_process:,
         bed_verification_type: 'Verification::DilutionPlate::Nx'
       )
     end

@@ -41,7 +41,7 @@ end
 Given(/^the "([^"]*)" instrument has beds setup$/) do |instrument_name|
   instrument = Instrument.find_by(name: instrument_name)
   (1..12).each do |bed_number|
-    instrument.beds.create!(bed_number: bed_number, name: "P#{bed_number}", barcode: bed_number)
+    instrument.beds.create!(bed_number:, name: "P#{bed_number}", barcode: bed_number)
   end
 end
 

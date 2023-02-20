@@ -10,6 +10,6 @@ class Verification::Validator::UniqueDestinationPlatesScanned < ActiveModel::Val
 
     return unless destination_barcodes != destination_barcodes.uniq
 
-    record.errors.add(:base, 'Destination plate scanned more than once')
+    record.errors.add(:base, "Destination plate scanned more than once")
   end
 end

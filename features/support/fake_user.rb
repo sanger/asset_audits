@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'singleton'
+require "singleton"
 
 class FakeUser
   include Singleton
@@ -27,7 +27,7 @@ class FakeUser
       Before(tags) do |_scenario|
         Capybara.current_session.driver.browser if Capybara.current_driver == Capybara.javascript_driver
         stub_request(:get, %r{#{Settings.sequencescape_api_v2}/users\?filter\[user_code\].*}).to_return do |request|
-          user_code = request.uri.query_values['filter[user_code]']
+          user_code = request.uri.query_values["filter[user_code]"]
           body_hash = { data: [{ attributes: { login: FakeUser.instance.login_from_user_code(user_code) } }] }
           FakeUser.response_format(body_hash)
         end
@@ -40,8 +40,8 @@ class FakeUser
   # rubocop:enable Metrics/MethodLength
 
   def self.response_format(body_value)
-    { status: 200, headers: { 'Content-Type': 'application/vnd.api+json' }, body: JSON.generate(body_value) }
+    { status: 200, headers: { "Content-Type": "application/vnd.api+json" }, body: JSON.generate(body_value) }
   end
 end
 
-FakeUser.install_hooks(self, '@user_barcode_service')
+FakeUser.install_hooks(self, "@user_barcode_service")

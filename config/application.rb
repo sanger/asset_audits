@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
-require 'rails/all'
+require_relative "boot"
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,18 +15,18 @@ module ProcessTracking
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.name = 'AssetAudits'
+    config.name = "AssetAudits"
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = 'utf-8'
+    config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
     config.assets.enabled = true
-    config.assets.version = '1.0'
+    config.assets.version = "1.0"
 
-    require './lib/deployed_version'
+    require "./lib/deployed_version"
 
     def self.application_string
       Deployed::VERSION_STRING

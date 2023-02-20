@@ -12,7 +12,7 @@ class InstrumentProcessesInstrument < ApplicationRecord
   before_save :default_bed_verification_type
 
   def default_bed_verification_type
-    self.bed_verification_type = 'Verification::Base' if bed_verification_type.nil?
+    self.bed_verification_type = "Verification::Base" if bed_verification_type.nil?
   end
 
   def self.get_bed_verification_type(instrument_barcode, instrument_process_id)

@@ -12,8 +12,8 @@ class AddInstrumentTable < ActiveRecord::Migration
       t.integer :instrument_process_id
       t.timestamps
     end
-    add_index :instrument_processes_instruments, :instrument_id, name: 'ipi_i'
-    add_index :instrument_processes_instruments, :instrument_process_id, name: 'ipi_ip'
+    add_index :instrument_processes_instruments, :instrument_id, name: "ipi_i"
+    add_index :instrument_processes_instruments, :instrument_process_id, name: "ipi_ip"
   end
 
   def self.down

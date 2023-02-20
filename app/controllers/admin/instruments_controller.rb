@@ -22,24 +22,23 @@ class Admin::InstrumentsController < ApplicationController
     instrument = Instrument.new(instrument_params)
     respond_to do |format|
       if instrument.save
-        flash[:notice] = 'Created instrument'
+        flash[:notice] = "Created instrument"
         format.html { redirect_to(admin_instrument_path(instrument)) }
       else
-        flash[:error] = 'Invalid inputs'
+        flash[:error] = "Invalid inputs"
         format.html { redirect_to(new_admin_instrument_path) }
       end
     end
   end
 
-
   def update
     instrument = Instrument.find(params[:id])
     respond_to do |format|
       if instrument.update(instrument_params)
-        flash[:notice] = 'Updated instrument'
+        flash[:notice] = "Updated instrument"
         format.html { redirect_to(admin_instrument_path(instrument)) }
       else
-        flash[:error] = 'Invalid inputs'
+        flash[:error] = "Invalid inputs"
         format.html { redirect_to(new_admin_instrument_path) }
       end
     end
@@ -51,7 +50,7 @@ class Admin::InstrumentsController < ApplicationController
 
     # also remove links
     respond_to do |format|
-      flash[:notice] = 'Deleted instrument'
+      flash[:notice] = "Deleted instrument"
       format.html { redirect_to(admin_instruments_path) }
     end
   end

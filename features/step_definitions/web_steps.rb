@@ -20,11 +20,11 @@
 # * http://elabs.se/blog/15-you-re-cuking-it-wrong
 #
 
-require 'uri'
-require 'cgi'
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'support', 'paths'))
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'support', 'selectors'))
-require 'cucumber/rspec/doubles'
+require "uri"
+require "cgi"
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
+require "cucumber/rspec/doubles"
 
 module WithinHelpers
   def with_scope(locator, &)
@@ -102,14 +102,14 @@ When(/^(?:|I )wait for all AJAX calls$/) { wait_for_ajax }
 
 When(/^(?:|I )click on the page$/) do
   # necessary to fire the JavaScript that renders extra fields
-  page.find('body').click
+  page.find("body").click
 end
 
 Then(/^(?:|I )should see "([^"]*)"$/) { |text| expect(page).to have_content(text) }
 
 Then(%r{^(?:|I )should see /([^/]*)/$}) do |regexp|
   regexp = Regexp.new(regexp)
-  expect(page).to have_xpath('//*', text: regexp)
+  expect(page).to have_xpath("//*", text: regexp)
 end
 
 Then(/^(?:|I )should not see "([^"]*)"$/) { |text| expect(page).not_to have_content(text) }
@@ -120,13 +120,13 @@ Then(/^(?:|I )should not display "([^"]*)"$/) { |identif| expect(page).not_to ha
 
 Then(%r{^(?:|I )should not see /([^/]*)/$}) do |regexp|
   regexp = Regexp.new(regexp)
-  expect(page).not_to have_xpath('//*', text: regexp)
+  expect(page).not_to have_xpath("//*", text: regexp)
 end
 
 Then(/^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/) do |field, parent, value|
   with_scope(parent) do
     field = find_field(field)
-    field_value = field.tag_name == 'textarea' ? field.text : field.value
+    field_value = field.tag_name == "textarea" ? field.text : field.value
     expect(field_value).to match(/#{value}/)
   end
 end
@@ -134,21 +134,21 @@ end
 Then(/^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/) do |field, parent, value|
   with_scope(parent) do
     field = find_field(field)
-    field_value = field.tag_name == 'textarea' ? field.text : field.value
+    field_value = field.tag_name == "textarea" ? field.text : field.value
     expect(field_value).not_to match(/#{value}/)
   end
 end
 
 Then(/^the "([^"]*)" checkbox(?: within (.*))? should be checked$/) do |label, parent|
   with_scope(parent) do
-    field_checked = find_field(label)['checked']
+    field_checked = find_field(label)["checked"]
     expect(field_checked).to be_truthy
   end
 end
 
 Then(/^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/) do |label, parent|
   with_scope(parent) do
-    field_checked = find_field(label)['checked']
+    field_checked = find_field(label)["checked"]
     expect(field_checked).to be_falsey
   end
 end
@@ -162,7 +162,7 @@ Then(/^(?:|I )should have the following query string:$/) do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair { |k, v| expected_params[k] = v.split(',') }
+  expected_pairs.rows_hash.each_pair { |k, v| expected_params[k] = v.split(",") }
   expect(actual_params).to eq(expected_params)
 end
 

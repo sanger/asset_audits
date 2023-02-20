@@ -8,7 +8,7 @@
 module RecordLoader
   # Creates the specified plate types if they are not present
   class InstrumentProcessLoader < ApplicationRecordLoader
-    config_folder 'instrument_processes'
+    config_folder "instrument_processes"
 
     def create_or_update!(key, options)
       InstrumentProcess.create_with(options).find_or_create_by!(key:)

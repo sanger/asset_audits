@@ -19,7 +19,7 @@ Given(
 ) do |search_uuid, barcode, returned_json|
   FakeSequencescapeService.instance.search_result(
     search_uuid,
-    barcode.split(',').map(&:strip).compact_blank,
+    barcode.split(",").map(&:strip).compact_blank,
     returned_json
   )
 end
@@ -28,17 +28,17 @@ end
 Given(
   /^I can retrieve the labware with barcodes "([^"]*)" and lifespans "([^"]*)" and ages "([^"]*)" and existence "([^"]*)"$/
 ) do |barcodes, lifespans, ages, existence|
-  barcode_list = barcodes.split(',').map(&:strip).compact_blank
+  barcode_list = barcodes.split(",").map(&:strip).compact_blank
   lifespan_list =
     lifespans
-      .split(',')
+      .split(",")
       .compact_blank
       .map do |lifespan|
         lifespan.strip!
-        lifespan == 'nil' ? nil : lifespan.to_i
+        lifespan == "nil" ? nil : lifespan.to_i
       end
-  age_list = ages.split(',').compact_blank.map(&:to_i)
-  exists_list = existence.split(',').compact_blank.map { |e| e.strip == 'true' }
+  age_list = ages.split(",").compact_blank.map(&:to_i)
+  exists_list = existence.split(",").compact_blank.map { |e| e.strip == "true" }
 
   labware_list = []
   barcode_list.each_with_index do |barcode, index|
@@ -46,11 +46,11 @@ Given(
 
     purpose = Sequencescape::Api::V2::Purpose.new
     allow(purpose).to receive(:lifespan).and_return(lifespan_list[index])
-    allow(purpose).to receive(:name).and_return('immortal')
+    allow(purpose).to receive(:name).and_return("immortal")
 
     labware = Sequencescape::Api::V2::Labware.new
     allow(labware).to receive(:purpose).and_return(purpose)
-    allow(labware).to receive(:labware_barcode).and_return({ 'machine_barcode' => barcode.to_s })
+    allow(labware).to receive(:labware_barcode).and_return({ "machine_barcode" => barcode.to_s })
     allow(labware).to receive(:created_at).and_return(Time.zone.today - age_list[index])
 
     labware_list << labware
@@ -62,17 +62,17 @@ end
 Given(
   /^I can retrieve the plate with barcode "([^"]*)" and parent barcodes "([^"]*)"$/
 ) do |child_barcode, parent_barcodes|
-  parent_barcodes_list = parent_barcodes.split(',')
+  parent_barcodes_list = parent_barcodes.split(",")
 
   parent_labware_list =
     parent_barcodes_list.map do |parent_barcode|
       parent_labware = Sequencescape::Api::V2::Labware.new
-      allow(parent_labware).to receive(:labware_barcode).and_return({ 'machine_barcode' => parent_barcode.to_s })
+      allow(parent_labware).to receive(:labware_barcode).and_return({ "machine_barcode" => parent_barcode.to_s })
       parent_labware
     end
 
   child_plate = Sequencescape::Api::V2::Plate.new
-  allow(child_plate).to receive(:labware_barcode).and_return({ 'machine_barcode' => child_barcode.to_s })
+  allow(child_plate).to receive(:labware_barcode).and_return({ "machine_barcode" => child_barcode.to_s })
   allow(child_plate).to receive(:parents).and_return(parent_labware_list)
   allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: child_barcode).and_return([child_plate])
 end

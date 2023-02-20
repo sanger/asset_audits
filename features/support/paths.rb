@@ -10,7 +10,7 @@ module NavigationHelpers
   def path_to(page_name) # rubocop:todo Metrics/MethodLength
     case page_name
     when /the home\s?page/
-      '/'
+      "/"
     when /the new audit page/
       new_process_plate_path
     when /the instrument management page/
@@ -27,7 +27,7 @@ module NavigationHelpers
       begin
         page_name =~ /the (.*) page/
         path_components = Regexp.last_match(1).split(/\s+/)
-        send(path_components.push('path').join('_').to_sym)
+        send(path_components.push("path").join("_").to_sym)
       rescue StandardError
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" \
                 "Now, go and add a mapping in #{__FILE__}"

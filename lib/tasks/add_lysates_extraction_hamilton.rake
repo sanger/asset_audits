@@ -9,12 +9,12 @@ namespace :lysates_extraction_hamilton do # rubocop:disable Metrics/BlockLength
   task add: :environment do # rubocop:todo Rake/Desc
     ActiveRecord::Base.transaction do
       # create robot instrument and the lysates process
-      instrument_hamilton = Instrument.find_or_create_by!(name: 'Hamilton Star 6', barcode: '4880000067878')
-      instrument_process = InstrumentProcess.find_or_create_by!(name: 'Lysates Extraction', key: 'lysates_extraction')
+      instrument_hamilton = Instrument.find_or_create_by!(name: "Hamilton Star 6", barcode: "4880000067878")
+      instrument_process = InstrumentProcess.find_or_create_by!(name: "Lysates Extraction", key: "lysates_extraction")
       InstrumentProcessesInstrument.find_or_create_by!(
         instrument: instrument_hamilton,
         instrument_process:,
-        bed_verification_type: 'Verification::DilutionPlate::Hamilton'
+        bed_verification_type: "Verification::DilutionPlate::Hamilton"
       )
 
       # create robot beds
@@ -45,13 +45,13 @@ namespace :lysates_extraction_hamilton do # rubocop:disable Metrics/BlockLength
     ActiveRecord::Base.transaction do
       # Leave the robot and process, but remove the join table entry so it no
       # longer shows the process for that instrument (as the robot and / or process may be used elsewhere)
-      instrument_hamilton = Instrument.find_by(name: 'Hamilton Star 6', barcode: '4880000067878')
-      instrument_process = InstrumentProcess.find_by(name: 'Lysates Extraction', key: 'lysates_extraction')
+      instrument_hamilton = Instrument.find_by(name: "Hamilton Star 6", barcode: "4880000067878")
+      instrument_process = InstrumentProcess.find_by(name: "Lysates Extraction", key: "lysates_extraction")
       instrument_processes_instrument =
         InstrumentProcessesInstrument.find_by(
           instrument: instrument_hamilton,
           instrument_process:,
-          bed_verification_type: 'Verification::DilutionPlate::Hamilton'
+          bed_verification_type: "Verification::DilutionPlate::Hamilton"
         )
       instrument_processes_instrument.destroy!
     end

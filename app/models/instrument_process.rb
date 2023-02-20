@@ -8,8 +8,8 @@ class InstrumentProcess < ApplicationRecord
 
   validates :key, format: { with: /\A[\w_]+\z/i }
 
-  validates :name, uniqueness: { message: 'must be unique' } # rubocop:todo Rails/UniqueValidationWithoutIndex
-  validates :key, uniqueness: { message: 'must be unique' } # rubocop:todo Rails/UniqueValidationWithoutIndex
+  validates :name, uniqueness: { message: "must be unique" } # rubocop:todo Rails/UniqueValidationWithoutIndex
+  validates :key, uniqueness: { message: "must be unique" } # rubocop:todo Rails/UniqueValidationWithoutIndex
   validates :name, presence: { message: "can't be blank" }
   validates :key, presence: { message: "can't be blank" }
 end

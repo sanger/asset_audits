@@ -2,7 +2,7 @@
 
 class Sequencescape::Api::V2::Labware < Sequencescape::Api::V2::Base
   def self.table_name
-    'labware'
+    "labware"
   end
 
   has_one :purpose

@@ -9,14 +9,16 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
     end
 
     if destination_plate.size != 384
-      record.errors.add(:base, 'The destination plate should have 384 wells.')
+      record.errors.add(:base, "The destination plate should have 384 wells.")
       return
     end
 
     if missing_custom_metadatum_collection?(destination_plate)
-      record.errors.add(:base,
+      record.errors.add(
+        :base,
         'The destination plate doesn\'t have any quadrant information. ' \
-          'Was it made by a quadrant stamp?')
+          "Was it made by a quadrant stamp?"
+      )
       return
     end
 
@@ -37,9 +39,11 @@ class Verification::Validator::SourcesInCorrectQuadrants < ActiveModel::Validato
       next if quad_scanned == quad_metadata
 
       bed = record.source_beds[index - 1]
-      record.errors.add(:base,
+      record.errors.add(
+        :base,
         "The barcode in bed #{bed} doesn't match the plate in " \
-          "#{quadrant_name} on the destination plate.")
+          "#{quadrant_name} on the destination plate."
+      )
       break
     end
   end

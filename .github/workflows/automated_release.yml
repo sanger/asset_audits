@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - uat-*
 
 jobs:
   build-and-release:

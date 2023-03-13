@@ -38,7 +38,7 @@ class Barcode
       sum += character[0] * len
       len -= 1
     end
-    ((sum % 23) + 'A'[0]).chr
+    ((sum % 23) + "A"[0]).chr
   end
 
   def self.split_barcode(code) # rubocop:todo Metrics/MethodLength

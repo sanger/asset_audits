@@ -4,9 +4,9 @@
 # It is not necessary to modify this file, instead individual tasks
 # will register themselves as a dependency.
 namespace :record_loader do
-  desc 'Automatically runs all record loader tasks'
+  desc "Automatically runs all record loader tasks"
   task all: :environment do
-    puts 'Loading all records'
+    puts "Loading all records"
   end
 end
 

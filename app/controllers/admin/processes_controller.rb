@@ -7,6 +7,8 @@ class Admin::ProcessesController < ApplicationController
     @processes = InstrumentProcess.all
   end
 
+  def show
+  end
   def new
     @process = InstrumentProcess.new
   end
@@ -20,10 +22,10 @@ class Admin::ProcessesController < ApplicationController
 
     respond_to do |format|
       if process.save
-        flash[:notice] = 'Created process'
+        flash[:notice] = "Created process"
         format.html { redirect_to(admin_processes_path) }
       else
-        flash[:error] = 'Invalid inputs'
+        flash[:error] = "Invalid inputs"
         format.html { redirect_to(new_admin_process_path) }
       end
     end
@@ -34,10 +36,10 @@ class Admin::ProcessesController < ApplicationController
 
     respond_to do |format|
       if process.update(instrument_process_params)
-        flash[:notice] = 'Updated process'
+        flash[:notice] = "Updated process"
         format.html { redirect_to(admin_processes_path) }
       else
-        flash[:error] = 'Invalid inputs'
+        flash[:error] = "Invalid inputs"
         format.html { redirect_to(new_admin_process_path) }
       end
     end
@@ -50,12 +52,10 @@ class Admin::ProcessesController < ApplicationController
     # also remove links
 
     respond_to do |format|
-      flash[:notice] = 'Deleted process'
+      flash[:notice] = "Deleted process"
       format.html { redirect_to(admin_processes_path) }
     end
   end
-
-  def show; end
 
   private
 

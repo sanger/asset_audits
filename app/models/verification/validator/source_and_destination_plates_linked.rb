@@ -14,7 +14,7 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
 
   def valid_source_destination_pair?(source_barcode, destination_barcode, record)
     search_results = Sequencescape::Api::V2::Plate.where(barcode: destination_barcode).first&.parents
-    found_barcodes = search_results&.map { |p| p.labware_barcode['machine_barcode'] } || []
+    found_barcodes = search_results&.map { |p| p.labware_barcode["machine_barcode"] } || []
     valid_source_barcode?(source_barcode, found_barcodes, record, destination_barcode)
   end
 
@@ -28,11 +28,14 @@ class Verification::Validator::SourceAndDestinationPlatesLinked < ActiveModel::V
       when 1
         "Known parent is #{found_barcodes.first}."
       else
-        "Known parents are #{found_barcodes.join(', ')}"
+        "Known parents are #{found_barcodes.join(", ")}"
       end
-    record.errors[:base] <<
+
+    record.errors.add(
+      :base,
       "Invalid source plate layout: #{source_barcode} " \
         "is not a parent of #{destination_barcode}. #{parent_error}"
+    )
     false
   end
 end

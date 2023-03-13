@@ -7,9 +7,9 @@ class Admin::BedsController < ApplicationController
     bed = Bed.new(bed_params)
     respond_to do |format|
       if bed.save
-        flash.notice = 'Bed created'
+        flash.notice = "Bed created"
       else
-        flash[:error] = bed.errors.full_messages.join(', ')
+        flash[:error] = bed.errors.full_messages.join(", ")
       end
       format.html { redirect_to(admin_instrument_path(bed.instrument)) }
     end
@@ -20,7 +20,7 @@ class Admin::BedsController < ApplicationController
     instrument = bed.instrument
     bed.destroy
     respond_to do |format|
-      flash[:notice] = 'Removed bed from instrument'
+      flash[:notice] = "Removed bed from instrument"
       format.html { redirect_to(admin_instrument_path(instrument)) }
     end
   end

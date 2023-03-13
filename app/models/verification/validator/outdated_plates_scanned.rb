@@ -17,7 +17,7 @@ class Verification::Validator::OutdatedPlatesScanned < ActiveModel::Validator
       record.errors.add(:error, "The labware #{barcode} is less than #{labw.purpose.lifespan} days old")
       next
     end
-    record.errors.add(:base, 'No labware found') if labware_list.empty?
+    record.errors.add(:base, "No labware found") if labware_list.empty?
   end
   # rubocop:enable Metrics/MethodLength
 end

@@ -13,6 +13,7 @@ AllCops:
     - bin/*
     - vendor/**/*
     - lib/tasks/cucumber.rake
+  TargetRubyVersion: 3.2
 
 Layout/LineLength:
   Exclude:
@@ -60,6 +61,9 @@ Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
   Enabled: false
 
 # Turns numbers like 1234567 into 1_234_567. However this code deals with large

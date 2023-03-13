@@ -5,18 +5,18 @@
 # newer version of cucumber-rails. Consider adding your own code to a new file
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
-require 'simplecov'
+require "simplecov"
 SimpleCov.start
 
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("#{File.dirname(__FILE__)}/../../config/environment")
 
-require 'cucumber/rails'
-require 'minitest/autorun'
-require 'rspec/expectations'
+require "cucumber/rails"
+require "minitest/autorun"
+require "rspec/expectations"
 
-require 'selenium/webdriver'
-require 'webdrivers/chromedriver'
+require "selenium/webdriver"
+require "webdrivers/chromedriver"
 
 Webdrivers::Chromedriver.update
 
@@ -62,5 +62,5 @@ ActionController::Base.allow_rescue = false
 begin
   DatabaseCleaner.strategy = :transaction
 rescue NameError
-  raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
+  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end

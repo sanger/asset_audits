@@ -5,7 +5,7 @@ class InstrumentsController < ApplicationController
 
   def search
     instrument = Instrument.find_by(barcode: params[:instrument_barcode])
-    render plain: instrument.nil? ? '' : instrument.name
+    render plain: instrument.nil? ? "" : instrument.name
   end
 
   def processes
@@ -22,6 +22,6 @@ class InstrumentsController < ApplicationController
         instrument_process_id: params[:instrument_process_id].to_i
       ).witness_required?
 
-    render plain: witness_required ? 'witness_required' : 'not_required'
+    render plain: witness_required ? "witness_required" : "not_required"
   end
 end

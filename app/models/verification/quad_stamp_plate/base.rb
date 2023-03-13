@@ -15,8 +15,8 @@ class Verification::QuadStampPlate::Base < Verification::Base
   validates_with Verification::Validator::SourceAndDestinationPlatesScanned
   validates_with Verification::Validator::SourcesInCorrectQuadrants
 
-  self.partial_name = 'quad_stamp_plate'
-  self.javascript_partial_name = 'shared_robot_javascript'
+  self.partial_name = "quad_stamp_plate"
+  self.javascript_partial_name = "shared_robot_javascript"
 
   def self.ordered_beds
     column_groups.flatten
@@ -55,7 +55,7 @@ class Verification::QuadStampPlate::Base < Verification::Base
     source_beds.each_with_index do |source_bed, index|
       curr_quad = "Quadrant #{index + 1}"
       source_barcode = scanned_values[source_bed.downcase.to_sym][:plate]
-      quadrant_to_source_barcode_hash[curr_quad] = source_barcode.presence || 'Empty'
+      quadrant_to_source_barcode_hash[curr_quad] = source_barcode.presence || "Empty"
     end
     @quadrant_to_source_barcode = quadrant_to_source_barcode_hash
   end

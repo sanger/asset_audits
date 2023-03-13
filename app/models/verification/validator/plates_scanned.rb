@@ -5,7 +5,7 @@ class Verification::Validator::PlatesScanned < ActiveModel::Validator
     # rubocop:todo Style/GuardClause
     if record.parse_source_and_destination_barcodes(record.scanned_values).flatten.empty?
       # rubocop:enable Style/GuardClause
-      record.errors[:base] << 'No plates scanned'
+      record.errors.add(:base, "No plates scanned")
     end
   end
 end

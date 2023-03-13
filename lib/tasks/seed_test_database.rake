@@ -6,7 +6,7 @@
 namespace :db do
   namespace :test do
     task load: :environment do # rubocop:todo Rake/Desc
-      Rake::Task['db:seed'].invoke
+      Rake::Task["db:seed"].invoke
     end
   end
 end

@@ -35,8 +35,8 @@ module Verification::Groupable
   def self.included(base)
     base.class_eval do
       extend ClassMethods
-      self.partial_name = 'groupable_assets'
-      self.javascript_partial_name = 'groupable_javascript'
+      self.partial_name = "groupable_assets"
+      self.javascript_partial_name = "groupable_javascript"
       validates_with Verification::Validator::GroupableComplete
     end
   end
@@ -60,7 +60,7 @@ module Verification::Groupable
           transfers_of_group = transfers.select { |t| t[:group] == group_id }
           destination_beds = transfers_of_group.pluck(:destination_beds).flatten.uniq
           transfers_of_group.each_with_object(
-            { group: group_id, source_beds: [], destination_beds: destination_beds }
+            { group: group_id, source_beds: [], destination_beds: }
           ) do |transfer, memo|
             transfer[:source_beds].each do |source_bed|
               memo[:source_beds] << source_bed unless memo[:destination_beds].include?(source_bed)

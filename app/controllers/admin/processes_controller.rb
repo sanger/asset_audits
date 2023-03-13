@@ -9,6 +9,7 @@ class Admin::ProcessesController < ApplicationController
 
   def show
   end
+  
   def new
     @process = InstrumentProcess.new
   end

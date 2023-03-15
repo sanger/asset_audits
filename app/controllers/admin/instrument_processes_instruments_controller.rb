@@ -7,9 +7,9 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
     instrument_process_link = InstrumentProcessesInstrument.new(permitted_params)
     respond_to do |format|
       if instrument_process_link.save
-        flash[:notice] = 'Process added to instrument'
+        flash[:notice] = "Process added to instrument"
       else
-        flash[:error] = 'Process already exists for instrument'
+        flash[:error] = "Process already exists for instrument"
       end
       format.html { redirect_to(admin_instrument_path(instrument_process_link.instrument)) }
     end
@@ -20,7 +20,7 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
     instrument = instrument_process_link.instrument
     instrument_process_link.destroy
     respond_to do |format|
-      flash[:notice] = 'Removed process from instrument'
+      flash[:notice] = "Removed process from instrument"
       format.html { redirect_to(admin_instrument_path(instrument)) }
     end
   end
@@ -28,8 +28,11 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
   private
 
   def permitted_params
-    params
-      .require(:instrument_processes_instrument)
-      .permit(:instrument_process_id, :instrument_id, :witness, :bed_verification_type)
+    params.require(:instrument_processes_instrument).permit(
+      :instrument_process_id,
+      :instrument_id,
+      :witness,
+      :bed_verification_type
+    )
   end
 end

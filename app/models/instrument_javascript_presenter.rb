@@ -17,7 +17,7 @@ class InstrumentJavascriptPresenter
   def tab_order
     bed_plate_pairs.each_with_index.map do |bed, index|
       # Finds the next bed, returns witness_barcode if we reach the end of the array
-      next_bed = bed_plate_pairs.fetch(index + 1, 'witness_barcode')
+      next_bed = bed_plate_pairs.fetch(index + 1, "witness_barcode")
       [bed, next_bed]
     end
   end
@@ -31,7 +31,7 @@ class InstrumentJavascriptPresenter
   def bed_columns
     column_groups.each_with_index.flat_map do |bed_names, index|
       bed_names.map do |bed_name|
-        bed_number = bed_name.tr('P', '').to_i
+        bed_number = bed_name.tr("P", "").to_i
         [bed_number, index]
       end
     end

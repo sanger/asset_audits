@@ -12,24 +12,24 @@ module ProcessPlateValidation
   end
 
   def user_login_exists
-    errors.add(:user_barcode, 'Invalid user') if user_login.nil?
+    errors.add(:user_barcode, "Invalid user") if user_login.nil?
   end
 
   def instrument_exists
-    errors.add(:instrument, 'Invalid instrument barcode') if instrument.nil?
+    errors.add(:instrument, "Invalid instrument barcode") if instrument.nil?
   end
 
   def process_on_instrument
     instrument_includes_process = instrument.instrument_processes.include?(instrument_process)
-    errors.add(:instrument_process, 'Invalid process for instrument') unless instrument_includes_process
+    errors.add(:instrument_process, "Invalid process for instrument") unless instrument_includes_process
   end
 
   def witness_for_process
-    errors.add(:witness_barcode, 'Invalid witness barcode') if witness_login.blank? || witness_login == user_login
+    errors.add(:witness_barcode, "Invalid witness barcode") if witness_login.blank? || witness_login == user_login
   end
 
   def visual_check_performed
-    errors.add(:visual_check, 'Visual check required for this type') unless visual_check
+    errors.add(:visual_check, "Visual check required for this type") unless visual_check
   end
 
   def witness_required?

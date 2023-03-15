@@ -17,23 +17,23 @@ Rails.application.routes.draw do
 
   resources :process_plates
   resources :users do
-    collection { post 'search' }
+    collection { post "search" }
   end
 
   resources :instruments do
     collection do
-      post 'search'
-      post 'processes'
-      post 'witness'
+      post "search"
+      post "processes"
+      post "witness"
     end
   end
 
   resources :plates do
-    collection { post 'search' }
+    collection { post "search" }
   end
 
   resources :bed_layouts do
-    collection { post 'bed_layout_partial' }
+    collection { post "bed_layout_partial" }
   end
 
   namespace :admin do
@@ -79,7 +79,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root to: 'process_plates#index'
+  root to: "process_plates#index"
 
   # See how all your routes lay out with "rake routes"
 

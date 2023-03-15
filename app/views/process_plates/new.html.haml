@@ -4,29 +4,29 @@
   %fieldset
     %ul
       %li
-        %label{for: 'user_barcode'} User barcode
+        %label{for: "user_barcode"} User barcode
         = text_field_tag "user_barcode"
         .live_results#user_barcode_results
       %li
-        %label{for: 'instrument_barcode'} Instrument barcode
+        %label{for: "instrument_barcode"} Instrument barcode
         = text_field_tag "instrument_barcode"
         .live_results#instrument_barcode_results
       %li
-        %label{for: 'instrument_process'} Instrument process
-        %select#instrument_process{name: 'instrument_process'}
+        %label{for: "instrument_process"} Instrument process
+        %select#instrument_process{name: "instrument_process"}
           %option{value: -1} Select a process...
           - for process_name, process_id in InstrumentProcess.sorted_by_name.map { |x| [x.name, x.id]}
             %option{value: process_id} #{process_name}
       %li
         #source_plates_results
       %li.hidden#visual_check_input
-        %label{for: 'visual_check'} Visual check performed
+        %label{for: "visual_check"} Visual check performed
         = check_box_tag "visual_check"
       %li.hidden#witness_barcode_input
-        %label{for: 'witness_barcode'} Witness barcode
+        %label{for: "witness_barcode"} Witness barcode
         = text_field_tag "witness_barcode"
       %li
-        %input#btnSubmit{type: 'submit', value: 'Submit'}/
+        %input#btnSubmit{type: "submit", value: "Submit"}/
 - content_for :page_javascript do
   :javascript
     (function($) {

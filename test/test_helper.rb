@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'simplecov'
+require "simplecov"
 SimpleCov.start
 
-ENV['RAILS_ENV'] = 'test'
-require File.expand_path('../config/environment', __dir__)
-require 'rails/test_help'
-require 'minitest/autorun'
-require 'webmock/minitest'
-require 'mocha/minitest'
+ENV["RAILS_ENV"] = "test"
+require File.expand_path("../config/environment", __dir__)
+require "rails/test_help"
+require "minitest/autorun"
+require "webmock/minitest"
+require "mocha/minitest"
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -22,13 +22,13 @@ class ActiveSupport::TestCase
 
   def generate_success_response(barcode, purpose_name, study_names)
     {
-      barcode: barcode,
-      code: '201',
+      barcode:,
+      code: "201",
       body: {
-        'data' => {
-          'attributes' => {
-            'purpose_name' => purpose_name,
-            'study_names' => study_names
+        "data" => {
+          "attributes" => {
+            "purpose_name" => purpose_name,
+            "study_names" => study_names
           }
         }
       }
@@ -36,6 +36,6 @@ class ActiveSupport::TestCase
   end
 
   def generate_fail_response(barcode)
-    { barcode: barcode, code: '400', body: { errors: ['No samples for this barcode'] } }
+    { barcode:, code: "400", body: { errors: ["No samples for this barcode"] } }
   end
 end

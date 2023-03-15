@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'singleton'
-require 'sinatra'
+require "singleton"
+require "sinatra"
 
 class FakeSinatraService
   include Singleton
@@ -20,7 +20,7 @@ class FakeSinatraService
   attr_reader :port, :host
 
   def initialize(*_args)
-    @host = 'localhost'
+    @host = "localhost"
     @port = self.class.take_next_port
   end
 
@@ -68,7 +68,8 @@ class FakeSinatraService
 
   private
 
-  def clear; end
+  def clear
+  end
 
   def start_sinatra
     thread =
@@ -101,7 +102,7 @@ class FakeSinatraService
       sleep(1)
     end
 
-    raise StandardError, 'Our dummy webservice did not start up in time!'
+    raise StandardError, "Our dummy webservice did not start up in time!"
   end
 
   class Base < Sinatra::Base
@@ -110,8 +111,8 @@ class FakeSinatraService
       set options
       set :server, %w[webrick] # Force Webrick to be used as it's quicker to startup & shutdown
       handler = Rack::Handler.pick(server)
-      handler_name = handler.name.gsub(/.*::/, '') # rubocop:todo Lint/UselessAssignment
-      handler.run(self, { Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
+      handler_name = handler.name.gsub(/.*::/, "") # rubocop:todo Lint/UselessAssignment
+      handler.run(self, **{ Host: bind, Port: port }.merge(options.fetch(:webrick, {}))) do |server|
         set :running, true
         set :quit_handler, (proc { server.shutdown }) # Kill the Webrick specific instance if we need to
       end
@@ -124,14 +125,14 @@ class FakeSinatraService
 
     # rubocop:enable Metrics/MethodLength
 
-    get('/up_and_running') do
+    get("/up_and_running") do
       status(200)
-      body('Up and running')
+      body("Up and running")
     end
 
-    get('/die_eat_flaming_death') do
+    get("/die_eat_flaming_death") do
       status(200)
-      body('Died!')
+      body("Died!")
       settings.quit_handler
     end
   end

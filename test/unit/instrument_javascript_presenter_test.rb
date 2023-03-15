@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 class InstrumentJavascriptPresenterTest < ActiveSupport::TestCase
-  context 'nx assay plate' do
+  context "nx assay plate" do
     setup { @js_helper = InstrumentJavascriptPresenter.new(Verification::AssayPlate::Nx) }
 
-    should 'return the expected array for tab order' do
+    should "return the expected array for tab order" do
       assert_equal [
                      %w[p4_bed p4_plate],
                      %w[p4_plate p5_bed],
@@ -17,19 +17,19 @@ class InstrumentJavascriptPresenterTest < ActiveSupport::TestCase
                    @js_helper.tab_order
     end
 
-    should 'return the expected array for highlighting' do
+    should "return the expected array for highlighting" do
       assert_equal [[4, 0], [5, 1], [6, 2]], @js_helper.bed_columns
     end
 
-    should 'return the expected value for the initial bed' do
-      assert_equal 'p4_bed', @js_helper.initial_bed
+    should "return the expected value for the initial bed" do
+      assert_equal "p4_bed", @js_helper.initial_bed
     end
   end
 
-  context 'fx assay plate' do
+  context "fx assay plate" do
     setup { @js_helper = InstrumentJavascriptPresenter.new(Verification::AssayPlate::Fx) }
 
-    should 'return the expected array for tab order' do
+    should "return the expected array for tab order" do
       assert_equal [
                      %w[p6_bed p6_plate],
                      %w[p6_plate p7_bed],
@@ -41,19 +41,19 @@ class InstrumentJavascriptPresenterTest < ActiveSupport::TestCase
                    @js_helper.tab_order
     end
 
-    should 'return the expected array for highlighting' do
+    should "return the expected array for highlighting" do
       assert_equal [[6, 0], [7, 1], [8, 2]], @js_helper.bed_columns
     end
 
-    should 'return the expected value for the initial bed' do
-      assert_equal 'p6_bed', @js_helper.initial_bed
+    should "return the expected value for the initial bed" do
+      assert_equal "p6_bed", @js_helper.initial_bed
     end
   end
 
-  context 'nx dilution plate' do
+  context "nx dilution plate" do
     setup { @js_helper = InstrumentJavascriptPresenter.new(Verification::DilutionPlate::Nx) }
 
-    should 'return the expected array for tab order' do
+    should "return the expected array for tab order" do
       assert_equal [
                      %w[p2_bed p2_plate],
                      %w[p2_plate p3_bed],
@@ -75,19 +75,19 @@ class InstrumentJavascriptPresenterTest < ActiveSupport::TestCase
                    @js_helper.tab_order
     end
 
-    should 'return the expected array for highlighting' do
+    should "return the expected array for highlighting" do
       assert_equal [[2, 0], [3, 0], [5, 1], [6, 1], [8, 2], [9, 2], [11, 3], [12, 3]], @js_helper.bed_columns
     end
 
-    should 'return the expected value for the initial bed' do
-      assert_equal 'p2_bed', @js_helper.initial_bed
+    should "return the expected value for the initial bed" do
+      assert_equal "p2_bed", @js_helper.initial_bed
     end
   end
 
-  context 'fx dilution plate' do
+  context "fx dilution plate" do
     setup { @js_helper = InstrumentJavascriptPresenter.new(Verification::DilutionPlate::Fx) }
 
-    should 'return the expected array for tab order' do
+    should "return the expected array for tab order" do
       assert_equal [
                      %w[p3_bed p3_plate],
                      %w[p3_plate p4_bed],
@@ -109,12 +109,12 @@ class InstrumentJavascriptPresenterTest < ActiveSupport::TestCase
                    @js_helper.tab_order
     end
 
-    should 'return the expected array for highlighting' do
+    should "return the expected array for highlighting" do
       assert_equal [[3, 0], [4, 0], [7, 1], [8, 1], [10, 2], [11, 2], [14, 3], [12, 3]], @js_helper.bed_columns
     end
 
-    should 'return the expected value for the initial bed' do
-      assert_equal 'p3_bed', @js_helper.initial_bed
+    should "return the expected value for the initial bed" do
+      assert_equal "p3_bed", @js_helper.initial_bed
     end
   end
 end

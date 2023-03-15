@@ -9,12 +9,12 @@ namespace :lysates_extraction_bravo do # rubocop:disable Metrics/BlockLength
   task add: :environment do # rubocop:todo Rake/Desc
     ActiveRecord::Base.transaction do
       # create robot instrument and the lysates process
-      instrument_bravo = Instrument.find_or_create_by!(name: 'Bravo', barcode: '4880000059873')
-      instrument_process = InstrumentProcess.find_or_create_by!(name: 'Lysates Extraction', key: 'lysates_extraction')
+      instrument_bravo = Instrument.find_or_create_by!(name: "Bravo", barcode: "4880000059873")
+      instrument_process = InstrumentProcess.find_or_create_by!(name: "Lysates Extraction", key: "lysates_extraction")
       InstrumentProcessesInstrument.find_or_create_by!(
         instrument: instrument_bravo,
-        instrument_process: instrument_process,
-        bed_verification_type: 'Verification::DilutionPlate::BravoLE'
+        instrument_process:,
+        bed_verification_type: "Verification::DilutionPlate::BravoLE"
       )
 
       # create robot beds
@@ -45,13 +45,13 @@ namespace :lysates_extraction_bravo do # rubocop:disable Metrics/BlockLength
     ActiveRecord::Base.transaction do
       # Leave the robot and process, but remove the join table entry so it no
       # longer shows the process for that instrument (as the robot and / or process may be used elsewhere)
-      instrument_bravo = Instrument.find_by(name: 'Bravo', barcode: '4880000059873')
-      instrument_process = InstrumentProcess.find_by(name: 'Lysates Extraction', key: 'lysates_extraction')
+      instrument_bravo = Instrument.find_by(name: "Bravo", barcode: "4880000059873")
+      instrument_process = InstrumentProcess.find_by(name: "Lysates Extraction", key: "lysates_extraction")
       instrument_processes_instrument =
         InstrumentProcessesInstrument.find_by(
           instrument: instrument_bravo,
-          instrument_process: instrument_process,
-          bed_verification_type: 'Verification::DilutionPlate::BravoLE'
+          instrument_process:,
+          bed_verification_type: "Verification::DilutionPlate::BravoLE"
         )
       instrument_processes_instrument.destroy!
     end

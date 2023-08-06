@@ -59,7 +59,6 @@ group :cucumber, :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "timecop"
-  gem "webdrivers"
 end
 
 group :deployment do

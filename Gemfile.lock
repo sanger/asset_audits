@@ -225,6 +225,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
+    nokogiri (1.14.2-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.14.2-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.14.2-x86_64-linux)
@@ -372,10 +374,6 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
     uuidtools (2.2.0)
-    webdrivers (5.2.0)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (~> 4.0)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -390,6 +388,7 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-darwin-21
   x86_64-linux
 
@@ -433,7 +432,6 @@ DEPENDENCIES
   sinatra
   timecop
   uuidtools
-  webdrivers
   webmock
 
 BUNDLED WITH

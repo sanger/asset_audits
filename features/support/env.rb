@@ -14,8 +14,12 @@ require File.expand_path("#{File.dirname(__FILE__)}/../../config/environment")
 require "cucumber/rails"
 require "minitest/autorun"
 require "rspec/expectations"
-
 require "selenium/webdriver"
+
+Capybara.server = :puma, { Silent: true }
+
+logger = Selenium::WebDriver.logger
+logger.level = :warn
 
 Capybara.register_driver :chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -24,11 +28,7 @@ end
 
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
-  Capybara::Selenium::Driver.new(
-    app,
-    browser: :chrome,
-    options:
-  )
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 
 Capybara.current_driver = :rack_test

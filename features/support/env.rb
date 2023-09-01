@@ -18,17 +18,21 @@ require "rspec/expectations"
 require "selenium/webdriver"
 
 Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+  options = Selenium::WebDriver::Chrome::Options.new
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 
 Capybara.register_driver :headless_chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: %w[headless disable-gpu] })
-
-  Capybara::Selenium::Driver.new app, browser: :chrome, desired_capabilities: capabilities
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless])
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    options:
+  )
 end
 
 Capybara.current_driver = :rack_test
-Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.javascript_driver = :headless_chrome
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd

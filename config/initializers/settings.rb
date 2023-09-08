@@ -13,10 +13,10 @@ class Settings
 
     protected
 
-    def method_missing(method, *args, &) # rubocop:todo Style/MissingRespondToMissing
+    def method_missing(method, *, &) # rubocop:todo Style/MissingRespondToMissing
       return super unless instance.respond_to?(method)
 
-      instance.send(method, *args, &)
+      instance.send(method, *, &)
     end
   end
 

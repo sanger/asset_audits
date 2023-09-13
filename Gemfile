@@ -4,7 +4,7 @@
 source "http://rubygems.org"
 
 gem "activeresource"
-gem "rails", "~> 6.1.7"
+gem "rails", "~> 7.0.7"
 gem "rake"
 
 gem "daemons"
@@ -16,6 +16,7 @@ gem "mysql2"
 gem "nokogiri"
 gem "oj"
 gem "sequencescape-client-api", require: "sequencescape"
+gem "sprockets-rails", "~> 3.4"
 gem "uuidtools"
 
 gem "byebug"

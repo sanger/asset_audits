@@ -38,7 +38,7 @@ class FakeSequencescapeService < FakeSinatraService
   end
 
   def replace_host_and_port(json)
-    json.gsub(/locahost/, host).gsub(/3000/, port.to_s)
+    json.gsub("locahost", host).gsub("3000", port.to_s)
   end
 
   class Service < FakeSinatraService::Base

@@ -33,6 +33,20 @@ To run the tests, execute the following commands:
 
     bundle exec rake
 
+## Linting and formatting
+
+Rubocop is used for linting.
+
+```shell
+bundle exec rubocop
+```
+
+Prettier is used for formatting.
+
+```shell
+bundle exec rbprettier --check . --ignore-unknown
+```
+
 ## Miscellaneous
 
 You might get the following error when hitting 'Submit' on the `process_plates/new` page:

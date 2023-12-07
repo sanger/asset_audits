@@ -33,6 +33,10 @@ To run the tests, execute the following commands:
 
     bundle exec rake
 
+To run a single test:
+
+    bundle exec rake test TEST=<test_file_path>
+
 ## Linting and formatting
 
 Rubocop is used for linting.

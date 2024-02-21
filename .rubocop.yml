@@ -8,6 +8,7 @@ require:
   - rubocop-minitest
 
 AllCops:
+  SuggestExtensions: false
   NewCops: enable
   Exclude:
     - bin/*
@@ -78,3 +79,10 @@ Lint/Debugger:
   Exclude:
     - "features/step_definitions/authentication_steps.rb"
     - "features/step_definitions/web_steps.rb"
+
+Rails/ThreeStateBooleanColumn:
+  Exclude:
+    - "db/schema.rb"
+    - "db/migrate/20151014154950_add_visual_check_to_process_plates.rb"
+    - "db/migrate/20150106154314_add_request_instrument_field_to_instrument_process.rb"
+    - "db/migrate/20110325115815_add_witness_column_to_instrument_process_instruments.rb"

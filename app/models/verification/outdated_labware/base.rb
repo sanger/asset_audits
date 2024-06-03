@@ -36,7 +36,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
     return false unless scan_into_destroyed_location(params)
 
     params[:source_plates] = scanned_values.flatten.join(" ")
-    super(params)
+    super
   end
 
   # Sends a POST request to the LabWhere API to scan the labware into the

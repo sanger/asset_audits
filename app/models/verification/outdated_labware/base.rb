@@ -57,8 +57,8 @@ class Verification::OutdatedLabware::Base < Verification::Base
   rescue Errno::ECONNREFUSED, RestClient::NotFound
     errors.add(:LabWhere, "LabWhere service is down")
     false
-  rescue RestClient::UnprocessableEntity => error
-    errors.add(:LabWhere, JSON.parse(error.response.body)["errors"].join(", "))
+  rescue RestClient::UnprocessableEntity => e
+    errors.add(:LabWhere, JSON.parse(e.response.body)["errors"].join(", "))
     false
   end
 

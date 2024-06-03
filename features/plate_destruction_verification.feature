@@ -1,5 +1,5 @@
 @sequencescape_service @user_barcode_service @audit_process @javascript @verification @timecop
-@labwhere_scan_into_destroyed_location_sucess
+@labwhere_scan_into_destroyed_location_success
 Feature: Verify destruction of plates
 
   Background:

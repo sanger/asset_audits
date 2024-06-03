@@ -13,7 +13,7 @@ module Verification::BedVerification
     return false unless valid?
 
     params[:source_plates] = parse_source_and_destination_barcodes(scanned_values).flatten.join(" ")
-    super(params)
+    super
   end
 
   # Returns the information for all scans. Empty beds are filtered out.

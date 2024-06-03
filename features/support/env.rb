@@ -58,7 +58,6 @@ rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
 
-Before('@labwhere_scan_into_destroyed_location_success') do
-  stub_request(:post, "http://localhost:3003/api/scans").
-    to_return(status: 200, body: "", headers: {})
+Before("@labwhere_scan_into_destroyed_location_success") do
+  stub_request(:post, "http://localhost:3003/api/scans").to_return(status: 200, body: "", headers: {})
 end

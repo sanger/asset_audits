@@ -140,6 +140,7 @@ GEM
       delayed_job (>= 3.0, < 5)
     diff-lcs (1.5.1)
     docile (1.4.0)
+    domain_name (0.6.20240107)
     erubi (1.12.0)
     exception_notification (4.5.0)
       actionmailer (>= 5.2, < 8)
@@ -184,6 +185,9 @@ GEM
       thor
       tilt
     hashdiff (1.1.0)
+    http-accept (1.7.0)
+    http-cookie (1.0.5)
+      domain_name (~> 0.5)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     json (2.7.1)
@@ -212,6 +216,9 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mime-types (3.5.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2024.0305)
     mini_mime (1.1.5)
     minitest (5.22.3)
     mocha (2.1.0)
@@ -231,6 +238,7 @@ GEM
       timeout
     net-smtp (0.4.0.1)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.7.0)
     nokogiri (1.16.3-arm64-darwin)
       racc (~> 1.4)
@@ -298,6 +306,11 @@ GEM
       abbrev
     record_loader (0.2.0)
     regexp_parser (2.9.0)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.2.6)
     rspec-expectations (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -406,6 +419,7 @@ GEM
 PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
+  arm64-darwin-23
   x86_64-darwin-21
   x86_64-darwin-22
   x86_64-linux
@@ -436,6 +450,7 @@ DEPENDENCIES
   rails (~> 7.0.7)
   rake
   record_loader
+  rest-client
   rspec-expectations
   rspec-mocks
   rubocop

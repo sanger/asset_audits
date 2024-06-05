@@ -67,7 +67,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   # process are used to construct the payload. The payload is a hash with a
   # single key, :scan, which maps to another hash. This inner hash contains
   # the following keys:
-  # - :user_code: the barcode of the user performing the scan
+  # - :user_code: the swipe card or barcode code of the user performing the scan
   # - :labware_barcodes: a newline-separated string of the barcodes
   # - :location_barcode: the barcode of the destroyed location
 

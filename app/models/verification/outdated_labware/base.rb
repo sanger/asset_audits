@@ -106,10 +106,13 @@ class Verification::OutdatedLabware::Base < Verification::Base
   # @return [Hash] the constructed payload
   #
   def destroyed_location_payload(params)
+    # Using double quotes is important to process the newlines correctly for
+    # building the labware_barcodes string in the format expected by LabWhere.
+    delimiter = "\n"
     {
       scan: {
         user_code: params[:user_barcode],
-        labware_barcodes: scanned_values.join('\n'),
+        labware_barcodes: scanned_values.join(delimiter),
         location_barcode: destroyed_location_barcode
       }
     }

@@ -75,10 +75,11 @@ class LabwareDestructionTest < ActiveSupport::TestCase
 
       should "send a POST request to the LabWhere API to scan the labware into the destroyed location" do
         # NB. We will not check this in other tests again.
+        # NB. Using double quotes is important for joining the labware barcodes.
         body = {
           scan: {
             user_code: @params[:user_barcode],
-            labware_barcodes: [@labware1_barcode, @labware2_barcode].join('\n'),
+            labware_barcodes: [@labware1_barcode, @labware2_barcode].join("\n"),
             location_barcode: @verification.destroyed_location_barcode
           }
         }.to_json

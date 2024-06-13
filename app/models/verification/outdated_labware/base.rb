@@ -14,6 +14,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   def scanned_values
     [@attributes[:scanned_values]].flatten.map { |s| s.split(/\s/).compact_blank }.flatten
+    
   end
 
   def labware_from_barcodes(barcodes)
@@ -68,6 +69,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   # @return [Net::HTTPResponse] The HTTP response from the LabWhere API.
   def send_scan_request(params)
     uri = URI.join(Settings.labwhere_api, "scans")
+    byebug
     data = destroyed_location_payload(params).to_json
     headers = { "Content-Type" => "application/json" }
     Net::HTTP.post(uri, data, headers)
@@ -82,6 +84,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   def handle_scan_response(response)
     return true if response.is_a?(Net::HTTPSuccess)
 
+    byebug
     case response
     when Net::HTTPNotFound
       errors.add(:LabWhere, "LabWhere service is down")

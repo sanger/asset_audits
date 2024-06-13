@@ -152,6 +152,10 @@ Destroying instrument - Destroying labware:
   instrument: Destroying instrument
   instrument_process: destroy_labware
   bed_verification_type: Verification::OutdatedLabware::Base
+Destroying instrument - Destroying location:
+  instrument: Destroying instrument
+  instrument_process: destroy_location
+  bed_verification_type: Verification::DestroyLocation::Base
 Beckman NX - 1ul Removal:
   instrument: Beckman NX
   instrument_process: slf_1ul_removal

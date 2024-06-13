@@ -14,6 +14,7 @@ class ProcessPlatesController < ApplicationController
   end
 
   def create # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
+    # byebug
     bed_verification_model =
       InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode], params[:instrument_process])
     raise "Invalid instrument or process" if bed_verification_model.nil?

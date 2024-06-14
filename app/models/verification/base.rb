@@ -21,7 +21,6 @@ class Verification::Base
   self.javascript_partial_name = nil
 
   def scanned_values
-    # byebug
     @attributes[:scanned_values]
   end
 

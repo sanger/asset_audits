@@ -1,7 +1,12 @@
 %div.info-box{style: "border: 1px solid #3bbc39; background-color: #e8f5e9; text-align:center; padding: 5px; font-size: 16px; margin-bottom: 10px;
-line-height: 1.5; font-style: italic; color: #3bbc39; width: 60%;"}
+line-height: 1.5; font-style: italic; color: #3bbc39; width: 60%;", data: { barcodes: barcodes }}
   %p
     Upon submission, the location entered for destruction will update the location of all labware in the hierarchy to the destroyed location in Labwhere as well.
-%label{for: "robot"} Source location
-= text_field_tag "robot", '', :size => 80
-
+%label{for: "location"} Source location
+= text_field_tag 'robot', '', :size => 80, :onkeydown => "return event.key != 'Enter';"
+= hidden_field_tag 'barcodes', '', id: 'barcodes'
+= button_tag "Search", :type => "button", :id => "search_button"
+- if barcodes
+  %p= barcodes
+- else
+  %p No barcodes %available for this location

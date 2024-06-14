@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  resources :process_plates
+  resources :process_plates 
+
   resources :users do
     collection { post "search" }
   end
@@ -33,7 +34,11 @@ Rails.application.routes.draw do
   end
 
   resources :bed_layouts do
-    collection { post "bed_layout_partial" }
+    collection do
+     post "bed_layout_partial" 
+     post "bed_layout_check"
+     post "validate_layout"
+    end
   end
 
   namespace :admin do

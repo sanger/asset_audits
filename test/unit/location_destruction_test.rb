@@ -235,5 +235,45 @@ class LocationDestructionTest < ActiveSupport::TestCase
         assert_equal @old_delayed_job_count, new_delayed_job_count
       end
     end
+    # Tests the scenario for pressing the submit button without entering location barcode
+    context "when there is no labware scanned" do
+      setup do
+        stub_request(:post, @scans_uri)
+        location_params = { user_barcode: @user_barcode, robot: nil }
+        @result = @destroy_location_verification.validate_and_create_audits?(location_params)
+      end
+
+      should "return failure from the validate_and_create_audits? method" do
+        assert_not @result
+      end
+
+      should "have a message added to the errors" do
+        assert_includes @destroy_location_verification.errors[:base], "No labware found"
+      end
+
+      should "not send a POST request to the LabWhere API" do
+        assert_not_requested(:post, @scans_uri)
+      end
+    end
+    # Tests the scenario for pressing the submit button without entering user barcode
+    context "when there is user_barcode" do
+      setup do
+        stub_request(:post, @scans_uri)
+        location_params = { user_barcode: nil, robot: "#{@labware1_barcode}\n#{@labware2_barcode}" }
+        @result = @destroy_location_verification.validate_and_create_audits?(location_params)
+      end
+
+      should "return failure from the validate_and_create_audits? method" do
+        assert_not @result
+      end
+
+      should "have a message added to the errors" do
+        assert_includes @destroy_location_verification.errors[:base], "User does not exist"
+      end
+
+      should "not send a POST request to the LabWhere API" do
+        assert_not_requested(:post, @scans_uri)
+      end
+    end
   end
 end

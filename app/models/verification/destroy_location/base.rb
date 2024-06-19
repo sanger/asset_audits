@@ -13,7 +13,15 @@ class Verification::DestroyLocation::Base < Verification::Base
   # @param params [Hash] the parameters passed to the controller action
   #
   # @return [Boolean] returns true if the scanning, and audit creation were all successful, and false otherwise.
-  def validate_and_create_audits?(params)
+  def validate_and_create_audits?(params) # rubocop:disable Metrics/MethodLength
+    if params[:robot].blank?
+      errors.add(:base, "No labware found")
+      return false
+    end
+    if params[:user_barcode].blank?
+      errors.add(:base, "User does not exist")
+      return false
+    end
     return false unless scan_into_destroyed_location(params[:user_barcode], params[:robot]&.split(/\r?\n/))
 
     params[:source_plates] = scanned_values

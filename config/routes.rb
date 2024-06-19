@@ -36,7 +36,6 @@ Rails.application.routes.draw do
   resources :bed_layouts do
     collection do
       post "bed_layout_partial"
-      post "bed_layout_check"
       post "pre_validate_layout"
     end
   end

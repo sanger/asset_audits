@@ -27,7 +27,6 @@
         = text_field_tag "witness_barcode"
       %li
         %input#btnSubmit{type: "submit", value: "Submit"}/
-
 - content_for :page_javascript do
   :javascript
     (function($) {
@@ -195,13 +194,6 @@
       // Quick and dirty to prevent the form from being submitted more than once
       // https://stackoverflow.com/a/24957486
       $('form.submit-once').submit(function(e) {
-        var formData = $(this).serialize();
-
-        $.post($(this).attr('action'), formData, function(response) {
-          // handle response
-           val =  this._robot
-        })
-
         // prevent the form from being submitted if it has the 'form-submitted' class
         if ($(this).hasClass('form-submitted')) {
           e.preventDefault();

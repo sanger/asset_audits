@@ -1,7 +1,4 @@
 # frozen_string_literal: true
-
-
-
 #
 # Takes a list of source labware and validates that all labware
 # are older than the lifespan defined by their purpose
@@ -34,7 +31,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   # creation were all successful, and false otherwise.
   def validate_and_create_audits?(params)
     return false unless valid?
-
+    
     return false unless scan_into_destroyed_location(params[:user_barcode],scanned_values)
 
     params[:source_plates] = scanned_values.flatten.join(" ")

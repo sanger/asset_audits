@@ -47,26 +47,6 @@
           }
         }
       }
-  
-     document.addEventListener('DOMContentLoaded', function() {
-      document.body.addEventListener('click', function(event) {
-       if (event.target.id === 'search_button') {
-           $.post('#{validate_layout_bed_layouts_path}',{
-              instrument_barcode: $('#instrument_barcode').val(), 
-              instrument_process_id: $('#instrument_process').val(),
-              scanned_values: $('#robot').val()
-             }, $.proxy(function(data) {
-              var tempDiv = $('<div>');
-              tempDiv.html(data);
-              barcodes = tempDiv.find('.info-box').data('barcodes');
-               $('#barcodes').val(barcodes);
-              $('#source_plates_results').html(data);
-             }, this));
-          }
-        });
-      })
-    
-
 
       function User() {
         this._dom = $("#user_barcode");
@@ -215,6 +195,13 @@
       // Quick and dirty to prevent the form from being submitted more than once
       // https://stackoverflow.com/a/24957486
       $('form.submit-once').submit(function(e) {
+        var formData = $(this).serialize();
+
+        $.post($(this).attr('action'), formData, function(response) {
+          // handle response
+           val =  this._robot
+        })
+
         // prevent the form from being submitted if it has the 'form-submitted' class
         if ($(this).hasClass('form-submitted')) {
           e.preventDefault();

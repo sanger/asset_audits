@@ -16,14 +16,39 @@ module Verification::LabwhereApi
   #
   # @return [Boolean] returns true if the request was successful, and false
   # if an error occurred.
-  def scan_into_destroyed_location(user_barcode,barcodes)
+   def scan_into_destroyed_location(user_barcode,barcodes)
     response = send_scan_request(user_barcode,barcodes)
     handle_scan_response(response)
   rescue Errno::ECONNREFUSED
     errors.add(:LabWhere, "LabWhere service is down")
     false
   end
+  
 
+
+  def location_info(barcode) # rubocop:disable Metrics/MethodLength
+    uri = URI.join(BASE_URL, "locations/info")
+    uri.query = URI.encode_www_form({ barcode:})
+    http = Net::HTTP.new(uri.host, uri.port)
+    response = http.request(Net::HTTP::Get.new(uri.request_uri, HEADERS))
+    if response.is_a?(Net::HTTPSuccess)
+        # Parse the response body
+        response_body = JSON.parse(response.body)
+        depth  = response_body["depth"]
+        # Extract the first element of the response, which is an array of labware
+        labwares = response_body["labwares"]
+        { depth: , labwares:  }
+    else
+        add_error_from_response(response)
+        nil
+    end
+  rescue Errno::ECONNREFUSED
+    errors.add(:LabWhere, "LabWhere service is down")
+    nil
+  end
+
+  private
+  
   # Sends a POST request to the LabWhere API to scan the labware into the
   # destroyed location.
   #
@@ -74,28 +99,11 @@ module Verification::LabwhereApi
     {
       scan: {
         user_code: user_barcode,
-        labware_barcodes: barcodes.join('\n'),
+        labware_barcodes: barcodes.join("\n"),
         location_barcode: DESTROY_LOCATION_BARCODE
       }
     }
   end
 
-  def location_info(barcode) # rubocop:disable Metrics/MethodLength
-    uri = URI.join(BASE_URL, "locations/info")
-    uri.query = URI.encode_www_form({ barcode:})
-    http = Net::HTTP.new(uri.host, uri.port)
-    response = http.request(Net::HTTP::Get.new(uri.request_uri, HEADERS))
-
-    if response.is_a?(Net::HTTPSuccess)
-        # Parse the response body
-        response_body = JSON.parse(response.body)
-        depth  = response_body["depth"]
-        # Extract the first element of the response, which is an array of labware
-        labwares = response_body["labwares"]
-        { depth: , labwares:  }
-    else
-        add_error_from_response(response)
-        {depth: nil, labwares: nil }
-    end
-  end
+  
 end

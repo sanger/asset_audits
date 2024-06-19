@@ -21,6 +21,7 @@ class ProcessPlatesController < ApplicationController
 
     bed_layout_verification =
       bed_verification_model.new(instrument_barcode: params[:instrument_barcode], scanned_values: params[:robot], api:)
+     
     raise format_errors(bed_layout_verification) unless bed_layout_verification.validate_and_create_audits?(params)
 
     unless receive_plates_process?(params)

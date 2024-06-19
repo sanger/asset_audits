@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     collection do
      post "bed_layout_partial" 
      post "bed_layout_check"
-     post "validate_layout"
+     post "pre_validate_layout"
     end
   end
 

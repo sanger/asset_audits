@@ -34,7 +34,7 @@ Feature: Require a visual check for a process
 
     Then I should see "Success"
     And I should be on the new audit page
-    And I should have 1 plates
+    And I should have 2 plates
     And I should have performed visual check on the last plate
 
     Given I am on the new audit page
@@ -43,12 +43,12 @@ Feature: Require a visual check for a process
     And I wait for all AJAX calls
     And I select "Pico dilution" from "Instrument process"
     And I check "visual_check"
-    And I should have 1 plates
+    And I should have 2 plates
     When I press "Submit"
 
     Then I should see "Success"
     And I should be on the new audit page
-    And I should have 2 plates
+    And I should have 4 plates
     And I should have performed visual check on the last plate
 
   Scenario: Avoid creating a plate if the instrument requires visual check and has not been performed

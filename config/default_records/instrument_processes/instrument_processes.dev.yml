@@ -97,7 +97,7 @@ destroy_labware:
 destroy_location:
   name: Destroying location
   request_instrument: false
-  visual_check_required: false  
+  visual_check_required: false
 slf_1ul_removal:
   name: 1ul Removal
   request_instrument: true

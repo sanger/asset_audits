@@ -10,7 +10,6 @@ class Verification::OutdatedLabware::Base < Verification::Base
 
   def scanned_values
     [@attributes[:scanned_values]].flatten.map { |s| s.split(/\s/).compact_blank }.flatten
-    
   end
 
   def labware_from_barcodes(barcodes)
@@ -31,13 +30,10 @@ class Verification::OutdatedLabware::Base < Verification::Base
   # creation were all successful, and false otherwise.
   def validate_and_create_audits?(params)
     return false unless valid?
-    
-    return false unless scan_into_destroyed_location(params[:user_barcode],scanned_values)
+
+    return false unless scan_into_destroyed_location(params[:user_barcode], scanned_values)
 
     params[:source_plates] = scanned_values.flatten.join(" ")
     super
   end
-
-
- 
 end

@@ -1,40 +1,55 @@
+# frozen_string_literal: true
 #
 # Takes a location barcode and validates the location for having child locations and that all labware
 # are older than the lifespan defined by their purpose
-class Verification::DestroyLocation::Base  < Verification::Base
+class Verification::DestroyLocation::Base < Verification::Base
+  include Verification::LabwhereApi
+  validates_with Verification::Validator::DestroyLocationScanned
+  self.partial_name = "destroy_location"
 
-include Verification::LabwhereApi
-validates_with Verification::Validator::DestroyLocationScanned    
-self.partial_name = "destroy_location"
-
-def validate_and_create_audits?(params)
-    return false unless scan_into_destroyed_location(params[:user_barcode],params[:robot]&.split("\r\n"))
+  # Scans the source plates into the LabWhere destroyed location and creates audits for them.
+  # The parameters are the ProcessPlatesController parameters for the Destroying labware process.
+  # This method is called by the create action of the controller.
+  # @param params [Hash] the parameters passed to the controller action
+  #
+  # @return [Boolean] returns true if the scanning, and audit creation were all successful, and false otherwise.
+  def validate_and_create_audits?(params)
+    return false unless scan_into_destroyed_location(params[:user_barcode], params[:robot]&.split(/\r?\n/))
 
     params[:source_plates] = scanned_values
     super
-end
- 
-def pre_validate
+  end
+
+  # Validates the location barcode and retrieves the labware barcodes from the location
+  # and validates that all labware are older than the lifespan defined by their purpose
+  def pre_validate
     @barcodes if valid?
-end
-
-def labware_from_location(barcode) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-  location_info = location_info(barcode)
-
-  return if location_info.nil?|| (location_info[:depth].nil? && location_info[:labwares].nil?)
-
-  if location_info[:depth] < 1
-    errors.add(:LabWhere, "Location does not have any child locations")
-    return
   end
 
-  if location_info[:labwares].empty?
-    errors.add(:LabWhere, "Location does not have any labware")
-    return
-  end
+  # Retrieves the labware barcodes from the location and validates that all labware are older than the lifespan defined
+  # by their purpose
+  def labware_from_location(barcode) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    location_info = location_info(barcode)
 
-  @barcodes = location_info[:labwares].pluck("barcode")
-  outdated_labware = Verification::OutdatedLabware::Base.new
-  outdated_labware.labware_from_barcodes(@barcodes)
-end
+    # Return if location_info is nil or if the location does not have any child locations or labware
+    return if location_info.nil? || (location_info[:depth].nil? && location_info[:labwares].nil?)
+
+    # Return if the location does not have any child locations
+    if location_info[:depth] < 1
+      errors.add(:LabWhere, "Location does not have any child locations")
+      return
+    end
+
+    # Return if the location does not have any labware
+    if location_info[:labwares].empty?
+      errors.add(:LabWhere, "Location does not have any labware")
+      return
+    end
+
+    # Get the barcodes of the labware in the location and validate that they are older than the lifespan defined by
+    # their purpose
+    @barcodes = location_info[:labwares].pluck("barcode")
+    outdated_labware = Verification::OutdatedLabware::Base.new
+    outdated_labware.labware_from_barcodes(@barcodes)
+  end
 end

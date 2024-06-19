@@ -14,14 +14,13 @@ class ProcessPlatesController < ApplicationController
   end
 
   def create # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
-  
     bed_verification_model =
       InstrumentProcessesInstrument.get_bed_verification_type(params[:instrument_barcode], params[:instrument_process])
     raise "Invalid instrument or process" if bed_verification_model.nil?
 
     bed_layout_verification =
       bed_verification_model.new(instrument_barcode: params[:instrument_barcode], scanned_values: params[:robot], api:)
-     
+
     raise format_errors(bed_layout_verification) unless bed_layout_verification.validate_and_create_audits?(params)
 
     unless receive_plates_process?(params)
@@ -39,10 +38,6 @@ class ProcessPlatesController < ApplicationController
   rescue StandardError => e
     flash[:error] = e.message
     redirect_to(new_process_plate_path)
-  end
-
-  def format_errors(obj)
-    obj.errors.map(&:message).join("\n")
   end
 
   def back_to_new_with_message(message, flash_type = :notice)

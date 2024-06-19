@@ -35,8 +35,8 @@ class LocationDestructionTest < ActiveSupport::TestCase
     @scans_uri = URI.join(Settings.labwhere_api, "scans")
 
     # Count of ProcessPlate and Delayed::Job records before the action.
-      @old_process_plate_count = ProcessPlate.count
-      @old_delayed_job_count = Delayed::Job.count
+    @old_process_plate_count = ProcessPlate.count
+    @old_delayed_job_count = Delayed::Job.count
   end
 
   context "with LabWhere service" do
@@ -48,19 +48,19 @@ class LocationDestructionTest < ActiveSupport::TestCase
         user_barcode: @user_barcode,
         instrument_barcode: @instrument.barcode.to_s,
         instrument_process: @instrument.instrument_processes.first.id.to_s,
-        location:  @location_barcode
+        location: @location_barcode
       }
-       # Controller creates an instance of Verification::DestroyLocation::Base
+      # Controller creates an instance of Verification::DestroyLocation::Base
       # for the Destroying instrument and Destroying location process.
-      @destroy_location_verification = Verification::DestroyLocation::Base.new(scanned_values:@destroy_location_params[:location])
+      @destroy_location_verification =
+        Verification::DestroyLocation::Base.new(scanned_values: @destroy_location_params[:location])
 
       # Parameters passed to the controller by form submission.
       @destroy_labware_params = {
         user_barcode: @user_barcode,
         instrument_barcode: @instrument.barcode.to_s,
         instrument_process: @instrument.instrument_processes.first.id.to_s,
-        robot: "#{@labware1_barcode}\n#{@labware2_barcode}",
-
+        robot: "#{@labware1_barcode}\n#{@labware2_barcode}"
       }
       # Verification::OutdatedLabware::Base instance for destroying labware inside the location.
       @destroy_labware_verification =
@@ -82,11 +82,8 @@ class LocationDestructionTest < ActiveSupport::TestCase
     context "when the location is scanned" do
       setup do
         # Stub the API call to LabWhere to get the location info.
-        body = {
-          labwares: [{barcode:@labware1_barcode},{barcode:@labware2_barcode}], depth: 2 
-        }.to_json
-        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}"))
-                    .to_return(body:, status: 200)
+        body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 2 }.to_json
+        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.
         @result = @destroy_location_verification.pre_validate
@@ -104,11 +101,9 @@ class LocationDestructionTest < ActiveSupport::TestCase
       should "not have any errors" do
         assert_empty @destroy_location_verification.errors
       end
-
     end
 
-
-     context "when location validation fails in api call" do
+    context "when location validation fails in api call" do
       # Any validation errors on the LabWhere service side will be available in
       # the HTTPUnprocessableEntity (422) response body. We are testing that
       # they will be treated as failure and they are added to the errors as
@@ -116,14 +111,11 @@ class LocationDestructionTest < ActiveSupport::TestCase
       setup do
         # Stub API call to LabWhere, to get info of location given.
         # The response is a failure. The response body is parsed.
-        @errors_response = {
-          errors: [
-            "Location does not exist",
-            "Error in the location",
-          ]
-        }
-        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}"))
-                    .to_return(body: @errors_response.to_json, status: 422)
+        @errors_response = { errors: ["Location does not exist", "Error in the location"] }
+        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(
+          body: @errors_response.to_json,
+          status: 422
+        )
 
         # Controller calls the pre_validate? method.
         @result = @destroy_location_verification.pre_validate
@@ -137,15 +129,11 @@ class LocationDestructionTest < ActiveSupport::TestCase
         # NB. The message contains all errors from the response.
         assert_includes @destroy_location_verification.errors[:LabWhere], @errors_response[:errors].join(", ")
       end
-    
     end
     context "when location has no child locations" do
-       setup do
-        body = {
-          labwares: [{barcode:@labware1_barcode},{barcode:@labware2_barcode}], depth: 0 
-        }.to_json
-        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}"))
-                    .to_return(body:, status: 200)
+      setup do
+        body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 0 }.to_json
+        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.
         @result = @destroy_location_verification.pre_validate
@@ -159,15 +147,11 @@ class LocationDestructionTest < ActiveSupport::TestCase
         # NB. The message contains all errors from the response.
         assert_includes @destroy_location_verification.errors[:LabWhere], "Location does not have any child locations"
       end
-
     end
     context "when location has no labware" do
-       setup do
-        body = {
-          labwares: [], depth: 2 
-        }.to_json
-        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}"))
-                    .to_return(body:, status: 200)
+      setup do
+        body = { labwares: [], depth: 2 }.to_json
+        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.
         @result = @destroy_location_verification.pre_validate
@@ -184,17 +168,17 @@ class LocationDestructionTest < ActiveSupport::TestCase
     end
 
     context "when form is submitted to destroy locaton" do
-       setup do
-       # Stub API call to LabWhere, to scan into the destroyed location..
-         stub_request(:post, @scans_uri).to_return(status: 200)
-         @result = @destroy_location_verification.validate_and_create_audits?(@destroy_labware_params)
-          end
+      setup do
+        # Stub API call to LabWhere, to scan into the destroyed location..
+        stub_request(:post, @scans_uri).to_return(status: 200)
+        @result = @destroy_location_verification.validate_and_create_audits?(@destroy_labware_params)
+      end
 
       should "send a POST request to the LabWhere API to scan the labware into the destroyed location" do
         body = {
           scan: {
-            user_code:  @user_barcode,
-            labware_barcodes: [@labware1_barcode, @labware2_barcode],
+            user_code: @user_barcode,
+            labware_barcodes: [@labware1_barcode, @labware2_barcode].join("\n"),
             location_barcode: Verification::LabwhereApi::DESTROY_LOCATION_BARCODE
           }
         }.to_json
@@ -224,17 +208,11 @@ class LocationDestructionTest < ActiveSupport::TestCase
     end
     context "when the validation fails" do
       setup do
-        @errors_response = {
-          errors: [
-            "Location does not exist",
-            "Error returned",
-          ]
-        }
-     
-         stub_request(:post, @scans_uri).to_return(status: 422, body: @errors_response.to_json)
-        
-         @result = @destroy_location_verification.validate_and_create_audits?(@destroy_labware_params)
+        @errors_response = { errors: ["Location does not exist", "Error returned"] }
 
+        stub_request(:post, @scans_uri).to_return(status: 422, body: @errors_response.to_json)
+
+        @result = @destroy_location_verification.validate_and_create_audits?(@destroy_labware_params)
       end
 
       should "return failure from the validate_and_create_audits? method" do

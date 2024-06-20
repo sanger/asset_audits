@@ -42,9 +42,9 @@ class Verification::DestroyLocation::Base < Verification::Base
     # Return if location_info is nil or if the location does not have any child locations or labware
     return if location_info.nil? || (location_info[:depth].nil? && location_info[:labwares].nil?)
 
-    # Return if the location has any child locations. 
+    # Return if the location has any child locations.
     # The destrucrion of labware is only allowed for bottom-level locations.
-    if location_info[:depth] !=0
+    if location_info[:depth] != 0
       errors.add(:LabWhere, "Location has child location")
       return
     end

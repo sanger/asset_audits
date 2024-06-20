@@ -82,7 +82,7 @@ class LocationDestructionTest < ActiveSupport::TestCase
     context "when the location is scanned" do
       setup do
         # Stub the API call to LabWhere to get the location info.
-        body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 2 }.to_json
+        body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 0 }.to_json
         stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.
@@ -130,9 +130,9 @@ class LocationDestructionTest < ActiveSupport::TestCase
         assert_includes @destroy_location_verification.errors[:LabWhere], @errors_response[:errors].join(", ")
       end
     end
-    context "when location has no child locations" do
+    context "when location has child locations" do
       setup do
-        body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 0 }.to_json
+        body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 1 }.to_json
         stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.
@@ -145,12 +145,12 @@ class LocationDestructionTest < ActiveSupport::TestCase
 
       should "have a message added to the errors" do
         # NB. The message contains all errors from the response.
-        assert_includes @destroy_location_verification.errors[:LabWhere], "Location does not have any child locations"
+        assert_includes @destroy_location_verification.errors[:LabWhere], "Location has child location"
       end
     end
     context "when location has no labware" do
       setup do
-        body = { labwares: [], depth: 2 }.to_json
+        body = { labwares: [], depth: 0 }.to_json
         stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.

@@ -80,7 +80,7 @@ class LabwareDestructionTest < ActiveSupport::TestCase
           scan: {
             user_code: @params[:user_barcode],
             labware_barcodes: [@labware1_barcode, @labware2_barcode].join("\n"),
-            location_barcode: Verification::LabwhereApi::DESTROY_LOCATION_BARCODE
+            location_barcode: Verification::LabwhereApi::DESTROYED_LOCATION_BARCODE
           }
         }.to_json
 

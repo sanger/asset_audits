@@ -21,6 +21,12 @@ class BedLayoutsController < ApplicationController
     end
   end
 
+  # This method is used to handle pre-validation before the user presses the submit button.
+  # Currently, it is called when the location is entered (destroy_location.html.haml).
+  # If the location barcode validation succeeds, it renders the bed_layout_partial with
+  # all labware within the location.
+  # If the location barcode validation fails, it renders the bed_layout_partial with an error message.
+  # The location barcode to be pre-validated needs to be passed as a param called 'scanned_values'.
   def pre_validate_layout # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     bed_layout_partial_name =
       InstrumentProcessesInstrument.find_partial_name!(params[:instrument_barcode], params[:instrument_process_id])
@@ -32,6 +38,7 @@ class BedLayoutsController < ApplicationController
       )
     raise "Invalid instrument or process" if bed_verification_model.nil?
 
+    # Param scanned_values tis used to pass the field to be validated
     bed_layout_verification =
       bed_verification_model.new(
         instrument_barcode: params[:instrument_barcode],

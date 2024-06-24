@@ -11,7 +11,7 @@ require "net/http"
 module Verification::LabwhereApi
   HEADERS = { "Content-Type" => "application/json" }.freeze
   BASE_URL = Settings.labwhere_api.freeze
-  DESTROY_LOCATION_BARCODE = "lw-destroyed"
+  DESTROYED_LOCATION_BARCODE = "lw-destroyed"
 
   # Sends a POST request to the LabWhere API to scan the labware into the
   # destroyed location. The parameters passed to the ProcessPlatesController
@@ -111,8 +111,12 @@ module Verification::LabwhereApi
     {
       scan: {
         user_code: user_barcode,
+        # Double quotes are used for "\n" to represent a newline character to join barcodes into a single string.
+        # This is because in Ruby, single quotes represent string literals and do not process
+        # escape sequences like "\n".
+        # Double quotes, on the other hand, do process escape sequences.
         labware_barcodes: barcodes.join("\n"),
-        location_barcode: DESTROY_LOCATION_BARCODE
+        location_barcode: DESTROYED_LOCATION_BARCODE
       }
     }
   end

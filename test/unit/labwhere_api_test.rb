@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class LabwareApiTest < ActiveSupport::TestCase
+class LabwhereApiTest < ActiveSupport::TestCase
   setup do
     @dummy =
       Class
@@ -35,7 +35,7 @@ class LabwareApiTest < ActiveSupport::TestCase
           scan: {
             user_code: @user_barcode,
             labware_barcodes: @barcodes.join("\n"),
-            location_barcode: Verification::LabwhereApi::DESTROY_LOCATION_BARCODE
+            location_barcode: Verification::LabwhereApi::DESTROYED_LOCATION_BARCODE
           }
         }.to_json
 

@@ -104,7 +104,6 @@
 
         updateBedsLayoutHandler: function() {
           this.updateVisualCheckVisibility();
-
           $.post('#{bed_layout_partial_bed_layouts_path}',{
               instrument_barcode: this._instrumentBarcode.getValue(),
               instrument_process_id: this._dom.val()

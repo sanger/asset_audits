@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   #   resources :products
 
   resources :process_plates
+
   resources :users do
     collection { post "search" }
   end
@@ -33,7 +34,10 @@ Rails.application.routes.draw do
   end
 
   resources :bed_layouts do
-    collection { post "bed_layout_partial" }
+    collection do
+      post "bed_layout_partial"
+      post "pre_validate_layout"
+    end
   end
 
   namespace :admin do

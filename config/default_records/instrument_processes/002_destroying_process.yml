@@ -1,0 +1,11 @@
+# Add entries to this file to generate them automatically upon running
+# rake record_loader:all or rake record_loader:<%= underscore %>
+# If you want entries which are only created in development mode then simply
+# create a file in this directory ending in '.dev.yml'
+# You can add as many additional .yml files to this directory as you wish.
+
+# Adds a 'Destroying location' instrument processes in all environments
+destroy_location:
+  name: Destroying location
+  request_instrument: false
+  visual_check_required: false

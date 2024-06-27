@@ -216,7 +216,6 @@ GEM
     minitest (5.22.3)
     mocha (2.1.0)
       ruby2_keywords (>= 0.0.5)
-    multi_json (1.15.0)
     multi_test (1.1.0)
     multipart-post (2.3.0)
     mustermann (3.0.0)
@@ -341,11 +340,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sequencescape-client-api (2.0.0)
-      activemodel (>= 5.0.0)
-      activesupport (>= 5.0.0)
-      i18n
-      multi_json
     shoulda (4.0.0)
       shoulda-context (~> 2.0)
       shoulda-matchers (~> 4.0)
@@ -448,7 +442,6 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rake
   selenium-webdriver
-  sequencescape-client-api
   shoulda
   simplecov
   sinatra

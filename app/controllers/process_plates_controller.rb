@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ProcessPlatesController < ApplicationController
-  skip_before_action :configure_api, except: [:create]
-
   attr_accessor :messages
 
   def index

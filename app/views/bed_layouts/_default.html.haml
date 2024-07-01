@@ -1,6 +1,6 @@
 %label{for: "source_plates"}
   = "Source plates (#{ProcessPlate::RECEIVE_PLATES_MAX} max.)"
-= text_area_tag "source_plates", '', :rows => 25,:cols => 80
+= text_area_tag "source_plates", '', :rows => ProcessPlate::RECEIVE_PLATES_MAX + 1,:cols => 80
 .live_results#barcodes_scanned 0 barcodes
 :javascript
   $('#source_plates').focus();

@@ -3,7 +3,18 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+
+  font-family: Arial, sans-serif;
 }
+
+a {
+  text-decoration: none; /* Removes underline from links */
+}
+
+a:hover {
+  text-decoration: underline; /* Adds underline on hover for visual feedback */
+}
+
 main {
   margin-left: 1em;
   margin-right: 1em;

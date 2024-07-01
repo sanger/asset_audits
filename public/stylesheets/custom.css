@@ -40,21 +40,7 @@ fieldset li {
 }
 
 label {
-  float: left;
-  width: 10em;
-  margin-right: 1em;
-  text-align: right;
-}
-
-.live_results {
-  float: right;
-  width: 8em;
-  margin-right: 1em;
-  text-align: left;
-}
-
-.custom_width {
-  width: 30em;
+  vertical-align: top;
 }
 
 .hidden {

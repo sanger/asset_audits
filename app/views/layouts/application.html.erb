@@ -10,11 +10,7 @@
 
 </head>
 <body class='aa-env-<%= Rails.env %>'>
-  <div id="flash-holder">
-    <% flash_messages do |flash_type, messages| %>
-      <%= content_tag(:div, messages, :class => 'flash', :id => "message_#{  flash_type}") %>
-    <% end %>
-  </div>
+  <%= render partial: 'shared/flash' %>
 
   <header><%= render partial: 'shared/header' %></header>
 

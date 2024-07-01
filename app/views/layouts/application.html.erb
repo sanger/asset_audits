@@ -15,7 +15,8 @@
       <%= content_tag(:div, messages, :class => 'flash', :id => "message_#{  flash_type}") %>
     <% end %>
   </div>
-  <%= yield %>
+
+  <main><%= yield %></main>
 
   <footer id="main-footer"><%= render partial: 'shared/footer' %></footer>
 

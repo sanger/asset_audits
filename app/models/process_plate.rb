@@ -50,14 +50,16 @@ class ProcessPlate < ApplicationRecord
   handle_asynchronously :create_audits
 
   def create_remote_audit(asset_uuid)
-    api.asset_audit.create!(
+    options =
+    {
       key: instrument_process.key,
       message: "Process '#{instrument_process.name}' performed on instrument #{instrument.name}",
       created_by: user_login,
-      asset: asset_uuid,
+      asset_uuid:,
       witnessed_by: witness_login,
       metadata:
-    )
+    }
+    Sequencescape::Api::V2::AssetAudit.create!(options)
   end
 
   def post_audit_actions!

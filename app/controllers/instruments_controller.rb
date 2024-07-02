@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class InstrumentsController < ApplicationController
-  skip_before_action :configure_api
-
   def search
     instrument = Instrument.find_by(barcode: params[:instrument_barcode])
     render plain: instrument.nil? ? "" : instrument.name

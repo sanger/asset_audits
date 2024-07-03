@@ -34,8 +34,7 @@ class ProcessPlate < ApplicationRecord
   handle_asynchronously :create_audits
 
   def create_remote_audit(asset_uuid)
-    options =
-    {
+    options = {
       key: instrument_process.key,
       message: "Process '#{instrument_process.name}' performed on instrument #{instrument.name}",
       created_by: user_login,

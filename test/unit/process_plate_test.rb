@@ -20,7 +20,7 @@ class ProcessPlateTest < ActiveSupport::TestCase
           ProcessPlate.new(
             user_barcode: "123",
             instrument_barcode: @instrument.barcode.to_s,
-            source_plates: 'DN456S',
+            source_plates: "DN456S",
             visual_check: false,
             instrument_process_id: @instrument.instrument_processes.first.id.to_s,
             witness_barcode: "456",
@@ -29,23 +29,27 @@ class ProcessPlateTest < ActiveSupport::TestCase
             }
           )
 
-        plate_uuid = 'dab1b0ce-3794-11ef-a6f5-26ddcd6c52d7'
-        @plate_request = MockSequencescapeV2.mock_get_plate(@process_plate.source_plates, { "uuid": plate_uuid })
-        @asset_audit_request = MockSequencescapeV2.mock_post_asset_audit(
-          {
-            data: {
-              type: "asset_audits",
-              attributes: {
-                key: @instrument_process.key,
-                message: "Process '#{@process_plate.instrument_process.name}' performed on instrument #{@instrument.name}",
-                created_by: "abc",
-                asset_uuid: plate_uuid,
-                witnessed_by: "def",
-                metadata: { "bed 1" => "plate 1" }
+        plate_uuid = "dab1b0ce-3794-11ef-a6f5-26ddcd6c52d7"
+        @plate_request = MockSequencescapeV2.mock_get_plate(@process_plate.source_plates, { uuid: plate_uuid })
+        @asset_audit_request =
+          MockSequencescapeV2.mock_post_asset_audit(
+            {
+              data: {
+                type: "asset_audits",
+                attributes: {
+                  key: @instrument_process.key,
+                  message:
+                    "Process '#{@process_plate.instrument_process.name}' performed on instrument #{@instrument.name}",
+                  created_by: "abc",
+                  asset_uuid: plate_uuid,
+                  witnessed_by: "def",
+                  metadata: {
+                    "bed 1" => "plate 1"
+                  }
+                }
               }
-            }
-          }.to_json
-        )
+            }.to_json
+          )
       end
 
       should "submits remote asset audits" do

@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-Given(/^Sequencescape has a plate with barcode "([^"]*)"$/) do |barcode|
-  plate_json = {
-    data: [
-      { id: "1", type: "plates", links: { self: "http://sequencescape/api/v2/plates/1" }, attributes: { uuid: "00000000-1111-2222-3333-444444555555" } }
-    ]
-  }
+Given(/^I can retrieve the plate with barcode "([^"]*)"$/) do |barcode|
+  allow(Sequencescape::Api::V2::Plate).to receive(:where).with(barcode: [barcode]).and_return([Sequencescape::Api::V2::Plate.new])
+end
 
-  stub_request(:get, "http://sequencescape/api/v2/plates?filter%5Bbarcode%5D%5B0%5D=#{barcode}").to_return_json(status: 200, body: plate_json)
+Given(/^I can create any asset audits in Sequencescape$/) do
+  allow(Sequencescape::Api::V2::AssetAudit).to receive(:create!).and_return(true)
 end

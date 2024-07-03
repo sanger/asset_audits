@@ -8,22 +8,6 @@ Given(
   instrument.beds << bed
 end
 
-Given(
-  /^the search with UUID "([^"]*)" for barcode "([^"]*)" returns the following JSON:$/
-) do |search_uuid, barcode, returned_json|
-  FakeSequencescapeService.instance.search_result(search_uuid, barcode, returned_json)
-end
-
-Given(
-  /^the search with UUID "([^"]*)" for barcodes "([^"]*)" returns the following JSON:$/
-) do |search_uuid, barcode, returned_json|
-  FakeSequencescapeService.instance.search_result(
-    search_uuid,
-    barcode.split(",").map(&:strip).compact_blank,
-    returned_json
-  )
-end
-
 # Mocking Sequencescape::Api::V2::Labware.where(barcode: barcodes)
 Given(
   /^I can retrieve the labware with barcodes "([^"]*)" and lifespans "([^"]*)" and ages "([^"]*)" and existence "([^"]*)"$/

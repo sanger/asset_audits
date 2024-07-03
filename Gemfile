@@ -15,7 +15,6 @@ gem "json_api_client"
 gem "mysql2"
 gem "nokogiri"
 gem "oj"
-gem "sequencescape-client-api", require: "sequencescape"
 gem "sprockets-rails", "~> 3.4"
 gem "uuidtools"
 

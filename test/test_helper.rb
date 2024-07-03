@@ -10,6 +10,8 @@ require "minitest/autorun"
 require "webmock/minitest"
 require "mocha/minitest"
 
+include WebMock::API
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #

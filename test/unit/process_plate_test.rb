@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "support/test_sequencescape_api"
-require "support/test_search_result"
+require "support/mock_sequencescape_v2"
 
 class ProcessPlateTest < ActiveSupport::TestCase
   context "Generating remote asset audits" do
@@ -16,14 +15,12 @@ class ProcessPlateTest < ActiveSupport::TestCase
       setup do
         User.stubs(:login_from_user_code).with("123").returns("abc")
         User.stubs(:login_from_user_code).with("456").returns("def")
-        @api = TestSequencescapeApi.new(["DN456S"] => [TestSearchResult.new("DN456S", uuid: "plate-uuid")])
 
-        process_plate =
+        @process_plate =
           ProcessPlate.new(
-            api: @api,
             user_barcode: "123",
             instrument_barcode: @instrument.barcode.to_s,
-            source_plates: "DN456S",
+            source_plates: 'DN456S',
             visual_check: false,
             instrument_process_id: @instrument.instrument_processes.first.id.to_s,
             witness_barcode: "456",
@@ -31,23 +28,32 @@ class ProcessPlateTest < ActiveSupport::TestCase
               "bed 1" => "plate 1"
             }
           )
-        process_plate.save
-        process_plate.create_audits_without_delay
+
+        plate_uuid = 'dab1b0ce-3794-11ef-a6f5-26ddcd6c52d7'
+        @plate_request = MockSequencescapeV2.mock_get_plate(@process_plate.source_plates, { "uuid": plate_uuid })
+        @asset_audit_request = MockSequencescapeV2.mock_post_asset_audit(
+          {
+            data: {
+              type: "asset_audits",
+              attributes: {
+                key: @instrument_process.key,
+                message: "Process '#{@process_plate.instrument_process.name}' performed on instrument #{@instrument.name}",
+                created_by: "abc",
+                asset_uuid: plate_uuid,
+                witnessed_by: "def",
+                metadata: { "bed 1" => "plate 1" }
+              }
+            }
+          }.to_json
+        )
       end
 
-      should "generate remote asset audits" do
-        assert_equal(1, @api.asset_audit.created.length)
-        assert_equal(
-          @api.asset_audit.created.first,
-          key: @instrument_process.key,
-          message: "Process '#{@instrument_process.name}' performed on instrument #{@instrument.name}",
-          created_by: "abc",
-          asset: "plate-uuid",
-          witnessed_by: "def",
-          metadata: {
-            "bed 1" => "plate 1"
-          }
-        )
+      should "submits remote asset audits" do
+        @process_plate.save
+        @process_plate.create_audits_without_delay
+
+        assert_requested(@plate_request)
+        assert_requested(@asset_audit_request)
       end
     end
   end

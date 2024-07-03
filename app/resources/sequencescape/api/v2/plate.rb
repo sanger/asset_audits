@@ -3,5 +3,6 @@
 class Sequencescape::Api::V2::Plate < Sequencescape::Api::V2::Base
   has_many :parents, class_name: "Sequencescape::Api::V2::Labware"
   has_one :custom_metadatum_collection
-  has_one :uuid
+
+  attr_accessor :uuid
 end

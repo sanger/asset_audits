@@ -7,21 +7,5 @@ Given(/^Sequencescape has a plate with barcode "([^"]*)"$/) do |barcode|
     ]
   }
 
-  stub_request(:get, "http://sequencescape/api/v2/plates?filter%5Bbarcode%5D%5B0%5D=#{barcode}").with(
-    headers: {
-      "Accept" => "application/vnd.api+json",
-      "Content-Type" => "application/vnd.api+json",
-      "X-Sequencescape-Client-Id" => "cucumber"
-    }
-  ).to_return_json(status: 200, body: plate_json)
-end
-
-Given(/^Sequencescape expects to receive asset audits$/) do
-  stub_request(:post, "http://sequencescape/api/v2/asset_audits").with(
-    headers: {
-      "Accept" => "application/vnd.api+json",
-      "Content-Type" => "application/vnd.api+json",
-      "X-Sequencescape-Client-Id" => "cucumber"
-    }
-  ).to_return_json(status: 200, body: {})
+  stub_request(:get, "http://sequencescape/api/v2/plates?filter%5Bbarcode%5D%5B0%5D=#{barcode}").to_return_json(status: 200, body: plate_json)
 end

@@ -7,7 +7,8 @@ Feature: Require a witness for a process
       And I have a "Tecan robot" instrument with barcode "abc123456"
       And I have a process "Cherrypick" as part of the "Tecan robot" instrument which requires a witness
     Given I am on the new audit page
-    Given Sequencescape has a plate with barcode "1220094216791"
+    Given I can retrieve the plate with barcode "1220094216791"
+      And I can create any asset audits in Sequencescape
 
   Scenario: Only show the witness box if its required
     Given I have a "Big robot" instrument with barcode "9999"

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-Before do
-  @plates = {}
-end
+Before { @plates = {} }
 
 Given(/^I can retrieve plates by barcode$/) do
   allow(Sequencescape::Api::V2::Plate).to receive(:where) do |**kwargs|
@@ -17,9 +15,9 @@ Given(/^I can retrieve plates by barcode$/) do
   end
 end
 
-Given(/^I have a plate with barcode "(.+?)"$/) do |barcode|
-  @plates[barcode] = Sequencescape::Api::V2::Plate.new
-end
+Given(/^I have a plate with barcode "(.+?)"$/) { |barcode| @plates[barcode] = Sequencescape::Api::V2::Plate.new }
+
+Given(/^I cannot retrieve the plate with barcode "(.+?)"$/) { |barcode| @plates.delete(barcode) }
 
 Given(
   /^I have a destination plate with barcode "(.+?)" and parent barcodes "(.+?)"$/
@@ -37,10 +35,6 @@ Given(
   allow(child_plate).to receive(:labware_barcode).and_return({ "machine_barcode" => child_barcode.to_s })
   allow(child_plate).to receive(:parents).and_return(parent_labware_list)
   @plates[child_barcode] = child_plate
-end
-
-Given(/^I cannot retrieve the plate with barcode "(.+?)"$/) do |barcode|
-  @plates.delete(barcode)
 end
 
 Given(

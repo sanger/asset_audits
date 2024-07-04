@@ -10,7 +10,7 @@ module MockSequencescapeV2
       ]
     }
 
-    stub_request(:get, "http://sequencescape/api/v2/plates?filter%5Bbarcode%5D%5B0%5D=#{barcode}").with(
+    WebMock.stub_request(:get, "http://sequencescape/api/v2/plates?filter%5Bbarcode%5D%5B0%5D=#{barcode}").with(
       headers: {
         "Accept" => "application/vnd.api+json",
         "Content-Type" => "application/vnd.api+json",
@@ -20,7 +20,7 @@ module MockSequencescapeV2
   end
 
   def mock_post_asset_audit(body)
-    stub_request(:post, "http://sequencescape/api/v2/asset_audits").with(
+    WebMock.stub_request(:post, "http://sequencescape/api/v2/asset_audits").with(
       body:,
       headers: {
         "Accept" => "application/vnd.api+json",

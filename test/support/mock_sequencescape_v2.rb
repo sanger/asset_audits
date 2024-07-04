@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module MockSequencescapeV2
   module_function
 
   def mock_get_plate(barcode, attributes)
     plate_json = {
       data: [
-        { id: "1", type: "plates", links: { self: "http://sequencescape/api/v2/plates/1" }, attributes: attributes }
+        { id: "1", type: "plates", links: { self: "http://sequencescape/api/v2/plates/1" }, attributes: }
       ]
     }
 

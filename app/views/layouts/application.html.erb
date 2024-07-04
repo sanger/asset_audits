@@ -3,18 +3,19 @@
 <head>
   <title><%= ProcessTracking::Application.config.name %></title>
   <!-- The following are all unmanaged static assets. skip_pipeline: true  Tells rails to jump straight to public -->
-  <%= stylesheet_link_tag(:flash, :custom, :formtastic_static, :formtastic_changes, skip_pipeline: true) %>
+  <%= stylesheet_link_tag(:flash, :form_custom, :formtastic_static, :formtastic_changes, skip_pipeline: true) %>
   <%= javascript_include_tag('jquery.min.js','rails.js','application.js', skip_pipeline: true) %>
 
   <%= csrf_meta_tag %>
 
 </head>
 <body class='aa-env-<%= Rails.env %>'>
-  <%= render partial: 'shared/flash' %>
-
-  <header><%= render partial: 'shared/header' %></header>
-
-  <main><%= yield %></main>
+  <div id="flash-holder">
+    <% flash_messages do |flash_type, messages| %>
+      <%= content_tag(:div, messages, :class => 'flash', :id => "message_#{  flash_type}") %>
+    <% end %>
+  </div>
+  <%= yield %>
 
   <footer id="main-footer"><%= render partial: 'shared/footer' %></footer>
 

@@ -1,5 +1,4 @@
 sequencescape_api_v2: http://localhost:3000/api/v2
-sequencescape_api_v1: http://localhost:3000/api/1/
 sequencescape_authorisation: development
-search_find_assets_by_barcode: 00000000-0000-0000-0000-000000000001
 labwhere_api: http://localhost:3003/api/
+destroyed_location_barcode: lw-destroyed

@@ -10,8 +10,10 @@ require "net/http"
 
 module Verification::LabwhereApi
   HEADERS = { "Content-Type" => "application/json" }.freeze
+  # These settings are configured in the deployment project for UAT, Training,
+  # and Production environments.
   BASE_URL = Settings.labwhere_api.freeze
-  DESTROYED_LOCATION_BARCODE = "lw-destroyed"
+  DESTROYED_LOCATION_BARCODE = Settings.destroyed_location_barcode
 
   # Sends a POST request to the LabWhere API to scan the labware into the
   # destroyed location. The parameters passed to the ProcessPlatesController

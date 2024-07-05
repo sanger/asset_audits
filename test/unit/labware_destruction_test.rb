@@ -299,11 +299,15 @@ class LabwareDestructionTest < ActiveSupport::TestCase
 
       should "have messages added to the errors" do
         # NB. The messages are from local validation.
-        message1 = "The labware #{@labware1_barcode} is less than #{@purpose.lifespan} days old"
-        message2 = "The labware #{@bad_labware_barcode} hasn't been found"
+        validation_class = Verification::Validator::LabwareValidation
+        expected_message1 = format(validation_class::LABWARE_LIFESPAN_ERROR, @labware1_barcode, @purpose.lifespan)
+        expected_message2 = format(validation_class::LABWARE_NOT_FOUND, @bad_labware_barcode)
+        prefix = validation_class::ERRORS_PREFIX
 
-        assert_includes @verification.errors[:error], message1
-        assert_includes @verification.errors[:error], message2
+        prefixed_message = "#{prefix} #{expected_message1}"
+
+        assert_includes @verification.errors[:error], prefixed_message
+        assert_includes @verification.errors[:error], expected_message2
       end
 
       should "not create the process plates record" do

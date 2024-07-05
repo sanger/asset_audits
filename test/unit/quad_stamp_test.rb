@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "support/test_sequencescape_api"
-require "support/test_search_result"
 
 class QuadStampVerificationTest < ActiveSupport::TestCase
   context "Verifying the stamping of 4 sources into 1 destination" do
@@ -58,14 +56,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             }
           }
 
-          api = TestSequencescapeApi.new({ "DN456S" => [TestSearchResult.new("DN123T")] })
-
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
             Verification::QuadStampPlate::Nx.new(
               instrument_barcode: @input_params[:instrument_barcode],
-              scanned_values: @input_params[:robot],
-              api:
+              scanned_values: @input_params[:robot]
             )
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns("abc")
 
@@ -149,14 +144,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             }
           }
 
-          api = TestSequencescapeApi.new({ "DN456S" => [TestSearchResult.new("DN123T")] })
-
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
             Verification::QuadStampPlate::Nx.new(
               instrument_barcode: @input_params[:instrument_barcode],
-              scanned_values: @input_params[:robot],
-              api:
+              scanned_values: @input_params[:robot]
             )
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns("abc")
 
@@ -255,14 +247,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             }
           }
 
-          api = TestSequencescapeApi.new({ "DN456S" => [TestSearchResult.new("DN123T")] })
-
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
             Verification::QuadStampPlate::Nx.new(
               instrument_barcode: @input_params[:instrument_barcode],
-              scanned_values: @input_params[:robot],
-              api:
+              scanned_values: @input_params[:robot]
             )
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns("abc")
 
@@ -324,14 +313,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             }
           }
 
-          api = TestSequencescapeApi.new({ "DN456S" => [TestSearchResult.new("DN123T")] })
-
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
             Verification::QuadStampPlate::Bravo.new(
               instrument_barcode: @input_params[:instrument_barcode],
-              scanned_values: @input_params[:robot],
-              api:
+              scanned_values: @input_params[:robot]
             )
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns("abc")
 
@@ -393,14 +379,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             }
           }
 
-          api = TestSequencescapeApi.new({ "DN456S" => [TestSearchResult.new("DN123T")] })
-
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
             Verification::QuadStampPlate::Bravo.new(
               instrument_barcode: @input_params[:instrument_barcode],
-              scanned_values: @input_params[:robot],
-              api:
+              scanned_values: @input_params[:robot]
             )
           User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns("abc")
 
@@ -465,14 +448,11 @@ class QuadStampVerificationTest < ActiveSupport::TestCase
             }
           }
 
-          api = TestSequencescapeApi.new({ "DN456S" => [TestSearchResult.new("DN123T")] })
-
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
             Verification::QuadStampPlate::Bravo.new(
               instrument_barcode: @input_params[:instrument_barcode],
-              scanned_values: @input_params[:robot],
-              api:
+              scanned_values: @input_params[:robot]
             )
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns("abc")
 

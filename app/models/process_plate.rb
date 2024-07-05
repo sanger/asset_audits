@@ -6,9 +6,6 @@ class ProcessPlate < ApplicationRecord
   BARCODE_REGEX = /\S+/
   RECEIVE_PLATES_MAX = 15
 
-  # @return [Sequencescape::Client::Api] An API object for interacting with the V1 API
-  attr_writer :api
-
   belongs_to :instrument_process
 
   def user_login
@@ -27,21 +24,8 @@ class ProcessPlate < ApplicationRecord
     @instrument ||= Instrument.find_by(barcode: instrument_barcode)
   end
 
-  def search_resource
-    api.search.find(Settings.search_find_assets_by_barcode)
-  end
-
   def asset_uuids_from_plate_barcodes
-    asset_search_results_from_plate_barcodes.map(&:uuid)
-  end
-
-  def asset_search_results_from_plate_barcodes
-    @asset_search_results_from_plate_barcodes ||= search_resource.all(api.plate, barcode: barcodes)
-  end
-
-  def api
-    @api ||=
-      Sequencescape::Api.new(url: Settings.sequencescape_api_v1, authorisation: Settings.sequencescape_authorisation)
+    Sequencescape::Api::V2::Plate.where(barcode: barcodes).map(&:uuid)
   end
 
   def create_audits
@@ -50,14 +34,15 @@ class ProcessPlate < ApplicationRecord
   handle_asynchronously :create_audits
 
   def create_remote_audit(asset_uuid)
-    api.asset_audit.create!(
+    options = {
       key: instrument_process.key,
       message: "Process '#{instrument_process.name}' performed on instrument #{instrument.name}",
       created_by: user_login,
-      asset: asset_uuid,
+      asset_uuid:,
       witnessed_by: witness_login,
       metadata:
-    )
+    }
+    Sequencescape::Api::V2::AssetAudit.create!(options)
   end
 
   def post_audit_actions!

@@ -6,11 +6,11 @@
       %li
         %label{for: "user_barcode"} User barcode
         = text_field_tag "user_barcode"
-        .live_results#user_barcode_results
+        .live_results.inline#user_barcode_results
       %li
         %label{for: "instrument_barcode"} Instrument barcode
         = text_field_tag "instrument_barcode"
-        .live_results#instrument_barcode_results
+        .live_results.inline#instrument_barcode_results
       %li
         %label{for: "instrument_process"} Instrument process
         %select#instrument_process{name: "instrument_process"}

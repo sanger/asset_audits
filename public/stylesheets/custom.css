@@ -50,6 +50,18 @@ label {
   vertical-align: top;
 }
 
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.live_results {
+  color: green;
+}
+
 .hidden {
   display: none !important;
 }

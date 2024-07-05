@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/test_sequencescape_api"
+require "support/test_search_result"
 
 class DilutionPlateVerificationTest < ActiveSupport::TestCase
   context "Verifying the creation of dilution plates" do
@@ -57,11 +59,14 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
           }
         }
 
+        api = TestSequencescapeApi.new({ "DN456S" => [TestSearchResult.new("DN123T")] })
+
         @old_delayed_job_count = Delayed::Job.count
         @bed_layout_verification =
           Verification::DilutionPlate::Nx.new(
             instrument_barcode: @input_params[:instrument_barcode],
-            scanned_values: @input_params[:robot]
+            scanned_values: @input_params[:robot],
+            api:
           )
         User.expects(:login_from_user_code).with(@input_params[:user_barcode]).returns("abc")
 
@@ -163,11 +168,14 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
             }
           }
 
+          api = TestSequencescapeApi.new({ "456" => [TestSearchResult.new("123")], "123" => [], "" => [] })
+
           @old_delayed_job_count = Delayed::Job.count
           @bed_layout_verification =
             Verification::DilutionPlate::Nx.new(
               instrument_barcode: @input_params[:instrument_barcode],
-              scanned_values: @input_params[:robot]
+              scanned_values: @input_params[:robot],
+              api:
             )
           User.expects(:login_from_user_code).at_least(0).with(@input_params[:user_barcode]).returns("abc")
 

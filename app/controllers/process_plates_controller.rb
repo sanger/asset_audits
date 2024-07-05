@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProcessPlatesController < ApplicationController
+  skip_before_action :configure_api, except: [:create]
+
   attr_accessor :messages
 
   def index
@@ -17,7 +19,7 @@ class ProcessPlatesController < ApplicationController
     raise "Invalid instrument or process" if bed_verification_model.nil?
 
     bed_layout_verification =
-      bed_verification_model.new(instrument_barcode: params[:instrument_barcode], scanned_values: params[:robot])
+      bed_verification_model.new(instrument_barcode: params[:instrument_barcode], scanned_values: params[:robot], api:)
 
     raise format_errors(bed_layout_verification) unless bed_layout_verification.validate_and_create_audits?(params)
 

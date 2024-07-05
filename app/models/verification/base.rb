@@ -24,6 +24,10 @@ class Verification::Base
     @attributes[:scanned_values]
   end
 
+  def api
+    @attributes[:api]
+  end
+
   def instrument
     Instrument.find_by(barcode: @attributes[:instrument_barcode])
   end
@@ -50,6 +54,7 @@ class Verification::Base
   def validate_and_create_audits?(params)
     @process_plate =
       ProcessPlate.new(
+        api:,
         user_barcode: params[:user_barcode],
         instrument_barcode: params[:instrument_barcode],
         source_plates: params[:source_plates],

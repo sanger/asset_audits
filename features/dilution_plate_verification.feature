@@ -8,9 +8,7 @@ Feature: Verify location of plates
       And I have a process "Working dilution" as part of the "Liquid handling" instrument with dilution plate verification
 
   Scenario: Valid plates and bed positions
-    Given I can retrieve plates by barcode
-      And I have a destination plate with barcode "456" and parent barcodes "123"
-      And I can create any asset audits in Sequencescape
+    Given I can retrieve the plate with barcode "456" and parent barcodes "123"
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
       And I fill in "Instrument barcode" with "abc123456"
@@ -30,9 +28,7 @@ Feature: Verify location of plates
   Scenario: Valid plates and bed positions where a witness is required
     Given user "jane" with barcode '2470041440697' exists
       And a process "Working dilution" as part of the "Liquid handling" instrument requires a witness
-    Given I can retrieve plates by barcode
-      And I have a destination plate with barcode "456" and parent barcodes "123"
-      And I can create any asset audits in Sequencescape
+    Given I can retrieve the plate with barcode "456" and parent barcodes "123"
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
     And I fill in "Instrument barcode" with "abc123456"
@@ -49,3 +45,4 @@ Feature: Verify location of plates
       And I should be on the new audit page
     Given all pending delayed jobs are processed
     # The delayed job will raise an exception if it fails
+

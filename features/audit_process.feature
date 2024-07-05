@@ -5,9 +5,6 @@ Feature: Add an audit to an asset
     Given user "john" with barcode '2470000100730' exists
       And I have a "Tecan robot" instrument with barcode "abc123456"
       And I have a process "Cherrypick" as part of the "Tecan robot" instrument
-    Given I can retrieve plates by barcode
-      And I have a plate with barcode "1220094216791"
-      And I can create any asset audits in Sequencescape
     Given I am on the new audit page
 
     When I fill in "User barcode" with "2470000100730"
@@ -50,3 +47,7 @@ Feature: Add an audit to an asset
       And I press "Submit"
     Then I should see "Invalid instrument or process"
       And I should be on the new audit page
+
+
+
+

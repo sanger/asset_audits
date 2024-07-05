@@ -6,6 +6,4 @@ class Sequencescape::Api::V2::Labware < Sequencescape::Api::V2::Base
   end
 
   has_one :purpose
-
-  attr_accessor :uuid
 end

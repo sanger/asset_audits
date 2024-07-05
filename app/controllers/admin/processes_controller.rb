@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Admin::ProcessesController < ApplicationController
+  skip_before_action :configure_api
+
   def index
     @processes = InstrumentProcess.all
   end

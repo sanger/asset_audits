@@ -6,18 +6,16 @@ Feature: Verify group assay plates positions on the robot
       And I have a "Some stuff" instrument with barcode "abc123456"
       And the "Some stuff" instrument has beds setup
 
-    Given I can retrieve plates by barcode
-      And I have a destination plate with barcode "456" and parent barcodes "123"
-      And I have a destination plate with barcode "wd1" and parent barcodes "stock1,stock2"
-      And I have a destination plate with barcode "wd2" and parent barcodes "stock2"
-      And I have a destination plate with barcode "wd3" and parent barcodes "stock2"
-      And I have a destination plate with barcode "wd4" and parent barcodes "stock4"
-      And I have a destination plate with barcode "pico1" and parent barcodes "wd1,wd2"
-      And I have a destination plate with barcode "pico2" and parent barcodes "wd1,wd2"
-      And I have a destination plate with barcode "pico4" and parent barcodes "wd4"
-      And I have a destination plate with barcode "pico5" and parent barcodes "wd4"
-      And I have a destination plate with barcode "stock2" and parent barcodes "plate1,plate2"
-      And I have a destination plate with barcode "stock3" and parent barcodes "plate1,plate2"
+      Given I can retrieve the plate with barcode "wd1" and parent barcodes "stock1,stock2"
+      Given I can retrieve the plate with barcode "wd2" and parent barcodes "stock2"
+      Given I can retrieve the plate with barcode "wd3" and parent barcodes "stock2"
+      Given I can retrieve the plate with barcode "wd4" and parent barcodes "stock4"
+      Given I can retrieve the plate with barcode "pico1" and parent barcodes "wd1,wd2"
+      Given I can retrieve the plate with barcode "pico2" and parent barcodes "wd1,wd2"
+      Given I can retrieve the plate with barcode "pico4" and parent barcodes "wd4"
+      Given I can retrieve the plate with barcode "pico5" and parent barcodes "wd4"
+      Given I can retrieve the plate with barcode "stock2" and parent barcodes "plate1,plate2"
+      Given I can retrieve the plate with barcode "stock3" and parent barcodes "plate1,plate2"
 
   Scenario Outline: Valid plates and bed positions
 

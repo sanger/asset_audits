@@ -8,10 +8,8 @@ Feature: Verify assay plate positions on the robot
 
   Scenario Outline: Valid plates and bed positions
     Given I have a process "Assay Plate creation" as part of the "Liquid handling" instrument with "<bed_type>" assay plate verification
-    Given I can retrieve plates by barcode
-      And I have a destination plate with barcode "dest1" and parent barcodes "source1"
-      And I have a destination plate with barcode "dest2" and parent barcodes "source1"
-      And I can create any asset audits in Sequencescape
+    Given I can retrieve the plate with barcode "dest1" and parent barcodes "source1"
+    Given I can retrieve the plate with barcode "dest2" and parent barcodes "source1"
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
@@ -38,10 +36,8 @@ Feature: Verify assay plate positions on the robot
     Given I have a process "Assay Plate creation" as part of the "Liquid handling" instrument with "<bed_type>" assay plate verification
     Given user "jane" with barcode '2470041440697' exists
       And a process "Assay Plate creation" as part of the "Liquid handling" instrument requires a witness
-    Given I can retrieve plates by barcode
-      And I have a destination plate with barcode "dest1" and parent barcodes "source1"
-      And I have a destination plate with barcode "dest2" and parent barcodes "source1"
-      And I can create any asset audits in Sequencescape
+    Given I can retrieve the plate with barcode "dest1" and parent barcodes "source1"
+    Given I can retrieve the plate with barcode "dest2" and parent barcodes "source1"
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
@@ -68,10 +64,9 @@ Feature: Verify assay plate positions on the robot
   Scenario Outline: Barcodes scanned incorrectly on NX
     Given I have a process "Assay Plate creation" as part of the "Liquid handling" instrument with "Nx" assay plate verification
 
-    Given I can retrieve plates by barcode
-      And I have a destination plate with barcode "dest1" and parent barcodes "source1"
-      And I have a destination plate with barcode "dest2" and parent barcodes "source1"
-      And I cannot retrieve the plate with barcode "xxx"
+    Given I can retrieve the plate with barcode "dest1" and parent barcodes "source1"
+    Given I can retrieve the plate with barcode "dest2" and parent barcodes "source1"
+    Given I cannot retrieve the plate with barcode "xxx"
 
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"

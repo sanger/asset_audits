@@ -60,6 +60,7 @@ group :cucumber, :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "timecop"
+  gem "webrick"
 end
 
 group :deployment do

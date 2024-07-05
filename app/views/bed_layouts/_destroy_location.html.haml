@@ -1,0 +1,31 @@
+%div{data: { barcodes: barcodes || "", location: location }}
+  %p{style: "background-color: #e8f5e9;color: green;padding: 10px; width: 80%"}
+    Click the Search button to view all labware available in the selected location.
+%div
+  %label{for: "location"} Source location
+  = text_field_tag 'location', location, :size => 80, :onkeydown => "if(event.key == 'Enter') { event.preventDefault(); window.dispatchSearchEvent();}"
+  = button_tag "Search", :type => "button", :id => "search_button", :onclick => "window.dispatchSearchEvent()"
+- if barcodes.present?
+  %div{style: "margin-top: 40px; text-align: left;"}
+    %p{style: "margin-left: 40px;color: green;background-color: #e8f5e9;padding: 10px; width: 80%"}
+      = "When you click the Submit button, the following #{barcodes.split(/\n/).length} labware items will be moved to the destroyed location in LabWhere"
+  %div
+    %label{for: "robot"} Source labware
+    = text_area_tag "robot", barcodes, :rows => 25, :cols => 80, :readonly => true
+- else
+  - flash.each do |flash_type, messages|
+    = content_tag(:div, messages, class: 'flash', id: "message_#{flash_type}", style: "margin-top: 20px;width: 60%")
+:javascript
+  window.dispatchSearchEvent = function() {
+    $.post('#{pre_validate_layout_bed_layouts_path}',{
+            instrument_barcode: $('#instrument_barcode').val(),
+            instrument_process_id: $('#instrument_process').val(),
+            scanned_values: $('#location').val()
+           }, $.proxy(function(data) {
+            $('#source_plates_results').html(data);
+            const barcodes = $('[data-barcodes]').data('barcodes');
+            if (barcodes !== undefined && barcodes !== null) {
+              $('#robot').val(barcodes);
+            }
+           }, this));
+  }

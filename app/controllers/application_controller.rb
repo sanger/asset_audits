@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
   def sequencescape_api_error_handler(exception)
     raise exception
   end
+
+  def format_errors(obj)
+    obj.errors.map(&:message).join("\n")
+  end
 end

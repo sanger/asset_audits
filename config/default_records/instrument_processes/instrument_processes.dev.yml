@@ -94,6 +94,10 @@ destroy_labware:
   name: Destroying labware
   request_instrument: false
   visual_check_required: false
+destroy_location:
+  name: Destroying location
+  request_instrument: false
+  visual_check_required: false
 slf_1ul_removal:
   name: 1ul Removal
   request_instrument: true

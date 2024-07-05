@@ -1,5 +1,5 @@
 %div{data: { barcodes: barcodes || "", location: location }}
-  %p{style: "background-color: #e8f5e9;color: green;padding: 10px; width: 80%"}
+  %p{style: "background-color: #e8f5e9;color: green;padding: 10px"}
     Click the Search button to view all labware available in the selected location.
 %div
   %label{for: "location"} Source location
@@ -7,7 +7,7 @@
   = button_tag "Search", :type => "button", :id => "search_button", :onclick => "window.dispatchSearchEvent()"
 - if barcodes.present?
   %div{style: "margin-top: 40px; text-align: left;"}
-    %p{style: "margin-left: 40px;color: green;background-color: #e8f5e9;padding: 10px; width: 80%"}
+    %p{style: "color: green;background-color: #e8f5e9;padding: 10px"}
       = "When you click the Submit button, the following #{barcodes.split(/\n/).length} labware items will be moved to the destroyed location in LabWhere"
   %div
     %label{for: "robot"} Source labware

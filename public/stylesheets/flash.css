@@ -1,6 +1,10 @@
 .flash {
   padding: 0.5em 1em;
 }
+/* hide flash if message is empty */
+.flash:empty {
+  display: none;
+}
 
 #message_error {
   background: red;

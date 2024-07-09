@@ -1,3 +1,11 @@
+.flash {
+  padding: 0.5em 1em;
+}
+/* hide flash if message is empty */
+.flash:empty {
+  display: none;
+}
+
 #message_error {
   background: red;
   border-color: 1px solid #76b900;
@@ -5,7 +13,7 @@
 }
 #message_notice {
   background: green;
-  border-color: 1px solid ##d81f2a;
+  border-color: 1px solid #d81f2a;
   color: white;
 }
 #message_warning {

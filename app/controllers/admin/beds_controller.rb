@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Admin::BedsController < ApplicationController
-  skip_before_action :configure_api
-
   def create
     bed = Bed.new(bed_params)
     respond_to do |format|

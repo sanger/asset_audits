@@ -140,6 +140,8 @@ GEM
       delayed_job (>= 3.0, < 5)
     diff-lcs (1.5.1)
     docile (1.4.0)
+    drb (2.2.0)
+      ruby2_keywords
     erubi (1.12.0)
     exception_notification (4.5.0)
       actionmailer (>= 5.2, < 8)
@@ -221,6 +223,7 @@ GEM
     multipart-post (2.3.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
+    mutex_m (0.2.0)
     mysql2 (0.5.6)
     net-imap (0.4.10)
       date
@@ -418,6 +421,7 @@ DEPENDENCIES
   daemons
   database_cleaner-active_record
   delayed_job_active_record
+  drb
   exception_notification
   factory_bot_rails
   formtastic
@@ -427,6 +431,7 @@ DEPENDENCIES
   listen
   minitest
   mocha
+  mutex_m
   mysql2
   nokogiri
   oj
@@ -454,4 +459,4 @@ DEPENDENCIES
   webrick
 
 BUNDLED WITH
-   2.4.18
+   2.5.14

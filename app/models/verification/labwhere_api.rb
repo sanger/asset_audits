@@ -10,8 +10,10 @@ require "net/http"
 
 module Verification::LabwhereApi
   HEADERS = { "Content-Type" => "application/json" }.freeze
+  # These settings are configured in the deployment project for UAT, Training,
+  # and Production environments.
   BASE_URL = Settings.labwhere_api.freeze
-  DESTROYED_LOCATION_BARCODE = "lw-destroyed"
+  DESTROYED_LOCATION_BARCODE = Settings.destroyed_location_barcode
 
   # Sends a POST request to the LabWhere API to scan the labware into the
   # destroyed location. The parameters passed to the ProcessPlatesController
@@ -39,11 +41,10 @@ module Verification::LabwhereApi
   # e.g url is http://labwhere/api/locations/info?barcode=location_barcode
   #     response body is { "depth": 2, "labwares": [{ "barcode": "labware-1-barcode" }, { "barcode": "labware-2-barcode" }] } # rubocop:disable Layout/LineLength
 
-  def location_info(barcode) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+  def location_info(barcode) # rubocop:disable Metrics/MethodLength
     uri = URI.join(BASE_URL, "locations/info")
     uri.query = URI.encode_www_form({ barcode: })
-    http = Net::HTTP.new(uri.host, uri.port)
-    response = http.request(Net::HTTP::Get.new(uri.request_uri, HEADERS))
+    response = Net::HTTP.get_response(uri, HEADERS)
     if response.is_a?(Net::HTTPSuccess)
       # Parse the response body
       response_body = JSON.parse(response.body)

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class BedLayoutsController < ApplicationController
-  skip_before_action :configure_api
-
   def bed_layout_partial # rubocop:disable Metrics/MethodLength
     bed_layout_partial_name =
       InstrumentProcessesInstrument.find_partial_name!(params[:instrument_barcode], params[:instrument_process_id])
@@ -42,8 +40,7 @@ class BedLayoutsController < ApplicationController
     bed_layout_verification =
       bed_verification_model.new(
         instrument_barcode: params[:instrument_barcode],
-        scanned_values: params[:scanned_values],
-        api:
+        scanned_values: params[:scanned_values]
       )
 
     barcodes = bed_layout_verification.pre_validate

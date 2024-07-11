@@ -9,6 +9,7 @@ gem "rake"
 
 gem "daemons"
 gem "delayed_job_active_record"
+gem "drb"
 gem "formtastic"
 gem "haml"
 gem "json_api_client"

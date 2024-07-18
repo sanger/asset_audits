@@ -9,13 +9,14 @@ gem "rake"
 
 gem "daemons"
 gem "delayed_job_active_record"
+gem "drb" # required by rails, activesupport-7.0.8.1
 gem "formtastic"
 gem "haml"
 gem "json_api_client"
+gem "mutex_m" # required by rails, activesupport-7.0.8.1
 gem "mysql2"
 gem "nokogiri"
 gem "oj"
-gem "sequencescape-client-api", require: "sequencescape"
 gem "sprockets-rails", "~> 3.4"
 gem "uuidtools"
 

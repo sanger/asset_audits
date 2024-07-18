@@ -1,3 +1,41 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  font-family: Arial, sans-serif;
+}
+
+a {
+  text-decoration: none; /* Removes underline from links */
+}
+
+a:hover {
+  text-decoration: underline; /* Adds underline on hover for visual feedback */
+}
+
+header {
+  margin: 0.5em 1em;
+}
+header h1 {
+  margin: 0;
+}
+
+main {
+  margin-left: 1em;
+  margin-right: 1em;
+  flex: 1; /* expand to fill the remaining space - keeps footer on the bottom */
+}
+
+footer {
+  padding: 1em;
+  padding-bottom: 0;
+  color: #666666;
+  text-align: center;
+  font-size: 0.9em;
+}
+
 fieldset {
   margin: 1.5em 0 0 0;
   padding: 0;
@@ -9,21 +47,19 @@ fieldset li {
 }
 
 label {
-  float: left;
-  width: 10em;
-  margin-right: 1em;
-  text-align: right;
+  vertical-align: top;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
 }
 
 .live_results {
-  float: right;
-  width: 8em;
-  margin-right: 1em;
-  text-align: left;
-}
-
-.custom_width {
-  width: 30em;
+  color: green;
 }
 
 .hidden {

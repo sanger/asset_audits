@@ -1,0 +1,5 @@
+  <div id="flash-holder">
+    <% flash_messages do |flash_type, messages| %>
+      <%= content_tag(:div, messages, :class => 'flash', :id => "message_#{  flash_type}") %>
+    <% end %>
+  </div>

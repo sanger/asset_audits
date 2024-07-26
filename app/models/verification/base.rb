@@ -47,8 +47,9 @@ class Verification::Base
     ]
   end
 
+
   def create_or_get_process_plate(params)
-    @process_plate ||= ProcessPlate.new(
+     ProcessPlate.new(
         user_barcode: params[:user_barcode],
         instrument_barcode: params[:instrument_barcode],
         source_plates: params[:source_plates],
@@ -60,7 +61,7 @@ class Verification::Base
   end
 
   def validate_and_create_audits?(params)
-    create_or_get_process_plate(params)
+    @process_plate ||= create_or_get_process_plate(params)
 
     if @process_plate.save
       @process_plate.create_audits
@@ -81,4 +82,5 @@ class Verification::Base
   def save_errors_to_base(object_errors)
     object_errors.each { |error| errors.add(error.attribute, error.message) }
   end
+
 end

@@ -8,6 +8,7 @@ class Verification::DestroyLocation::Base < Verification::Base
   self.partial_name = "destroy_location"
 
   def scanned_values
+    return [] unless @attributes[:scanned_values]
     [@attributes[:scanned_values]].flatten.map { |s| s.split(/\s/).compact_blank }.flatten
   end
 
@@ -18,7 +19,7 @@ class Verification::DestroyLocation::Base < Verification::Base
   #
   # @return [Boolean] returns true if the scanning, and audit creation were all successful, and false otherwise.
   def validate_and_create_audits?(params) # rubocop:disable Metrics/MethodLength
-    create_or_get_process_plate(params)
+    @process_plate ||= create_or_get_process_plate(params)
 
     unless process_plate.valid?
       save_errors_to_base(process_plate.errors)
@@ -27,10 +28,6 @@ class Verification::DestroyLocation::Base < Verification::Base
 
     if params[:robot].blank?
       errors.add(:base, "No labware found")
-      return false
-    end
-    if params[:user_barcode].blank?
-      errors.add(:base, "User does not exist")
       return false
     end
     return false unless scan_into_destroyed_location(params[:user_barcode], params[:robot]&.split(/\r?\n/))
@@ -72,9 +69,9 @@ class Verification::DestroyLocation::Base < Verification::Base
     outdated_labware.labware_from_barcodes(@barcodes)
   end
 
-  def create_or_get_process_plate(params)
+   def create_or_get_process_plate(params)
     params[:source_plates] = scanned_values.flatten.join(" ")
-    @process_plate ||= ProcessLabware.new(
+    ProcessLabware.new(
         user_barcode: params[:user_barcode],
         instrument_barcode: params[:instrument_barcode],
         source_plates: params[:source_plates],

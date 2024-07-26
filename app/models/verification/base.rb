@@ -47,20 +47,23 @@ class Verification::Base
     ]
   end
 
+  # rubocop:disable Naming/MemoizedInstanceVariableName
   def create_or_get_process_plate(params)
-    ProcessPlate.new(
-      user_barcode: params[:user_barcode],
-      instrument_barcode: params[:instrument_barcode],
-      source_plates: params[:source_plates],
-      visual_check: params[:visual_check] == "1",
-      instrument_process_id: params[:instrument_process],
-      witness_barcode: params[:witness_barcode],
-      metadata: metadata(params)
-    )
+    @process_plate ||=
+      ProcessPlate.new(
+        user_barcode: params[:user_barcode],
+        instrument_barcode: params[:instrument_barcode],
+        source_plates: params[:source_plates],
+        visual_check: params[:visual_check] == "1",
+        instrument_process_id: params[:instrument_process],
+        witness_barcode: params[:witness_barcode],
+        metadata: metadata(params)
+      )
   end
+  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def validate_and_create_audits?(params)
-    @process_plate ||= create_or_get_process_plate(params)
+    create_or_get_process_plate(params)
 
     if @process_plate.save
       @process_plate.create_audits

@@ -69,16 +69,16 @@ class Verification::DestroyLocation::Base < Verification::Base
     outdated_labware.labware_from_barcodes(@barcodes)
   end
 
-   def create_or_get_process_plate(params)
+  def create_or_get_process_plate(params)
     params[:source_plates] = scanned_values.flatten.join(" ")
     ProcessLabware.new(
-        user_barcode: params[:user_barcode],
-        instrument_barcode: params[:instrument_barcode],
-        source_plates: params[:source_plates],
-        visual_check: params[:visual_check] == "1",
-        instrument_process_id: params[:instrument_process],
-        witness_barcode: params[:witness_barcode],
-        metadata: metadata(params)
-      )
+      user_barcode: params[:user_barcode],
+      instrument_barcode: params[:instrument_barcode],
+      source_plates: params[:source_plates],
+      visual_check: params[:visual_check] == "1",
+      instrument_process_id: params[:instrument_process],
+      witness_barcode: params[:witness_barcode],
+      metadata: metadata(params)
+    )
   end
 end

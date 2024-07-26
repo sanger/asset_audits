@@ -244,11 +244,11 @@ class LocationDestructionTest < ActiveSupport::TestCase
         stub_request(:post, @scans_uri)
         # location_params = { user_barcode: @user_barcode, robot: nil }
         location_params = {
-        user_barcode: @user_barcode,
-        instrument_barcode: @instrument.barcode.to_s,
-        instrument_process: @instrument.instrument_processes.first.id.to_s,
-        robot: nil
-      }
+          user_barcode: @user_barcode,
+          instrument_barcode: @instrument.barcode.to_s,
+          instrument_process: @instrument.instrument_processes.first.id.to_s,
+          robot: nil
+        }
         @result = @destroy_location_verification.validate_and_create_audits?(location_params)
       end
 
@@ -271,12 +271,12 @@ class LocationDestructionTest < ActiveSupport::TestCase
 
         stub_request(:post, @scans_uri)
         location_params = {
-        user_barcode: @user_barcode,
-        instrument_barcode: @instrument.barcode.to_s,
-        instrument_process: @instrument.instrument_processes.first.id.to_s,
-        robot: "#{@labware1_barcode}\n#{@labware2_barcode}"
-      }
-      @result = @destroy_location_verification.validate_and_create_audits?(location_params)
+          user_barcode: @user_barcode,
+          instrument_barcode: @instrument.barcode.to_s,
+          instrument_process: @instrument.instrument_processes.first.id.to_s,
+          robot: "#{@labware1_barcode}\n#{@labware2_barcode}"
+        }
+        @result = @destroy_location_verification.validate_and_create_audits?(location_params)
       end
 
       should "have a message added to the errors" do

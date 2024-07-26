@@ -130,6 +130,7 @@ class LocationDestructionTest < ActiveSupport::TestCase
         assert_includes @destroy_location_verification.errors[:LabWhere], @errors_response[:errors].join(", ")
       end
     end
+
     context "when location has child locations" do
       setup do
         body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 1 }.to_json
@@ -206,6 +207,7 @@ class LocationDestructionTest < ActiveSupport::TestCase
         assert_equal @old_delayed_job_count + 1, new_delayed_job_count
       end
     end
+
     context "when the validation fails" do
       setup do
         @errors_response = { errors: ["Location does not exist", "Error returned"] }
@@ -235,11 +237,18 @@ class LocationDestructionTest < ActiveSupport::TestCase
         assert_equal @old_delayed_job_count, new_delayed_job_count
       end
     end
+
     # Tests the scenario for pressing the submit button without entering location barcode
     context "when there is no labware scanned" do
       setup do
         stub_request(:post, @scans_uri)
-        location_params = { user_barcode: @user_barcode, robot: nil }
+        # location_params = { user_barcode: @user_barcode, robot: nil }
+        location_params = {
+        user_barcode: @user_barcode,
+        instrument_barcode: @instrument.barcode.to_s,
+        instrument_process: @instrument.instrument_processes.first.id.to_s,
+        robot: nil
+      }
         @result = @destroy_location_verification.validate_and_create_audits?(location_params)
       end
 
@@ -256,19 +265,26 @@ class LocationDestructionTest < ActiveSupport::TestCase
       end
     end
     # Tests the scenario for pressing the submit button without entering user barcode
-    context "when there is user_barcode" do
+    context "when user_barcode is invalid" do
       setup do
+        User.stubs(:login_from_user_code).with(@destroy_labware_params[:user_barcode]).returns(nil)
+
         stub_request(:post, @scans_uri)
-        location_params = { user_barcode: nil, robot: "#{@labware1_barcode}\n#{@labware2_barcode}" }
-        @result = @destroy_location_verification.validate_and_create_audits?(location_params)
+        location_params = {
+        user_barcode: @user_barcode,
+        instrument_barcode: @instrument.barcode.to_s,
+        instrument_process: @instrument.instrument_processes.first.id.to_s,
+        robot: "#{@labware1_barcode}\n#{@labware2_barcode}"
+      }
+      @result = @destroy_location_verification.validate_and_create_audits?(location_params)
+      end
+
+      should "have a message added to the errors" do
+        assert(@destroy_location_verification.errors.full_messages.any? { |m| m.include?("Invalid user") })
       end
 
       should "return failure from the validate_and_create_audits? method" do
         assert_not @result
-      end
-
-      should "have a message added to the errors" do
-        assert_includes @destroy_location_verification.errors[:base], "User does not exist"
       end
 
       should "not send a POST request to the LabWhere API" do

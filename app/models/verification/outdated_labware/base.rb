@@ -29,7 +29,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
   # @return [Boolean] returns true if the validation, scanning, and audit
   # creation were all successful, and false otherwise.
   def validate_and_create_audits?(params)
-    @process_plate ||= create_or_get_process_plate(params)
+    @process_plate ||= create_process_plate(params)
 
     unless process_plate.valid?
       save_errors_to_base(process_plate.errors)
@@ -43,7 +43,7 @@ class Verification::OutdatedLabware::Base < Verification::Base
     super
   end
 
-  def create_or_get_process_plate(params)
+  def create_process_plate(params)
     params[:source_plates] = scanned_values.flatten.join(" ")
     ProcessLabware.new(
       user_barcode: params[:user_barcode],

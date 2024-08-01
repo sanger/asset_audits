@@ -285,7 +285,7 @@ GEM
       abbrev
     record_loader (0.2.0)
     regexp_parser (2.9.2)
-    rexml (3.3.1)
+    rexml (3.3.2)
       strscan
     rspec-expectations (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)

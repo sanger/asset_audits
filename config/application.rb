@@ -29,6 +29,9 @@ module ProcessTracking
     config.assets.enabled = true
     config.assets.version = "1.0"
 
+    # FreshService URL
+    config.fresh_sevice_new_ticket_url = "https://sanger.freshservice.com/a/tickets/new"
+
     require "./lib/deployed_version"
 
     def self.application_string

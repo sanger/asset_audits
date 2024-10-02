@@ -91,6 +91,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  config.fresh_sevice_new_ticket_url = "https://sanger.freshservice.com/a/tickets/new"
 end

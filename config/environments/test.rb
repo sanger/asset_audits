@@ -42,6 +42,4 @@ Rails.application.configure do
   config.active_support.test_order = :random
 
   config.admin_email = "example@example.com"
-
-  config.fresh_sevice_new_ticket_url = "https://sanger.freshservice.com/a/tickets/new"
 end

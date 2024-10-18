@@ -44,5 +44,5 @@ Rails.application.configure do
   config.admin_email = "example@example.com"
 
   # FreshService URL
-  config.fresh_sevice_new_ticket_url = "https://sanger.freshservice.com/a/tickets/new"
+  config.fresh_sevice_new_ticket_url = "https://example.freshservice.com"
 end

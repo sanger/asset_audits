@@ -52,5 +52,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # FreshService URL
-  config.fresh_sevice_new_ticket_url = 'https://example.freshservice.com'
+  config.fresh_sevice_new_ticket_url = "https://example.freshservice.com"
 end

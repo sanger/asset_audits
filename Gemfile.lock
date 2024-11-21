@@ -290,7 +290,7 @@ GEM
       logger
     record_loader (0.2.0)
     regexp_parser (2.9.2)
-    rexml (3.3.7)
+    rexml (3.3.9)
     rspec-expectations (3.13.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)

@@ -159,9 +159,10 @@ GEM
       zlib (~> 3.0)
     faraday-net_http (3.3.0)
       net-http
+    ffi (1.17.0)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0-x86_64-linux)
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
     globalid (1.2.1)
@@ -201,6 +202,7 @@ GEM
     matrix (0.4.2)
     method_source (1.1.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.25.4)
     mocha (2.7.1)
       ruby2_keywords (>= 0.0.5)
@@ -404,6 +406,7 @@ PLATFORMS
   x86_64-darwin-22
   x86_64-darwin-23
   x86_64-linux
+  ruby
 
 DEPENDENCIES
   activeresource
@@ -430,7 +433,7 @@ DEPENDENCIES
   prettier
   pry
   puma
-  rails (~> 7.0.7)
+  rails (~> 7.0.8, >= 7.0.8.7)
   rake
   record_loader
   rspec-expectations

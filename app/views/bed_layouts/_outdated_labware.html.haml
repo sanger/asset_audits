@@ -3,6 +3,21 @@
   to the destroyed location as well.
 %label{for: "robot"} Source labware
 = text_area_tag "robot", '', :rows => 25,:cols => 80
+.live_results.block#barcodes_scanned 0 barcodes
 :javascript
-  $("#source_plates").focus();
-  $("#source_plates").trigger("change");
+  $("#robot").focus();
+  $("#robot").trigger("change");
+  $('#robot').keyup(recalcNumBarcodes);
+
+  function recalcNumBarcodes(){
+    const num_barcodes = find_number_barcodes($('#robot').val());
+    const colour = num_barcodes > #{ProcessPlate::RECEIVE_PLATES_MAX} ? 'red' : 'green';
+
+    $('#barcodes_scanned').text(num_barcodes + ' barcodes').css('color', colour);
+  }
+
+  function find_number_barcodes(text){
+    const barcodes_list_no_blanks = text.split(/\s+/).filter(barcode => Boolean(barcode));
+    const barcodes_list_unique = [...new Set(barcodes_list_no_blanks)];
+    return barcodes_list_unique.length;
+  }

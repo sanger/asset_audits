@@ -47,11 +47,7 @@ Capybara.javascript_driver = :selenium_chrome_headless
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  setup do
-    Capybara.current_driver = Capybara.javascript_driver
-  end
+  setup { Capybara.current_driver = Capybara.javascript_driver }
 
-  teardown do
-    Capybara.use_default_driver
-  end
+  teardown { Capybara.use_default_driver }
 end

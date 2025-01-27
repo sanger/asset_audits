@@ -9,7 +9,8 @@ require "rails/test_help"
 require "minitest/autorun"
 require "webmock/minitest"
 require "mocha/minitest"
-
+require "capybara/rails"
+require "capybara/minitest"
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #

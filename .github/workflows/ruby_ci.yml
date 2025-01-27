@@ -31,6 +31,14 @@ jobs:
           bundler-cache:
             true # Runs bundle install and caches gems. See the ruby_test.yml
             # example if you need more control over bundler.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install Node.js dependencies
+        run: npm install
+      - name: Install ChromeDriver
+        run: sudo apt-get install -y chromium-chromedriver
       - name: Run rubocop
         run: bundle exec rubocop --extra-details --display-style-guide --parallel
       - name: Run prettier

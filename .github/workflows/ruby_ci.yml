@@ -37,6 +37,8 @@ jobs:
         run: bundle exec rbprettier --check . --ignore-unknown
       - name: Setup database
         run: bundle exec rake db:setup
+      - name: Precompile assets
+        run: bundle exec rake assets:precompile
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.5
         env:

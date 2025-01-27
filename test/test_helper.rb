@@ -53,10 +53,8 @@ class ActionDispatch::IntegrationTest
   teardown { Capybara.use_default_driver }
 end
 
-
 # config/environments/test.rb
 Rails.application.configure do
-
   # Ensure assets are precompiled and served in the test environment
   config.assets.compile = true
   config.assets.digest = true

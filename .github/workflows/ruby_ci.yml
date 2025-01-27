@@ -39,6 +39,8 @@ jobs:
         run: bundle exec rake db:setup
       - name: Precompile assets
         run: bundle exec rake assets:precompile
+      - name: List precompiled assets
+        run: ls -R public/assets
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.5
         env:

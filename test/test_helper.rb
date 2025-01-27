@@ -39,3 +39,19 @@ class ActiveSupport::TestCase
     { barcode:, code: "400", body: { errors: ["No samples for this barcode"] } }
   end
 end
+
+# Configure Capybara to use Selenium and Chrome for JavaScript tests
+Capybara.javascript_driver = :selenium_chrome_headless
+
+# Ensure that the test layout includes the necessary JavaScript files
+class ActionDispatch::IntegrationTest
+  include Capybara::DSL
+
+  setup do
+    Capybara.current_driver = Capybara.javascript_driver
+  end
+
+  teardown do
+    Capybara.use_default_driver
+  end
+end

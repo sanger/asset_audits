@@ -5,17 +5,7 @@
 :javascript
   $('#source_plates').focus();
   $('#source_plates').trigger('change');
-  $('#source_plates').keyup(recalcNumBarcodes);
+  $('#source_plates').keyup(function() {
+    recalcNumBarcodes('#source_plates', #{ProcessPlate::RECEIVE_PLATES_MAX});
+  });
 
-  function recalcNumBarcodes(){
-    const num_barcodes = find_number_barcodes($('#source_plates').val());
-    const colour = num_barcodes > #{ProcessPlate::RECEIVE_PLATES_MAX} ? 'red' : 'green';
-
-    $('#barcodes_scanned').text(num_barcodes + ' barcodes').css('color', colour);
-  }
-
-  function find_number_barcodes(text){
-    const barcodes_list_no_blanks = text.split(/\s+/).filter(barcode => Boolean(barcode));
-    const barcodes_list_unique = [...new Set(barcodes_list_no_blanks)];
-    return barcodes_list_unique.length;
-  }

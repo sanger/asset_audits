@@ -4,7 +4,7 @@ namespace :record_loader do
   desc "Automatically generate Bed through BedLoader"
 
   # This task is executed after the instrument task.
-  task bed: [:environment, 'record_loader:instrument'] do
+  task bed: [:environment, "record_loader:instrument"] do
     require "./lib/record_loader/bed_loader"
     RecordLoader::BedLoader.new.create!
   end

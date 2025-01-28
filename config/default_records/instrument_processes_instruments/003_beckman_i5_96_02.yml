@@ -1,0 +1,6 @@
+---
+# Link the Beckman i5 96-02 instrument with the Working dilution instrument process.
+Beckman i5 96-02 - Working dilution:
+  instrument: Beckman i5 96-02
+  instrument_process: slf_working_dilution
+  bed_verification_type: Verification::DilutionPlate::I5

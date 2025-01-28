@@ -24,7 +24,7 @@ Capybara.register_driver :headless_chrome do |app|
 end
 
 Capybara.current_driver = :rack_test
-Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.javascript_driver = :headless_chrome
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
@@ -50,6 +50,8 @@ Capybara.default_max_wait_time = 10
 #
 ActionController::Base.allow_rescue = false
 
+# Configure hooks to switch drivers based on tags
+Before("@javascript") { Capybara.current_driver = Capybara.javascript_driver }
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin

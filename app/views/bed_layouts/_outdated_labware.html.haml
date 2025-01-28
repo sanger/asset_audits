@@ -5,8 +5,8 @@
 = text_area_tag "robot", '', :rows => 25,:cols => 80
 .live_results.block#barcodes_scanned 0 barcodes
 :javascript
-  $("#source_plates").focus();
-  $("#source_plates").trigger("change");
+  $("#robot").focus();
+  $("#robot").trigger("change");
   $('#robot').keyup(function() {
     recalcNumBarcodes('#robot', #{ProcessPlate::RECEIVE_PLATES_MAX});
   });

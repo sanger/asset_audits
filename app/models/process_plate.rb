@@ -46,7 +46,7 @@ class ProcessPlate < ApplicationRecord
   end
 
   def post_audit_actions!
-    subtract_volumes if defined?(:subtract_volumes)
+    subtract_volumes if respond_to?(:subtract_volumes)
   end
 
   def num_unique_barcodes

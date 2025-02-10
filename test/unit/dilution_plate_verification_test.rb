@@ -101,19 +101,19 @@ class DilutionPlateVerificationTest < ActiveSupport::TestCase
     end
 
     [
-      ["3", "123", "2", "456", "Invalid layout"],
+      ["3", "123", "2", "456", "Invalid bed barcode for P2: 3 should be 2."],
       ["2", "456", "3", "123", "Invalid source plate layout: 456 is not a parent of 123. 123 has no known parents."],
-      ["3", "456", "2", "123", "Invalid layout"],
+      ["3", "456", "2", "123", "Invalid bed barcode for P2: 3 should be 2."],
       ["", "", "", "", "No plates scanned"],
       ["2", "", "", "", "No plates scanned"],
       ["2", "123", "", "", "Invalid destination plate layout"],
-      ["2", "123", "3", "", "Invalid layout"],
-      ["2", "123", "", "456", "Invalid layout"],
-      ["", "123", "3", "456", "Invalid layout"],
+      ["2", "123", "3", "", "Invalid destination plate layout"],
+      ["2", "123", "", "456", "Invalid bed barcode for P3: empty should be 3."],
+      ["", "123", "3", "456", "Invalid bed barcode for P2: empty should be 2."],
       ["", "", "3", "456", "Invalid source plate layout"],
-      ["", "", "", "456", "Invalid layout"],
+      ["", "", "", "456", "Invalid bed barcode for P3: empty should be 3."],
       ["2", "", "3", "", "No plates scanned"],
-      ["", "123", "", "456", "Invalid layout"]
+      ["", "123", "", "456", "Invalid bed barcode for P2: empty should be 2."]
     ].each do |source_bed, source_plate, destination_bed, destination_plate, error_message|
       context "where invalid bed barcodes are scanned for #{source_bed}, #{source_plate}, #{destination_bed}, #{destination_plate}, #{error_message}" do
         setup do

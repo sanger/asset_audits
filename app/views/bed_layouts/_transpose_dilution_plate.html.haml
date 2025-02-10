@@ -1,0 +1,18 @@
+-# This partial creates a transpose of the source and destination bed layout.
+-# It shows the source fields on the left and the destination fields on the
+-# right to match the orientation that is used on the robot Beckman i5 96-2.
+.bed_layout
+  - @bed_verification_model.source_beds.zip(@bed_verification_model.destination_beds).each_with_index do |(source_bed, destination_bed), index|
+    %ul
+      %li#beds_and_plates
+        %ul
+          = render :partial => "transpose_barcode_inputs_row", :locals => { :bed_ids => [source_bed, destination_bed], :index => index}
+%h3 Checklist
+.checklist
+  %ol
+    %li Buffer full
+    %li Tips added
+    %li Covers removed
+    %li Correct program selected
+    %li Program edited for the correct number of plates
+= render :partial => @bed_verification_model.javascript_partial_name, locals: { presenter: InstrumentJavascriptPresenter.new(@bed_verification_model) }

@@ -1,0 +1,49 @@
+---
+# Beckman i5 96-02 beds
+Beckman i5 96-02 - P2:
+  name: "P2"
+  barcode: "580000002810"
+  bed_number: 2
+  instrument: Beckman i5 96-02
+
+Beckman i5 96-02 - P3:
+  name: "P3"
+  barcode: "580000003824"
+  bed_number: 3
+  instrument: Beckman i5 96-02
+
+Beckman i5 96-02 - P4:
+  name: "P4"
+  barcode: "580000004838"
+  bed_number: 4
+  instrument: Beckman i5 96-02
+
+Beckman i5 96-02 - P5:
+  name: "P5"
+  barcode: "580000005842"
+  bed_number: 5
+  instrument: Beckman i5 96-02
+
+Beckman i5 96-02 - P7:
+  name: "P7"
+  barcode: "580000007860"
+  bed_number: 7
+  instrument: Beckman i5 96-02
+
+Beckman i5 96-02 - P8:
+  name: "P8"
+  barcode: "580000008874"
+  bed_number: 8
+  instrument: Beckman i5 96-02
+
+Beckman i5 96-02 - P9:
+  name: "P9"
+  barcode: "580000009659"
+  bed_number: 9
+  instrument: Beckman i5 96-02
+
+Beckman i5 96-02 - P10:
+  name: "P10"
+  barcode: "580000010815"
+  bed_number: 10
+  instrument: Beckman i5 96-02

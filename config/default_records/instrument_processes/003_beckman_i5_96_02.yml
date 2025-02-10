@@ -1,0 +1,6 @@
+---
+# Beckman i5 96-02 instrument processes
+slf_working_dilution:
+  name: Working dilution
+  request_instrument: true
+  visual_check_required: false

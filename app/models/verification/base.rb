@@ -37,9 +37,14 @@ class Verification::Base
     record.errors.add_on_blank(attributes, options[:message])
   end
 
+  # Returns a list of all the types of verifications for the admin form to add
+  # a process to an instrument.
+  #
+  # @return [Array<String>] A list of all the types of verifications
   def self.all_types_for_select
     %w[
       Verification::Base
+      Verification::DilutionPlate::I5
       Verification::DilutionPlate::Nx
       Verification::DilutionPlate::Fx
       Verification::AssayPlate::Nx

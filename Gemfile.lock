@@ -413,6 +413,7 @@ DEPENDENCIES
   activeresource
   byebug
   capybara
+  concurrent-ruby (= 1.3.5)
   cucumber-rails
   daemons
   database_cleaner-active_record

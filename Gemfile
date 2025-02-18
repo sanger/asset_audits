@@ -5,6 +5,8 @@ source "http://rubygems.org"
 
 gem "activeresource"
 gem "rails", "~> 7.0.7"
+# Check if the following can be unpinned after upgrading to Rails and Ruby.
+gem "concurrent-ruby", "1.3.4"
 gem "rake"
 
 gem "daemons"

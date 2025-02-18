@@ -292,7 +292,7 @@ GEM
       logger
     record_loader (0.2.0)
     regexp_parser (2.10.0)
-    rexml (3.4.0)
+    rexml (3.4.1)
     rspec-expectations (3.13.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
@@ -384,7 +384,7 @@ GEM
     unicode-emoji (4.0.4)
     uri (0.13.1)
     uuidtools (2.2.0)
-    webmock (3.24.0)
+    webmock (3.25.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)

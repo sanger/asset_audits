@@ -62,7 +62,10 @@ class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
   def correct_bed(record, bed_name, position, bed)
     return true if bed.barcode == position[:bed]
     barcode = position[:bed].presence || "empty"
-    record.errors.add(:base, "Invalid bed barcode for #{bed_name.upcase}: #{barcode} should be #{bed.barcode}.")
+    record.errors.add(
+      :base,
+      "Invalid bed barcode for #{bed_name.upcase}: Expected #{bed.barcode}, but found #{barcode}."
+    )
     false
   end
 end

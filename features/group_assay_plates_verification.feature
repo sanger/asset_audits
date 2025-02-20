@@ -42,7 +42,7 @@ Feature: Verify group assay plates positions on the robot
     Examples:
       | source_1_bed | dest_1_bed | dest_2_bed | dest_3_bed | plate_1 | plate_2 | plate_3 | plate_4 | result                                                                                |
       | 2            | 3          | 5          | 6          | stock1  | wd1     | pico1   | pico2   | Success                                                                               |
-      | 2            | 3          | 5          | 7          | stock1  | wd1     | pico1   | pico2   | Invalid bed barcode for P6: 7 should be 6.                                            |
+      | 2            | 3          | 5          | 7          | stock1  | wd1     | pico1   | pico2   | Invalid bed barcode for P6: Expected 6, but found 7.                                  |
       | 2            | 3          | 5          | 6          | stock1  | pico1   | pico2   | pico1   | Invalid source plate layout                                                           |
       | 2            | 3          | 5          | 6          | stock1  | wd1     | stock2  | pico2   | Invalid source plate layout                                                           |
       | 2            | 3          | 5          | 6          | wd1     | pico1   | pico2   | stock1  | Invalid source plate layout                                                           |

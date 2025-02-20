@@ -88,26 +88,26 @@ Feature: Verify assay plate positions on the robot
     And I wait for all AJAX calls
     Then I should see "<error_message>"
     Examples:
-      | source_bed | source_plate | destination_1_bed | destination_1_plate | destination_2_bed | destination_2_plate | error_message                                    |
-      |            | source1      | 5                 | dest1               | 6                 | dest2               | Invalid bed barcode for P4: empty should be 4.   |
-      | 4          |              | 5                 | dest1               | 6                 | dest2               | No plates scanned                                |
-      | 4          | source1      |                   | dest1               | 6                 | dest2               | Invalid bed barcode for P5: empty should be 5.   |
-      | 4          | source1      | 5                 |                     | 6                 | dest2               | All destination plates must be scanned           |
-      | 4          | source1      | 5                 | dest1               |                   | dest2               | Invalid bed barcode for P6: empty should be 6.   |
-      | 4          | source1      | 5                 | dest1               | 6                 |                     | All destination plates must be scanned           |
-      |            |              | 5                 | dest1               | 6                 | dest2               | No plates scanned                                |
-      | source1    | 4            | 5                 | dest1               | 6                 | dest2               | Invalid bed barcode for P4: source1 should be 4. |
-      | 4          | source1      | dest1             | dest1               | 6                 | dest2               | Invalid bed barcode for P5: dest1 should be 5.   |
-      | 5          | source1      | 5                 | dest1               | 6                 | dest2               | Invalid bed barcode for P4: 5 should be 4.       |
-      | 4          | source1      | 4                 | dest1               | 6                 | dest2               | Invalid bed barcode for P5: 4 should be 5.       |
-      | 4          | source1      | 5                 | dest1               | 4                 | dest2               | Invalid bed barcode for P6: 4 should be 6.       |
-      | 4          | dest1        | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout                      |
-      | 4          | dest2        | 5                 | dest1               | 6                 | source1             | Invalid source plate layout                      |
-      | xx         | source1      | 5                 | dest1               | 6                 | dest2               | Invalid bed barcode for P4: xx should be 4.      |
-      | 4          | source1      | xx                | dest1               | 6                 | dest2               | Invalid bed barcode for P5: xx should be 5.      |
-      | 4          | xxx          | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout                      |
-      | 4          | source1      | 5                 | xxx                 | 6                 | dest2               | Invalid source plate layout                      |
-      | 4          | source1      | 5                 | dest1               | 6                 | xxx                 | Invalid source plate layout                      |
-      | 4          | source1      | 5                 | dest1               | xxx               | dest2               | Invalid bed barcode for P6: xxx should be 6.     |
-      | 4          | source1      |                   |                     | 6                 | dest2               | All destination plates must be scanned           |
-      | 4          | source1      | 5                 | dest1               |                   |                     | All destination plates must be scanned           |
+      | source_bed | source_plate | destination_1_bed | destination_1_plate | destination_2_bed | destination_2_plate | error_message                                              |
+      |            | source1      | 5                 | dest1               | 6                 | dest2               | Invalid bed barcode for P4: Expected 4, but found empty.   |
+      | 4          |              | 5                 | dest1               | 6                 | dest2               | No plates scanned                                          |
+      | 4          | source1      |                   | dest1               | 6                 | dest2               | Invalid bed barcode for P5: Expected 5, but found empty.   |
+      | 4          | source1      | 5                 |                     | 6                 | dest2               | All destination plates must be scanned                     |
+      | 4          | source1      | 5                 | dest1               |                   | dest2               | Invalid bed barcode for P6: Expected 6, but found empty.   |
+      | 4          | source1      | 5                 | dest1               | 6                 |                     | All destination plates must be scanned                     |
+      |            |              | 5                 | dest1               | 6                 | dest2               | No plates scanned                                          |
+      | source1    | 4            | 5                 | dest1               | 6                 | dest2               | Invalid bed barcode for P4: Expected 4, but found source1. |
+      | 4          | source1      | dest1             | dest1               | 6                 | dest2               | Invalid bed barcode for P5: Expected 5, but found dest1.   |
+      | 5          | source1      | 5                 | dest1               | 6                 | dest2               | Invalid bed barcode for P4: Expected 4, but found 5.       |
+      | 4          | source1      | 4                 | dest1               | 6                 | dest2               | Invalid bed barcode for P5: Expected 5, but found 4.       |
+      | 4          | source1      | 5                 | dest1               | 4                 | dest2               | Invalid bed barcode for P6: Expected 6, but found 4.       |
+      | 4          | dest1        | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout                                |
+      | 4          | dest2        | 5                 | dest1               | 6                 | source1             | Invalid source plate layout                                |
+      | xx         | source1      | 5                 | dest1               | 6                 | dest2               | Invalid bed barcode for P4: Expected 4, but found xx.      |
+      | 4          | source1      | xx                | dest1               | 6                 | dest2               | Invalid bed barcode for P5: Expected 5, but found xx.      |
+      | 4          | xxx          | 5                 | dest1               | 6                 | dest2               | Invalid source plate layout                                |
+      | 4          | source1      | 5                 | xxx                 | 6                 | dest2               | Invalid source plate layout                                |
+      | 4          | source1      | 5                 | dest1               | 6                 | xxx                 | Invalid source plate layout                                |
+      | 4          | source1      | 5                 | dest1               | xxx               | dest2               | Invalid bed barcode for P6: Expected 6, but found xxx.     |
+      | 4          | source1      |                   |                     | 6                 | dest2               | All destination plates must be scanned                     |
+      | 4          | source1      | 5                 | dest1               |                   |                     | All destination plates must be scanned                     |

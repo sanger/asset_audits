@@ -1,9 +1,11 @@
 inherit_gem:
   prettier: rubocop.yml
 
-require:
+plugins:
   - rubocop-performance
   - rubocop-rails
+
+require:
   - rubocop-rake
   - rubocop-minitest
 

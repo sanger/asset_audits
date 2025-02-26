@@ -3,89 +3,89 @@ Feature: Verify group assay plates positions on the robot
 
   Background:
     Given user "john" with barcode '2470000100730' exists
-      And I have a "Some stuff" instrument with barcode "abc123456"
-      And the "Some stuff" instrument has beds setup
+    And I have a "Some stuff" instrument with barcode "abc123456"
+    And the "Some stuff" instrument has beds setup
 
     Given I can retrieve plates by barcode
-      And I have a destination plate with barcode "456" and parent barcodes "123"
-      And I have a destination plate with barcode "wd1" and parent barcodes "stock1,stock2"
-      And I have a destination plate with barcode "wd2" and parent barcodes "stock2"
-      And I have a destination plate with barcode "wd3" and parent barcodes "stock2"
-      And I have a destination plate with barcode "wd4" and parent barcodes "stock4"
-      And I have a destination plate with barcode "pico1" and parent barcodes "wd1,wd2"
-      And I have a destination plate with barcode "pico2" and parent barcodes "wd1,wd2"
-      And I have a destination plate with barcode "pico4" and parent barcodes "wd4"
-      And I have a destination plate with barcode "pico5" and parent barcodes "wd4"
-      And I have a destination plate with barcode "stock2" and parent barcodes "plate1,plate2"
-      And I have a destination plate with barcode "stock3" and parent barcodes "plate1,plate2"
+    And I have a destination plate with barcode "456" and parent barcodes "123"
+    And I have a destination plate with barcode "wd1" and parent barcodes "stock1,stock2"
+    And I have a destination plate with barcode "wd2" and parent barcodes "stock2"
+    And I have a destination plate with barcode "wd3" and parent barcodes "stock2"
+    And I have a destination plate with barcode "wd4" and parent barcodes "stock4"
+    And I have a destination plate with barcode "pico1" and parent barcodes "wd1,wd2"
+    And I have a destination plate with barcode "pico2" and parent barcodes "wd1,wd2"
+    And I have a destination plate with barcode "pico4" and parent barcodes "wd4"
+    And I have a destination plate with barcode "pico5" and parent barcodes "wd4"
+    And I have a destination plate with barcode "stock2" and parent barcodes "plate1,plate2"
+    And I have a destination plate with barcode "stock3" and parent barcodes "plate1,plate2"
 
   Scenario Outline: Valid plates and bed positions
 
     Given I have a process "Some process" as part of the "Some stuff" instrument with x2 dilution assay nx bed verification
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
-      And I fill in AJAX field "Instrument barcode" with "abc123456"
-      And I select "Some process" from AJAX dropdown "Instrument process"
-      And I fill in "Bed P2" with "<source_1_bed>"
-      And I fill in "Plate P2" with "<plate_1>"
-      And I fill in "Bed P3" with "<dest_1_bed>"
-      And I fill in "Plate P3" with "<plate_2>"
-      And I fill in "Bed P5" with "<dest_2_bed>"
-      And I fill in "Plate P5" with "<plate_3>"
-      And I fill in "Bed P6" with "<dest_3_bed>"
-      And I fill in "Plate P6" with "<plate_4>"
-      And I press "Submit"
+    And I fill in AJAX field "Instrument barcode" with "abc123456"
+    And I select "Some process" from AJAX dropdown "Instrument process"
+    And I fill in "Bed P2" with "<source_1_bed>"
+    And I fill in "Plate P2" with "<plate_1>"
+    And I fill in "Bed P3" with "<dest_1_bed>"
+    And I fill in "Plate P3" with "<plate_2>"
+    And I fill in "Bed P5" with "<dest_2_bed>"
+    And I fill in "Plate P5" with "<plate_3>"
+    And I fill in "Bed P6" with "<dest_3_bed>"
+    And I fill in "Plate P6" with "<plate_4>"
+    And I press "Submit"
 
     Then I should see "<result>"
-      And I should be on the new audit page
+    And I should be on the new audit page
     # The delayed job will raise an exception if it fails
     Examples:
-      | source_1_bed | dest_1_bed | dest_2_bed | dest_3_bed | plate_1 | plate_2 | plate_3 | plate_4 | result                           |
-      | 2            | 3          | 5          | 6          | stock1  | wd1     | pico1   | pico2   | Success                          |
-      | 2            | 3          | 5          | 7          | stock1  | wd1     | pico1   | pico2   | Invalid layout                   |
-      | 2            | 3          | 5          | 6          | stock1  | pico1   | pico2   | pico1   | Invalid source plate layout      |
-      | 2            | 3          | 5          | 6          | stock1  | wd1     | stock2  | pico2   | Invalid source plate layout      |
-      | 2            | 3          | 5          | 6          | wd1     | pico1   | pico2   | stock1  | Invalid source plate layout      |
-      | 2            | 3          | 5          | 6          | stock2  | wd1     | pico2   | pico1   | Success                          |
-      | 2            | 3          | 5          | 6          | stock3  | wd1     | pico2   | pico1   | Invalid source plate layout      |
-      | 2            | 3          | 5          | 6          | stock1  | wd1     | pico2   | pico1   | Success                          |
-      | 2            | 3          | 5          | 6          | plate1  | stock2  | wd1     | wd2     | Success                          |
-      | 2            | 3          | 5          | 6          | stock2  | wd1     | wd2     | wd3     | Invalid source plate layout      |
-      | 2            | 3          | 5          | 6          |         | wd1     | pico2   | pico1   | Invalid layout                   |
-      | 2            | 3          | 5          | 6          | stock1  |         | pico2   | pico1   | Invalid layout                   |
-      | 2            | 3          | 5          | 6          |         |         | pico1   | pico2   | Invalid layout                   |
-      | 2            | 3          | 5          | 6          | stock1  |         | pico2   | pico1   | Invalid layout                   |
-      | 2            | 3          | 5          |            | stock1  | wd1     | pico1   |         | Invalid destination plate layout |
+      | source_1_bed | dest_1_bed | dest_2_bed | dest_3_bed | plate_1 | plate_2 | plate_3 | plate_4 | result                                                                                |
+      | 2            | 3          | 5          | 6          | stock1  | wd1     | pico1   | pico2   | Success                                                                               |
+      | 2            | 3          | 5          | 7          | stock1  | wd1     | pico1   | pico2   | Invalid bed barcode for P6: Expected 6, but found 7.                                  |
+      | 2            | 3          | 5          | 6          | stock1  | pico1   | pico2   | pico1   | Invalid source plate layout                                                           |
+      | 2            | 3          | 5          | 6          | stock1  | wd1     | stock2  | pico2   | Invalid source plate layout                                                           |
+      | 2            | 3          | 5          | 6          | wd1     | pico1   | pico2   | stock1  | Invalid source plate layout                                                           |
+      | 2            | 3          | 5          | 6          | stock2  | wd1     | pico2   | pico1   | Success                                                                               |
+      | 2            | 3          | 5          | 6          | stock3  | wd1     | pico2   | pico1   | Invalid source plate layout                                                           |
+      | 2            | 3          | 5          | 6          | stock1  | wd1     | pico2   | pico1   | Success                                                                               |
+      | 2            | 3          | 5          | 6          | plate1  | stock2  | wd1     | wd2     | Success                                                                               |
+      | 2            | 3          | 5          | 6          | stock2  | wd1     | wd2     | wd3     | Invalid source plate layout                                                           |
+      | 2            | 3          | 5          | 6          |         | wd1     | pico2   | pico1   | Invalid: All fields for beds P2, P3, P5, P6 should be either filled in, or left blank |
+      | 2            | 3          | 5          | 6          | stock1  |         | pico2   | pico1   | Invalid destination plate layout                                                      |
+      | 2            | 3          | 5          | 6          |         |         | pico1   | pico2   | Invalid: All fields for beds P2, P3, P5, P6 should be either filled in, or left blank |
+      | 2            | 3          | 5          | 6          | stock1  |         | pico2   | pico1   | Invalid destination plate layout                                                      |
+      | 2            | 3          | 5          |            | stock1  | wd1     | pico1   |         | Invalid destination plate layout                                                      |
 
   Scenario Outline: Valid plates and bed positions for 2x assay bed verification
     Given I have a process "Some process" as part of the "Some stuff" instrument with x2 dilution assay nx bed verification
     Given I am on the new audit page
     When I fill in "User barcode" with "2470000100730"
-      And I fill in AJAX field "Instrument barcode" with "abc123456"
-      And I select "Some process" from AJAX dropdown "Instrument process"
+    And I fill in AJAX field "Instrument barcode" with "abc123456"
+    And I select "Some process" from AJAX dropdown "Instrument process"
 
 
-      And I fill in "Bed P2" with "2" if "<plate_1>" not empty
-      And I fill in "Plate P2" with "<plate_1>" if not empty
-      And I fill in "Bed P3" with "3" if "<plate_2>" not empty
-      And I fill in "Plate P3" with "<plate_2>" if not empty
-      And I fill in "Bed P5" with "5" if "<plate_3>" not empty
-      And I fill in "Plate P5" with "<plate_3>" if not empty
-      And I fill in "Bed P6" with "6" if "<plate_4>" not empty
-      And I fill in "Plate P6" with "<plate_4>" if not empty
-      And I fill in "Bed P8" with "8" if "<plate_5>" not empty
-      And I fill in "Plate P8" with "<plate_5>" if not empty
-      And I fill in "Bed P9" with "9" if "<plate_6>" not empty
-      And I fill in "Plate P9" with "<plate_6>" if not empty
-      And I fill in "Bed P11" with "11" if "<plate_7>" not empty
-      And I fill in "Plate P11" with "<plate_7>" if not empty
-      And I fill in "Bed P12" with "12" if "<plate_8>" not empty
-      And I fill in "Plate P12" with "<plate_8>" if not empty
+    And I fill in "Bed P2" with "2" if "<plate_1>" not empty
+    And I fill in "Plate P2" with "<plate_1>" if not empty
+    And I fill in "Bed P3" with "3" if "<plate_2>" not empty
+    And I fill in "Plate P3" with "<plate_2>" if not empty
+    And I fill in "Bed P5" with "5" if "<plate_3>" not empty
+    And I fill in "Plate P5" with "<plate_3>" if not empty
+    And I fill in "Bed P6" with "6" if "<plate_4>" not empty
+    And I fill in "Plate P6" with "<plate_4>" if not empty
+    And I fill in "Bed P8" with "8" if "<plate_5>" not empty
+    And I fill in "Plate P8" with "<plate_5>" if not empty
+    And I fill in "Bed P9" with "9" if "<plate_6>" not empty
+    And I fill in "Plate P9" with "<plate_6>" if not empty
+    And I fill in "Bed P11" with "11" if "<plate_7>" not empty
+    And I fill in "Plate P11" with "<plate_7>" if not empty
+    And I fill in "Bed P12" with "12" if "<plate_8>" not empty
+    And I fill in "Plate P12" with "<plate_8>" if not empty
 
-      And I press "Submit"
+    And I press "Submit"
 
     Then I should see "<result>"
-      And I should be on the new audit page
+    And I should be on the new audit page
     # The delayed job will raise an exception if it fails
     Examples:
       | plate_1 | plate_2 | plate_3 | plate_4 | plate_5 | plate_6 | plate_7 | plate_8 | result  | comment            |

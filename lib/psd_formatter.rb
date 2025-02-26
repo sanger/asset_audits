@@ -6,6 +6,9 @@ require "ostruct"
 class PsdFormatter < Syslog::Logger::Formatter
   LINE_FORMAT = "(thread-%s) [%s] %5s -- : %s\n"
 
+  # Severity label for logging (max 5 chars).
+  SEV_LABEL = %w[DEBUG INFO WARN ERROR FATAL ANY].each(&:freeze).freeze
+
   def initialize(deployment_info)
     @app_tag = deployment_info.values_at(:version, :environment).compact.join(":").freeze
     super()
@@ -17,9 +20,6 @@ class PsdFormatter < Syslog::Logger::Formatter
   end
 
   private
-
-  # Severity label for logging (max 5 chars).
-  SEV_LABEL = %w[DEBUG INFO WARN ERROR FATAL ANY].each(&:freeze).freeze
 
   def format_severity(severity)
     severity.is_a?(Integer) ? SEV_LABEL[severity] || "ANY" : severity

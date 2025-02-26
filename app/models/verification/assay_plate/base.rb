@@ -19,7 +19,7 @@ class Verification::AssayPlate::Base < Verification::Base
   end
 
   def self.column_groups
-    ordered_beds.map { |b| [b] }
+    ordered_beds.zip
   end
 
   def parse_source_and_destination_barcodes(scanned_values)

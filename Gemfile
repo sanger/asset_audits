@@ -62,8 +62,8 @@ group :cucumber, :test do
   gem "rspec-mocks"
   gem "selenium-webdriver"
   gem "simplecov", require: false
-  gem 'simplecov_json_formatter', require: false
-  gem 'simplecov-lcov', require: false
+  gem "simplecov_json_formatter", require: false
+  gem "simplecov-lcov", require: false
   gem "timecop"
   gem "webrick"
 end

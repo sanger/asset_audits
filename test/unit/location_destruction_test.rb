@@ -83,7 +83,7 @@ class LocationDestructionTest < ActiveSupport::TestCase
       setup do
         # Stub the API call to LabWhere to get the location info.
         body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 0 }.to_json
-        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
+        stub_request(:get, @info_uri.to_s + "?barcode=#{@location_barcode}").to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.
         @result = @destroy_location_verification.pre_validate
@@ -112,7 +112,7 @@ class LocationDestructionTest < ActiveSupport::TestCase
         # Stub API call to LabWhere, to get info of location given.
         # The response is a failure. The response body is parsed.
         @errors_response = { errors: ["Location does not exist", "Error in the location"] }
-        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(
+        stub_request(:get, @info_uri.to_s + "?barcode=#{@location_barcode}").to_return(
           body: @errors_response.to_json,
           status: 422
         )
@@ -134,7 +134,7 @@ class LocationDestructionTest < ActiveSupport::TestCase
     context "when location has child locations" do
       setup do
         body = { labwares: [{ barcode: @labware1_barcode }, { barcode: @labware2_barcode }], depth: 1 }.to_json
-        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
+        stub_request(:get, @info_uri.to_s + "?barcode=#{@location_barcode}").to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.
         @result = @destroy_location_verification.pre_validate
@@ -152,7 +152,7 @@ class LocationDestructionTest < ActiveSupport::TestCase
     context "when location has no labware" do
       setup do
         body = { labwares: [], depth: 0 }.to_json
-        stub_request(:get, (@info_uri.to_s + "?barcode=#{@location_barcode}")).to_return(body:, status: 200)
+        stub_request(:get, @info_uri.to_s + "?barcode=#{@location_barcode}").to_return(body:, status: 200)
 
         # Controller calls the pre_validate? method.
         @result = @destroy_location_verification.pre_validate

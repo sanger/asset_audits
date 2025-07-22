@@ -46,7 +46,7 @@ class Settings
 
   private
 
-  def is_settings_query_method?(method) # rubocop:todo Naming/PredicateName
+  def is_settings_query_method?(method)
     method.to_s =~ /\?$/
   end
 

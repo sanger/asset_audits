@@ -80,7 +80,7 @@ module Verification::LabwhereApi
   # @param response [Net::HTTPResponse] the response from the LabWhere API
   # @return [Boolean] Returns true if the response is a success, false otherwise.
   #
-  def handle_scan_response(response)
+  def handle_scan_response(response) # rubocop:disable Naming/PredicateMethod
     return true if response.is_a?(Net::HTTPSuccess)
     add_error_from_response(response)
     false

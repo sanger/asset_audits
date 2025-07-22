@@ -140,7 +140,7 @@ GEM
       delayed_job (>= 3.0, < 5)
     diff-lcs (1.6.2)
     docile (1.4.1)
-    drb (2.2.1)
+    drb (2.2.3)
     erubi (1.13.1)
     exception_notification (4.5.0)
       actionmailer (>= 5.2, < 8)

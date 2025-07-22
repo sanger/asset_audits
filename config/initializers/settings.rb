@@ -46,7 +46,7 @@ class Settings
 
   private
 
-  def is_settings_query_method?(method)
+  def is_settings_query_method?(method) # rubocop:disable Naming/PredicatePrefix
     method.to_s =~ /\?$/
   end
 

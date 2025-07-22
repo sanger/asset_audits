@@ -2,8 +2,7 @@ name: Ruby Lint and Test
 
 on:
   push:
-    branches:
-      - update_coverage_workflow
+  pull_request:
 
 jobs:
   test:

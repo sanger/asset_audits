@@ -1,10 +1,71 @@
-%p{style: "color: green;background-color: #e8f5e9;padding: 10px"}
+%p{style: "color: green; background-color: #e8f5e9; padding: 10px"}
   Labware marked for destruction will have their locations updated in LabWhere,
   to the destroyed location as well.
 %label{for: "robot"} Source labware
-= text_area_tag "robot", '', :rows => 25,:cols => 80
+.editor-wrapper
+  %div#line_numbers_robot
+  %textarea#robot{cols: 80}
 .live_results.block#barcodes_scanned 0 barcodes
+
+:css
+  .editor-wrapper {
+    display: flex;
+    font-family: monospace;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    width: fit-content;
+  }
+  #line_numbers_robot {
+    padding: 5px 8px;
+    text-align: right;
+    color: #999;
+    background: #f0f0f0;
+    user-select: none;
+    line-height: 1.2em;
+    min-width: 2em;
+    border-right: 1px solid #ccc;
+    white-space: pre;
+    overflow: hidden;
+  }
+  #robot {
+    padding: 5px;
+    border: none;
+    resize: none;
+    font-family: monospace;
+    line-height: 1.2em;
+    width: auto;
+    overflow-y: auto; /* scroll appears after max height */
+    outline: none;
+    max-height: 300px; /* auto-grow until this height */
+  }
+
 :javascript
+  const robotTextarea = document.getElementById('robot');
+  const lineNumbersRobot = document.getElementById('line_numbers_robot');
+
+  function updateLineNumbersRobot() {
+    const count = robotTextarea.value.split('\n').length || 1;
+    lineNumbersRobot.textContent = Array.from({ length: count }, (_, i) => i + 1).join('\n');
+  }
+
+  function autoResizeRobot() {
+    robotTextarea.style.height = 'auto'; // shrink if needed
+    robotTextarea.style.height = Math.min(robotTextarea.scrollHeight, 300) + 'px';
+    lineNumbersRobot.style.height = robotTextarea.style.height;
+  }
+
+  robotTextarea.addEventListener('input', () => {
+    updateLineNumbersRobot();
+    autoResizeRobot();
+  });
+
+  robotTextarea.addEventListener('scroll', () => {
+    lineNumbersRobot.scrollTop = robotTextarea.scrollTop;
+  });
+
+  updateLineNumbersRobot();
+  autoResizeRobot();
+
   $("#robot").focus();
   $("#robot").trigger("change");
   $('#robot').keyup(function() {

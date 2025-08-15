@@ -4,7 +4,7 @@
 %label{for: "robot"} Source labware
 .editor-wrapper
   %div#line_numbers_robot
-  %textarea#robot{cols: 80}
+  %textarea#robot{cols: 80, rows: 25}
 .live_results.block#barcodes_scanned 0 barcodes
 
 :css
@@ -15,6 +15,7 @@
     background: #f7f7f7;
     width: fit-content;
   }
+
   #line_numbers_robot {
     padding: 5px 8px;
     text-align: right;
@@ -27,16 +28,19 @@
     white-space: pre;
     overflow: hidden;
   }
+
   #robot {
     padding: 5px;
     border: none;
     resize: none;
     font-family: monospace;
     line-height: 1.2em;
-    width: auto;
-    overflow-y: auto; /* scroll appears after max height */
+    overflow-y: auto;        /* scroll appears after max height */
     outline: none;
-    max-height: 300px; /* auto-grow until this height */
+    width: 640px;            /* fixed width */
+    flex-shrink: 0;
+    box-sizing: border-box;
+    max-height: 500px;       /* max grow height */
   }
 
 :javascript
@@ -44,13 +48,14 @@
   const lineNumbersRobot = document.getElementById('line_numbers_robot');
 
   function updateLineNumbersRobot() {
-    const count = robotTextarea.value.split('\n').length || 1;
+    const text = robotTextarea.value || "";
+    const count = text.split('\n').length || 1;
     lineNumbersRobot.textContent = Array.from({ length: count }, (_, i) => i + 1).join('\n');
   }
 
   function autoResizeRobot() {
-    robotTextarea.style.height = 'auto'; // shrink if needed
-    robotTextarea.style.height = Math.min(robotTextarea.scrollHeight, 300) + 'px';
+    robotTextarea.style.height = 'auto'; // shrink to recalc
+    robotTextarea.style.height = Math.min(robotTextarea.scrollHeight, 500) + 'px';
     lineNumbersRobot.style.height = robotTextarea.style.height;
   }
 
@@ -63,6 +68,7 @@
     lineNumbersRobot.scrollTop = robotTextarea.scrollTop;
   });
 
+  // initialize
   updateLineNumbersRobot();
   autoResizeRobot();
 

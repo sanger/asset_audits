@@ -21,13 +21,10 @@ const editor = document.getElementById('robot');
 const lineNumbers = document.getElementById('lineNumbers');
 
 function updateLineNumbers() {
-  const text = (editor.innerText || '').replace(/\r/g, '');
-  // Split lines, remove trailing empty line
+  let text = (editor.innerText || '').replace(/\r/g, '');
+  text = text.replace(/^\n+|\n+$/g, ''); // remove leading/trailing empty lines
   let lines = text.split('\n');
-  if (lines.length > 1 && lines[lines.length - 1] === '') {
-    lines.pop();
-  }
-  if (lines.length === 0) lines = ['']; // at least 1 line
+  if (lines.length === 0) lines = ['']; // always at least one line
   lineNumbers.textContent = lines.map((_, i) => i + 1).join('\n');
 }
 

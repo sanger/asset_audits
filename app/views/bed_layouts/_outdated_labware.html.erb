@@ -4,12 +4,32 @@
 </p>
 
 <label for="robot">Source labware</label>
-<%= text_area_tag "robot", '', rows: 25, cols: 80 %>
+<div style="display: flex; align-items: flex-start; border: 1px solid #ccc;">
+  <div id="lineNumbers" 
+       style="width: 30px; padding: 8px; background: #f0f0f0; color: #999; text-align: right; 
+              font-family: monospace; line-height: 1.2em; user-select: none; white-space: pre;">
+    1
+  </div>
+
+  <textarea id="robot" rows="25" cols="80" 
+            style="resize: none; padding-left: 10px; line-height: 1.2em; font-family: monospace; flex: 1;"></textarea>
+</div>
 
 <div class="live_results block" id="barcodes_scanned">0 barcodes</div>
 
 <script>
-  // Your helper function
+  const textarea = document.getElementById('robot');
+  const lineNumbers = document.getElementById('lineNumbers');
+
+  function updateLineNumbers() {
+    const lines = textarea.value.split('\n').length;
+    let numbers = '';
+    for (let i = 1; i <= lines; i++) {
+      numbers += i + '\n';
+    }
+    lineNumbers.textContent = numbers;
+  }
+
   function recalcNumBarcodes(textareaId, maxBarcodes) {
     const num_barcodes = find_number_barcodes($(textareaId).val());
     const colour = num_barcodes > maxBarcodes ? "red" : "green";
@@ -19,12 +39,16 @@
       .css("color", colour);
   }
 
-  // Ensure DOM and jQuery are ready
-  document.addEventListener("input", function () {
-    const robot = document.getElementById('robot');
-    robot.addEventListener('input', function() {
+  textarea.addEventListener('input', () => {
+    updateLineNumbers();
     recalcNumBarcodes('#robot', 50);
-    });
-
   });
+
+  textarea.addEventListener('scroll', () => {
+    lineNumbers.scrollTop = textarea.scrollTop;
+  });
+
+  // Initialize
+  updateLineNumbers();
+  recalcNumBarcodes('#robot', 50);
 </script>

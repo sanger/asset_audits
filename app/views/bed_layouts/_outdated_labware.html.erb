@@ -1,5 +1,4 @@
 <div style="position: relative; display: flex; border: 1px solid #ccc; height: 400px;">
-  <!-- Line numbers -->
   <div id="lineNumbers" 
        style="background: #f0f0f0; color: #999; text-align: right; 
               padding: 8px 5px 0 0; user-select: none; line-height: 1.2em; 
@@ -7,12 +6,11 @@
     1
   </div>
 
-  <!-- Editable text -->
-  <div id="robot" contenteditable="true" 
-       style="flex: 1; padding: 8px 5px; line-height: 1.2em; 
-              white-space: pre-wrap; overflow: auto; outline: none; min-height: 1.2em;">
-    &nbsp; <!-- initialize with a single line -->
-  </div>
+<div id="robot" contenteditable="true"
+     style="flex: 1; padding: 8px 5px; line-height: 1.2em;
+            white-space: pre-wrap; overflow: auto; outline: none; min-height: 1.2em;">
+</div>
+
 </div>
 
 <!-- Hidden input to mirror the content -->
@@ -33,15 +31,15 @@ function getEditorText() {
 function updateLineNumbers() {
   let lines = Array.from(editor.childNodes).map(node => {
     if (node.nodeType === Node.TEXT_NODE) {
-      // Split text nodes by newline
       return node.textContent.split('\n');
     }
-    return ['']; // treat other nodes (like <div><br></div>) as one line
+    return [''];
   }).flat();
 
   if (lines.length === 0) lines = ['']; // always at least one line
   lineNumbers.textContent = lines.map((_, i) => i + 1).join('\n');
 }
+
 
 
 // Sync hidden input
@@ -78,6 +76,11 @@ editor.addEventListener('input', () => {
 });
 
 // Initialize
+
+if (!editor.innerText.trim()) {
+  editor.innerText = ''; // truly empty
+}
+
 updateLineNumbers();
 recalcNumBarcodes(50);
 syncHiddenInput();

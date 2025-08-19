@@ -4,30 +4,43 @@
        style="background: #f0f0f0; color: #999; text-align: right; 
               padding: 8px 5px 0 0; user-select: none; line-height: 1.2em; 
               overflow: hidden; white-space: pre;">
-    <!-- start empty -->
+    1
   </div>
 
   <!-- Editable text -->
   <div id="robot" contenteditable="true" 
        style="flex: 1; padding: 8px 5px; line-height: 1.2em; 
-              white-space: pre-wrap; overflow: auto; outline: none;">
+              white-space: pre-wrap; overflow: auto; outline: none; min-height: 1.2em;">
+    &nbsp; <!-- initialize with a single line -->
   </div>
 </div>
+
+<!-- Hidden input to mirror the content -->
+<input type="hidden" name="robot" id="robot_input" value="">
 
 <div class="live_results block" id="barcodes_scanned">0 barcodes</div>
 
 <script>
 const editor = document.getElementById('robot');
 const lineNumbers = document.getElementById('lineNumbers');
+const hiddenInput = document.getElementById('robot_input');
+
+function getEditorText() {
+  // always return a string, replace non-breaking space with empty string
+  return (editor.innerText || '').replace(/\u00A0/g, '');
+}
 
 function updateLineNumbers() {
-  let text = (editor.innerText || '').replace(/\r/g, '');
-  text = text.replace(/^\n+|\n+$/g, ''); // remove leading/trailing empty lines
+  let text = getEditorText().replace(/\r/g, '');
   let lines = text.split('\n');
   if (lines.length === 0) lines = ['']; // always at least one line
   lineNumbers.textContent = lines.map((_, i) => i + 1).join('\n');
 }
 
+// Sync hidden input
+function syncHiddenInput() {
+  hiddenInput.value = getEditorText();
+}
 
 // Scroll sync
 editor.addEventListener('scroll', () => {
@@ -40,8 +53,8 @@ function find_number_barcodes(text) {
   return text.split(/\s+/).filter(s => s.length > 0).length;
 }
 
-function recalcNumBarcodes(editorId, maxBarcodes) {
-  const text = document.getElementById(editorId).innerText || '';
+function recalcNumBarcodes(maxBarcodes) {
+  const text = getEditorText();
   const num_barcodes = find_number_barcodes(text);
   const colour = num_barcodes > maxBarcodes ? "red" : "green";
 
@@ -53,10 +66,12 @@ function recalcNumBarcodes(editorId, maxBarcodes) {
 // Input handler
 editor.addEventListener('input', () => {
   updateLineNumbers();
-  recalcNumBarcodes('robot', 50);
+  recalcNumBarcodes(50);
+  syncHiddenInput();
 });
 
 // Initialize
 updateLineNumbers();
-recalcNumBarcodes('robot', 50);
+recalcNumBarcodes(50);
+syncHiddenInput();
 </script>

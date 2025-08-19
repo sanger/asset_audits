@@ -28,15 +28,11 @@ function getEditorText() {
 }
 
 function updateLineNumbers() {
-  let lines = Array.from(editor.childNodes).map(node => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      return node.textContent.split('\n');
-    }
-    return [''];
-  }).flat();
+  const lineHeight = parseFloat(getComputedStyle(editor).lineHeight);
+  const totalHeight = editor.scrollHeight;
+  const numLines = Math.max(1, Math.ceil(totalHeight / lineHeight));
 
-  if (lines.length === 0) lines = ['']; // always at least one line
-  lineNumbers.textContent = lines.map((_, i) => i + 1).join('\n');
+  lineNumbers.textContent = Array.from({ length: numLines }, (_, i) => i + 1).join('\n');
 }
 
 

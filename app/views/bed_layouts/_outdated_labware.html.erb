@@ -1,54 +1,59 @@
-<p style="color: green; background-color: #e8f5e9; padding: 10px;">
-  Labware marked for destruction will have their locations updated in LabWhere,
-  to the destroyed location as well.
-</p>
-
-<label for="robot">Source labware</label>
-<div style="display: flex; align-items: flex-start; border: 1px solid #ccc;">
+<div style="position: relative; display: flex; border: 1px solid #ccc; height: 400px;">
+  <!-- Line numbers -->
   <div id="lineNumbers" 
-       style="width: 30px; padding: 2px; background: #f0f0f0; color: #999; text-align: center; 
-              font-family: monospace; line-height: 1.2em; user-select: none; white-space: pre;">
-    1
+       style="background: #f0f0f0; color: #999; text-align: right; 
+              padding: 8px 5px 0 0; user-select: none; line-height: 1.2em; 
+              overflow: hidden; white-space: pre;">
+    <!-- start empty -->
   </div>
 
-  <textarea id="robot" rows="25" cols="80" 
-            style="resize: none; padding-left: 10px; line-height: 1.2em; font-family: monospace; flex: 1;"></textarea>
+  <!-- Editable text -->
+  <div id="robot" contenteditable="true" 
+       style="flex: 1; padding: 8px 5px; line-height: 1.2em; 
+              white-space: pre-wrap; overflow: auto; outline: none;">
+  </div>
 </div>
 
 <div class="live_results block" id="barcodes_scanned">0 barcodes</div>
 
 <script>
-  const textarea = document.getElementById('robot');
-  const lineNumbers = document.getElementById('lineNumbers');
+const editor = document.getElementById('robot');
+const lineNumbers = document.getElementById('lineNumbers');
 
-  function updateLineNumbers() {
-    const lines = textarea.value.split('\n').length;
-    let numbers = '';
-    for (let i = 1; i <= lines; i++) {
-      numbers += i + '\n';
-    }
-    lineNumbers.textContent = numbers;
-  }
+function updateLineNumbers() {
+  const text = (editor.innerText || '').replace(/\r/g, '');
+  const lines = text.split('\n').length || 1;  // always at least 1
+  lineNumbers.textContent = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+}
 
-  function recalcNumBarcodes(textareaId, maxBarcodes) {
-    const num_barcodes = find_number_barcodes($(textareaId).val());
-    const colour = num_barcodes > maxBarcodes ? "red" : "green";
+// Scroll sync
+editor.addEventListener('scroll', () => {
+  lineNumbers.scrollTop = editor.scrollTop;
+});
 
-    $("#barcodes_scanned")
-      .text(num_barcodes + " barcodes")
-      .css("color", colour);
-  }
+// Barcode counting
+function find_number_barcodes(text) {
+  if (!text) return 0;
+  return text.split(/\s+/).filter(s => s.length > 0).length;
+}
 
-  textarea.addEventListener('input', () => {
-    updateLineNumbers();
-    recalcNumBarcodes('#robot', 50);
-  });
+function recalcNumBarcodes(editorId, maxBarcodes) {
+  const text = document.getElementById(editorId).innerText || '';
+  const num_barcodes = find_number_barcodes(text);
+  const colour = num_barcodes > maxBarcodes ? "red" : "green";
 
-  textarea.addEventListener('scroll', () => {
-    lineNumbers.scrollTop = textarea.scrollTop;
-  });
+  const display = document.getElementById("barcodes_scanned");
+  display.textContent = num_barcodes + " barcodes";
+  display.style.color = colour;
+}
 
-  // Initialize
+// Input handler
+editor.addEventListener('input', () => {
   updateLineNumbers();
-  recalcNumBarcodes('#robot', 50);
+  recalcNumBarcodes('robot', 50);
+});
+
+// Initialize
+updateLineNumbers();
+recalcNumBarcodes('robot', 50);
 </script>

@@ -31,11 +31,18 @@ function getEditorText() {
 }
 
 function updateLineNumbers() {
-  let text = getEditorText().replace(/\r/g, '');
-  let lines = text.split('\n');
+  let lines = Array.from(editor.childNodes).map(node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      // Split text nodes by newline
+      return node.textContent.split('\n');
+    }
+    return ['']; // treat other nodes (like <div><br></div>) as one line
+  }).flat();
+
   if (lines.length === 0) lines = ['']; // always at least one line
   lineNumbers.textContent = lines.map((_, i) => i + 1).join('\n');
 }
+
 
 // Sync hidden input
 function syncHiddenInput() {

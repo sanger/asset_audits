@@ -22,9 +22,15 @@ const lineNumbers = document.getElementById('lineNumbers');
 
 function updateLineNumbers() {
   const text = (editor.innerText || '').replace(/\r/g, '');
-  const lines = text.split('\n').length || 1;  // always at least 1
-  lineNumbers.textContent = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+  // Split lines, remove trailing empty line
+  let lines = text.split('\n');
+  if (lines.length > 1 && lines[lines.length - 1] === '') {
+    lines.pop();
+  }
+  if (lines.length === 0) lines = ['']; // at least 1 line
+  lineNumbers.textContent = lines.map((_, i) => i + 1).join('\n');
 }
+
 
 // Scroll sync
 editor.addEventListener('scroll', () => {

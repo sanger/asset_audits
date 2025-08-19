@@ -55,7 +55,9 @@ editor.addEventListener('scroll', () => {
 // Barcode counting
 function find_number_barcodes(text) {
   if (!text) return 0;
-  return text.split(/\s+/).filter(s => s.length > 0).length;
+  const barcodes = text.split(/\s+/).filter(s => s.length > 0);
+  const uniqueBarcodes = new Set(barcodes);
+  return uniqueBarcodes.size;
 }
 
 function recalcNumBarcodes(maxBarcodes) {

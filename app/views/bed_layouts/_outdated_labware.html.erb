@@ -1,0 +1,30 @@
+<p style="color: green; background-color: #e8f5e9; padding: 10px;">
+  Labware marked for destruction will have their locations updated in LabWhere,
+  to the destroyed location as well.
+</p>
+
+<label for="robot">Source labware</label>
+<%= text_area_tag "robot", '', rows: 25, cols: 80 %>
+
+<div class="live_results block" id="barcodes_scanned">0 barcodes</div>
+
+<script>
+  // Your helper function
+  function recalcNumBarcodes(textareaId, maxBarcodes) {
+    const num_barcodes = find_number_barcodes($(textareaId).val());
+    const colour = num_barcodes > maxBarcodes ? "red" : "green";
+
+    $("#barcodes_scanned")
+      .text(num_barcodes + " barcodes")
+      .css("color", colour);
+  }
+
+  // Ensure DOM and jQuery are ready
+  document.addEventListener("input", function () {
+    const robot = document.getElementById('robot');
+    robot.addEventListener('input', function() {
+    recalcNumBarcodes('#robot', 50);
+    });
+
+  });
+</script>

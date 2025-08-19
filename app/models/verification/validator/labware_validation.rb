@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Verification::Validator::LabwareValidation
-  ERRORS_PREFIX = "No labware can be destroyed."
+  ERRORS_PREFIX = "No labware can be destroyed.\n"
   NO_LABWARE_FOUND = "No labware found"
   LABWARE_NOT_FOUND = "The labware %s hasn't been found"
   LABWARE_PURPOSE_ERROR = "The labware %s can't be destroyed because it's a %s"

@@ -23,7 +23,6 @@ const lineNumbers = document.getElementById('lineNumbers');
 const hiddenInput = document.getElementById('robot_input');
 
 function getEditorText() {
-  // always return a string, replace non-breaking space with empty string
   return (editor.innerText || '').replace(/\u00A0/g, '');
 }
 
@@ -31,13 +30,9 @@ function updateLineNumbers() {
   const lineHeight = parseFloat(getComputedStyle(editor).lineHeight);
   const totalHeight = editor.scrollHeight;
   const numLines = Math.max(1, Math.ceil(totalHeight / lineHeight));
-
   lineNumbers.textContent = Array.from({ length: numLines }, (_, i) => i + 1).join('\n');
 }
 
-
-
-// Sync hidden input
 function syncHiddenInput() {
   hiddenInput.value = getEditorText();
 }
@@ -47,38 +42,74 @@ editor.addEventListener('scroll', () => {
   lineNumbers.scrollTop = editor.scrollTop;
 });
 
-// Barcode counting
-function find_number_barcodes(text) {
-  if (!text) return 0;
-  const barcodes = text.split(/\s+/).filter(s => s.length > 0);
-  const uniqueBarcodes = new Set(barcodes);
-  return uniqueBarcodes.size;
-}
-
-function recalcNumBarcodes(maxBarcodes) {
+// Highlight duplicates and maintain cursor position
+function highlightDuplicates() {
   const text = getEditorText();
-  const num_barcodes = find_number_barcodes(text);
-  const colour = num_barcodes > maxBarcodes ? "red" : "green";
+  const words = text.split(/\s+/).filter(Boolean);
+  const counts = {};
+  words.forEach(w => counts[w] = (counts[w] || 0) + 1);
 
+  // Save cursor position
+  const sel = window.getSelection();
+  let cursorPos = 0;
+  if (sel.rangeCount > 0) {
+    const range = sel.getRangeAt(0);
+    const preRange = range.cloneRange();
+    preRange.selectNodeContents(editor);
+    preRange.setEnd(range.startContainer, range.startOffset);
+    cursorPos = preRange.toString().length;
+  }
+
+  // Build new HTML
+  const html = text.split(/(\s+)/).map(w => {
+    if (w.trim() && counts[w] > 1) return `<span style="color:red">${w}</span>`;
+    return w;
+  }).join('');
+
+  editor.innerHTML = html;
+
+  // Restore cursor
+  let charIndex = 0;
+  const range = document.createRange();
+  let found = false;
+
+  function traverse(node) {
+    if (found) return;
+    if (node.nodeType === 3) { // text node
+      const nextCharIndex = charIndex + node.length;
+      if (cursorPos <= nextCharIndex) {
+        range.setStart(node, cursorPos - charIndex);
+        range.collapse(true);
+        found = true;
+      }
+      charIndex = nextCharIndex;
+    } else {
+      node.childNodes.forEach(traverse);
+    }
+  }
+
+  traverse(editor);
+  if (found) {
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  // Update barcode count
   const display = document.getElementById("barcodes_scanned");
-  display.textContent = num_barcodes + " barcodes";
-  display.style.color = colour;
+  display.textContent = new Set(words).size + " barcodes";
+  display.style.color = new Set(words).size > 50 ? "red" : "green";
+
+  syncHiddenInput();
+  updateLineNumbers();
 }
 
 // Input handler
-editor.addEventListener('input', () => {
-  updateLineNumbers();
-  recalcNumBarcodes(50);
-  syncHiddenInput();
-});
+editor.addEventListener('input', highlightDuplicates);
 
 // Initialize
-
 if (!editor.innerText.trim()) {
-  editor.innerText = ''; // truly empty
+  editor.innerText = ''; 
 }
-
 updateLineNumbers();
-recalcNumBarcodes(50);
-syncHiddenInput();
+highlightDuplicates();
 </script>

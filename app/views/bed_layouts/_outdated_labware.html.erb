@@ -1,84 +1,81 @@
-<div style="position: relative; display: flex; border: 1px solid #ccc; height: 400px;">
+<div style="display:flex;border:1px solid #ccc;height:400px;position:relative;">
   <div id="lineNumbers" 
-       style="width: 30px; background: #f0f0f0; color: #999; text-align: center; 
-              padding: 8px 5px 0 0; user-select: none; line-height: 1.2em; 
-              overflow: hidden; white-space: pre;">
+       style="width:30px;background:#f0f0f0;color:#999;text-align:center;
+              padding:8px 3px 0 0;user-select:none;line-height:1.2em;white-space:pre;overflow:hidden;">
     1
   </div>
 
   <div id="robot" contenteditable="true"
-      style="flex: 1; padding: 8px 5px; line-height: 1.2em;
-              white-space: pre-wrap; overflow: auto; outline: none; min-height: 1.2em;">
+       style="flex:1;padding:8px 5px;line-height:1.2em;
+              white-space:pre-wrap;overflow:auto;outline:none;min-height:1.2em;">
   </div>
 </div>
 
-<!-- Hidden input to mirror the content -->
-<input type="hidden" name="robot" id="robot_input" value="">
-
-<div class="live_results block" id="barcodes_scanned">0 barcodes</div>
+<input type="hidden" id="robot_input" name="robot">
+<div id="barcodes_scanned" style="margin-top:6px;">0 barcodes</div>
 
 <script>
-const editor = document.getElementById('robot');
-const lineNumbers = document.getElementById('lineNumbers');
-const hiddenInput = document.getElementById('robot_input');
+const editor = document.getElementById('robot'),
+      lineNumbers = document.getElementById('lineNumbers'),
+      hiddenInput = document.getElementById('robot_input'),
+      display = document.getElementById('barcodes_scanned');
 
-function getEditorText() {
-  // always return a string, replace non-breaking space with empty string
-  return (editor.innerText || '').replace(/\u00A0/g, '');
-}
+const getText = () => (editor.innerText || '').replace(/\u00A0/g,'');
+const syncHidden = () => hiddenInput.value = getText();
 
 function updateLineNumbers() {
-  const lineHeight = parseFloat(getComputedStyle(editor).lineHeight);
-  const totalHeight = editor.scrollHeight;
-  const numLines = Math.max(1, Math.ceil(totalHeight / lineHeight));
-
-  lineNumbers.textContent = Array.from({ length: numLines }, (_, i) => i + 1).join('\n');
+  const lh = parseFloat(getComputedStyle(editor).lineHeight),
+        lines = Math.max(1, Math.ceil(editor.scrollHeight / lh));
+  lineNumbers.textContent = Array.from({length:lines}, (_,i)=>i+1).join('\n');
 }
 
+function highlightDuplicates() {
+  const text = getText(),
+        words = text.split(/\s+/).filter(Boolean),
+        counts = words.reduce((a,w)=>(a[w]=(a[w]||0)+1,a),{});
 
+  // Save cursor
+  const sel = window.getSelection(), range = sel.rangeCount?sel.getRangeAt(0):null;
+  let pos = 0;
+  if (range) {
+    const pre = range.cloneRange();
+    pre.selectNodeContents(editor); pre.setEnd(range.startContainer, range.startOffset);
+    pos = pre.toString().length;
+  }
 
-// Sync hidden input
-function syncHiddenInput() {
-  hiddenInput.value = getEditorText();
-}
+  // Build content
+  editor.innerHTML = text.split(/(\s+)/).map(w =>
+    (w.trim() && counts[w]>1) ? `<span style="color:red">${w}</span>` : w
+  ).join('');
 
-// Scroll sync
-editor.addEventListener('scroll', () => {
-  lineNumbers.scrollTop = editor.scrollTop;
-});
+  // Restore cursor
+  if (range) {
+    let idx=0, found=false, newRange=document.createRange();
+    (function walk(node){
+      if(found) return;
+      if(node.nodeType===3){
+        let next=idx+node.length;
+        if(pos<=next){ newRange.setStart(node,pos-idx); newRange.collapse(true); found=true; }
+        idx=next;
+      } else node.childNodes.forEach(walk);
+    })(editor);
+    if(found){ sel.removeAllRanges(); sel.addRange(newRange); }
+  }
 
-// Barcode counting
-function find_number_barcodes(text) {
-  if (!text) return 0;
-  const barcodes = text.split(/\s+/).filter(s => s.length > 0);
-  const uniqueBarcodes = new Set(barcodes);
-  return uniqueBarcodes.size;
-}
+  // Update barcode count
+  const unique = new Set(words).size;
+  display.textContent = unique+" barcodes";
+  display.style.color = unique>50 ? "red" : "green";
 
-function recalcNumBarcodes(maxBarcodes) {
-  const text = getEditorText();
-  const num_barcodes = find_number_barcodes(text);
-  const colour = num_barcodes > maxBarcodes ? "red" : "green";
-
-  const display = document.getElementById("barcodes_scanned");
-  display.textContent = num_barcodes + " barcodes";
-  display.style.color = colour;
-}
-
-// Input handler
-editor.addEventListener('input', () => {
+  syncHidden();
   updateLineNumbers();
-  recalcNumBarcodes(50);
-  syncHiddenInput();
-});
-
-// Initialize
-
-if (!editor.innerText.trim()) {
-  editor.innerText = ''; // truly empty
 }
 
+editor.addEventListener('scroll',()=>lineNumbers.scrollTop=editor.scrollTop);
+editor.addEventListener('input', highlightDuplicates);
+
+// Init
+editor.innerText='';
 updateLineNumbers();
-recalcNumBarcodes(50);
-syncHiddenInput();
+highlightDuplicates();
 </script>

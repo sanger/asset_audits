@@ -1,17 +1,16 @@
-<div style="display:flex;border:1px solid #ccc;height:400px;position:relative;">
-  <textarea id="robot" style="flex:1;padding:8px 5px;line-height:1.2em;white-space:pre-wrap;overflow:auto;outline:none;min-height:1.2em;border:none;resize:vertical;"></textarea>
-</div>
+<textarea id="barcode_text" class="form-control" style="flex:1;padding:8px 5px;line-height:1.2em;white-space:pre-wrap;overflow:auto;outline:none;min-height:1.2em;border:none;resize:vertical;"></textarea>
+
 
 <input type="hidden" id="robot_input" name="robot">
 <div id="barcodes_scanned" style="margin-top:6px;">0 barcodes</div>
 
 <script>
-const editor = document.getElementById('robot'),
+const editor = document.getElementById('barcode_text'),
       lineNumbers = document.getElementById('lineNumbers'),
       hiddenInput = document.getElementById('robot_input'),
       display = document.getElementById('barcodes_scanned');
 
-// Init
+Init
 editor.innerText='';
 updateLineNumbers();
 highlightDuplicates();

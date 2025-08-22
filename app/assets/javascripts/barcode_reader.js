@@ -1,10 +1,6 @@
-const $ = window.jQuery || jQuery;
-const CodeMirror = window.CodeMirror;
-
-console.log("CodeMirror:", CodeMirror);
-
 CodeMirror.defineMode("barcode_reader", function (_) {
   function tokenBase(stream, state) {
+    console.log(stream)
     let ch = stream.next();
     if (/\w/.test(ch)) {
       stream.eatWhile(/[\w.]/);
@@ -31,13 +27,13 @@ CodeMirror.defineMode("barcode_reader", function (_) {
 });
 
 $(() => {
-  const sourceTubesInput = $("#robot");
+  const sourceTubesInput = $("#barcode_text");
 
-  console.log("sourceTubesInput:", sourceTubesInput);
-
-  CodeMirror.fromTextArea(sourceTubesInput, {
-    lineNumbers: true,
-    mode: "barcode_reader",
-    theme: "eclipse",
-  });
+  if (sourceTubesInput.length > 0) {
+    CodeMirror.fromTextArea(sourceTubesInput[0], {
+      lineNumbers: true,
+      mode: "barcode_reader",
+      theme: "eclipse",
+    });
+  }
 });

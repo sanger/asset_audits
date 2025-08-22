@@ -1,115 +1,20 @@
-<div style="position: relative; display: flex; border: 1px solid #ccc; height: 400px;">
-  <div id="lineNumbers" 
-       style="width: 30px; background: #f0f0f0; color: #999; text-align: center; 
-              padding: 8px 5px 0 0; user-select: none; line-height: 1.2em; 
-              overflow: hidden; white-space: pre;">
-    1
-  </div>
-
-  <div id="robot" contenteditable="true"
-      style="flex: 1; padding: 8px 5px; line-height: 1.2em;
-              white-space: pre-wrap; overflow: auto; outline: none; min-height: 1.2em;">
-  </div>
+<div style="display:flex;border:1px solid #ccc;height:400px;position:relative;">
+  <textarea id="robot" style="flex:1;padding:8px 5px;line-height:1.2em;white-space:pre-wrap;overflow:auto;outline:none;min-height:1.2em;border:none;resize:vertical;"></textarea>
 </div>
 
-<!-- Hidden input to mirror the content -->
-<input type="hidden" name="robot" id="robot_input" value="">
-
-<div class="live_results block" id="barcodes_scanned">0 barcodes</div>
+<input type="hidden" id="robot_input" name="robot">
+<div id="barcodes_scanned" style="margin-top:6px;">0 barcodes</div>
 
 <script>
-const editor = document.getElementById('robot');
-const lineNumbers = document.getElementById('lineNumbers');
-const hiddenInput = document.getElementById('robot_input');
+const editor = document.getElementById('robot'),
+      lineNumbers = document.getElementById('lineNumbers'),
+      hiddenInput = document.getElementById('robot_input'),
+      display = document.getElementById('barcodes_scanned');
 
-function getEditorText() {
-  return (editor.innerText || '').replace(/\u00A0/g, '');
-}
-
-function updateLineNumbers() {
-  const lineHeight = parseFloat(getComputedStyle(editor).lineHeight);
-  const totalHeight = editor.scrollHeight;
-  const numLines = Math.max(1, Math.ceil(totalHeight / lineHeight));
-  lineNumbers.textContent = Array.from({ length: numLines }, (_, i) => i + 1).join('\n');
-}
-
-function syncHiddenInput() {
-  hiddenInput.value = getEditorText();
-}
-
-// Scroll sync
-editor.addEventListener('scroll', () => {
-  lineNumbers.scrollTop = editor.scrollTop;
-});
-
-// Highlight duplicates and maintain cursor position
-function highlightDuplicates() {
-  const text = getEditorText();
-  const words = text.split(/\s+/).filter(Boolean);
-  const counts = {};
-  words.forEach(w => counts[w] = (counts[w] || 0) + 1);
-
-  // Save cursor position
-  const sel = window.getSelection();
-  let cursorPos = 0;
-  if (sel.rangeCount > 0) {
-    const range = sel.getRangeAt(0);
-    const preRange = range.cloneRange();
-    preRange.selectNodeContents(editor);
-    preRange.setEnd(range.startContainer, range.startOffset);
-    cursorPos = preRange.toString().length;
-  }
-
-  // Build new HTML
-  const html = text.split(/(\s+)/).map(w => {
-    if (w.trim() && counts[w] > 1) return `<span style="color:red">${w}</span>`;
-    return w;
-  }).join('');
-
-  editor.innerHTML = html;
-
-  // Restore cursor
-  let charIndex = 0;
-  const range = document.createRange();
-  let found = false;
-
-  function traverse(node) {
-    if (found) return;
-    if (node.nodeType === 3) { // text node
-      const nextCharIndex = charIndex + node.length;
-      if (cursorPos <= nextCharIndex) {
-        range.setStart(node, cursorPos - charIndex);
-        range.collapse(true);
-        found = true;
-      }
-      charIndex = nextCharIndex;
-    } else {
-      node.childNodes.forEach(traverse);
-    }
-  }
-
-  traverse(editor);
-  if (found) {
-    sel.removeAllRanges();
-    sel.addRange(range);
-  }
-
-  // Update barcode count
-  const display = document.getElementById("barcodes_scanned");
-  display.textContent = new Set(words).size + " barcodes";
-  display.style.color = new Set(words).size > 50 ? "red" : "green";
-
-  syncHiddenInput();
-  updateLineNumbers();
-}
-
-// Input handler
-editor.addEventListener('input', highlightDuplicates);
-
-// Initialize
-if (!editor.innerText.trim()) {
-  editor.innerText = ''; 
-}
+// Init
+editor.innerText='';
 updateLineNumbers();
 highlightDuplicates();
 </script>
+
+<%= javascript_include_tag('barcode_reader.js') %>

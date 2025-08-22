@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 
 module ProcessTracking
   class Application < Rails::Application
+    
     config.load_defaults 7.0
 
     config.autoload_paths += ["#{config.root}/app"]
@@ -28,6 +29,8 @@ module ProcessTracking
 
     config.assets.enabled = true
     config.assets.version = "1.0"
+
+    config.assets.paths << Rails.root.join('node_modules')
 
     require "./lib/deployed_version"
 

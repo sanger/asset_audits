@@ -28,12 +28,15 @@ CodeMirror.defineMode("barcode_reader", function (_) {
 
 $(() => {
   const sourceTubesInput = $("#barcode_text");
+  const robot_input = $("#robot_input");
 
-  if (sourceTubesInput.length > 0) {
-    CodeMirror.fromTextArea(sourceTubesInput[0], {
-      lineNumbers: true,
-      mode: "barcode_reader",
-      theme: "eclipse",
-    });
-  }
+  var editor = CodeMirror.fromTextArea(sourceTubesInput[0], {
+    lineNumbers: true,
+    mode: "barcode_reader",
+    theme: "eclipse",
+  });
+
+  editor.on("change", function (cm, change) {
+    robot_input.val(cm.getValue());
+  });
 });

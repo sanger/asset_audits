@@ -148,6 +148,7 @@
 .cm-header,
 .cm-strong {
   font-weight: bold;
+  color: red;
 }
 .cm-em {
   font-style: italic;

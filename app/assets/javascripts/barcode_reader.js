@@ -1,6 +1,6 @@
 CodeMirror.defineMode("barcode_reader", function (_) {
   function tokenBase(stream, state) {
-    console.log(stream)
+    console.log(stream);
     let ch = stream.next();
     if (/\w/.test(ch)) {
       stream.eatWhile(/[\w.]/);

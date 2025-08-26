@@ -19,7 +19,7 @@ gem "mutex_m" # required by rails, activesupport-7.0.8.1
 gem "mysql2"
 gem "nokogiri"
 gem "oj"
-gem 'sassc-rails'
+gem "sassc-rails"
 gem "sprockets-rails", "~> 3.4"
 gem "uuidtools"
 

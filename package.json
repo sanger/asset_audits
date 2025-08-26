@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "codemirror": "^5.65.18",
-    "jquery": "^3.7.1"
-  }
-}

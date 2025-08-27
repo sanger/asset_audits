@@ -4,7 +4,6 @@
   <title><%= ProcessTracking::Application.config.name %></title>
   <!-- The following are all unmanaged static assets. skip_pipeline: true  Tells rails to jump straight to public -->
   <%= stylesheet_link_tag(:flash, :custom, :formtastic_static, :formtastic_changes, :codemirror, skip_pipeline: true) %>
-  <%= stylesheet_link_tag '/stylesheets/codemirror.css' %>
   <%= javascript_include_tag('jquery.min.js','rails.js','application.js','barcode_utils.js', 'codemirror.js', skip_pipeline: true) %>
 
   <%= csrf_meta_tag %>

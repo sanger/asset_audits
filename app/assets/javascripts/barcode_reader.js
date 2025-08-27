@@ -37,5 +37,6 @@ $(() => {
 
   editor.on("change", function (cm, change) {
     robot_input.val(cm.getValue());
+    recalcNumBarcodes(editor, 200);
   });
 });

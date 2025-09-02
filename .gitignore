@@ -9,4 +9,3 @@ tmp/**/*
 .byebug_history
 
 coverage
-node_modules

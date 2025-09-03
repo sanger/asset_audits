@@ -4,13 +4,4 @@
 <input type="hidden" id="robot_input" name="robot">
 <div id="barcodes_scanned" style="margin-top:6px;">0 barcodes</div>
 
-<script>
-const editor = document.getElementById('barcode_text'),
-      lineNumbers = document.getElementById('lineNumbers'),
-      hiddenInput = document.getElementById('robot_input'),
-      display = document.getElementById('barcodes_scanned');
-
-editor.innerText='';
-</script>
-
 <%= javascript_include_tag('barcode_reader.js') %>

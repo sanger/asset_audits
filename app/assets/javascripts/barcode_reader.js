@@ -25,18 +25,20 @@ CodeMirror.defineMode("barcode_reader", function (_) {
   };
 });
 
-$(() => {
-  const sourceTubesInput = $("#barcode_text");
-  const robot_input = $("#robot_input");
+function initCodeMirror() {
+  const sourceTubesInput = document.getElementById("barcode_text");
+  const robotInput = document.getElementById("robot_input");
 
-  var editor = CodeMirror.fromTextArea(sourceTubesInput[0], {
+  const editor = CodeMirror.fromTextArea(sourceTubesInput, {
     lineNumbers: true,
     mode: "barcode_reader",
     theme: "eclipse",
   });
 
-  editor.on("change", function (cm, change) {
-    robot_input.val(cm.getValue());
+  editor.on("change", (cm, change) => {
+    robotInput.value = cm.getValue();
     recalcNumBarcodes(editor, 200);
   });
-});
+}
+
+initCodeMirror();

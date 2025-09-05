@@ -1,5 +1,5 @@
-function recalcNumBarcodes(textareaId, maxBarcodes) {
-  const num_barcodes = find_number_barcodes($(textareaId).val());
+function recalcNumBarcodes(editor, maxBarcodes) {
+  const num_barcodes = find_number_barcodes(editor.getValue());
   const colour = num_barcodes > maxBarcodes ? "red" : "green";
 
   $("#barcodes_scanned")

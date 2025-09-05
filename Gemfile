@@ -25,6 +25,7 @@ gem "uuidtools"
 
 gem "byebug"
 gem "puma"
+gem 'syslog'
 
 # Manage default records
 gem "record_loader"

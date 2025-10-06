@@ -45,7 +45,7 @@ class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
   # @param position [Hash] the input that contains the bed and plate barcodes
   # @param bed [Bed] the bed looked up by the bed name
   # @return [Boolean] true if the bed was found, false otherwise
-  def bed_found(record, bed_name, _position, bed)
+  def bed_found(record, bed_name, _position, bed) # rubocop:disable Naming/PredicateMethod
     return true unless bed.nil?
     record.errors.add(:base, "Unknown bed: #{bed_name.upcase}")
     false
@@ -59,7 +59,7 @@ class Verification::Validator::BedsAndPlatesScanned < ActiveModel::Validator
   # @param position [Hash] the input that contains the bed and plate barcodes
   # @param bed [Bed] the bed looked up by the bed name
   # @return [Boolean] true if the bed barcode is correct, false otherwise
-  def correct_bed(record, bed_name, position, bed)
+  def correct_bed(record, bed_name, position, bed) # rubocop:disable Naming/PredicateMethod
     return true if bed.barcode == position[:bed]
     barcode = position[:bed].presence || "empty"
     record.errors.add(

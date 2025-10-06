@@ -1,8 +1,8 @@
 name: Ruby Lint and Test
 
 on:
-  - push
-  - pull_request
+  push:
+  pull_request:
 
 jobs:
   test:
@@ -24,22 +24,29 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache:
-            true # Runs bundle install and caches gems. See the ruby_test.yml
-            # example if you need more control over bundler.
+      - name: Checkout Repository
+        uses: sanger/.github/.github/actions/setup/checkout@master
+
+      - name: Setup Ruby
+        uses: sanger/.github/.github/actions/setup/ruby@master
+
       - name: Run rubocop
         run: bundle exec rubocop --extra-details --display-style-guide --parallel
       - name: Run prettier
         run: bundle exec rbprettier --check . --ignore-unknown
+
       - name: Setup database
         run: bundle exec rake db:setup
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.5
+
+      - name: Run rake tests
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID || 'be5d5c80290cec6da512f499e486898d5cc955994121458e7cec55455fbef7b5' }}
+          DBPORT: ${{ job.services.mysql.ports[3306] }}
+        run: bundle exec rake test
+
+      - name: Upload coverage reports to Codecov
+        uses: sanger/.github/.github/actions/tests/codecov@master
         with:
-          coverageCommand: bundle exec rake
+          name: ${{ github.run_id }}_${{ github.job }}_${{ github.event_name }}
+          token: ${{ secrets.CODECOV_TOKEN }}
+          disable-search: true
+          files: ${{ github.workspace }}/lcov.info

@@ -5,7 +5,7 @@ Given(/^([1-9]|[1-9]\d+) pending delayed jobs are processed$/) do |count|
   if Delayed::Job.all.any? { |j| j.run_at? && j.last_error? }
     raise StandardError, "Delayed jobs have failed: #{Delayed::Job.all.map(&:last_error).join("; ")}"
   end
-  raise StandardError, "There are #{Delayed::Job.count} jobs left to process" unless Delayed::Job.count.zero?
+  raise StandardError, "There are #{Delayed::Job.count} jobs left to process" unless Delayed::Job.none?
 end
 
 Given(/^all pending delayed jobs are processed$/) do

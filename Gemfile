@@ -19,11 +19,13 @@ gem "mutex_m" # required by rails, activesupport-7.0.8.1
 gem "mysql2"
 gem "nokogiri"
 gem "oj"
+gem "sassc-rails"
 gem "sprockets-rails", "~> 3.4"
 gem "uuidtools"
 
 gem "byebug"
 gem "puma"
+gem "syslog"
 
 # Manage default records
 gem "record_loader"
@@ -62,6 +64,8 @@ group :cucumber, :test do
   gem "rspec-mocks"
   gem "selenium-webdriver"
   gem "simplecov", require: false
+  gem "simplecov_json_formatter", require: false
+  gem "simplecov-lcov", require: false
   gem "timecop"
   gem "webrick"
 end

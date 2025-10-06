@@ -95,7 +95,7 @@ class LabwhereApiTest < ActiveSupport::TestCase
     context "when request is succesful" do
       setup do
         @location_info = { depth: 2, labwares: [{ barcode: "labware-1-barcode" }, { barcode: "labware-2-barcode" }] }
-        stub_request(:get, (@location_uri.to_s + "?barcode=#{@location_barcode}")).to_return(
+        stub_request(:get, @location_uri.to_s + "?barcode=#{@location_barcode}").to_return(
           body: @location_info.to_json,
           status: 200
         )
@@ -108,7 +108,7 @@ class LabwhereApiTest < ActiveSupport::TestCase
     end
     context "when there is a connection error" do
       setup do
-        stub_request(:get, (@location_uri.to_s + "?barcode=#{@location_barcode}")).to_raise(Errno::ECONNREFUSED)
+        stub_request(:get, @location_uri.to_s + "?barcode=#{@location_barcode}").to_raise(Errno::ECONNREFUSED)
         @result = @dummy.location_info(@location_barcode)
       end
 
@@ -129,7 +129,7 @@ class LabwhereApiTest < ActiveSupport::TestCase
         @errors_response = { errors: ["Location does not exist", "Error in the location", "Random error message"] }
         # Stub API call to LabWhere, to get info of location given.
         # The response is a failure. The response body is parsed
-        stub_request(:get, (@location_uri.to_s + "?barcode=#{@location_barcode}")).to_return(
+        stub_request(:get, @location_uri.to_s + "?barcode=#{@location_barcode}").to_return(
           body: @errors_response.to_json,
           status: 422
         )
@@ -148,7 +148,7 @@ class LabwhereApiTest < ActiveSupport::TestCase
       setup do
         # Stub API call to LabWhere, to get info of location given.
         # The response is a failure with an unknown status code.
-        stub_request(:get, (@location_uri.to_s + "?barcode=#{@location_barcode}")).to_return(
+        stub_request(:get, @location_uri.to_s + "?barcode=#{@location_barcode}").to_return(
           body: {}.to_json,
           status: 500
         ) # Use a different status code

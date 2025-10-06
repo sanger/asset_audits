@@ -96,7 +96,7 @@ class Barcode
     human_barcode
   end
 
-  def self.check_ean(code)
+  def self.check_ean(code) # rubocop:disable Naming/PredicateMethod
     # the EAN checksum is calculated so that the EAN of the code with checksum added is 0
     # except the new column (the checksum) start with a different weight (so the previous column keep the same weight)
     calculate_ean(code, 1).zero?

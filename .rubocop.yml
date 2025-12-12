@@ -4,8 +4,6 @@ inherit_gem:
 plugins:
   - rubocop-performance
   - rubocop-rails
-
-require:
   - rubocop-rake
   - rubocop-minitest
 

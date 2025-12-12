@@ -21,7 +21,8 @@ class ProcessPlate < ApplicationRecord
   end
 
   def instrument
-    @instrument ||= Instrument.find_by(barcode: instrument_barcode)
+    return @instrument if defined?(@instrument)
+    @instrument = Instrument.find_by(barcode: instrument_barcode)
   end
 
   def asset_uuids_from_plate_barcodes

@@ -64,6 +64,10 @@ Style/ClassAndModuleChildren:
 Style/Documentation:
   Enabled: false
 
+# The single-line syntax can be clearer than the multi-line version for multiple definitions
+Style/EmptyClassDefinition:
+  Enabled: false
+
 Rails/I18nLocaleTexts:
   Enabled: false
 

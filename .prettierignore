@@ -12,6 +12,9 @@ coverage
 
 # Doesn't expect the erb formatting, so confuses things
 config/cucumber.yml
+
+# Generated files
+.rubocop_todo.yml
 db/schema.rb
 
 # Ignore vendored files
@@ -20,3 +23,6 @@ public/javascripts/jquery.min.js
 public/javascripts/rails.js
 public/stylesheets/formtastic_static.css
 vendor/**/*
+
+# build artifacts
+public/assets

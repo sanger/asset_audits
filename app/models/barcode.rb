@@ -21,7 +21,7 @@ class Barcode
 
     human = prefix + number_s + calculate_checksum(prefix, number)
     barcode = prefix_to_number(prefix) + (number * 100)
-    barcode += human[human.size - 1] # rubocop:todo Lint/UselessAssignment
+    barcode += human[-1] # rubocop:todo Lint/UselessAssignment
   end
 
   def self.calculate_barcode(prefix, number)

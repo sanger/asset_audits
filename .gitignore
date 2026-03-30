@@ -9,3 +9,6 @@ tmp/**/*
 .byebug_history
 
 coverage
+
+# build artifacts
+public/assets

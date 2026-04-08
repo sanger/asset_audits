@@ -9,6 +9,7 @@ tmp/**/*
 .byebug_history
 
 coverage
+CONTRIBUTING.md
 
 # Doesn't expect the erb formatting, so confuses things
 config/cucumber.yml

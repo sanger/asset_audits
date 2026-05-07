@@ -28,7 +28,7 @@ gem "puma"
 gem "syslog"
 
 # Manage default records
-gem "record_loader"
+gem 'record_loader', git: 'https://github.com/sanger/record_loader'
 
 group :development do
   gem "listen" # Hot reloading

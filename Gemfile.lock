@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/sanger/record_loader
+  revision: 031f4b8c9934738c1b72b0716864252f63c450b6
+  specs:
+    record_loader (0.3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -307,7 +313,6 @@ GEM
       ffi (~> 1.0)
     rbs (3.5.3)
       logger
-    record_loader (0.2.0)
     regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
@@ -474,7 +479,7 @@ DEPENDENCIES
   puma
   rails (~> 7.0.7)
   rake
-  record_loader
+  record_loader!
   rspec-expectations
   rspec-mocks
   rubocop

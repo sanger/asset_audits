@@ -1,8 +1,10 @@
 GIT
   remote: https://github.com/sanger/record_loader
-  revision: 031f4b8c9934738c1b72b0716864252f63c450b6
+  revision: 9e7f1b67c3eeee1895f1befc6a54682f11c02135
+  tag: v1.1.0
   specs:
-    record_loader (0.3.0)
+    record_loader (1.1.0)
+      psych (~> 5.0)
 
 GEM
   remote: http://rubygems.org/
@@ -268,6 +270,9 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
       reline (>= 0.6.0)
+    psych (5.3.1)
+      date
+      stringio
     public_suffix (7.0.5)
     puma (6.6.1)
       nio4r (~> 2.0)
@@ -398,6 +403,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
+    stringio (3.2.0)
     syntax_tree (6.2.0)
       prettier_print (>= 1.2.0)
     syntax_tree-haml (4.0.3)

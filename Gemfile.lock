@@ -111,7 +111,7 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     coderay (1.1.3)
-    concurrent-ruby (1.3.4)
+    concurrent-ruby (1.3.7)
     crack (1.0.1)
       bigdecimal
       rexml
@@ -461,7 +461,7 @@ DEPENDENCIES
   activeresource
   byebug
   capybara
-  concurrent-ruby (= 1.3.4)
+  concurrent-ruby (= 1.3.7)
   cucumber-rails
   daemons
   database_cleaner-active_record

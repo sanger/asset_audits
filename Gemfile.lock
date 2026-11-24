@@ -320,7 +320,7 @@ GEM
     reline (0.6.3)
       io-console (~> 0.5)
     rexml (3.4.4)
-    rspec-expectations (3.13.5)
+    rspec-expectations (3.13.6)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-mocks (3.13.9)

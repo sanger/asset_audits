@@ -10,6 +10,7 @@ gem "concurrent-ruby", "1.3.7"
 gem "rake"
 
 gem "ostruct" # removed from Ruby 4.0.0
+gem "tsort" # will be removed from Ruby 4.1.0
 
 gem "daemons"
 gem "delayed_job_active_record"

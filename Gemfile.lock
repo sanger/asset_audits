@@ -1,4 +1,17 @@
 GIT
+  remote: https://github.com/sanger/json_api_client.git
+  revision: 04c3da26fb38b21100be06fb615982392a78de9a
+  tag: v1.23.0-sanger.2
+  specs:
+    json_api_client (1.23.0.pre.sanger.2)
+      activemodel (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      addressable (~> 2.2)
+      faraday (>= 1.10, < 3.0)
+      faraday-gzip (>= 1.0, < 4.0)
+      rack (>= 0.2)
+
+GIT
   remote: https://github.com/sanger/record_loader
   revision: 9e7f1b67c3eeee1895f1befc6a54682f11c02135
   tag: v1.1.0
@@ -172,8 +185,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-gzip (2.0.1)
-      faraday (>= 1.0)
+    faraday-gzip (3.2.0)
+      faraday (>= 2.0, < 3)
       zlib (~> 3.0)
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
@@ -193,13 +206,6 @@ GEM
       concurrent-ruby (~> 1.0)
     io-console (0.8.2)
     json (2.19.9)
-    json_api_client (1.23.0)
-      activemodel (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      addressable (~> 2.2)
-      faraday (>= 1.10, < 3.0)
-      faraday-gzip (>= 1.0, < 3.0)
-      rack (>= 0.2)
     language_server-protocol (3.17.0.5)
     launchy (3.1.1)
       addressable (~> 2.8)
@@ -422,6 +428,7 @@ GEM
     tilt (2.7.0)
     timecop (0.9.11)
     timeout (0.6.1)
+    tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
@@ -469,7 +476,7 @@ DEPENDENCIES
   factory_bot_rails
   formtastic
   haml
-  json_api_client
+  json_api_client!
   launchy
   listen
   minitest
@@ -478,6 +485,7 @@ DEPENDENCIES
   mysql2
   nokogiri
   oj
+  ostruct
   prettier
   pry
   puma
@@ -501,9 +509,10 @@ DEPENDENCIES
   sprockets-rails (~> 3.4)
   syslog
   timecop
+  tsort
   uuidtools
   webmock
   webrick
 
 BUNDLED WITH
-   2.5.14
+  4.0.20

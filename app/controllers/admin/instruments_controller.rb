@@ -56,6 +56,6 @@ class Admin::InstrumentsController < ApplicationController
   private
 
   def instrument_params
-    params.require(:instrument).permit(:name, :barcode)
+    params.expect(instrument: %i[name barcode])
   end
 end

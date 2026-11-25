@@ -45,7 +45,17 @@ Given(/^(?:|I )am on (.+)$/) { |page_name| visit path_to(page_name) }
 
 When(/^(?:|I )go to (.+)$/) { |page_name| visit path_to(page_name) }
 
-When(/^(?:|I )press "([^"]*)"$/) { |button| click_button(button) }
+When(/^(?:|I )press "([^"]*)"$/) do |button|
+  if button == "Submit" && Capybara.current_driver != :rack_test && page.has_css?("form.submit-once")
+    page.execute_script("window.cucumberAuditFormPending = true")
+    click_button(button)
+    Selenium::WebDriver::Wait
+      .new(timeout: Capybara.default_max_wait_time)
+      .until { page.evaluate_script("window.cucumberAuditFormPending") != true }
+  else
+    click_button(button)
+  end
+end
 
 When(/^(?:|I )follow "([^"]*)"$/) { |link| click_link(link) }
 

@@ -4,11 +4,12 @@
 source "http://rubygems.org"
 
 gem "activeresource"
-gem "rails", "~> 7.0.7"
+gem "rails", "~> 8.1.4"
 # Check if the following can be unpinned after upgrading to Rails and Ruby.
 gem "concurrent-ruby", "1.3.7"
 gem "rake"
 
+gem "benchmark" # removed from Ruby 4.0.0
 gem "ostruct" # removed from Ruby 4.0.0
 gem "tsort" # will be removed from Ruby 4.1.0
 

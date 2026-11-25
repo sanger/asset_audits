@@ -24,6 +24,6 @@ class Admin::BedsController < ApplicationController
   end
 
   def bed_params
-    params.require(:bed).permit(:name, :bed_number, :barcode, :instrument_id)
+    params.expect(bed: %i[name bed_number barcode instrument_id])
   end
 end

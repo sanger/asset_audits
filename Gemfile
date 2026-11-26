@@ -6,15 +6,18 @@ source "http://rubygems.org"
 gem "activeresource"
 gem "rails", "~> 7.0.7"
 # Check if the following can be unpinned after upgrading to Rails and Ruby.
-gem "concurrent-ruby", "1.3.4"
+gem "concurrent-ruby", "1.3.7"
 gem "rake"
+
+gem "ostruct" # removed from Ruby 4.0.0
+gem "tsort" # will be removed from Ruby 4.1.0
 
 gem "daemons"
 gem "delayed_job_active_record"
 gem "drb" # required by rails, activesupport-7.0.8.1
 gem "formtastic"
 gem "haml"
-gem "json_api_client"
+gem "json_api_client", github: "sanger/json_api_client", tag: "v1.23.0-sanger.2"
 gem "mutex_m" # required by rails, activesupport-7.0.8.1
 gem "mysql2"
 gem "nokogiri"
@@ -28,7 +31,7 @@ gem "puma"
 gem "syslog"
 
 # Manage default records
-gem "record_loader"
+gem "record_loader", git: "https://github.com/sanger/record_loader", tag: "v1.1.0"
 
 group :development do
   gem "listen" # Hot reloading

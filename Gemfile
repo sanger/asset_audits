@@ -4,17 +4,15 @@
 source "http://rubygems.org"
 
 gem "activeresource"
-gem "rails", "~> 7.0.7"
-# Check if the following can be unpinned after upgrading to Rails and Ruby.
-gem "concurrent-ruby", "1.3.7"
+gem "rails", "~> 8.1.4"
 gem "rake"
 
+gem "benchmark" # removed from Ruby 4.0.0
 gem "ostruct" # removed from Ruby 4.0.0
 gem "tsort" # will be removed from Ruby 4.1.0
 
 gem "daemons"
 gem "delayed_job_active_record"
-gem "drb" # required by rails, activesupport-7.0.8.1
 gem "formtastic"
 gem "haml"
 gem "json_api_client", github: "sanger/json_api_client", tag: "v1.23.0-sanger.2"

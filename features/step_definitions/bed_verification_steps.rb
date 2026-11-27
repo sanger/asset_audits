@@ -38,6 +38,11 @@ Given(
   step "I have a process \"#{process_name}\" as part of the \"#{instrument_name}\" instrument with bed verification type \"Verification::OutdatedLabware::Base\""
 end
 
+When(/^I enter "([^"]*)" in the barcode editor$/) do |barcodes|
+  find(".CodeMirror").click
+  page.driver.browser.action.send_keys(barcodes).perform
+end
+
 Given(
   /^I have a process "([^"]*)" as part of the "([^"]*)" instrument with bed verification type "([^"]*)"$/
 ) do |process_name, instrument_name, bed_verification_type|

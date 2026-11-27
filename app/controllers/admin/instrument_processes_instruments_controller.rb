@@ -26,11 +26,8 @@ class Admin::InstrumentProcessesInstrumentsController < ApplicationController
   private
 
   def permitted_params
-    params.require(:instrument_processes_instrument).permit(
-      :instrument_process_id,
-      :instrument_id,
-      :witness,
-      :bed_verification_type
+    params.expect(
+      instrument_processes_instrument: %i[instrument_process_id instrument_id witness bed_verification_type]
     )
   end
 end

@@ -59,6 +59,6 @@ class Admin::ProcessesController < ApplicationController
   private
 
   def instrument_process_params
-    params.require(:instrument_process).permit(:name, :key)
+    params.expect(instrument_process: %i[name key])
   end
 end

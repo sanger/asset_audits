@@ -193,8 +193,8 @@ GEM
       zlib (~> 3.0)
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
+    ffi (1.17.4-aarch64-linux-gnu)
     ffi (1.17.4-arm64-darwin)
-    ffi (1.17.4-x86_64-darwin)
     ffi (1.17.4-x86_64-linux-gnu)
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
@@ -260,9 +260,9 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
-    nokogiri (1.19.7-arm64-darwin)
+    nokogiri (1.19.7-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.19.7-x86_64-darwin)
+    nokogiri (1.19.7-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.7-x86_64-linux-gnu)
       racc (~> 1.4)
@@ -475,14 +475,8 @@ GEM
     zlib (3.1.2)
 
 PLATFORMS
-  arm64-darwin-21
-  arm64-darwin-22
-  arm64-darwin-23
-  arm64-darwin-24
-  arm64-darwin-25
-  x86_64-darwin-21
-  x86_64-darwin-22
-  x86_64-darwin-23
+  aarch64-linux
+  arm64-darwin
   x86_64-linux
 
 DEPENDENCIES

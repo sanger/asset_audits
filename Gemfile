@@ -5,8 +5,6 @@ source "http://rubygems.org"
 
 gem "activeresource"
 gem "rails", "~> 8.1.4"
-# Check if the following can be unpinned after upgrading to Rails and Ruby.
-gem "concurrent-ruby", "1.3.7"
 gem "rake"
 
 gem "benchmark" # removed from Ruby 4.0.0

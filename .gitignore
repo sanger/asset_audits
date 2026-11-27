@@ -12,3 +12,11 @@ coverage
 
 # build artifacts
 public/assets
+
+# Ignore master key for decrypting credentials and more.
+/config/credentials.yml.enc
+/config/master.key
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+

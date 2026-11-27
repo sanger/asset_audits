@@ -489,7 +489,6 @@ DEPENDENCIES
   daemons
   database_cleaner-active_record
   delayed_job_active_record
-  drb
   exception_notification
   factory_bot_rails
   formtastic

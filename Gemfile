@@ -15,7 +15,6 @@ gem "tsort" # will be removed from Ruby 4.1.0
 
 gem "daemons"
 gem "delayed_job_active_record"
-gem "drb" # required by rails, activesupport-7.0.8.1
 gem "formtastic"
 gem "haml"
 gem "json_api_client", github: "sanger/json_api_client", tag: "v1.23.0-sanger.2"

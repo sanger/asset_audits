@@ -104,7 +104,7 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.9.2)
+    addressable (2.10.0)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
     base64 (0.3.0)
@@ -204,10 +204,10 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
-    hashdiff (1.2.1)
+    hashdiff (1.3.0)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    io-console (0.8.2)
+    io-console (0.9.5)
     irb (1.19.0)
       pp (>= 0.6.0)
       prism (>= 1.3.0)
@@ -282,7 +282,7 @@ GEM
     prettier_print (1.2.1)
     prettyprint (0.2.1)
     prism (1.9.0)
-    pry (0.16.0)
+    pry (0.16.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
       reline (>= 0.6.0)
@@ -290,7 +290,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (7.2.1)
+    puma (8.1.2)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.25)
@@ -346,7 +346,7 @@ GEM
       psych (>= 4.0.0)
       tsort
     regexp_parser (2.12.0)
-    reline (0.6.3)
+    reline (0.7.0)
       io-console (~> 0.5)
     rexml (3.4.4)
     rspec-expectations (3.13.6)
@@ -399,10 +399,9 @@ GEM
       sprockets-rails
       tilt
     securerandom (0.4.1)
-    selenium-webdriver (4.43.0)
+    selenium-webdriver (4.52.0)
       base64 (~> 0.2)
       logger (~> 1.4)
-      rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
     shoulda (4.0.0)
@@ -460,7 +459,7 @@ GEM
     uri (1.1.1)
     useragent (0.16.11)
     uuidtools (3.0.0)
-    webmock (3.26.2)
+    webmock (3.34.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
